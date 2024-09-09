@@ -46,6 +46,7 @@ const Signup = () => {
   const [email,setEmail]=useState("")
   const [compWeb,setCompWeb]=useState("")
   const [password,setPassword]=useState("")
+  const[reenterpassword,setReenterpassword]=useState("")
   const [projDesc,setProjDesc]=useState("")
   const [userInfo,setUserInfo]=useState(null)
   
@@ -58,6 +59,10 @@ const Signup = () => {
   
   const handleFormSubmit= async(e)=>{
     e.preventDefault()
+    if (!name || !email || !compWeb || !password || !reenterpassword) {
+      toast.error("All fields are required!", { position: "top-center" });
+      return;
+    }
     try {
        await createUserWithEmailAndPassword(auth,email,password).then(
         async (userCred)=>{

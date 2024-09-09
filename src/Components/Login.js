@@ -20,11 +20,19 @@ const Login = () => {
   document.body.style.background="rgba(242, 246, 255, 1)"
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
+ 
   const navigate=useNavigate()
  
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-  
+    if (!email) {
+      toast.error("Email is required.", { position: "top-center" });
+      return;
+    }
+    if (!password) {
+      toast.error("Password is required.", { position: "top-center" });
+      return;
+    }
     try {
       
   
