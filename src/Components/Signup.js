@@ -59,10 +59,10 @@ const Signup = () => {
   
   const handleFormSubmit= async(e)=>{
     e.preventDefault()
-    if (!name || !email || !compWeb || !password || !reenterpassword) {
+    /* if (!name || !email || !compWeb || !password || !reenterpassword) {
       toast.error("All fields are required!", { position: "top-center" });
       return;
-    }
+    } */
     try {
        await createUserWithEmailAndPassword(auth,email,password).then(
         async (userCred)=>{
