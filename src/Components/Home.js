@@ -50,6 +50,14 @@ import {
   StepDescription3,
   FeaturesHeading,
   FeaturesDescription,
+  FooterSections,
+  FooterColumn1,
+  FooterColumn2,
+  FooterColumn3,
+  FooterHead,
+  FooterWrapper,
+  FooterLink1,
+  
   
 } from "./Home.style.js";
 import logo from "../Images/Logo.png";
@@ -91,6 +99,10 @@ import Feature2 from "../Images/Feature2.png"
 import Feature3 from "../Images/Feature3.png"
 import Feature4 from "../Images/Feature4.png"
 import AccordianIcon from  "../Images/AccordianIcon.png"
+import LinkedIn from "../Images/LinkedIn.jpeg"
+import Xicon from "../Images/Xicon.jpeg"
+import Discord from "../Images/Discord.png"
+import Telegram from "../Images/Telegram.jpeg"
 
 const Home = () => {
   const features = [
@@ -344,23 +356,47 @@ const Home = () => {
 
       {/* Footer */}
       <Footer>
-        <FooterText>
-          GoWeb3 Network - We simplify the process of finding and connecting
-          with the perfect partners for your project.
-        </FooterText>
+        <FooterWrapper>
+        <FooterHead>GoWeb3 Network</FooterHead>
+      <FooterText>
+        We simplify the process of finding and connecting with
+        the perfect partners for your project.
+      </FooterText>
+      </FooterWrapper>
+
+      <FooterSections>
         <SocialLinks>
-          <SocialIcon href="#">LinkedIn</SocialIcon>
-          <SocialIcon href="#">Twitter</SocialIcon>
-          <SocialIcon href="#">Discord</SocialIcon>
-          <SocialIcon href="#">Telegram</SocialIcon>
+          <FooterColumn1>
+            <FooterLink>Social</FooterLink>
+            <SocialIcon>
+              <img src={LinkedIn} alt="LinkedIn" /> LinkedIn
+            </SocialIcon>
+            <SocialIcon >
+              <img src={Xicon} alt="Twitter" /> Twitter
+            </SocialIcon>
+            <SocialIcon>
+              <img src={Discord} alt="Discord" /> Discord
+            </SocialIcon>
+            <SocialIcon >
+              <img src={Telegram} alt="Telegram" /> Telegram
+            </SocialIcon>
+          </FooterColumn1>
         </SocialLinks>
+
         <FooterLinks>
-          <FooterLink href="#">Company</FooterLink>
-          <FooterLink href="#">Branding</FooterLink>
-          <FooterLink href="#">About Us</FooterLink>
-          <FooterLink href="#">Help</FooterLink>
+          <FooterColumn2>
+            <FooterLink1>Company</FooterLink1>
+            <SocialIcon>Branding</SocialIcon>
+            <SocialIcon>About Us</SocialIcon>
+            <SocialIcon>News</SocialIcon>
+          </FooterColumn2>
+
+          <FooterColumn3>
+            <FooterLink>Help</FooterLink>
+          </FooterColumn3>
         </FooterLinks>
-      </Footer>
+      </FooterSections>
+    </Footer>
     </div>
   );
 };

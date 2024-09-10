@@ -534,46 +534,122 @@ export const WhyUseSubtitle = styled.p`
 
 // Footer
 export const Footer = styled.footer`
-  background-color: #f9fafb;
+  background-color: #000; 
   padding: 40px 16px;
-  text-align: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+  align-items: flex-start; 
+  color: white;
 `;
 
+export const FooterWrapper=styled.div`
+display: flex;
+flex-direction: column;
+
+`
+
+
+export const FooterHead=styled.p`
+  font-size: 24px;
+  font-weight:700;
+  line-height:36px;
+  color:rgba(255, 255, 255, 1);
+  margin-top:40px;
+
+`
+
 export const FooterText = styled.p`
-  font-size: 14px;
-  color: #6b7280;
+  width:407px;
+  height:48px;
+  font-size: 16px;
+  font-weight:400;
+  line-height:24px;
+  color:rgba(255, 255, 255, 1);
+  margin-top:-10px;
+`;
+
+export const FooterSections = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 600px; /* Total width for all sections */
+`;
+
+export const FooterColumn1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-left:140px;
+`;
+export const FooterColumn2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-right:50px;
+`;
+export const FooterColumn3 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-right:30px
 `;
 
 export const FooterLinks = styled.div`
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 40px; 
+  cursor: pointer;
+  
 `;
 
 export const FooterLink = styled.a`
-  color: #4b5563;
+  width:48px;
+  height:20px;
+  color:rgba(255, 255, 255, 1);
   text-decoration: none;
+  font-size: 16px;
+  font-weight:700;
+  line-height:19.99px;
 
-  &:hover {
-    color: #1f2937;
-  }
+  
+`;
+export const FooterLink1 = styled.a`
+  width:75px;
+  height:20px;
+  color:rgba(255, 255, 255, 1);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight:700;
+  line-height:19.99px;
+
+  
 `;
 
 export const SocialLinks = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 16px;
+  cursor: pointer;
 `;
 
-export const SocialIcon = styled.a`
-  color: #4b5563;
-  font-size: 20px;
-  cursor: pointer;
 
-  &:hover {
-    color: #1f2937;
+
+export const SocialIcon = styled.a`
+   
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 16px;
+  font-weight:400;
+  line-height:19.36px;
+  cursor: pointer;
+  gap: 8px; 
+
+
+  img {
+    width: 24px;
+    height: 24px;
   }
 `;
