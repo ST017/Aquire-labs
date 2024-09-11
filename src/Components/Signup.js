@@ -22,6 +22,7 @@ import {
   LoginLink1,
   Star1,
   Help,
+  InputSelect,
 } from "./Signup.style"; // This imports the styled components
 import aquirelab from "../Images/Aquirelabs.png";
 import aqdash from "../Images/Aqdash.png";
@@ -32,12 +33,14 @@ import closebutton from "../Images/Closebutton.png";
 import { Checkbox, ImageHash, Label, LogoContainer } from "./Login.style";
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   sendEmailVerification,
 } from "firebase/auth";
 import { auth, db } from "./Firebase/firebase";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { addDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 
 const Signup = () => {
   document.body.style.background = "rgba(242, 246, 255, 1)";
@@ -46,32 +49,101 @@ const Signup = () => {
   const [compWeb, setCompWeb] = useState("");
   const [password, setPassword] = useState("");
   const [reenterpassword, setReenterpassword] = useState("");
+  const [category, setCategory] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
   const [projDesc, setProjDesc] = useState("");
-  const [userInfo, setUserInfo] = useState(null);
+  
+  const [user,setUser]=useState(null)
 
   const navigate = useNavigate();
   const actionCodeSettings = {
     // url: `${window.location.origin}/login`, // Your domain link
     url: `${window.location.origin}/dashboard`,
     handleCodeInApp: true, // To open it in your app
+
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !email || !compWeb || !password || !reenterpassword) {
+    if (
+      !name ||
+      !email ||
+      !compWeb ||
+      !password ||
+      !reenterpassword ||
+      !category || !isChecked
+    ) {
       toast.error("All fields are required!", { position: "top-center" });
+      return;
+    }
+    if (reenterpassword !== password) {
+      toast.error("password is not matching with re-entered password", {
+        position: "top-center",
+      });
       return;
     }
     try {
       await createUserWithEmailAndPassword(auth, email, password).then(
         async (userCred) => {
           const user = userCred.user;
+          setUser(user)
+
+          console.log(userCred);
 
           await sendEmailVerification(user, actionCodeSettings);
+          // Add user details to Firestore after sending verification email
+          const docRef = doc(db, "User", user.uid);
+
+          await setDoc(docRef, {
+            email: user.email,
+            firstname: "", // Update with actual data
+            lastname: "", // Update with actual data
+            mobile: "", // Update with actual data
+            role: "admin",
+            id:user.uid,
+            verified: false, // Set verified to false by default
+            createdAt: new Date(), // Store the current timestamp
+          });
+          await setDoc(doc(db, "UserProject", user.uid), {
+            blockchain:"",
+            category:category,
+            city:"",
+            country:"",
+            createdAt: new Date(),  // current timestamp
+            descr: "",  
+            endorsements: 1,  
+            fundingStatus: "",  
+            logo: "", 
+            modifiedAt: new Date(),  
+            name: name,  
+            social: {
+              facebook: "", 
+              insta: "",  // Instagram URL
+              linkedin: "",  // LinkedIn URL
+              tg: "",  // Telegram URL
+              twitter: "",  // Twitter URL
+            },
+            status: "",  // status of the project (empty string for now)
+            userId: user.uid,  // store the user ID
+            views: 1,  // number of views (1 by default)
+            website:compWeb,  // website URL (empty string for now)
+            whitepaper: "",  // whitepaper URL (empty string for now)
+          });
+
+
           toast.success(
             "Verify the Link to the Given Email for the Successful registeration!!!",
             { position: "top-center" }
           );
+
+          setCategory("")
+          setCompWeb("")
+          setEmail("")
+          setPassword("")
+          setProjDesc("")
+          setIsChecked(null)
+          setReenterpassword("")
+          setName("")
         }
       );
     } catch (error) {
@@ -79,13 +151,23 @@ const Signup = () => {
     }
   };
 
-  useEffect(() => {
-    auth.onAuthStateChanged((userCred) => {
-      console.log(userCred);
-      /* const {email,emailVerified}=userCred
-      setUserInfo({email,emailVerified}) */
+
+  onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // Check if the email is verified
+        await user.reload(); // Reload user to get the latest email verification status
+        if (user.emailVerified) {
+          // If email is verified, update Firestore
+          const userDocRef = doc(db, "User", user.uid);
+          await updateDoc(userDocRef, {
+            verified: true,
+          });
+         
+        }
+      }
     });
-  }, []);
+  
+  
 
   return (
     <>
@@ -144,7 +226,53 @@ const Signup = () => {
               <Label>
                 Category<Star1>*</Star1>
               </Label>
-              <Input type="text" placeholder="Category" label="Category*" />
+              <InputSelect
+                onChange={(e) => setCategory(e.target.value)}
+                defaultValue=""
+              >
+                <option value="">Select a Category</option>
+                <option value="DeFi">DeFi</option>
+                <option value="NFT">NFT</option>
+                <option value="Gaming">Gaming</option>
+                <option value="AI (Artificial Intelligence)">
+                  AI (Artificial Intelligence)
+                </option>
+                <option value="Real World Assets (RWA)">
+                  Real World Assets (RWA)
+                </option>
+                <option value="SocialFi">SocialFi</option>
+                <option value="Privacy">Privacy</option>
+                <option value="Prediction Markets">Prediction Markets</option>
+                <option value="Payment Solutions">Payment Solutions</option>
+                <option value="Yield Farming">Yield Farming</option>
+                <option value="Stablecoins">Stablecoins</option>
+                <option value="Layer 1 / Layer 2 Ecosystems">
+                  Layer 1 / Layer 2 Ecosystems (e.g., Ethereum, Solana)
+                </option>
+                <option value="Proof of Stake (PoS)">
+                  Proof of Stake (PoS)
+                </option>
+                <option value="Proof of Work (PoW)">Proof of Work (PoW)</option>
+                <option value="Synthetic Assets">Synthetic Assets</option>
+                <option value="Tokenized Commodities">
+                  Tokenized Commodities
+                </option>
+                <option value="Virtual Reality">Virtual Reality</option>
+                <option value="Decentralized Identity">
+                  Decentralized Identity
+                </option>
+                <option value="Governance">Governance</option>
+                <option value="Insurance">Insurance</option>
+                <option value="Oracles">Oracles</option>
+                <option value="Data Storage">Data Storage</option>
+                <option value="CEX">CEX</option>
+                <option value="DEX">DEX</option>
+                <option value="VCs">VCs</option>
+                <option value="Liquidity providers">Liquidity providers</option>
+                <option value="Validator">Validator</option>
+                <option value="Depin">Depin</option>
+                <option value="Others">Others</option>
+              </InputSelect>
             </InputWrapper>
           </InputGroup>
           <InputGroup>
@@ -180,7 +308,7 @@ const Signup = () => {
           </InputWrapper>
 
           <CheckboxWrapper>
-            <Checkbox2 type="checkbox" />
+            <Checkbox2 type="checkbox" checked={isChecked} onClick={()=>setIsChecked(true)} />
             <InputWrapper>
               <CheckboxLabel>
                 By proceeding you agree to the Terms of Service and Privacy
@@ -193,7 +321,7 @@ const Signup = () => {
           <Button type="submit">Create Account</Button>
 
           <LoginLink>
-            I already have an account <LoginLink1>Login</LoginLink1>
+            I already have an account <LoginLink1 onClick={()=>window.open("/login","_blank")}>Login</LoginLink1>
           </LoginLink>
         </Form>
       </SignupContainer>

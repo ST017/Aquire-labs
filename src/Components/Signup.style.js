@@ -269,6 +269,36 @@ export const Input = styled.input`
     width: 100%;
   }
 `;
+export const InputSelect = styled.select`
+  font-family:Inter;
+  font-weight:400;
+  width:362px;
+  height:40px;
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  color:rgba(120, 139, 165, 1);
+
+
+  &[type='password'] {
+    position: relative;
+  }
+
+
+  @media (max-width: 769px) {
+    width: 125%;
+  }
+   @media (width: 768px) {
+    width: 100%;
+  }
+   @media (width: 540px) {
+    width: 100%;
+  }
+`;
 
 export const InputWrapper = styled.div`
   display: flex;

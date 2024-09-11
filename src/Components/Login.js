@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Checkbox, Checkbox1, CheckboxContainer, CheckboxLabel, CloseButton, Cont2, Dash, Footer, ForgotPassword, Form, Form1, Form2, FormContainer, Heading, ImageHash, Input, InsideContainer, Label, LoginButton, LoginContainer, Logo, LogoContainer, OutsideForm, ReCaptchaContainer, ReCaptchaImage, ReCaptchaLabel, SignupContainer, SignupLink, SignupText, Subtitle, Subtitle1, Title } from './Login.style';
 import closebutton from "../Images/Closebutton.png"
 import aquirelab from "../Images/Aquirelabs.png"
@@ -6,7 +6,7 @@ import aqdash from "../Images/Aqdash.png"
 import aqtext from "../Images/Aquire Labs.png"
 import aqhash from "../Images/Hash.png"
 import recaptcha from "../Images/recaptcha.png"
-import { signInWithEmailAndPassword , fetchSignInMethodsForEmail} from 'firebase/auth';
+import { signInWithEmailAndPassword , fetchSignInMethodsForEmail, RecaptchaVerifier} from 'firebase/auth';
 import { auth } from './Firebase/firebase';
 import { toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,11 +20,28 @@ const Login = () => {
   document.body.style.background="rgba(242, 246, 255, 1)"
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
- 
+  const recaptchaVerifierRef=useRef(null)
   const navigate=useNavigate()
  
-  const handleFormSubmit = async (e) => {
+   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if (!recaptchaVerifierRef.current) {
+      recaptchaVerifierRef.current = new RecaptchaVerifier(
+        "recaptcha-container",
+        {
+          size: "normal",
+          callback: (response) => {
+            // reCAPTCHA solved, allow login
+            console.log("reCAPTCHA verified");
+          },
+          "expired-callback": () => {
+            console.log("reCAPTCHA expired");
+          },
+        },
+        auth
+      );
+    }
+   
     if (!email) {
       toast.error("Email is required.", { position: "top-center" });
       return;
@@ -35,7 +52,7 @@ const Login = () => {
     }
     try {
       
-  
+      await recaptchaVerifierRef.current.verify();
       // Proceed to verify email and password
       const userCred = await signInWithEmailAndPassword(auth, email, password);
       const user = userCred.user;
@@ -61,13 +78,13 @@ const Login = () => {
         toast.error("Login failed. Please check your credentials.", { position: "top-center" });
       }
     }
-  };
+  }; 
   
   return (
     <>
     
     <LoginContainer>
-       
+    <div id="recaptcha-container"></div>
       <LogoContainer>
         <Logo src={aquirelab} alt="Aquire Labs" />
         <Heading src={aqtext} alt='Aquire Labs Text'/>
@@ -103,12 +120,13 @@ const Login = () => {
             <Checkbox type="checkbox" />
             <ReCaptchaLabel>I’m not a robot</ReCaptchaLabel>
            <ReCaptchaImage src={recaptcha} alt="reCAPTCHA" />  
+           
           </ReCaptchaContainer> 
           <Cont2>
           <LoginButton type='submit'>Login</LoginButton>
           <SignupContainer>
             <SignupText>Don’t you have account?</SignupText>
-            <SignupLink>Signup</SignupLink>
+            <SignupLink onClick={()=>window.open("/signup","_blank")}>Signup</SignupLink>
           </SignupContainer>
           </Cont2>
         </Form>
