@@ -23,24 +23,38 @@ import {
 
 import Eyeoff from "../Images/Eyeoff.png"
 import Eyeon from "../Images/Eyeon.png"
+import { useSearchParams } from "react-router-dom";
+import { auth } from './Firebase/firebase';
+import { toast, ToastContainer } from "react-toastify";
 
 const ResetPassword = () => {
+  const [searchParams] = useSearchParams(); // For getting oobCode from URL
+  const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
 
   const toggleShowPassword = () => setShowPassword(!showPassword);
   const toggleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
-
-  const handleResetPassword = () => {
-    // Handle reset password logic
+  const oobCode = searchParams.get("oobCode");
+  const handleResetPassword =async () => {
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match.",{ position: "top-center" });
       return;
     }
-    // Reset password logic here
+    try {
+     
+      await auth.confirmPasswordReset(oobCode, password);
+      alert("Password reset successful!");
+      window.location.href = "/login"; // Redirect to login
+    } catch (error) {
+      toast.error("Error Resetting Password",{ position: "top-center" });
+    }
   };
+
+  
 
   return (
     <Container>
@@ -95,6 +109,7 @@ const ResetPassword = () => {
 
       <FooterText>© 2024 ALL RIGHTS RESERVED</FooterText>
       </InnerContainer>
+      <ToastContainer/>
     </Container>
   );
 };

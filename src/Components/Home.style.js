@@ -8,6 +8,17 @@ import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/700.css';
 
+//Wrapper
+export const WrapperDiv = styled.div`
+  width: 100%; 
+  
+  height: 3467px;
+  position: relative; 
+
+  margin: 0 auto; 
+  
+`;
+
 // Navbar styles
 export const Navbar = styled.nav`
   width:1455px;
@@ -49,7 +60,7 @@ export const NavButton = styled.button`
   border: 1px solid blue; /* Set the border to blue */
   background-color: transparent; /* Optional: to ensure it's transparent unless hovered */
   
-  &:hover {
+  &:hover ,&:hover a{
     background-color: rgba(0, 60, 255, 1); /* Set the hover background color */
     color: white; /* Optional: Set text color on hover */
   }
@@ -77,6 +88,9 @@ export const NavLink1 = styled.a`
   font-family:Inter;
   color:rgba(0, 0, 0, 1);
   text-decoration: none;
+  &:hover{
+  color:rgba(0, 60, 255, 1);
+  }
   
 
   
@@ -145,7 +159,9 @@ export const GetStartedButton = styled.button`
   margin-top:20px;
 
   &:hover {
-    background-color:rgba(55, 66, 250, 1);
+  background: rgba(0, 60, 255, 1);
+
+   
   }
 `;
 
@@ -190,7 +206,7 @@ export const PartnerLogos = styled.div`
 
   .logos-track {
     display: flex;
-    animation: scroll 20s linear infinite; 
+    animation: scroll 5s linear infinite; 
   }
 
   .first-row {
@@ -198,9 +214,24 @@ export const PartnerLogos = styled.div`
     margin-bottom: 10px; 
   }
 
+  // .second-row {
+  //   animation: scroll 3s linear infinite; 
+  // }
   .second-row {
-    animation: scroll 5s linear infinite; 
+  
+   
+  
+  animation: scroll-right 3s linear infinite;
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%); /* Start position */
   }
+  100% {
+    transform: translateX(0%); /* End position, scroll to the right */
+  }
+}
 
   img {
     width: 103.66px;
@@ -256,6 +287,16 @@ export const StepCard = styled.div`
   flex-direction: column;
   align-items: center;
   gap:9.07px;
+
+  &:hover {
+  background: rgba(0, 40, 170, 1);
+  box-shadow: 1px 5px 22.2px 0px rgba(0, 40, 170, 1);
+    border: 1px solid  rgba(0, 40, 170, 1))
+  
+
+
+
+  }
 `;
 
 export const StepIcon1 = styled.div`
@@ -423,7 +464,37 @@ export const FeatureList = styled.ul`
   height: 326px;
   list-style: none;
   padding: 0;
+
 `;
+
+/* export const FeatureItem = styled.li`
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 1);
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-right: 10px;
+  margin-top: 38px; 
+  &:hover  {
+  color: rgba(0, 60, 255, 1);
+
+  }
+  
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: 36px;
+  }
+
+  .accordion-icon {
+    position: absolute;
+    right: 250px;
+    width: 12px;
+    height: 6px;
+    border: 3px;
+  }
+`; */
 
 export const FeatureItem = styled.li`
   font-size: 20px;
@@ -433,11 +504,24 @@ export const FeatureItem = styled.li`
   align-items: center;
   position: relative;
   padding-right: 10px;
-  margin-top: 38px; 
-  
+  margin-top: 38px;
+  cursor: pointer; 
+
+  &:hover, &:hover img, &:hover .accordion-icon {
+    color: rgba(0, 40, 170, 1); 
+    
+    img {
+      filter: brightness(0) saturate(100%) invert(48%) sepia(95%) saturate(1125%) hue-rotate(170deg) brightness(100%) contrast(100%); /* Adjust image color to blue */
+    }
+    
+    .accordion-icon {
+      filter: brightness(0) saturate(100%) invert(48%) sepia(95%) saturate(1125%) hue-rotate(170deg) brightness(100%) contrast(100%); /* Adjust icon color to blue */
+    }
+  }
+
   img {
-    width: 20px;
-    height: 20px;
+    width: 44px;
+    height: 44px;
     margin-right: 36px;
   }
 
@@ -497,8 +581,32 @@ export const WhyUseCard = styled.div`
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
   width: 240px;
   align-items: center;
+
+  //hover 3 parts
+ &:hover   {
+   background:  #0028AA;
+   border-radius: 16px;
+   box-shadow: 1px 5px 22.2px 0px rgba(0, 40, 170, 1);
+    border: 1px solid  rgba(0, 40, 170, 1))
+   
+
+
+
+    box-shadow: -1px 3px 23.6px 0px rgba(255, 255, 255, 1);
+
  
-  
+ 
+ 
+ 
+
+ 
+ 
+ }
+
+&:hover div ,&:hover p{
+  color:white;
+  }
+
 
   
 `;
@@ -528,6 +636,7 @@ export const WhyUseSubtitle = styled.p`
   margin-top: 8px;
   margin-left:-10px;
   color:rgba(66, 82, 107, 1);
+  
   
 `;
 

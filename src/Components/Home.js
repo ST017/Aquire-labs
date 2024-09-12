@@ -57,6 +57,7 @@ import {
   FooterHead,
   FooterWrapper,
   FooterLink1,
+  WrapperDiv,
   
   
 } from "./Home.style.js";
@@ -155,7 +156,7 @@ const Home = () => {
 
 
   return (
-    <div>
+    <WrapperDiv>
       {/* Navbar */}
       <Navbar>
         <Logo src={logo} alt="logo" />
@@ -225,7 +226,7 @@ const Home = () => {
 
       {/* How It Works Section */}
       <HowItWorksSection>
-        <StepTitle>How GoWeb3 Network Works</StepTitle>
+        <StepTitle>How Raisa Network Works</StepTitle>
         <StepContainer>
           <StepCard>
             <StepIcon1>
@@ -397,7 +398,7 @@ const Home = () => {
         </FooterLinks>
       </FooterSections>
     </Footer>
-    </div>
+    </WrapperDiv>
   );
 };
 
