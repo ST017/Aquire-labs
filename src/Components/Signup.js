@@ -193,7 +193,7 @@ const Signup = () => {
               </Label>
               <Input
                 type="text"
-                placeholder="Enter your full Name"
+                placeholder="Project Name"
                 label="Project Name*"
                 onChange={(e) => setName(e.target.value)}
               />

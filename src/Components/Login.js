@@ -25,7 +25,7 @@ const Login = () => {
  
    const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (!recaptchaVerifierRef.current) {
+   /*  if (!recaptchaVerifierRef.current) {
       recaptchaVerifierRef.current = new RecaptchaVerifier(
         "recaptcha-container",
         {
@@ -40,7 +40,7 @@ const Login = () => {
         },
         auth
       );
-    }
+    } */
    
     if (!email) {
       toast.error("Email is required.", { position: "top-center" });
@@ -52,7 +52,7 @@ const Login = () => {
     }
     try {
       
-      await recaptchaVerifierRef.current.verify();
+      /* await recaptchaVerifierRef.current.verify(); */
       // Proceed to verify email and password
       const userCred = await signInWithEmailAndPassword(auth, email, password);
       const user = userCred.user;
@@ -84,7 +84,7 @@ const Login = () => {
     <>
     
     <LoginContainer>
-    <div id="recaptcha-container"></div>
+    {/* <div id="recaptcha-container"></div> */}
       <LogoContainer>
         <Logo src={aquirelab} alt="Aquire Labs" />
         <Heading src={aqtext} alt='Aquire Labs Text'/>
@@ -111,7 +111,7 @@ const Login = () => {
 />
           <Label>Password<Star1>*</Star1></Label>
           <Input type="password" placeholder="Enter your full Name" onChange={(e)=>setPassword(e.target.value)} />
-          <ForgotPassword>Forget Password?</ForgotPassword>
+          <ForgotPassword onClick={()=>window.open("/resetpassword","_blank")}>Forget Password?</ForgotPassword>
           <CheckboxContainer>
             <Checkbox1 type="checkbox" />
             <CheckboxLabel>Remember Me</CheckboxLabel>
