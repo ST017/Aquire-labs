@@ -79,7 +79,7 @@ const Login = () => {
   };
 
   const handleRememberMe = (e) => {
-    setRememberMe(e.target.checked); // Toggle Remember Me state
+    setRememberMe(e.target.checked); 
   };
 
   return (
@@ -114,6 +114,7 @@ const Login = () => {
                 placeholder="Enter your password"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              
 
               <ForgotPassword onClick={handleForgetPassword}>Forget Password?</ForgotPassword>
 
