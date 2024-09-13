@@ -10,30 +10,63 @@ import '@fontsource/inter/700.css';
 
 //Wrapper
 export const WrapperDiv = styled.div`
+
   width: 100%; 
   
-  height: 3467px;
-  position: relative; 
+  height: 100%;
+  // position: relative; 
 
-  margin: 0 auto; 
-  
+  // margin: 0 auto; 
+  @media (max-width:480px){
+   overflow:hidden;
+   width:100%
+   height:auto;
+   margin:auto;
+  }
+   
 `;
 
 // Navbar styles
 export const Navbar = styled.nav`
-  width:1455px;
+ 
   height:116px;
   background-color: rgba(234, 239, 255, 1);
   padding: 16px 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 480px) {
+   
+   height:74px;
+    width:100%;
+    position: fixed;
+    z-index:1;
+    background-color:white;
+
+ 
+    
+    
+
+  
+  }
+  
 `;
 
 export const Logo = styled.img`
+  top:33px;
+  left:80px
   width:122px;
   height:49px;
-  margin-left:20px;
+  // margin-left:20px;
+
+  @media (max-width:480px){
+    width: 63px;
+    height: 25px;
+    top: 20px;
+    left: 22px;
+   
+
+  }
   
 `;
 
@@ -41,21 +74,39 @@ export const NavLinksCenter = styled.div`
   display: flex;
   justify-content: center;
   flex-grow: 1;
-  gap: 20px;
-  left:488.5px;
-  margin-right:222px;
+  //gap: 20px;
+ // left:488.5px;
+ // margin-right:222px;
+  width: 231px;
+height: 39px;
+top: 38px;
+left: 488.5px;
+gap: 20px;
+@media (max-width:480px){
+display:none;
+}
+
+
   
 `;
 
 export const NavLinksRight = styled.div`
   display: flex;
-  gap: 16px;
+  
+  width: 215px;
+ height: 39px;
+  top: 38px;
+  left: 1145px;
+  gap: 18px;
+
+  
+
+
   
 `;
 
 export const NavButton = styled.button`
-  width: 92px;
-  height: 39px;
+ // height: 39px;
   border-radius: 6px;
   border: 1px solid blue; /* Set the border to blue */
   background-color: transparent; /* Optional: to ensure it's transparent unless hovered */
@@ -63,6 +114,38 @@ export const NavButton = styled.button`
   &:hover ,&:hover a{
     background-color: rgba(0, 60, 255, 1); /* Set the hover background color */
     color: white; /* Optional: Set text color on hover */
+  }
+
+  @media (max-width: 480px) {
+  
+   &.signup {
+      display: none; /* Hide the signup button on screens smaller than 480px */
+    }
+
+   &.login {
+     
+      width: 68px;
+      height: 28.83px;
+      top: 23px;
+      
+      left:340px;
+      gap: 7.39px;
+      border-radius: 4.43px 4.43px 4.43px 4.43px;
+      border: 0.74px 0.74px 0.74px 0.74px;
+      opacity: 0px;
+      
+    
+   }
+
+    
+
+    
+
+  
+  }
+
+  
+  
   }
 `;
 
@@ -80,12 +163,31 @@ export const NavLink = styled.a`
   &:hover {
     color: white;
   }
+
+  @media (max-width:480px) {
+    &.login-lnk {
+     width: 33px;
+     height: 15px;
+      
+    align:center;
+
+    }
+
+  }
+   
 `;
 
 export const NavLink1 = styled.a`
+width: 66px;
+height: 39px;
+padding: 10px 10px 10px 10px;
+gap: 10px;
+
+
   font-size: 16px;
   font-weight: 700;
   font-family:Inter;
+
   color:rgba(0, 0, 0, 1);
   text-decoration: none;
   &:hover{
@@ -104,10 +206,20 @@ export const NavLink1 = styled.a`
 // Hero section
 export const HeroSection = styled.section`
   background-color: rgba(234, 239, 255, 1);
-  width:1487px;
+ 
   height:470px;
   text-align: center;
   padding: 80px 16px;
+
+  @media (max-width:480px){
+   
+     width:  100%;
+     height: 235px;
+     margin-top: 100px;
+     
+    
+
+  }
   
   
 `;
@@ -118,6 +230,10 @@ export const HeroTitle = styled.h1`
   margin-bottom: 16px;
   font-family:Inter;
   color:rgba(0, 0, 0, 1);
+  @media (max-width:480px){
+    font-size: 22px;
+  
+  }
 `;
 
 export const HeroSubtitle = styled.h2`
@@ -128,6 +244,10 @@ export const HeroSubtitle = styled.h2`
   margin-bottom: 24px;
  font-family:Inter;
  line-height:50.83px;
+ @media (max-width:480px){
+    font-size: 12px;
+  
+  }
 `;
 
 export const HeroSubtitle1 = styled.h2`
@@ -140,6 +260,10 @@ export const HeroSubtitle1 = styled.h2`
   margin-top:-35px;
  font-family:Inter;
  line-height:32px;
+ @media (max-width:480px){
+    font-size: 12px;
+  
+  }
 `;
 
 export const GetStartedButton = styled.button`
@@ -163,6 +287,15 @@ export const GetStartedButton = styled.button`
 
    
   }
+
+  @media (max-width:480px){
+  width:82px;
+  height:27px;
+  padding: 6px 12px;
+  font-size: 9px;
+    
+  
+  }
 `;
 
 // Vision section
@@ -172,7 +305,11 @@ export const VisionSection = styled.section`
   background-color: rgba(234, 239, 255, 1);
   padding: 40px 16px;
   text-align: center;
-  
+  @media (max-width:480px) {
+    height:200px;
+    text-align: center;
+    padding: 20px 8px ;
+  }
 `;
 
 export const VisionTitle = styled.h2`
@@ -182,16 +319,31 @@ export const VisionTitle = styled.h2`
   margin-bottom: 16px;
   color:rgba(0, 0, 0, 1);
   text-align: center;
+
+  @media (max-width:480px){
+    font-size:21px;
+    margin-bottom: 8px;
+    
+  
+  }
 `;
 
 export const VisionText = styled.p`
-  width:1224px;
+  
   height:128px;
   font-size: 24px;
   font-weight:500;
   color:rgba(0, 0, 0, 0.69);
   line-height: 32px; 
   margin-left:130px;
+
+  @media (max-width:480px){
+    font-size:12px;
+    height:64px;
+    line-height: 16px; 
+    margin-left: 65px;
+  
+  }
 `;
 
 // Partner logos
@@ -248,6 +400,18 @@ export const PartnerLogos = styled.div`
       transform: translateX(-50%); 
     }
   }
+
+  @media (max-width:480px){
+    img {
+     width:52px;
+     height:53px;
+   
+   }
+     height:175px;
+
+  
+  }
+
 `;
 
 
@@ -265,6 +429,11 @@ export const StepTitle = styled.h1`
   font-weight: 700;
   font-family:Inter;
   margin-bottom: 24px;
+
+  @media(max-width:480px){
+    font-size: 21px;
+    margin-bottom: 12px;
+  }
 `;
 
 export const StepContainer = styled.div`
@@ -273,6 +442,12 @@ export const StepContainer = styled.div`
   flex-wrap: wrap;
   gap: 24px;
   margin-top:80px;
+  @media(max-width:480px){
+   gap: 12px;
+   margin-top:40px;
+   flex-wrap:wrap;
+   
+  }
 `;
 
 export const StepCard = styled.div`
@@ -297,6 +472,21 @@ export const StepCard = styled.div`
 
 
   }
+
+  @media(max-width:480px){
+   padding: 12px;
+  
+  width: 150px;
+  height:200.5px;
+  
+  
+ 
+  
+  
+  gap:4.3px;
+   
+   
+  }
 `;
 
 export const StepIcon1 = styled.div`
@@ -308,6 +498,18 @@ export const StepIcon1 = styled.div`
   margin-top:30px;
   color:rgba(255, 255, 255, 1)
   align:center;
+  @media (max-width:480px){
+    width:46px;
+    height:24px;
+    font-size: 20px;
+    margin-bottom: 8px;
+    margin-top:15px;
+    img{
+      width:40px;
+      height:40px;
+    }
+
+  }
 `;
 export const StepIcon2 = styled.div`
   width:92.75px;
@@ -318,6 +520,18 @@ export const StepIcon2 = styled.div`
   margin-top:30px;
   
   margin-right:15px;
+  @media (max-width:480px){
+    width:46px;
+    height:24px;
+    font-size: 20px;
+    margin-bottom: 8px;
+    margin-top:15px;
+    img{
+      width:40px;
+      height:40px;
+    }
+
+  }
 `;
 export const StepIcon3 = styled.div`
   width:75px;
@@ -327,6 +541,19 @@ export const StepIcon3 = styled.div`
    margin-left:-30px;
     margin-top:13px;
    color:rgba(255, 255, 255, 1)
+
+   @media (max-width:480px){
+    width:46px;
+    height:24px;
+    font-size: 20px;
+    margin-bottom: 8px;
+    margin-top:15px;
+    img{
+      width:40px;
+      height:40px;
+    }
+
+  }
   
     
 `;
@@ -338,6 +565,18 @@ export const StepIcon4 = styled.div`
   margin-left:-22px;
    margin-top:13px;
   color:rgba(255, 255, 255, 1)
+  @media (max-width:480px){
+    width:46px;
+    height:24px;
+    font-size: 20px;
+    margin-bottom: 8px;
+    margin-top:15px;
+    img{
+      width:40px;
+      height:40px;
+    }
+
+  }
 
 `;
 
@@ -347,6 +586,10 @@ export const StepNumber= styled.p`
   font-size: 24px;
   font-weight:700;
   color: rgba(255, 255, 255, 1);
+  @media (max-width:480px){
+  
+    font-size: 12px;
+  }
 `;
 
 export const StepHeading=styled.p`
@@ -359,6 +602,13 @@ export const StepHeading=styled.p`
   font-family:Inter;
   color: rgba(255, 255, 255, 1) ;
   margin-top:-10px;
+   @media (max-width:480px){
+  
+   width:125px;
+   height:36px;
+    font-size: 12px;
+  }
+
 
 `;
 export const StepDescription1=styled.p`
@@ -371,6 +621,16 @@ font-family:Inter;
 
 color: rgba(255, 255, 255, 1);
 margin-top:5px;
+@media (max-width:480px){
+  
+   width:125px;
+   height:50px;
+    font-size: 7px;
+    margin-top:2.5px;
+  }
+
+
+
 
 
 
@@ -387,6 +647,13 @@ font-family:Inter;
 color: rgba(255, 255, 255, 1);
 margin-top:5px;
 
+@media (max-width:480px){
+  
+   width:125px;
+   height:50px;
+    font-size: 7px;
+    margin-top:2.5px;
+  }
 
 
 
@@ -403,7 +670,13 @@ font-family:Inter;
 color: rgba(255, 255, 255, 1);
 margin-top:5px;
 
-
+@media (max-width:480px){
+  
+   width:125px;
+   height:50px;
+    font-size: 7px;
+    margin-top:2.5px;
+  }
 
 
 `;
@@ -417,7 +690,13 @@ font-family:Inter;
 
 color: rgba(255, 255, 255, 1);
 margin-top:5px;
-
+@media (max-width:480px){
+  
+   width:125px;
+   height:50px;
+    font-size: 7px;
+    margin-top:2.5px;
+  }
 
 
 
@@ -433,21 +712,37 @@ export const KeyFeaturesSection = styled.section`
   align-items: center;
   padding: 40px 16px;
   background-color: rgba(234, 239, 255, 1);
+  @media (max-width:480px){
+  
+   flex-direction:column;
+   height:660px;
+   padding: 20px 8px;
+    
+  }
+
 `;
 
 export const FeaturesText = styled.div`
-  width: 657px;
+  
   height:587px;
   gap:50px;
+  @media(max-width:480px){
+    height:290px;
+    gap:25px;
+  }
+
 `;
 export const FeaturesHeading=styled.h1`
   font-size: 42px;
   font-weight:700;
+  @media (max-width:480px){
+    font-size: 21px;
+  }
 
 `;
 
 export const FeaturesDescription=styled.h2`
- width: 657px;
+ 
   height:128px;
   font-size: 24px;
   font-weight:500;
@@ -455,15 +750,30 @@ export const FeaturesDescription=styled.h2`
   line-height:32px;
   margin-bottom:80px;
   color:rgba(0, 0, 0, 0.6);
+  @media(max-width:480px){
+    font-size: 12px;
+    height:64px;
+    line-height:16px;
+    margin-bottom:40px;
+
+
+  }
 
 `;
 
 
 export const FeatureList = styled.ul`
-  width: 657px;
+  
   height: 326px;
   list-style: none;
   padding: 0;
+  @media (max-width:480px){
+    
+    height:163px;
+    
+
+
+  }
 
 `;
 
@@ -532,13 +842,38 @@ export const FeatureItem = styled.li`
     height: 6px;
     border: 3px;
   }
+
+  @media(max-width:480px){
+    
+    img{
+    width: 22px;
+    height: 22px;
+    margin-right: 18px;
+    }
+    &.accordion-icon {
+    position: absolute;
+    right: 125px;
+    width: 6px;
+    height: 3px;
+    border: 1.5px;
+    }
+
+     font-size: 10px;
+     padding-right: 5px;
+      margin-top: 19px;
+
+  }
 `;
 
 export const FeatureImage = styled.img`
  
-  width: 543px;
+  
   height:556px;
   border-radius: 8px;
+  @media (max-width:480px){
+  
+    height:277px;
+  }
 `;
 
 // Why Use section
@@ -546,10 +881,15 @@ export const WhyUseSection = styled.section`
   text-align: center;
   padding: 40px 16px;
   background-color: #ffffff;
+  @media (max-width:480px) {
+   text-align: center;
+    padding: 20px 8px;
+  
+  }
 `;
 
 export const WhyUseTitle = styled.h2`
-  width:1028px;
+  
   height:51px;
   font-size: 42px;
   font-weight: 700;
@@ -559,6 +899,17 @@ export const WhyUseTitle = styled.h2`
   margin-left:200px;
   margin-top:10px;
   color:rgba(0, 0, 0, 1);
+  @media (max-width:480px) {
+     height:25.5px;
+     font-size: 21px;
+     
+     margin-bottom:40px;
+      margin-left:100px;
+      margin-top:5px;
+
+    
+  
+  }
  
 `;
 
@@ -568,18 +919,24 @@ export const WhyUseContainer = styled.div`
   gap: 16px;
   flex-wrap: wrap;
   align-items:center;
+  @media (max-width:480px) {
+    gap :8px
+    flex-wrap:wrap;
+  }
+
+
 `;
 
 export const WhyUseCard = styled.div`
   
   width:312px;
-  height278px;
+  height:278px;
   background-color: rgba(255, 255, 255, 1);
   padding: 24px;
   border:1px transparent;
   radius: 16px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
-  width: 240px;
+  //width: 240px;
   align-items: center;
 
   //hover 3 parts
@@ -607,7 +964,13 @@ export const WhyUseCard = styled.div`
   color:white;
   }
 
+@media (max-width:480px) {
 
+   width:155.1px;
+  height:144px;
+  padding: 12px;
+
+}
   
 `;
 
@@ -616,6 +979,14 @@ export const WhyUseIcon = styled.div`
   margin-bottom: 16px;
   align-items: center;
   
+  @media (max-width:480px) {
+     font-size: 15px;
+    margin-bottom: 8px;
+    img{
+      width:20px;
+      height:20px;
+    }
+  }
 `;
 
 export const WhyUseDescription = styled.p`
@@ -626,6 +997,13 @@ export const WhyUseDescription = styled.p`
   font-family:Inter;
   color: rgba(0, 0, 0, 1);
   margin-left:-10px;
+ @media (max-width:480px) {
+     width:132px;
+      height:13px;
+      font-size: 10px;
+      margin-left:-5px;
+  }
+
 `;
 
 export const WhyUseSubtitle = styled.p`
@@ -636,7 +1014,12 @@ export const WhyUseSubtitle = styled.p`
   margin-top: 8px;
   margin-left:-10px;
   color:rgba(66, 82, 107, 1);
-  
+  @media (max-width:480px) {
+     width:132px;
+      height:40px;
+      font-size: 8px;
+     
+  }
   
 `;
 
@@ -649,6 +1032,11 @@ export const Footer = styled.footer`
   justify-content: space-between;
   align-items: flex-start; 
   color: white;
+  @media (max-width:480px) {
+  
+    padding: 20px 8px;
+  
+  }
 `;
 
 export const FooterWrapper=styled.div`
@@ -664,6 +1052,13 @@ export const FooterHead=styled.p`
   line-height:36px;
   color:rgba(255, 255, 255, 1);
   margin-top:40px;
+  @media (max-width :480px) {
+  
+     font-size: 12px;
+    
+    line-height:18px;  
+  
+  }
 
 `
 
@@ -675,12 +1070,26 @@ export const FooterText = styled.p`
   line-height:24px;
   color:rgba(255, 255, 255, 1);
   margin-top:-10px;
+  @media (max-width :480px) {
+  
+    width:203.5px;
+    height:24px;
+    font-size: 8px;
+  
+  }
 `;
 
 export const FooterSections = styled.div`
   display: flex;
   justify-content: space-between;
   width: 600px; /* Total width for all sections */
+  @media (max-width :480px) {
+  
+    width:300px;
+    
+  
+  }
+
 `;
 
 export const FooterColumn1 = styled.div`
@@ -689,6 +1098,14 @@ export const FooterColumn1 = styled.div`
   align-items: flex-start;
   gap: 16px;
   margin-left:140px;
+  @media (max-width :480px) {
+  
+   gap: 8px;
+ 
+    
+  
+  
+  }
 `;
 export const FooterColumn2 = styled.div`
   display: flex;
@@ -696,6 +1113,15 @@ export const FooterColumn2 = styled.div`
   align-items: flex-start;
   gap: 16px;
   margin-right:50px;
+  @media (max-width :480px) {
+  
+   gap: 8px;
+   margin-right:25px;
+ 
+    
+  
+  
+  }
 `;
 export const FooterColumn3 = styled.div`
   display: flex;
@@ -703,12 +1129,27 @@ export const FooterColumn3 = styled.div`
   align-items: flex-start;
   gap: 16px;
   margin-right:30px
+  @media (max-width:480px){
+  gap: 8px;
+  margin-right:15px
+ 
+ 
+ }
+
+
+  
 `;
 
 export const FooterLinks = styled.div`
   display: flex;
   gap: 40px; 
   cursor: pointer;
+  @media (max-width:480px){
+  gap: 20px;
+ 
+ 
+ 
+ }
   
 `;
 
@@ -720,6 +1161,12 @@ export const FooterLink = styled.a`
   font-size: 16px;
   font-weight:700;
   line-height:19.99px;
+  @media (max-width:480px) {
+    width:24px;
+    height:10px;
+    font-size: 8px;
+  
+  }
 
   
 `;
@@ -731,6 +1178,13 @@ export const FooterLink1 = styled.a`
   font-size: 16px;
   font-weight:700;
   line-height:19.99px;
+  @media (max-width:480px) {
+    width:37px;
+    height:10px;
+    font-size: 8px;
+     line-height:10px;
+  
+  }
 
   
 `;
@@ -741,6 +1195,10 @@ export const SocialLinks = styled.div`
   align-items: flex-start;
   gap: 16px;
   cursor: pointer;
+  @media (max-width:480px) {
+    gap:8px;
+  
+  }
 `;
 
 
@@ -760,5 +1218,16 @@ export const SocialIcon = styled.a`
   img {
     width: 24px;
     height: 24px;
+  }
+    @media (max-width:480px) {
+      gap:4px;
+      font-size: 8px;
+      line-height:10.13px;
+      img {
+        width: 12px;
+        height: 12px;
+     
+     }
+  
   }
 `;
