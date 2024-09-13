@@ -166,14 +166,14 @@ const Home = () => {
           <NavLink1 href="#">Help</NavLink1>
         </NavLinksCenter>
         <NavLinksRight>
-          <NavButton>
-            {" "}
-            <NavLink onClick={() => window.open("/login", "_blank")}>
+          <NavButton className="login">
+            
+            <NavLink className="login-lnk" onClick={() => window.open("/login", "_blank")}>
               Login
             </NavLink>
           </NavButton>
-          <NavButton>
-            <NavLink onClick={() => window.open("/signup", "_blank")}>
+          <NavButton  className="signup" >
+            <NavLink  className="signup-lnk" onClick={() => window.open("/signup", "_blank")}>
               Signup
             </NavLink>
           </NavButton>
@@ -253,9 +253,9 @@ const Home = () => {
             </StepDescription2>
           </StepCard>
           <StepCard>
-            <StepIcon3>
+            <StepIcon1>
               <img src={Cardlogo3} alt="card-logo" />
-            </StepIcon3>
+            </StepIcon1>
             <StepNumber>Step 3: </StepNumber>
             <StepHeading>
               Manage
@@ -269,9 +269,9 @@ const Home = () => {
             </StepDescription3>
           </StepCard>
           <StepCard>
-            <StepIcon4>
+            <StepIcon1>
               <img src={Cardlogo4} alt="card-logo" />
-            </StepIcon4>
+            </StepIcon1>
             <StepNumber>Step 4:</StepNumber>
             <StepHeading>
               Collaborate
