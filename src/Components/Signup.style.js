@@ -10,7 +10,7 @@ import '@fontsource/inter/700.css';
 
 export const SignupContainer = styled.div`
   width: 822px;
-  height: 816.39px;
+  height: 1100px;
   padding: 20px;
   margin: auto;
   background: white;
