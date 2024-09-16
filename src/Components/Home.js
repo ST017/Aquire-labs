@@ -187,7 +187,7 @@ const Home = () => {
           Build powerful collaborations and expand your project's horizons through
         </HeroSubtitle>
         <HeroSubtitle1>strategic partnerships.</HeroSubtitle1>
-        <GetStartedButton>Get started</GetStartedButton>
+        <GetStartedButton onClick={()=>window.open("/signup","_blank")}>Get started</GetStartedButton>
       </HeroSection>
 
       {/* Partner Logos */}

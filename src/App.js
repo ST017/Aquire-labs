@@ -3,8 +3,9 @@ import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
 import Home from "./Components/Home";
-import Dashboard from "./Components/Dashboard";
+
 import ResetPassword from "./Components/ResetPassword";
+import Dashboard from "./Components/Dashboard/Dashboard";
 
 
 function App() {

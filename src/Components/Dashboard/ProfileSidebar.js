@@ -1,7 +1,7 @@
 
 import './ProfileSidebar.css';
 
-const ProfileSidebar = () => {
+const ProfileSidebar= () => {
   return (
     <div className="sidebar-container">
       <aside className="profile-sidebar">

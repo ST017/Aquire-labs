@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar= () => {
 
   const [isProfileExpanded, setProfileExpanded] = useState(false);
   const [isRequestExpanded, setRequestExpanded] = useState(false);
