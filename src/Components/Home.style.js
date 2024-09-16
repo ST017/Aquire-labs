@@ -1033,8 +1033,10 @@ export const Footer = styled.footer`
   align-items: flex-start; 
   color: white;
   @media (max-width:480px) {
-  
+    display:block;
     padding: 20px 8px;
+
+
   
   }
 `;
@@ -1099,7 +1101,7 @@ export const FooterColumn1 = styled.div`
   gap: 16px;
   margin-left:140px;
   @media (max-width :480px) {
-  
+   margin-left:70px;
    gap: 8px;
  
     
@@ -1197,6 +1199,7 @@ export const SocialLinks = styled.div`
   cursor: pointer;
   @media (max-width:480px) {
     gap:8px;
+    display:block;
   
   }
 `;
