@@ -246,6 +246,8 @@ export const HeroSubtitle = styled.h2`
  line-height:50.83px;
  @media (max-width:480px){
     font-size: 12px;
+    line-height:25px;
+    margin:auto;
   
   }
 `;
@@ -262,7 +264,8 @@ export const HeroSubtitle1 = styled.h2`
  line-height:32px;
  @media (max-width:480px){
     font-size: 12px;
-  
+   line-height:16px;
+   margin:auto;
   }
 `;
 
@@ -341,7 +344,8 @@ export const VisionText = styled.p`
     font-size:12px;
     height:64px;
     line-height: 16px; 
-    margin-left: 65px;
+    align-text:center;
+    margin:auto;
   
   }
 `;

@@ -184,8 +184,7 @@ const Home = () => {
       <HeroSection>
         <HeroTitle>One Platform, Infinite Partnership Opportunities</HeroTitle>
         <HeroSubtitle>
-          Build powerful collaborations and expand your project's horizons
-          through
+          Build powerful collaborations and expand your project's horizons through
         </HeroSubtitle>
         <HeroSubtitle1>strategic partnerships.</HeroSubtitle1>
         <GetStartedButton>Get started</GetStartedButton>
