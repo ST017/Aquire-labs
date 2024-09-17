@@ -1,13 +1,26 @@
 .projects-section {
+    width:901px;
+    height:1159px;
     flex-grow: 1;
+    border:1px solid black;
   }
   
-  .search-bar input {
-    width: 85%;
+  .search-bar  {
+    width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
+    
     border: 1px solid #ddd;
+  }
+
+  .popular-projects{
+    width:100%;
+    padding:10px;
+    
+    
+
+
   }
   
   .project-cards {

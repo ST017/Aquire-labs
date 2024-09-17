@@ -1,0 +1,99 @@
+.card2 {
+    width: 881px; 
+    height: 290px; 
+    padding: 16px 0 0 0; 
+    border-radius: 8px 0 0 0;
+    border: 1px solid #ddd; 
+    opacity: 1; 
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .card2-header {
+    display: flex;
+    gap: 16px;
+    padding: 0 16px;
+  }
+  
+  .profile-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 5px;
+  }
+  
+  .card2-header-content {
+    flex-grow: 1;
+  }
+  
+  .card2-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .verified-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+  }
+  
+  .bookmark {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .location {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .requests {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .requests img {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .card2-content {
+    padding: 0 16px;
+  }
+  
+  .bio {
+    font-size: 12px;
+    color: #444;
+  }
+  
+  .skills {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .skills span {
+    background-color: #f0f0f0;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .more {
+    color: blue;
+    font-weight: bold;
+  }
+  
