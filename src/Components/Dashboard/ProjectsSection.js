@@ -10,12 +10,18 @@ const ProjectsSection = () => {
         <input type="text" placeholder="Search Project..." />
       </div>
       <div className='popular-projects'>
-        <h3>Popular Projects🔥</h3>
+        <p>Popular Projects🔥</p>
       </div>
-      <div>
+      <div className='card-list'>
+        <Card/>
+        <Card/>
+        <Card/>
         <Card/>
       </div>
-      <div>
+      <div className='card2-list'>
+        <Card2/>
+        <Card2/>
+        <Card2/>
         <Card2/>
       </div>
 
