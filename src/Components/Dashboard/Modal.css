@@ -1,29 +1,41 @@
 
 
-.modal {
-    position: fixed;
-    
-    transform: translate(-50%, -50%);
-    width: 200px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    z-index: 1000;
-    border-radius: 10px;
-  }
-  
-  .modal-content label {
-    display: block;
-    margin: 10px 0;
-    position:relative;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  li {
-    margin: 5px 0;
-  }
-  
+.modal-content {
+  right: 1px;
+  position: absolute;
+  /* top: 100%; Position below the image */
+  /* left: 0; Align to the left edge of the image */
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Ensures modal appears on top */
+ 
+ min-width: 200px; /* Optional: Set a minimum width for the modal */
+ box-sizing: border-box;
+}
+
+/* Additional styling for modal content */
+.modal-content h4 {
+  margin-top: 0;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.modal-content button {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #0056b3;
+}

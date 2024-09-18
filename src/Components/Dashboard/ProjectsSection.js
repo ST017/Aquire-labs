@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { db } from '../Firebase/firebase';
 
+
 const ProjectsSection = () => {
   const [showModal, setShowModal] = useState(false);
   const [sortOptions, setSortOptions] = useState({
@@ -79,38 +80,49 @@ const ProjectsSection = () => {
         <Card />
         <Card />
       </div>
-     
       
-        <div style={{display:"flex",justifyContent:'flex-end',marginRight:"5px"}}>
-        <span onClick={() => setShowModal(!showModal)} style={{ cursor: 'pointer', fontSize: '2rem',}}>
-          <img src={SortIcon} alt='sort-list'/>
+      
+     <div style={{display:'flex',justifyContent:'space-between',margin:'5px'}}>
+     <p>All Projects </p>
+      <div style={{ position: 'relative'  }}>
+      {/* The clickable image */}
+      <div className='filter-icon'>
+        <span
+          onClick={() => setShowModal(!showModal)}
+          style={{ cursor: 'pointer', fontSize: '2rem' }}
+        >
+          <img src={SortIcon} alt='sort-list' />
         </span>
-        {showModal && (
-          <div className="modal">
-            <div className="modal-content">
-              <h4>Sort Options</h4>
-              <label>
-                <input type="checkbox" name="newest" checked={sortOptions.newest} onChange={handleSortChange} />
-                Newest First
-              </label>
-              <label>
-                <input type="checkbox" name="oldest" checked={sortOptions.oldest} onChange={handleSortChange} />
-                Oldest First
-              </label>
-              <label>
-                <input type="checkbox" name="az" checked={sortOptions.az} onChange={handleSortChange} />
-                A-Z
-              </label>
-              <label>
-                <input type="checkbox" name="za" checked={sortOptions.za} onChange={handleSortChange} />
-                Z-A
-              </label>
-              <button onClick={applySorting}>Apply Sorting</button>
-            </div>
-          </div>
-        )}
+      </div>
+
+      {/* The modal appearing beside the image */}
+      {showModal && (
+        <div className="modal-content">
+          <h4>Sort Options</h4>
+          <label>
+            <input type="checkbox" name="newest" checked={sortOptions.newest} onChange={handleSortChange} />
+            Newest First
+          </label>
+          <label>
+            <input type="checkbox" name="oldest" checked={sortOptions.oldest} onChange={handleSortChange} />
+            Oldest First
+          </label>
+          <label>
+            <input type="checkbox" name="az" checked={sortOptions.az} onChange={handleSortChange} />
+            A-Z
+          </label>
+          <label>
+            <input type="checkbox" name="za" checked={sortOptions.za} onChange={handleSortChange} />
+            Z-A
+          </label>
+          <button onClick={applySorting}>Apply Sorting</button>
         </div>
-       
+      )}
+    </div>
+          
+        
+    </div>
+        
      
 
       

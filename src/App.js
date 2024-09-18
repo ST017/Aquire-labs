@@ -8,6 +8,7 @@ import ResetPassword from "./Components/ResetPassword";
 import Dashboard from "./Components/Dashboard/Dashboard";
 
 
+
 function App() {
   return (
     <div>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/resetpassword" element={<ResetPassword/>}/>
+         
         </Routes>
       </Router>
     </div>

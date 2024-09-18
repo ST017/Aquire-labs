@@ -15,11 +15,16 @@
 
 
 .card-logo{
-  width: 20px;
-  height: 20px;
+  
+
+  img{
+    width: 56px;
+  height: 56px;
   gap:10px;
   padding: 16px;
-  margin: 10px;;
+ 
+    
+  }
 }
 
 .card-content{
@@ -65,6 +70,20 @@
 
   }
 }
+
+.body-content,.bio {
+
+  
+  color: #141414B2;
+
+font-size: 14px;
+font-weight: 400;
+line-height: 16.94px;
+text-align: left;
+
+}
+
+
 .cardin {
   margin: 10px;
 }
@@ -79,13 +98,14 @@
   padding: 0;
   list-style: none; /* Remove bullet points */
   display: flex; /* This will display the list items in a row */
-  gap: 10px; /* Space between list items */
+  gap: 5px; /* Space between list items */
 }
 
 .cardin-list li {
   margin-right: 10px;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
   padding: 4px 8px;
+  border: 1px solid #CEE0F5B2;
   border-radius: 4px;
   font-size: 12px;
 }

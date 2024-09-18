@@ -1,24 +1,97 @@
 import React from "react";
 import "./Card2.css";
+import emplogo from '../../Images/DummyLogo.png'
  
 const Card2 = ({name,logo}) => {
   // const [connects, setConnects] = useState(18);
   // const [proposals, setProposals] = useState(20);
  
   const names = [
-    'John', 'Jane', 'Alice', 'Bob', 'Charlie',
-    'David', 'Eve', 'Frank', 'Grace', 'Heidi',
-    'Ivan', 'Judy', 'Karl', 'Laura', 'Mallory',
-    'Nick', 'Oscar', 'Peggy', 'Quincy', 'Rita',
-    'Steve', 'Trudy', 'Uma', 'Victor', 'Wendy'
+    "AI & Big Data"	,
+"	 Art	"	,
+"	 Asset Management	"	,
+"	 Asset-backed Tokens	"	,
+"	 Augmented Reality	"	,
+"	 Automated Market Maker (AMM)	"	,
+"	 BNB Chain Ecosystem	"	,
+"	 Centralized Exchange (CEX)	"	,
+"	 Charity	"	,
+"	 Communication	"	,
+"	Content Creation	"	,
+"	 Crowdfunding	"	,
+" DAO	"	,
+"	 Dapp	"	,
+"	 Decentralized Exchange (DEX)	"	,
+"	 DeFi	"	,
+"	 Derivatives	"	,
+"	 Dex Aggregator	"	,
+"	 E-Commerce	"	,
+"	 Education	"	,
+"	 Energy	"	,
+"	 Entertainment	"	,
+"	 Esports	"	,
+"	 Ethereum Ecosystem	"	,
+"	 Exchange-based Tokens	"	,
+"	 Fan Token	"	,
+"	 Farming-as-a-Service (FaaS)	"	,
+"	 File Sharing	"	,
+"	 Gaming	"	,
+"	 Governance	"	,
+"	 Gambling	"	,
+"	 Healthcare	"	,
+"	 Insurance	"	,
+"	 Interoperability	"	,
+"	 IoT	"	,
+"	 Launchpad	"	,
+"	 Layer 1 (L1)	"	,
+"	 Layer 2 (L2)	"	,
+"	 Legal	"	,
+"	 Lending & Borrowing	"	,
+"	 Loyalty	"	,
+"	 Manufacturing	"	,
+"	 Marketplaces	"	,
+"	 Marketing	"	,
+"	 Media	"	,
+"	 Memes	"	,
+"	 Metaverse	"	,
+"	 Mining	"	,
+"	 Mobile	"	,
+"	 Music	"	,
+"	 NFT	"	,
+"	 Oracles	"	,
+"	 Polkadot Ecosystem	"	,
+"	 Privacy	"	,
+"	 Real Estate	"	,
+"	 Rebase Tokens	"	,
+"	 Retail	"	,
+"	 RWA (Real World Assets)	"	,
+"	 Sharing Economy	"	,
+"	 Smart Contract Platform	"	,
+"	 Social Money	"	,
+"	 Social	"	,
+"	 Sports	"	,
+"	 Stablecoins	"	,
+"	 Storage	"	,
+"	 Supply Chain & Logistics	"	,
+"	 Synthetic Issuer	"	,
+"	 Technology & Science	"	,
+"	 Tokenized Bitcoin	"	,
+"	 Trading	"	,
+"	 Virtual Goods	"	,
+"	 VR/AR	"	,
+"	 Wallet	"	,
+"	 Web3	"	,
+"Yield Aggregator"
+
+
   ];
-  const visibleCount = 10;
+  const visibleCount = 4;
  
   return (
     <>
       <div className="card-container">
         <div className="card-logo">
-          <img src={logo} alt="logo" aria-placeholder="img"></img>
+          <img src={emplogo} alt="logo" aria-placeholder="img"></img>
         </div>
         <div className="card-content">
           <div className="header-card">

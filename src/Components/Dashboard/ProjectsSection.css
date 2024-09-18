@@ -3,7 +3,7 @@
     height:auto;
   
     flex-grow: 1;
-    //border:1px solid black;
+    /* //border:1px solid black; */
   }
 
   .card-list{
@@ -11,7 +11,7 @@
     flex-direction:row;
     gap:5px;
     margin:5px;
-    box-size:;
+   
   }
   .card2-list{
     
@@ -77,4 +77,16 @@
     border-radius: 5px;
     font-size: 12px;
   }
+
+  /* Ensures that the modal is positioned correctly */
+.filter-icon {
+  display: inline-block;
+  position: relative;
+  
+}
+  
+
+  /* .filter{
+    position: static;
+  } */
   
