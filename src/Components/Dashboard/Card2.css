@@ -1,100 +1,133 @@
-.card2 {
-    width: auto; 
-    height: 290px; 
-    padding: 16px 0 0 0; 
-    border-radius: 8px 0 0 0;
-    border: 1px solid #ddd; 
-    
-    background-color: #fff;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    
+.card-container {
+  /* width: 881px;  */
+ /*  height: 200px; */
+  padding: 2px ;
+  border-radius: 8px ;
+  border: 1px solid #ddd;
+  opacity: 1;
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+ 
+  box-sizing: border-box;
+}
+
+
+
+.card-logo{
+  width: 20px;
+  height: 20px;
+  gap:10px;
+  padding: 16px;
+  margin: 10px;;
+}
+
+.card-content{
+  box-sizing: border-box;
+  display:flex;
+  flex-direction: column;
+  margin: 10px;
+}
+.title{
+  font-size:14px;
+  font-weight:bold;
+  color:rgba(20, 20, 20, 1);
+}
+.verified-icon {
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+}
+
+.header-card {
+  justify-content: space-between;
+}
+.header-card , .Location-Card , .body-content  {
+  display: flex;
+  /* margin: 10px; */
+
+}
+
+.Location-Card {
+  gap:10px;
+  div {
+      font-size: 12px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+
   }
-  
-  .card2-header {
-    display: flex;
-    gap: 16px;
-    padding: 0 16px;
+  img {
+      width: 10px;
+      height: 10px;
+
   }
-  
-  .profile-logo {
-    width: 48px;
-    height: 48px;
-    border-radius: 5px;
+}
+.cardin {
+  margin: 10px;
+}
+.cardin-list {
+  display: flex;
+  align-items: center; /* Aligns the items vertically in the center */
+  /* Adds space between the list and the "more" div (optional) */
+}
+
+.cardin-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; /* Remove bullet points */
+  display: flex; /* This will display the list items in a row */
+  gap: 10px; /* Space between list items */
+}
+
+.cardin-list li {
+  margin-right: 10px;
+  background-color: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.more-list {
+  margin-left: 20px; /* Space between the list and the "+X more" text */
+  font-weight: bold;
+}
+
+/* .cardin {
+  flex-wrap: wrap;
+  flex-direction: row;
+  ul {
+      display: flex;
+     
+      gap:20px;
+     
+      flex-direction: row;
   }
-  
-  .card2-header-content {
-    flex-grow: 1;
-  }
-  
-  .card2-header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .title {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0;
-  }
-  
-  .verified-icon {
-    width: 16px;
-    height: 16px;
-    margin-left: 5px;
-  }
-  
-  .bookmark {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .location {
-    font-size: 12px;
-    color: #666;
-  }
-  
-  .requests {
-    font-size: 12px;
-    color: #666;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .requests img {
-    width: 16px;
-    height: 16px;
-  }
-  
-  .card2-content {
-    padding: 0 16px;
-  }
-  
-  .bio {
-    font-size: 12px;
-    color: #444;
-  }
-  
-  .skills {
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .skills span {
-    background-color: #f0f0f0;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-  }
-  
-  .more {
-    color: blue;
-    font-weight: bold;
-  }
-  
+ 
+li {
+  display: flex;
+  row-gap: 20px;
+  flex-direction: row;
+}
+}
+
+
+
+li {
+  background-color: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+
+.cardin-list{
+
+  display: flex;
+}
+.more-list {
+
+ justify-content: center;
+} */
