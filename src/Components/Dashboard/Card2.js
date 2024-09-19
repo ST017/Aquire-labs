@@ -1,6 +1,7 @@
 import React from "react";
 import "./Card2.css";
 import emplogo from '../../Images/DummyLogo.png'
+import Bookmarklogo from '../../Images/bookmark.png'
  
 const Card2 = ({name,logo,city,desc}) => {
   // const [connects, setConnects] = useState(18);
@@ -93,7 +94,7 @@ const Card2 = ({name,logo,city,desc}) => {
         <div className="card-logo">
           <img src={emplogo} alt="logo" aria-placeholder="img"></img>
         </div>
-        <div className="card-content">
+        <div className="card2-content">
           <div className="header-card">
             <div className="title">{name} <img src="https://img.icons8.com/fluency/48/000000/verified-badge.png" alt="verified" className="verified-icon"/></div>
            

@@ -45,6 +45,7 @@ export const Cont2 = styled.div`
 `;
 
 export const LoginContainer = styled.div`
+
   width: 432px;
   height: 765.35px;
   padding: 20px;
@@ -53,6 +54,7 @@ export const LoginContainer = styled.div`
   align-items: center;
   margin-bottom: 40px;
   margin-top: 40px;
+
 
   @media (max-width: 768px) {
     width: 90%;
@@ -66,7 +68,7 @@ export const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+ 
 
   @media (max-width: 768px) {
     margin-bottom: 15px; /* Slightly reduce the margin for smaller screens */
@@ -82,9 +84,9 @@ export const LogoContainer = styled.div`
 
 export const Logo = styled.img`
   position: absolute;
-  top: 55%;
-  left: 35%;
-  transform: translate(-50%, -50%);
+  // top: 55%;
+  // left: 35%;
+  // transform: translate(-50%, -50%);
   height: 40px;
 
   @media (max-width: 768px) {
@@ -133,7 +135,8 @@ export const Dash = styled.img`
 `;
 
 export const CloseButton = styled.button`
-  margin-left: 340px;
+  display:flex;
+  justifyContent:flex-end;
   font-size: 22px;
   cursor: pointer;
   border-width: 0.14px;
@@ -168,7 +171,7 @@ export const CloseButton = styled.button`
 `;
 
 export const FormContainer = styled.div`
-  padding: 10px 0;
+ 
 
   @media (max-width: 768px) {
     padding: 5px 0;
@@ -502,3 +505,4 @@ export const Footer = styled.footer`
     margin-top: 10px;
   }
 `;
+ 

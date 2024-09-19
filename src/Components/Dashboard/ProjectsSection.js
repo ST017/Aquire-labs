@@ -76,7 +76,7 @@ const ProjectsSection = () => {
       
       <div className='card-list'>
         {
-          userProjectList.map((ele,i)=>{
+          userProjectList.slice(0,4).map((ele,i)=>{
             return <Card key={ele.createdAt} name={ele.name} logo={ele.logo} desc={ele.descr} web={ele.website}/>
           })
         }

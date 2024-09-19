@@ -30,7 +30,7 @@ import aqtext from "../Images/Aquire Labs.png";
 import aqhash from "../Images/Hash.png";
 import helpbutton from "../Images/Help.png";
 import closebutton from "../Images/Closebutton.png";
-import { Checkbox, ImageHash, Label, LogoContainer } from "./Login.style";
+import { Checkbox, CloseButton, ImageHash, Label, Logo, LogoContainer } from "./Login.style";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -172,14 +172,11 @@ const Signup = () => {
 
   return (
     <>
-      <SignupContainer>
-        <LogoContainer>
-          <Logo1 src={RaisaLogo} alt="raisa-logo" />
+    <SignupContainer>
+      <LogoContainer>
+          <Logo  src={RaisaLogo} alt="Aquire Labs" />
           
-          
-          <CloseButton2>
-            <img src={closebutton} alt="close-button" />
-          </CloseButton2>
+          <CloseButton><img src={closebutton} alt="Close button" /></CloseButton>
         </LogoContainer>
         <OutsideContainer>
           <Title>Signup</Title>

@@ -10,7 +10,7 @@ import '@fontsource/inter/700.css';
 
 export const SignupContainer = styled.div`
   width: 822px;
-  height: 1100px;
+  height: 1000px;
   padding: 20px;
   margin: auto;
   background: white;
@@ -158,11 +158,12 @@ export const CloseButton2 = styled.button`
 `;
 
 export const Title = styled.p`
+margin:auto;
   font-family:Inter;
   text-align: center;
   font-size: 24px;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  // margin-bottom: 0.5rem;
   color:rgba(0, 0, 0, 1);
 
 
@@ -172,8 +173,9 @@ export const Title = styled.p`
 export const OutsideContainer=styled.div`
   width:390px;
   height:69.98px;
-  margin-left:195px;
-  margin-top:50px;
+  margin:auto;
+  // margin-left:195px;
+  // margin-top:50px;
 
    @media (max-width: 768px) {
     width: 100%;
@@ -195,7 +197,8 @@ export const Subtitle = styled.p`
   text-align: center;
   font-size: 14px;
   font-weight:400;
-  margin-top:-10px;
+  margin-top:10px;
+ 
   color:rgba(120, 139, 165, 1);
 `;
 

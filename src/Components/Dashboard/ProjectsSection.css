@@ -7,11 +7,12 @@
   }
 
   .card-list{
+    
     display:flex;
     flex-direction:row;
     gap:5px;
     margin:5px;
-    overflow:scroll;
+   box-sizing: border-box;
    
   }
   .card2-list{

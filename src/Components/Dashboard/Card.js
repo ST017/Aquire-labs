@@ -17,8 +17,8 @@ const Card = ({name,logo,web,desc}) => {
           className="company-logo"
         />
         <p className="company-name">{name}</p>
-        <div className="bookmark">
-          <img src="https://img.icons8.com/ios-filled/50/000000/bookmark-ribbon.png" alt="Bookmark" />
+        <div >
+          <img  className=" card-bookmark"src="https://img.icons8.com/ios-filled/50/000000/bookmark-ribbon.png" alt="Bookmark" />
         </div>
       </div>
       

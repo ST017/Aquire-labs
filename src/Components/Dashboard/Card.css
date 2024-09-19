@@ -1,8 +1,9 @@
 .card {
-  /* width: 209px;
-  height: 160px; */
+ 
+   width: 209px;
+  height: 160px; 
   padding: 11.17px 14.36px 6px 14.36px;
-  border-radius: 7.98px 0px 0px 0px;
+  border-radius: 7.98px 7.98px 7.98px 7.98px;
   border: 1px solid #ddd;
   background-color: #fff;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -32,22 +33,31 @@
   font-weight: bold;
 }
 
-.bookmark img {
-  width: 20px;
-  height: 20px;
+.card-bookmark {
+
+  width: 24px;
+  height: 28px;
+ 
 }
 
 .card-content {
+  box-sizing: border-box ;
+  width: 100%; 
   margin-top: -5px;
-  a{
-    box-sizing:border-box;
-  }
+  
+ 
 }
 
 .website-link {
+
+
   text-decoration: none;
   color: #333;
   font-weight: bold;
+  display: block; /* Make the link a block-level element */
+  overflow: hidden; /* Hide any overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent the text from breaking to the next line */
 }
 .request-type1 {
   color:rgba(0, 0, 0, 1);

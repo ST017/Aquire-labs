@@ -11,7 +11,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Star1 } from './Signup.style';
 import { useNavigate } from 'react-router-dom';
-
+import RaisaLogo from '../Images/RaisaLogo.png'
+import Hash from '../Images/Hash.png'
+import './Login.css'
 const Login = () => {
   document.body.style.background = "rgba(242, 246, 255, 1)";
   
@@ -83,12 +85,13 @@ const Login = () => {
   };
 
   return (
-    <>
+    < div className='main'>
+    
       <LoginContainer>
+        {/* <div className='form-dis'> */}
         <LogoContainer>
-          <Logo src={aquirelab} alt="Aquire Labs" />
-          <Heading src={aqtext} alt="Aquire Labs Text" />
-          <Dash src={aqdash} alt="Aquire Labs Dash" />
+          <Logo src={RaisaLogo} alt="Aquire Labs" />
+          
           <CloseButton><img src={closebutton} alt="Close button" /></CloseButton>
         </LogoContainer>
         <InsideContainer>
@@ -144,9 +147,12 @@ const Login = () => {
           </FormContainer>
           <Footer>© 2024 ALL RIGHTS RESERVED</Footer>
         </InsideContainer>
+        {/* </div> */}
       </LoginContainer>
       <ToastContainer />
-    </>
+      {/* <img src={Hash} alt='hash' className='imghash'/> */}
+     </ div>
+    
   );
 };
 
