@@ -63,6 +63,10 @@
   color:rgba(0, 0, 0, 1);
   font-size: 12px;
   font-weight:bold;
+  display: block; /* Make the link a block-level element */
+  overflow: hidden; /* Hide any overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent the text from breaking to the next line */
 }
 
 .request-type {
