@@ -104,6 +104,7 @@ import LinkedIn from "../Images/LinkedIn.jpeg"
 import Xicon from "../Images/Xicon.jpeg"
 import Discord from "../Images/Discord.png"
 import Telegram from "../Images/Telegram.jpeg"
+import RaisaLogo from "../Images/RaisaLogo.png"
 
 const Home = () => {
   const features = [
@@ -159,7 +160,7 @@ const Home = () => {
     <WrapperDiv>
       {/* Navbar */}
       <Navbar>
-        <Logo src={logo} alt="logo" />
+        <Logo src={RaisaLogo} alt="logo" />
         <NavLinksCenter>
           <NavLink1 href="#">Home</NavLink1>
           <NavLink1 href="#">About</NavLink1>

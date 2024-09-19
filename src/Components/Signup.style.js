@@ -52,6 +52,8 @@ export const SignupContainer = styled.div`
 `;
 
 export const Logo1 = styled.img`
+  width:122px;
+  height:49px;
  position: absolute;
   top: 48%;
   left: 33%;
@@ -307,15 +309,16 @@ export const InputWrapper = styled.div`
 `;
 
 
-export const Input1 = styled.input`
+export const Input1 = styled.textarea`
   width: 740px;
   height:147.04px;
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
-  
   box-sizing: border-box;
+  resize: none; 
+ 
 
   &:focus {
     border-color: #007bff;

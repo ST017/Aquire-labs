@@ -41,6 +41,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { addDoc, doc, setDoc, updateDoc } from "firebase/firestore";
+import RaisaLogo from "../Images/RaisaLogo.png";
 
 const Signup = () => {
   document.body.style.background = "rgba(242, 246, 255, 1)";
@@ -110,7 +111,7 @@ const Signup = () => {
             city:"",
             country:"",
             createdAt: new Date(),  // current timestamp
-            descr: "",  
+            descr: projDesc,  
             endorsements: 1,  
             fundingStatus: "",  
             logo: "", 
@@ -173,9 +174,9 @@ const Signup = () => {
     <>
       <SignupContainer>
         <LogoContainer>
-          <Logo1 src={aquirelab} alt="Aquire Labs" />
-          <Heading1 src={aqtext} alt="Aquire Labs Text" />
-          <Dash1 src={aqdash} alt="Aquire Labs Dash" />
+          <Logo1 src={RaisaLogo} alt="raisa-logo" />
+          
+          
           <CloseButton2>
             <img src={closebutton} alt="close-button" />
           </CloseButton2>
@@ -304,7 +305,7 @@ const Signup = () => {
 
           <InputWrapper>
             <Label>Project Description</Label>
-            <Input1 label="Project Description" />
+            <Input1 label="Project Description" onChange={(e)=>setProjDesc(e.target.value)} />
           </InputWrapper>
 
           <CheckboxWrapper>

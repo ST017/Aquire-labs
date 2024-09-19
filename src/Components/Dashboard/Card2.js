@@ -2,7 +2,7 @@ import React from "react";
 import "./Card2.css";
 import emplogo from '../../Images/DummyLogo.png'
  
-const Card2 = ({name,logo}) => {
+const Card2 = ({name,logo,city,desc}) => {
   // const [connects, setConnects] = useState(18);
   // const [proposals, setProposals] = useState(20);
  
@@ -106,18 +106,14 @@ const Card2 = ({name,logo}) => {
           </div>
  
           <div className="Location-Card">
-            <div><img src="https://img.icons8.com/ios-filled/16/000000/marker.png" alt="location" /> California</div>
+            <div><img src="https://img.icons8.com/ios-filled/16/000000/marker.png" alt="location" />{city}</div>
             <div> <img src="https://img.icons8.com/color/48/000000/request-money.png" alt="Requests Received" /> Requests Received : 10</div>
             <div><img src="https://img.icons8.com/emoji/48/000000/envelope-emoji.png" alt="Requests Sent" /> Requests Sent : 05</div>
           </div>
  
           <div className="body-content">
             <div className="bio">
-              Bio : Lorem Ipsum has been the industry's standard dummy text ever
-              since the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book. It has survived not
-              only five centuries, but also the leap into electronic
-              typesetting.
+              Bio : {desc}
             </div>
           </div>
  

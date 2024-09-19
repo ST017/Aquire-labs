@@ -39,6 +39,9 @@
 
 .card-content {
   margin-top: -5px;
+  a{
+    box-sizing:border-box;
+  }
 }
 
 .website-link {

@@ -115,7 +115,16 @@ export const NavButton = styled.button`
     background-color: rgba(0, 60, 255, 1); /* Set the hover background color */
     color: white; /* Optional: Set text color on hover */
   }
-
+  &.signup {
+    background-color:rgba(0, 60, 255, 1);
+    color:white;
+    
+    &:hover ,&:hover a{
+      
+      background-color:transparent;
+      color:rgba(0, 60, 255, 1);
+    }
+  }
   @media (max-width: 480px) {
   
    &.signup {
@@ -163,6 +172,11 @@ export const NavLink = styled.a`
   &:hover {
     color: white;
   }
+
+  &.signup-lnk{
+    color:white;
+    text-color:white;
+    }
 
   @media (max-width:480px) {
     &.login-lnk {

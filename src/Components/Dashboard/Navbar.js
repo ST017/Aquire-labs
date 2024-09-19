@@ -1,10 +1,11 @@
 import React from 'react';
 import './Navbar.css';
+import RaisaLogo from "../../Images/RaisaLogo.png"
 
 const Navbar = () => {
   return (
     <header className="navbar">
-      <div className="logo">Logo</div>
+      <div className="logo"><img src={RaisaLogo} alt='raisa-logo'/></div>
       <nav>
         <ul>
           <img src=''/>

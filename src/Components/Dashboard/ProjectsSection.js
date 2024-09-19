@@ -75,10 +75,11 @@ const ProjectsSection = () => {
 
       
       <div className='card-list'>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {
+          userProjectList.map((ele,i)=>{
+            return <Card key={ele.createdAt} name={ele.name} logo={ele.logo} desc={ele.descr} web={ele.website}/>
+          })
+        }
       </div>
       
       
@@ -128,7 +129,7 @@ const ProjectsSection = () => {
       
       <div className='card2-list'>
         {userProjectList.map((ele, i) => (
-          <Card2 key={ele.createdAt} name={ele.name} logo={ele.logo}/>
+          <Card2 key={ele.createdAt} name={ele.name} logo={ele.logo} city={ele.city} desc={ele.descr}/>
         ))}
       </div>
     </section>
