@@ -6,7 +6,7 @@ import SentLogo from '../../Images/Sent.png';
 
 
 
-const Card = ({name,logo,web,desc}) => {
+const Card = ({name,logo,web,desc,requestReceivedCount,requestSentCount}) => {
   return (
     <div className="card">
       <div className="card-header">
@@ -28,10 +28,10 @@ const Card = ({name,logo,web,desc}) => {
         
         <div className="request-details">
           <p className='request-received'><img src={ReceivedLogo} alt="Request Received" className="icon"/> 
-          Request Received: <span className="request-sent1">24</span></p>
+          Request Received: <span className="request-sent1">{requestReceivedCount}</span></p>
           
           <p className="request-sent"><img src={SentLogo} alt="Request Sent" className="icon"/> 
-          Request Sent: <span className="request-sent1">14</span></p>
+          Request Sent: <span className="request-sent1">{requestSentCount}</span></p>
         </div>
       </div>
     </div>

@@ -10,9 +10,18 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from '../Firebase/firebase';
-
+import "./style.css";
+import ReactPaginate from 'react-paginate';
+import { IconContext } from 'react-icons';
+import { AiFillLeftCircle, AiFillRightCircle } from 'react-icons/ai';
+import { toast, ToastContainer } from 'react-toastify';
+import {
+  where,
+} from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const ProjectsSection = () => {
+
   const [showModal, setShowModal] = useState(false);
   const [sortOptions, setSortOptions] = useState({
     newest: false,
@@ -21,21 +30,92 @@ const ProjectsSection = () => {
     za: false,
   });
   const [userProjectList, setUserProjectList] = useState([]);
+  const [filterData, setFilterData] = useState([]);
+  const [requestReceivedCount, setRequestReceivedCount] = useState(0);
+  const [requestSentCount, setRequestSentCount] = useState(0);
+
+
+
 
   // Fetch the user projects from Firestore
   const fetchUserProjectData = async () => {
-    const UserProjectQuery = query(collection(db, "UserProject"));
-    const userProjectQuerySnapshot = await getDocs(UserProjectQuery);
-    const userProject = userProjectQuerySnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-    setUserProjectList(userProject);
+    try{
+      const UserProjectQuery = query(collection(db, "UserProject"));
+      const userProjectQuerySnapshot = await getDocs(UserProjectQuery);
+      const userProject = userProjectQuerySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setUserProjectList(userProject);
+    }
+    catch(error){
+      toast.error(error,{position:"top-center"})
+    };
+    
+    
+    
   };
 
   useEffect(() => {
     fetchUserProjectData();
-  }, []);
+  }, [db]);
+
+ 
+  
+
+  // Fetch Request Received Count
+  const fetchRequestReceivedCount = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if(user){
+      const receivedQuery = query(
+        collection(db, "ConnectionReq"), 
+        where("toUserId", "==", user.uid)
+      );
+      const receivedSnapshot = await getDocs(receivedQuery);
+      setRequestReceivedCount(receivedSnapshot.size); // Set count of received requests
+    }
+   
+    
+  };
+
+  // Fetch Request Sent Count
+  const fetchRequestSentCount = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if(user){
+      const sentQuery =  query(
+        collection(db, "ConnectionReq"), 
+        where("fromUserId", "==", user.uid)
+      );
+      const sentSnapshot = await getDocs(sentQuery);
+      setRequestSentCount(sentSnapshot.size); // Set count of sent requests
+    }
+
+    
+    
+  };
+
+  useEffect(() => {
+    fetchRequestReceivedCount();
+    fetchRequestSentCount();
+  }, [db]);
+
+
+  //Pagination
+  const n = 4;
+  const [page, setPage] = useState(0);
+  
+  
+  
+
+  useEffect(() => {
+    setFilterData(
+      userProjectList.filter((item, index) => {
+        return (index >= page * n) & (index < (page + 1) * n);
+      })
+    );
+  }, [userProjectList,page]);
 
   const handleSortChange = (e) => {
     const { name, checked } = e.target;
@@ -43,7 +123,7 @@ const ProjectsSection = () => {
   };
 
   const applySorting = () => {
-    let sortedList = [...userProjectList];
+    let sortedList = [...filterData];
     if (sortOptions.newest) {
       sortedList.sort((a, b) => b.createdAt - a.createdAt);
     }
@@ -57,7 +137,7 @@ const ProjectsSection = () => {
       sortedList.sort((a, b) => b.name.localeCompare(a.name));
     }
 
-    setUserProjectList(sortedList);
+    setFilterData(sortedList);
     setShowModal(false); 
   };
 
@@ -71,13 +151,32 @@ const ProjectsSection = () => {
       
       <div className='popular-projects'>
         <p>Popular Projects🔥</p>
+      <div className='pagination-popular'>
+      <ReactPaginate
+        containerClassName={"pagination"}
+        activeClassName={"active"}
+        pageClassName={"page-item"}
+        onPageChange={(event) => setPage(event.selected)}
+        breakLabel="..."
+        pageCount={Math.ceil(userProjectList.length / n)}
+        previousLabel={
+          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+            <AiFillLeftCircle/>
+          </IconContext.Provider>
+        }
+        nextLabel={
+          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+            <AiFillRightCircle/>
+          </IconContext.Provider>
+        }
+      />
       </div>
-
+      </div>
       
       <div className='card-list'>
         {
-          userProjectList.slice(0,4).map((ele,i)=>{
-            return <Card key={ele.createdAt} name={ele.name} logo={ele.logo} desc={ele.descr} web={ele.website}/>
+          filterData.map((ele,i)=>{
+            return <Card key={ele.createdAt} name={ele.name} logo={ele.logo} desc={ele.descr} web={ele.website} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount}/>
           })
         }
       </div>
@@ -128,11 +227,14 @@ const ProjectsSection = () => {
 
       
       <div className='card2-list'>
-        {userProjectList.map((ele, i) => (
-          <Card2 key={ele.createdAt} name={ele.name} logo={ele.logo} city={ele.city} desc={ele.descr}/>
+        {filterData.map((ele, i) => (
+          <Card2 key={ele.createdAt} name={ele.name} logo={ele.logo} city={ele.city} desc={ele.descr} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount} />
         ))}
       </div>
+      <ToastContainer/>
     </section>
+    
+    
   );
 };
 

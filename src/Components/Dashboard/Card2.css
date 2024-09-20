@@ -89,6 +89,7 @@ text-align: left;
   margin: 10px;
 }
 .cardin-list {
+  cursor:pointer;
   display: flex;
   align-items: center; /* Aligns the items vertically in the center */
   /* Adds space between the list and the "more" div (optional) */

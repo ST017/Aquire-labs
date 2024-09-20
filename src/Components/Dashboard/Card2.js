@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Card2.css";
 import emplogo from '../../Images/DummyLogo.png'
 import Bookmarklogo from '../../Images/bookmark.png'
+import Modal from "./ModalCategory";
  
-const Card2 = ({name,logo,city,desc}) => {
+const Card2 = ({name,logo,city,desc,requestReceivedCount,requestSentCount}) => {
   // const [connects, setConnects] = useState(18);
   // const [proposals, setProposals] = useState(20);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleMoreClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
  
   const names = [
     "AI & Big Data"	,
@@ -108,8 +118,8 @@ const Card2 = ({name,logo,city,desc}) => {
  
           <div className="Location-Card">
             <div><img src="https://img.icons8.com/ios-filled/16/000000/marker.png" alt="location" />{city}</div>
-            <div> <img src="https://img.icons8.com/color/48/000000/request-money.png" alt="Requests Received" /> Requests Received : 10</div>
-            <div><img src="https://img.icons8.com/emoji/48/000000/envelope-emoji.png" alt="Requests Sent" /> Requests Sent : 05</div>
+            <div> <img src="https://img.icons8.com/color/48/000000/request-money.png" alt="Requests Received" /> Requests Received :{requestReceivedCount}</div>
+            <div><img src="https://img.icons8.com/emoji/48/000000/envelope-emoji.png" alt="Requests Sent" /> Requests Sent :{requestSentCount}</div>
           </div>
  
           <div className="body-content">
@@ -127,9 +137,12 @@ const Card2 = ({name,logo,city,desc}) => {
                          </ul>
                             {/* Show "+X more" if there are more than 5 names */}
                         {names.length > visibleCount && (
-                            <div className="more-list">{names.length - visibleCount}+ more</div>
+                            <div className="more-list" onClick={handleMoreClick}>{names.length - visibleCount}+ more</div>
                         )}
                     </div>
+                    {isModalOpen && (
+        <Modal categories={names.slice(visibleCount)} onClose={closeModal} />
+      )}
           </div>
         </div>
       </div>

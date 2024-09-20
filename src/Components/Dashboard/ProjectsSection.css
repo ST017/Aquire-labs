@@ -36,10 +36,18 @@
 
   .popular-projects{
     width:100%;
+    display:flex;
+    justify-content:space-between;
+    margin:5px;
+    box-sizing:border-box;
     
-
   }
-  
+  .pagination-popular {
+    box-sizing:border-box;
+    justify-content:flex-end;
+    margin:auto;
+   
+  }
   .project-cards {
     display: flex;
     gap: 20px;
