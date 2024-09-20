@@ -2,6 +2,7 @@ import React from 'react';
 import "./ModalCategory.css"
 import CategoryClose from "../../Images/CategoryClose.png"
 
+
 const Modal = ({ categories, onClose }) => {
   return (
     <div className="modal-overlay">
