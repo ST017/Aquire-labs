@@ -102,7 +102,7 @@ const Card2 = ({name,logo,city,desc,requestReceivedCount,requestSentCount}) => {
     <>
       <div className="card-container">
         <div className="card-logo">
-          <img src={emplogo} alt="logo" aria-placeholder="img"></img>
+          <img src={logo} alt="logo" aria-placeholder="img"></img>
         </div>
         <div className="card2-content">
           <div className="header-card">

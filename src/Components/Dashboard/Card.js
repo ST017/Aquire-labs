@@ -12,7 +12,7 @@ const Card = ({name,logo,web,desc,requestReceivedCount,requestSentCount}) => {
       <div className="card-header">
         
         <img
-          src={EmployerLogo} 
+          src={logo} 
           alt="Google Inc."
           className="company-logo"
         />
