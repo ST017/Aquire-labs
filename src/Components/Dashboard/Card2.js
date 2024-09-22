@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Card2.css";
-import emplogo from '../../Images/DummyLogo.png'
-import Bookmarklogo from '../../Images/bookmark.png'
+
 import Modal from "./ModalCategory";
+import { CategoryList } from "./Filterlists";
  
 const Card2 = ({name,logo,city,desc,requestReceivedCount,requestSentCount}) => {
   // const [connects, setConnects] = useState(18);
@@ -17,85 +17,6 @@ const Card2 = ({name,logo,city,desc,requestReceivedCount,requestSentCount}) => {
     setIsModalOpen(false);
   };
  
-  const names = [
-    "AI & Big Data"	,
-"	 Art	"	,
-"	 Asset Management	"	,
-"	 Asset-backed Tokens	"	,
-"	 Augmented Reality	"	,
-"	 Automated Market Maker (AMM)	"	,
-"	 BNB Chain Ecosystem	"	,
-"	 Centralized Exchange (CEX)	"	,
-"	 Charity	"	,
-"	 Communication	"	,
-"	Content Creation	"	,
-"	 Crowdfunding	"	,
-" DAO	"	,
-"	 Dapp	"	,
-"	 Decentralized Exchange (DEX)	"	,
-"	 DeFi	"	,
-"	 Derivatives	"	,
-"	 Dex Aggregator	"	,
-"	 E-Commerce	"	,
-"	 Education	"	,
-"	 Energy	"	,
-"	 Entertainment	"	,
-"	 Esports	"	,
-"	 Ethereum Ecosystem	"	,
-"	 Exchange-based Tokens	"	,
-"	 Fan Token	"	,
-"	 Farming-as-a-Service (FaaS)	"	,
-"	 File Sharing	"	,
-"	 Gaming	"	,
-"	 Governance	"	,
-"	 Gambling	"	,
-"	 Healthcare	"	,
-"	 Insurance	"	,
-"	 Interoperability	"	,
-"	 IoT	"	,
-"	 Launchpad	"	,
-"	 Layer 1 (L1)	"	,
-"	 Layer 2 (L2)	"	,
-"	 Legal	"	,
-"	 Lending & Borrowing	"	,
-"	 Loyalty	"	,
-"	 Manufacturing	"	,
-"	 Marketplaces	"	,
-"	 Marketing	"	,
-"	 Media	"	,
-"	 Memes	"	,
-"	 Metaverse	"	,
-"	 Mining	"	,
-"	 Mobile	"	,
-"	 Music	"	,
-"	 NFT	"	,
-"	 Oracles	"	,
-"	 Polkadot Ecosystem	"	,
-"	 Privacy	"	,
-"	 Real Estate	"	,
-"	 Rebase Tokens	"	,
-"	 Retail	"	,
-"	 RWA (Real World Assets)	"	,
-"	 Sharing Economy	"	,
-"	 Smart Contract Platform	"	,
-"	 Social Money	"	,
-"	 Social	"	,
-"	 Sports	"	,
-"	 Stablecoins	"	,
-"	 Storage	"	,
-"	 Supply Chain & Logistics	"	,
-"	 Synthetic Issuer	"	,
-"	 Technology & Science	"	,
-"	 Tokenized Bitcoin	"	,
-"	 Trading	"	,
-"	 Virtual Goods	"	,
-"	 VR/AR	"	,
-"	 Wallet	"	,
-"	 Web3	"	,
-"Yield Aggregator"
-
-
-  ];
   const visibleCount = 4;
  
   return (
@@ -131,17 +52,17 @@ const Card2 = ({name,logo,city,desc,requestReceivedCount,requestSentCount}) => {
           <div className="cardin">
                     <div className="cardin-list" >
                         <ul>
-                            {names.slice(0, visibleCount).map((name, index) => (
+                            {CategoryList.slice(0, visibleCount).map((name, index) => (
                             <li key={index}>{name}</li>
                             ))}
                          </ul>
                             {/* Show "+X more" if there are more than 5 names */}
-                        {names.length > visibleCount && (
-                            <div className="more-list" onClick={handleMoreClick}>{names.length - visibleCount}+ more</div>
+                        {CategoryList.length > visibleCount && (
+                            <div className="more-list" onClick={handleMoreClick}>{CategoryList.length - visibleCount}+ more</div>
                         )}
                     </div>
                     {isModalOpen && (
-        <Modal categories={names.slice(visibleCount)} onClose={closeModal} />
+        <Modal categories={CategoryList.slice(visibleCount)} onClose={closeModal} />
       )}
           </div>
         </div>

@@ -19,8 +19,17 @@ import {
   where,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import ShimmerUiCard from './ShimmerUiCard';
+import ShimmerUiCard2 from './ShimmerUiCard2';
+
+const cache={}
 
 const ProjectsSection = () => {
+
+  const [searchInput,setSearchInput]=useState("")
+  const [suggestionList,setSuggestionList]=useState([])
+
+  const [arr,setarr]=useState(new Array(4).fill(""))
 
   const [showModal, setShowModal] = useState(false);
   const [sortOptions, setSortOptions] = useState({
@@ -33,6 +42,29 @@ const ProjectsSection = () => {
   const [filterData, setFilterData] = useState([]);
   const [requestReceivedCount, setRequestReceivedCount] = useState(0);
   const [requestSentCount, setRequestSentCount] = useState(0);
+
+
+  //Debounce and AutoSuggestion
+  
+  const getData=async()=>{
+    if(cache[searchInput]){
+      setSuggestionList(cache[searchInput])
+    }
+    else{
+      const res=await fetch(`https://www.google.com/complete/search?client=firefox&q=${searchInput}`)
+      const data=await res.json()
+      //console.log(data[1])
+      cache[searchInput]=data[1]
+      setSuggestionList(cache[searchInput])
+    }
+     
+  }
+  useEffect(()=>{
+    const timer=setTimeout(()=>{
+       getData()
+    },200)
+     return ()=>clearTimeout(timer)
+  },[searchInput])
 
 
 
@@ -143,9 +175,10 @@ const ProjectsSection = () => {
 
   return (
     <section className="projects-section">
+      {console.log(suggestionList)}
     
       <div className="search-bar">
-        <input type="text" placeholder="Search Project..." />
+        <input type="text" placeholder="Search Project..." onChange={(e)=>setSearchInput(e.target.value)} />
       </div>
       
       
@@ -175,9 +208,11 @@ const ProjectsSection = () => {
       
       <div className='card-list'>
         {
-          filterData.map((ele,i)=>{
+          filterData.length>0 ?(filterData.map((ele,i)=>{
             return <Card key={ele.createdAt} name={ele.name} logo={ele.logo} desc={ele.descr} web={ele.website} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount}/>
-          })
+          })):(arr.map((ele,i)=>{
+            return <ShimmerUiCard/>
+          }))
         }
       </div>
       
@@ -227,9 +262,11 @@ const ProjectsSection = () => {
 
       
       <div className='card2-list'>
-        {filterData.map((ele, i) => (
+        {filterData.length>0?(filterData.map((ele, i) => (
           <Card2 key={ele.createdAt} name={ele.name} logo={ele.logo} city={ele.city} desc={ele.descr} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount} />
-        ))}
+        ))):(arr.map((ele,i)=>{
+          return <ShimmerUiCard2/>
+        }))}
       </div>
       <ToastContainer/>
     </section>

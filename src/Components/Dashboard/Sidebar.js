@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
 import './Sidebar.css';
+import { CategoryList, EcosystemsList, FundingStageList, LocationList, PartnershipInterestList, ProfileStatusList, RequestTypeList } from './Filterlists';
 
 const Sidebar= () => {
 
@@ -24,73 +25,75 @@ const Sidebar= () => {
     <aside className='side-content'>
 
       <div>
-        <h3 onClick={toggleProfile}>Profile Status {isProfileExpanded ? '-' : '+'}</h3>
+        <h3 onClick={toggleProfile}>{isProfileExpanded ? '-' : '+'}Profile Status </h3>
         {isProfileExpanded && (
-          <div>
-            <label><input type="checkbox" /> Email Verified</label><br />
-            <label><input type="checkbox" /> TG Verified</label><br />
-          </div>
+          ProfileStatusList.map((ele,i)=>{
+            return <div key={ele}>
+               <label><input type="checkbox" value={ele}/>{ele}</label><br />
+            </div>
+          })
         )}
       </div>
 
 
       <div>
-        <h3 onClick={toggleRequest}>Request Type {isRequestExpanded ? '-' : '+'}</h3>
+        <h3 onClick={toggleRequest}>{isRequestExpanded ? '-' : '+'}Request Type </h3>
         {isRequestExpanded && (
-          <div>
-            <label><input type="checkbox" /> Technical Collaboration</label><br />
-            <label><input type="checkbox" /> Funding</label><br />
-            <label><input type="checkbox" /> Listing</label><br />
-            <label><input type="checkbox" /> Marketing</label><br />
-            <label><input type="checkbox" /> Integrations</label><br />
-            <label><input type="checkbox" /> Community Building</label><br />
-            <label><input type="checkbox" /> Explore</label><br />
-          </div>
+          RequestTypeList.map((ele,i)=>{
+            return <div key={ele}>
+               <label><input type="checkbox" value={ele}/>{ele}</label><br />
+            </div>
+          })
         )}
       </div>
       <div>
-        <h3 onClick={toggleEcoSystem}>EcoSystem{isEcoSystemExpanded ? '-' : '+'}</h3>
+        <h3 onClick={toggleEcoSystem}>{isEcoSystemExpanded ? '-' : '+'}EcoSystem</h3>
         {isEcoSystemExpanded && (
-          <div>
-            <label><input type="checkbox"/></label><br />
-            <label><input type="checkbox"/></label><br />
-          </div>
+          EcosystemsList.map((ele,i)=>{
+            return <div key={ele}>
+              <label><input type="checkbox" value={ele}/>{ele}</label><br />
+            </div>
+          })
         )}
       </div>
       <div>
-        <h3 onClick={togglePartenershipInterest}>Partnership Interests {isPartnershipInterestExpanded ? '-' : '+'}</h3>
+        <h3 onClick={togglePartenershipInterest}>{isPartnershipInterestExpanded ? '-' : '+'}Partnership Interests</h3>
         {isPartnershipInterestExpanded && (
-          <div>
-            <label><input type="checkbox"/> </label><br />
-            <label><input type="checkbox"/> </label><br />
-          </div>
+          PartnershipInterestList.map((ele,i)=>{
+            return <div key={ele}>
+               <label><input type="checkbox" value={ele}/>{ele}</label><br />
+            </div>
+          })
         )}
       </div>
       <div>
-        <h3 onClick={toggleFundingStage}>Funding Stage {isFundingStageExpanded ? '-' : '+'}</h3>
+        <h3 onClick={toggleFundingStage}>{isFundingStageExpanded ? '-' : '+'}Funding Stage</h3>
         {isFundingStageExpanded && (
-          <div>
-            <label><input type="checkbox" /> </label><br />
-            <label><input type="checkbox" /> </label><br />
-          </div>
+          FundingStageList.map((ele,i)=>{
+            return <div key={ele}>
+               <label><input type="checkbox" value={ele}/>{ele}</label><br />
+            </div>
+          })
         )}
       </div>
       <div>
-        <h3 onClick={toggleCategory}>Category {isCategoryExpanded ? '-' : '+'}</h3>
+        <h3 onClick={toggleCategory}>{isCategoryExpanded ? '-' : '+'}Category </h3>
         {isCategoryExpanded && (
-          <div>
-            <label><input type="checkbox" /> </label><br />
-            <label><input type="checkbox" /> </label><br />
+         CategoryList.map((ele,i)=>{
+          return <div key={ele}>
+             <label><input type="checkbox" value={ele}/>{ele}</label><br />
           </div>
+        })
         )}
       </div>
       <div>
-        <h3 onClick={toggleLocation}>Location {isLocationExpanded ? '-' : '+'}</h3>
+        <h3 onClick={toggleLocation}>{isLocationExpanded ? '-' : '+'}Location</h3>
         {isLocationExpanded && (
-          <div>
-            <label><input type="checkbox" /> </label><br />
-            <label><input type="checkbox" /> </label><br />
-          </div>
+          LocationList.map((ele,i)=>{
+            return <div key={ele}>
+               <label><input type="checkbox" value={ele}/>{ele}</label><br />
+            </div>
+          })
         )}
       </div>
     </aside>
