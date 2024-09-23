@@ -11,7 +11,7 @@ const Dashboard = () => {
     <div>
       <Navbar />
       <div className="main-content">
-        <Sidebar />
+        <Sidebar/>
         <ProjectsSection />
         <ProfileSidebar />
       </div>

@@ -175,7 +175,7 @@ const ProjectsSection = () => {
 
   return (
     <section className="projects-section">
-      {console.log(suggestionList)}
+    
     
       <div className="search-bar">
         <input type="text" placeholder="Search Project..." onChange={(e)=>setSearchInput(e.target.value)} />
@@ -193,12 +193,12 @@ const ProjectsSection = () => {
         breakLabel="..."
         pageCount={Math.ceil(userProjectList.length / n)}
         previousLabel={
-          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+          <IconContext.Provider value={{ color: "rgba(255, 255, 255, 1)", size: "36px" }}>
             <AiFillLeftCircle/>
           </IconContext.Provider>
         }
         nextLabel={
-          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+          <IconContext.Provider value={{ color: "rgba(255, 255, 255, 1)", size: "36px" }}>
             <AiFillRightCircle/>
           </IconContext.Provider>
         }
