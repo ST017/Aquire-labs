@@ -13,11 +13,12 @@
 
 .profile-sidebar1 {
   background-color: #ffffff;
-  padding: 20px;
+  padding: 20px 0px 20px 20px;;
   //width: 280px; 
   border-radius: 15px; 
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
   box-sizing:border-box;
+ 
 }
 
 .profile {
@@ -43,7 +44,7 @@
   
 }
 .profile-line-container {
-  width: 100%; /* Ensures it covers the full width */
+  width: 90%; /* Ensures it covers the full width */
   margin-top: -10px; /* Adjust as needed to move it up */
   overflow: hidden; /* Prevents overflow if needed */
 }
@@ -51,6 +52,7 @@
 .profile-line {
   width: 100%; /* Makes the image responsive to the container width */
   display: block; /* Ensures it behaves as a block element */
+  margin-top:5px;
 }
 
 .profile h3 {
@@ -60,7 +62,7 @@
 }
 
 .profile p {
-  /* margin: -10px  15px  0;  */
+  margin: -10px  15px  0;
   font-size: 11px;
   color: #888888; 
 }
@@ -70,6 +72,7 @@
   color: rgba(35, 152, 82, 1);
   margin-bottom: 20px; 
   text-align: left; 
+  padding:0px 15px;
 }
 .request-info span {
   display: flex;
