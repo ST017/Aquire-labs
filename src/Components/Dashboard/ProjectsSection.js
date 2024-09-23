@@ -74,11 +74,14 @@ const ProjectsSection = () => {
     try{
       const UserProjectQuery = query(collection(db, "UserProject"));
       const userProjectQuerySnapshot = await getDocs(UserProjectQuery);
-      const userProject = userProjectQuerySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setUserProjectList(userProject);
+      if(userProjectQuerySnapshot){
+        const userProject = userProjectQuerySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setUserProjectList(userProject);
+      }
+      
     }
     catch(error){
       toast.error(error,{position:"top-center"})
