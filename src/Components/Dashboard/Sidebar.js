@@ -3,9 +3,9 @@ import './Sidebar.css';
 import { CategoryList, EcosystemsList, FundingStageList, LocationList, PartnershipInterestList, ProfileStatusList, RequestTypeList } from './Filterlists';
 
 const Sidebar= () => {
-
-  const [isProfileExpanded, setProfileExpanded] = useState(false);
-  const [isRequestExpanded, setRequestExpanded] = useState(false);
+  
+  const [isProfileExpanded, setProfileExpanded] = useState(true);
+  const [isRequestExpanded, setRequestExpanded] = useState(true);
   const [isEcoSystemExpanded, setEcosystemExpanded] = useState(false);
   const [isPartnershipInterestExpanded, setPartenershiInterestExpanded] = useState(false);
   const [isFundingStageExpanded, setFundingStageExpanded] = useState(false);
@@ -29,7 +29,7 @@ const Sidebar= () => {
         {isProfileExpanded && (
           ProfileStatusList.map((ele,i)=>{
             return <div key={ele}>
-               <label><input type="checkbox" value={ele}/>{ele}</label><br />
+               <label><input type="checkbox" value={ele}/>{ele}</label><br/>
             </div>
           })
         )}
