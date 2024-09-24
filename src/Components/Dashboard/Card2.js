@@ -3,6 +3,7 @@ import "./Card2.css";
 
 import Modal from "./ModalCategory";
 import { CategoryList } from "./Filterlists";
+import BookMark from "../../Images/Bookmark (2).png"
  
 const Card2 = ({name,logo,city,desc,requestReceivedCount,requestSentCount}) => {
   // const [connects, setConnects] = useState(18);
@@ -30,7 +31,7 @@ const Card2 = ({name,logo,city,desc,requestReceivedCount,requestSentCount}) => {
             <div className="title">{name} <img src="https://img.icons8.com/fluency/48/000000/verified-badge.png" alt="verified" className="verified-icon"/></div>
            
             <img
-              src="https://img.icons8.com/ios-filled/50/000000/bookmark-ribbon.png"
+              src={BookMark}
               alt="Bookmark"
               className="bookmark"
             />

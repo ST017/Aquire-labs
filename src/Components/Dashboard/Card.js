@@ -3,6 +3,7 @@ import './Card.css';
 import EmployerLogo from '../../Images/EmployersLogo.png';
 import ReceivedLogo from '../../Images/Received.png';
 import SentLogo from '../../Images/Sent.png';
+import BookMark from "../../Images/Bookmark (2).png"
 
 
 
@@ -18,7 +19,7 @@ const Card = ({name,logo,web,desc,requestReceivedCount,requestSentCount}) => {
         />
         <p className="company-name">{name}</p>
         <div >
-          <img  className=" card-bookmark"src="https://img.icons8.com/ios-filled/50/000000/bookmark-ribbon.png" alt="Bookmark" />
+          <img  className=" card-bookmark"src={BookMark} alt="Bookmark" />
         </div>
       </div>
       

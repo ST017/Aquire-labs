@@ -42,6 +42,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { addDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 import RaisaLogo from "../Images/RaisaLogo.png";
+import { CategoryList } from "./Dashboard/Filterlists";
 
 const Signup = () => {
   document.body.style.background = "rgba(242, 246, 255, 1)";
@@ -224,7 +225,7 @@ const Signup = () => {
               <Label>
                 Category<Star1>*</Star1>
               </Label>
-              <InputSelect
+             {/*  <InputSelect
                 onChange={(e) => setCategory(e.target.value)}
                 defaultValue=""
               >
@@ -270,7 +271,18 @@ const Signup = () => {
                 <option value="Validator">Validator</option>
                 <option value="Depin">Depin</option>
                 <option value="Others">Others</option>
-              </InputSelect>
+              </InputSelect> */}
+              <InputSelect
+      onChange={(e) => setCategory(e.target.value)}
+      defaultValue=""
+    >
+      <option value="">Select a Category</option>
+      {CategoryList.map((category, index) => (
+        <option key={index} value={category}>
+          {category}
+        </option>
+      ))}
+    </InputSelect>
             </InputWrapper>
           </InputGroup>
           <InputGroup>

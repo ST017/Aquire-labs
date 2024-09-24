@@ -1,9 +1,11 @@
-import { React, useState } from 'react';
+import { React, useState,useContext } from 'react';
 import './Sidebar.css';
 import { CategoryList, EcosystemsList, FundingStageList, LocationList, PartnershipInterestList, ProfileStatusList, RequestTypeList } from './Filterlists';
-
+// Add: Import the FilterContext to use its state and methods
+import { FilterContext } from './FilterContext'; 
 const Sidebar= () => {
-  
+  // Add: Destructure the context state and toggle function
+  const { selectedCategories, toggleCategoryS } = useContext(FilterContext);
   const [isProfileExpanded, setProfileExpanded] = useState(true);
   const [isRequestExpanded, setRequestExpanded] = useState(true);
   const [isEcoSystemExpanded, setEcosystemExpanded] = useState(false);
@@ -79,12 +81,22 @@ const Sidebar= () => {
       <div>
         <h3 onClick={toggleCategory}>{isCategoryExpanded ? '-' : '+'}Category </h3>
         {isCategoryExpanded && (
-         CategoryList.map((ele,i)=>{
-          return <div key={ele}>
-             <label><input type="checkbox" value={ele}/>{ele}</label><br />
+         CategoryList.map((category, index) => (
+          <div key={category}>
+            <label>
+              <input
+                type="checkbox"
+                value={category}
+                // Add: Use context state to determine if checkbox is checked
+                checked={selectedCategories.includes(category)} 
+                // Add: Use toggleCategory function to handle checkbox change
+                onChange={() => toggleCategoryS(category)} 
+              />
+              {category}
+            </label>
+            <br />
           </div>
-        })
-        )}
+        )))}
       </div>
       <div>
         <h3 onClick={toggleLocation}>{isLocationExpanded ? '-' : '+'}Location</h3>

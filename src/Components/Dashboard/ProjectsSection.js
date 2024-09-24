@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './ProjectsSection.css';
 import Card from './Card';
 import Card2 from './Card2';
@@ -21,6 +21,8 @@ import {
 import { getAuth } from "firebase/auth";
 import ShimmerUiCard from './ShimmerUiCard';
 import ShimmerUiCard2 from './ShimmerUiCard2';
+// Add: Import the FilterContext to access the selected categories
+import { FilterContext } from './FilterContext'; 
 
 const cache={}
 
@@ -42,7 +44,8 @@ const ProjectsSection = () => {
   const [filterData, setFilterData] = useState([]);
   const [requestReceivedCount, setRequestReceivedCount] = useState(0);
   const [requestSentCount, setRequestSentCount] = useState(0);
-
+   // Add: Use the context to access selected categories
+   const { selectedCategories } = useContext(FilterContext); 
 
   //Debounce and AutoSuggestion
   
@@ -136,6 +139,29 @@ const ProjectsSection = () => {
     fetchRequestSentCount();
   }, [db]);
 
+  // Update Filter Data when searchInput changes
+  const handleSearch = (e) => {
+    const val = e.target.value;
+    setSearchInput(val);
+  
+    if (val) {
+      // Filter the projects based on the search input
+      const filteredProjects = userProjectList.filter((project) =>
+        project.name.toLowerCase().includes(val.toLowerCase())
+      );
+      setFilterData(filteredProjects);
+    } else {
+      // Show data for the first page when input is cleared
+      setPage(0); // Reset to the first page
+      setFilterData(
+        userProjectList.filter((item, index) => {
+          return index >= 0 && index < n; // Show items for page 1
+        })
+      );
+    }
+  };
+  
+
 
   //Pagination
   const n = 4;
@@ -176,12 +202,32 @@ const ProjectsSection = () => {
     setShowModal(false); 
   };
 
+
+ //FilterCategory
+  useEffect(() => {
+    // Add: Handle logic to display default data when no category is selected
+    if (selectedCategories.length === 0) { 
+      setPage(0); // Reset to the first page
+      setFilterData(
+        userProjectList.filter((item, index) => {
+          return index >= 0 && index < n; // Show items for page 1
+        })
+      );
+    } else {
+      // Add: Filter projects based on selected categories
+      const filteredProjects = userProjectList.filter((project) => 
+        selectedCategories.includes(project.category) 
+      );
+      setFilterData(filteredProjects);
+    }
+  }, [userProjectList, selectedCategories, page]);
+
   return (
     <section className="projects-section">
     
     
       <div className="search-bar">
-        <input type="text" placeholder="Search Project..." onChange={(e)=>setSearchInput(e.target.value)} />
+        <input type="text" placeholder="Search Project..." onChange={handleSearch} />
       </div>
       
       

@@ -5,6 +5,7 @@ import ProjectsSection from "./ProjectsSection";
 import ProfileSidebar from "./ProfileSidebar";
 import "./Dashboard.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { FilterProvider } from "./FilterContext"; 
 
 const Dashboard = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -30,6 +31,7 @@ const Dashboard = () => {
   document.body.style.background = "rgba(234, 239, 255, 1)";
 
   return (
+    <FilterProvider>
     <div>
       <Navbar />
       <div className="main-content">
@@ -38,6 +40,7 @@ const Dashboard = () => {
         {currentUser && <ProfileSidebar User={currentUser} />} {/* Render only if user is available */}
       </div>
     </div>
+    </FilterProvider>
   );
 };
 
