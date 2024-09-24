@@ -1,7 +1,7 @@
 .card {
  
-   width: 209px;
-  height: 160px; 
+  width: 209px;
+  height: 145.6px; 
   padding: 11.17px 14.36px 6px 14.36px;
   border-radius: 7.98px 7.98px 7.98px 7.98px;
   border: 1px solid #ddd;
@@ -18,6 +18,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top:-5px;
+  width:180px;
 }
 
 .company-logo {
@@ -35,14 +36,15 @@
 
 .card-bookmark {
 
-  width: 24px;
-  height: 28px;
+  width: 14px;
+  height: 18px;
  
 }
 
 .card-content {
   box-sizing: border-box ;
-  width: 100%; 
+  width: 180px; 
+  height:82.17px;
   margin-top: -5px;
   
  
@@ -53,20 +55,23 @@
 
   text-decoration: none;
   color: #333;
+  font-size:11px;
   font-weight: bold;
   display: block; /* Make the link a block-level element */
   overflow: hidden; /* Hide any overflowing text */
   text-overflow: ellipsis; /* Add ellipsis for overflowing text */
   white-space: nowrap; /* Prevent the text from breaking to the next line */
+  height:16px;
 }
 .request-type1 {
   color:rgba(0, 0, 0, 1);
-  font-size: 12px;
+  font-size: 8.77px;
   font-weight:bold;
   display: block; /* Make the link a block-level element */
   overflow: hidden; /* Hide any overflowing text */
   text-overflow: ellipsis; /* Add ellipsis for overflowing text */
   white-space: nowrap; /* Prevent the text from breaking to the next line */
+  height:11px;
 }
 
 .request-type {
@@ -76,6 +81,7 @@
 
 .request-details {
   margin-top: 10px;
+
 }
 
 .request-details p {
@@ -93,6 +99,8 @@
 
 .request-received, .request-sent {
   font-weight: bold;
+  height:14px;
+  
 }
 
 .request-sent1{
