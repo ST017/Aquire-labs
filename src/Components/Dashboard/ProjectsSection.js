@@ -207,10 +207,15 @@ const ProjectsSection = () => {
   useEffect(() => {
     // Add: Handle logic to display default data when no category is selected
     if (selectedCategories.length === 0) { 
-      setPage(0); // Reset to the first page
-      setFilterData(
+      setPage(page); // Reset to the first page
+      /* setFilterData(
         userProjectList.filter((item, index) => {
           return index >= 0 && index < n; // Show items for page 1
+        })
+      ); */
+      setFilterData(
+        userProjectList.filter((item, index) => {
+          return (index >= page * n) & (index < (page + 1) * n);
         })
       );
     } else {
@@ -220,7 +225,7 @@ const ProjectsSection = () => {
       );
       setFilterData(filteredProjects);
     }
-  }, [userProjectList, selectedCategories, page]);
+  }, [userProjectList, selectedCategories, page]); 
 
   return (
     <section className="projects-section">
