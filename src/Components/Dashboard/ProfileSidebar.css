@@ -1,52 +1,77 @@
-.sidebar-container {
-  display: flex;
-  flex-direction: column; 
-  align-items: center; 
-  //gap: px; 
-  //box-sizing:border-box;
- //position:absolute;
-  margin-right:0;
- //width:100%;
-  //height:100%;
-  
-}
+
 
 .profile-sidebar1 {
   background-color: #ffffff;
-  padding: 20px 0px 20px 20px;;
-  //width: 280px; 
+  align-items: center;
+  align-content: center;
+  padding: 20px 20px 20px 20px;
+  width: 228px; 
+  
   border-radius: 15px; 
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
-  box-sizing:border-box;
+ gap:16px;
  
 }
 
+.profile-line-request{
+  display: flex;
+  flex-direction: column;
+}
+
+
+
 .profile {
   display: flex;
-  align-items: center; 
-  margin-bottom: 15px; 
-}
-
-.profile img {
-  width: 30%;
-  //height: 80px; 
-  border-radius: 50%; 
-  margin-right: 15px; 
-  object-fit: cover; 
-  border: 2px solid white; 
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-}
-
-.profile,.text-info {
-  text-align: left; 
-  display: flex;
   flex-direction: row;
+}
+
+.profile-pic {
+  width: 73px;
+height: 73px;
+
+border-radius: 120.3px ;
+
+
+}
+
+.text-info {
+  width:108px;
+height: 38px;
+gap: 1px;
+opacity: 0px;
+margin: auto;
+  align-items: center;
+  text-align: center; 
+  
   box-sizing:border-box;
-  p{
-    box-sizing:border-box;
-  }
+  display: flex;
+  flex-direction: column;
   
 }
+.profile-Name{
+  width: 108px;
+ height: 24px;
+
+
+  margin: 0; 
+  font-size: 14px; 
+  color: #333333;
+}
+
+ .profile-web {
+  width: 108px;
+ height: 13px;
+
+  margin: -10px  15px  0;
+  font-size: 11px;
+  color: #888888; 
+  display: block; /* Make the link a block-level element */
+  overflow: hidden; /* Hide any overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  white-space: nowrap;
+
+}
+
 .profile-line-container {
   width: 90%; /* Ensures it covers the full width */
   margin-top: -10px; /* Adjust as needed to move it up */
@@ -54,22 +79,9 @@
 }
 
 .profile-line {
-  width: 100%; /* Makes the image responsive to the container width */
-  display: block; /* Ensures it behaves as a block element */
-  margin-top:5px;
+  border: 1px solid #D8D8D8
 }
 
-.profile h3 {
-  margin: 0; 
-  font-size: 14px; 
-  color: #333333;
-}
-
-.profile p {
-  margin: -10px  15px  0;
-  font-size: 11px;
-  color: #888888; 
-}
 
 .request-info {
   font-size: 14px;
@@ -78,13 +90,13 @@
   text-align: left; 
   padding:0px 15px;
 }
-.request-info span {
+span {
   display: flex;
   align-items: center;
   margin: 5px 0;
 }
 
-.request-info .dot {
+.dot {
   height: 8px;
   width: 8px;
   background-color: rgba(35, 152, 82, 1); 
@@ -93,21 +105,24 @@
   margin-right: 8px; 
 }
 
-button {
-  background-color: #f1f1f1; 
-  color: #333333; 
-  padding: 10px 20px; 
-  border: none; 
-  border-radius: 8px; 
-  cursor: pointer; 
-  font-size: 16px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  width: 50%; 
-  margin: 0 auto; /* Centers the button */
-  display: block; /* Ensures it behaves as a block element */
+
+.btn {
+  display: flex;
+  justify-content: center;
 }
 
-
-button:hover {
-  background-color: #e1e1e1; 
+.edit-btn{
+  
+  width: 168px;
+  height: 39px;
+  padding: 11px 47px 11px 47px;
+  gap: 10px;
+  border-radius: 5px;
+ border: none;
+  
+  
+  box-sizing: border-box;
+   &:hover{
+    cursor: pointer;
+  }
 }

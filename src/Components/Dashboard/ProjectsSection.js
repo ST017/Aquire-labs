@@ -235,31 +235,37 @@ const ProjectsSection = () => {
         <input type="text" placeholder="Search Project..." onChange={handleSearch} />
       </div>
       
-      
+      <div className='popular-pagination-heading'>
       <div className='popular-projects'>
-        <p>Popular Projects🔥</p>
+       <div className="pp"> Popular Projects🔥</div>
+      
+      </div>
       <div className='pagination-popular'>
       <ReactPaginate
-        containerClassName={"pagination"}
-        activeClassName={"active"}
-        pageClassName={"page-item"}
-        onPageChange={(event) => setPage(event.selected)}
-        breakLabel="..."
-        pageCount={Math.ceil(userProjectList.length / n)}
-        previousLabel={
-          <IconContext.Provider value={{ color: "rgba(255, 255, 255, 1)", size: "36px" }}>
-            <AiFillLeftCircle/>
-          </IconContext.Provider>
-        }
-        nextLabel={
-          <IconContext.Provider value={{ color: "rgba(255, 255, 255, 1)", size: "36px" }}>
-            <AiFillRightCircle/>
-          </IconContext.Provider>
-        }
-      />
+  containerClassName={"pagination"}
+  activeClassName={"active"}
+  pageClassName={"page-item"}
+  onPageChange={(event) => setPage(event.selected)}
+  breakLabel="..."
+  pageCount={Math.ceil(userProjectList.length / n)}
+  previousLabel={
+    <div className="arrow">
+      <IconContext.Provider value={{ color: "#FFFFFF", size: "36px" }}>
+        <AiFillLeftCircle />
+      </IconContext.Provider>
+    </div>
+  }
+  nextLabel={
+    <div className="arrow">
+      <IconContext.Provider value={{ color: "#FFFFFF", size: "36px" }}>
+        <AiFillRightCircle />
+      </IconContext.Provider>
+    </div>
+  }
+/>
+
       </div>
       </div>
-      
       <div className='card-list'>
         {
           filterData.length>0 ?(filterData.map((ele,i)=>{

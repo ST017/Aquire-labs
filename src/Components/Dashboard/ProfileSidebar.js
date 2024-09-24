@@ -67,23 +67,26 @@ const ProfileSidebar = ({ User }) => {
 
   return (
     <div className="sidebar-container">
-      <aside className="profile-sidebar1">
+      <div className="profile-sidebar1">
+        <div className='profile-line-request'>
         <div className="profile">
           <img src="https://via.placeholder.com/100" alt="profile" className="profile-pic" />
           <div className="text-info">
-            <h3>{userDetail?.firstname} {userDetail?.lastname}</h3>
-            <p>{userProject[0]?.website || 'No website available'}</p>
+            <div className="profile-Name">{userDetail?.firstname} {userDetail?.lastname}</div>
+            <div className="profile-web">{userProject[0]?.website || 'No website available'}</div>
           </div>
         </div>
-        <div className="profile-line-container">
-          <img src={ProfileLine} alt='profile-line' className="profile-line" />
-        </div>
+        
+          <div className="profile-line"></div> 
+        
         <div className="request-info">
           <span><span className="dot"></span>{userSubsDetail[0]?.credits || 0} Available Requests</span>
           <span><span className="dot"></span>{requestSentCount} Sent Requests</span>
         </div>
-        <button>Edit Profile</button>
-      </aside>
+        </div>
+        <div className='btn'>
+        <button className='edit-btn'>Edit Profile</button></div>
+      </div>
     </div>
   );
 };

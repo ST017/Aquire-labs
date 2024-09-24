@@ -35,18 +35,58 @@
     box-sizing:border-box;
   }
 
+  .popular-pagination-heading {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+   box-sizing: border-box;
+
+   width: 901px;
+    height: 52px;
+    padding: 0px 10px 0px 10px;
+    gap: 380px;
+    opacity: 0px;
+
+
+
+
+  }
+
   .popular-projects{
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    margin:5px;
-    box-sizing:border-box;
+    
+    width: 163px;
+    height: 44px;
+    
+    
+    
+   
     
   }
+   .pp{
+   width:127px;
+   height: 24px;
+
+
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+text-align: center;
+box-sizing: border-box;
+white-space: nowrap;
+
+
+
+
+  }
   .pagination-popular {
-    box-sizing:border-box;
-    justify-content:flex-end;
+    display: flex;
+    justify-content: center;
+    /* width: 100%; Make the div take up the full width */
     margin:auto;
+    
+    
    
   }
   .project-cards {
@@ -81,7 +121,7 @@
     margin-top: 10px;
   }
   
-  .tags span {
+  .project-card span {
     background-color: #007bff;
     color: #fff;
     padding: 5px 10px;
@@ -100,4 +140,49 @@
   /* .filter{
     position: static;
   } */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .page-item {
+    width: 32px;
+    height: 32px;
+    margin: 0 5px;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  .active {
+    background-color: #f0f0f0;
+    border-color: #ddd;
+    font-weight: bold;
+  }
+  
+  .page-item:hover {
+    background-color: #e5e5e5;
+  }
+  
+  .pagination ,a {
+    text-decoration: none;
+    color: #000000;
+  }
+  
+  .arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    padding: 10px;
+    
+    border-radius: 10px;
+    cursor: pointer;
+    box-sizing: border-box; 
+  }
   
