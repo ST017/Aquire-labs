@@ -1,11 +1,12 @@
 .edit-profile {
     width: 548px; /* Adjusted width to accommodate two columns */
-    //height:851px;
+    /* //height:851px; */
     padding: 0px 10px 24px 10px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
+    
   }
   
   .edit-profile  {

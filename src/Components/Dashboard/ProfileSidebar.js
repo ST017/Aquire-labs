@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import ProfileLine from "../../Images/ProfileLine.png";
 import ShimmerUiProjectSlider from './ShimmerUiProjectSlider';
 import { db } from '../Firebase/firebase';
+import EditProfile from './EditProfile'
 
 const ProfileSidebar = ({ User }) => {
   const [userSubsDetail, setUserSubDetail] = useState([]);
@@ -11,7 +12,10 @@ const ProfileSidebar = ({ User }) => {
   const [userProject, setUserProject] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userDetail, setUserDetail] = useState(null); // Store user details separately
+   const [isEditprofile, setIsEditProfile] = useState(false);
 
+
+  
   // Fetch all required data
   const fetchData = async () => {
     if (!User) return;
@@ -61,6 +65,19 @@ const ProfileSidebar = ({ User }) => {
     fetchData();
   }, [User]); // Re-fetch data when User changes
 
+  useEffect(() => {
+    if (isEditprofile) {
+      document.body.style.overflow = 'hidden'; // Disable scrolling
+    } else {
+      document.body.style.overflow = ''; // Re-enable scrolling when modal is closed
+    }
+    
+    // Cleanup on unmount or when modal is closed
+    // return () => {
+    //   document.body.style.overflow = '';
+    // };
+  }, [isEditprofile]);
+
   if (loading) {
     return <ShimmerUiProjectSlider />;
   }
@@ -70,7 +87,7 @@ const ProfileSidebar = ({ User }) => {
       <div className="profile-sidebar1">
         <div className='profile-line-request'>
         <div className="profile">
-          <img src="https://via.placeholder.com/100" alt="profile" className="profile-pic" />
+          <img src={userProject[0].profilePicture} alt="profile" className="profile-pic" />
           <div className="text-info">
             <div className="profile-Name">{userDetail?.firstname} {userDetail?.lastname}</div>
             <div className="profile-web">{userProject[0]?.website || 'No website available'}</div>
@@ -85,9 +102,35 @@ const ProfileSidebar = ({ User }) => {
         </div>
         </div>
         <div className='btn'>
-        <button className='edit-btn' onClick={()=>window.open("/editprofile","_blank")}>Edit Profile</button></div>
+        <button className='edit-btn' onClick={()=>{setIsEditProfile(true)}}>Edit Profile</button>
+        {isEditprofile && (
+  <div
+    className="modal-container"
+    style={{
+      position: "fixed",
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 50,
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    }}
+   
+  >
+    <div className="edit-profile1">
+      <EditProfile  setIsEditProfile={setIsEditProfile} />
+    </div>
+  </div>
+)}
+        </div>
       </div>
     </div>
+
+    
+    
   );
 };
 

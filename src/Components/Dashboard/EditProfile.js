@@ -1,55 +1,48 @@
 import React, { useEffect, useState } from "react";
 import "./EditProfile.css";
 import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db } from '../Firebase/firebase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { CategoryList, EcosystemsList, FundingStageList, LocationList } from "./Filterlists";
 import { sassTrue } from "sass";
 import { toast, ToastContainer } from "react-toastify";
-const EditProfile = () => {
-    
-    const [userProject, setUserProject] = useState([]);
-    
-    const [userDetail, setUserDetail] = useState(null); // Store user details separately
+const EditProfile = ({setIsEditProfile}) => {
+  const [userProject, setUserProject] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
 
-    const [currentUser, setCurrentUser] = useState(null);
+  // Form States
+  const [projectName, setProjectName] = useState(userProject.name);
+  const [website, setWebsite] = useState(userProject.website);
+  const [location, setLocation] = useState("");
+  const [fundingStage, setFundingStage] = useState(userProject.fundingStatus);
+  const [partnership, setPartnership] = useState(userProject.category);
+  const [ecosystem, setEcosystem] = useState(userProject.blockchain);
+  const [bioData, setBioData] = useState("");
+  const [whitepaper, setWhitepaper] = useState(userProject.whitepaper);
+  const [githubLink, setGithubLink] = useState("");
+  const [projectStatement, setProjectStatement] = useState(userProject.descr);
+  const [coverPicture, setCoverPicture] = useState(null); // Holds the file for cover picture
+  const [profilePicture, setProfilePicture] = useState(null); // Holds the file for profile picture
 
-    //Form States
-    const [projectName, setProjectName] = useState(userProject.name);
-    const [website, setWebsite] = useState(userProject.website);
-    const [location, setLocation] = useState("");
-    const [fundingStage, setFundingStage] = useState(userProject.fundingStatus);
-    const [partnership, setPartnership] = useState(userProject.category);
-    const [ecosystem, setEcosystem] = useState(userProject.blockchain);
-    const [bioData, setBioData] = useState("");
-    const [whitepaper, setWhitepaper] = useState(userProject.whitepaper);
-    const [githubLink, setGithubLink] = useState("");
-    const [projectStatement, setProjectStatement] = useState(userProject.descr);
-    const [coverPicture, setCoverPicture] = useState(null);
-    const [profilePicture, setProfilePicture] = useState(null);
+  const [isProfileEditing, setIsProfileEditing] = useState(false);
 
-    const [isProfileEditing,setIsProfileEditing]=useState(false)
-  
+  const storage = getStorage();
 
   useEffect(() => {
     const auth = getAuth();
-    // Listen for authentication state changes
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
       }
-      
     });
-    // Cleanup the listener on unmount
     return () => unsubscribe();
   }, []);
-  
-  // Fetch all required data
+
   const fetchData = async () => {
     if (!currentUser) return;
 
     try {
-      // Fetch User Data
       const userQuery = query(collection(db, "User"), where("id", "==", currentUser.uid));
       const userQuerySnapshot = await getDocs(userQuery);
       if (userQuerySnapshot.empty) {
@@ -59,9 +52,8 @@ const EditProfile = () => {
       const userDetail = userQuerySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
-      }))[0]; // Get the first document
-      setUserDetail(userDetail);
-
+      }))[0];
+      
       // Fetch User Projects
       const userProjectQuery = query(collection(db, "UserProject"), where("userId", "==", currentUser.uid));
       const userProjectQuerySnapshot = await getDocs(userProjectQuery);
@@ -70,64 +62,102 @@ const EditProfile = () => {
         id: doc.id,
       }));
       setUserProject(userProjectd[0]);
-
-      
-
-   
-      
     } catch (error) {
       console.error(error);
-    } 
+    }
   };
 
   useEffect(() => {
     fetchData();
-    
-  }, [currentUser]); // Re-fetch data when User changes
+  }, [currentUser]);
 
+  // File change handlers
+  const handleCoverPictureChange = (e) => {
+    const file = e.target.files[0];
+  if (file && file.size <= 10 * 1024 * 1024) { // Check if file size is within the 10MB limit
+    setCoverPicture(file);
+  } else {
+    toast.error("File size exceeds 10MB limit.");
+  }
+  };
+
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+  if (file && file.size <= 10 * 1024 * 1024) { // Check if file size is within the 10MB limit
+    setProfilePicture(file);
+  } else {
+    toast.error("File size exceeds 10MB limit.");
+  }
+    
+  };
+
+  const uploadFile = async (file, folder) => {
+    
+          if (!file) return null;
+
+        const fileRef = ref(storage, `${folder}/${currentUser.uid}/${file.name}`);
+        await uploadBytes(fileRef, file);
+        const fileURL = await getDownloadURL(fileRef);
+        return fileURL;
   
+  
+}
+   
+   
 
+  const handleSave = async () => {
+    if ((coverPicture && coverPicture.size > 10 * 1024 * 1024) 
+    ) {
+  toast.error("One or more files exceed the 10MB size limit.");
+  return; // Stop the process if validation fails
+}
+if (
+    (profilePicture && profilePicture.size > 10 * 1024 * 1024)) {
+  toast.error("One or more files exceed the 10MB size limit.");
+  return; // Stop the process if validation fails
+}
 
-   const handleSave= async()=>{
     try {
-        console.log("handlesave is working")
-        const docRef = doc(db, "UserProject", currentUser.uid);
-        await updateDoc(docRef, {
-          name: projectName,
-          website: website,
-          country: location,
-          fundingStatus: fundingStage,
-          category: partnership,
-          blockchain: ecosystem,
-         
-          whitepaper: whitepaper,
-          
-          descr: projectStatement,
-          
-        });
-        toast("Profile updated successfully!",{position:"top-center"});
-      } catch (error) {
-        console.error("Error updating profile: ", error);
-      }
+      
+      
 
-   }
+  // Proceed with uploading if files are valid or empty
+  const coverPictureURL = coverPicture ? await uploadFile(coverPicture, 'coverPictures') : null;
+  const profilePictureURL = profilePicture ? await uploadFile(profilePicture, 'profilePictures') : null;
 
-   const handleEdit=()=>{
-    setProjectName(userProject.name)
-    setWebsite(userProject.website)
-    
-    setFundingStage(userProject.fundingStatus)
-    setPartnership(userProject.category)
-    setEcosystem(userProject.blockchain)
-    
-    setWhitepaper(userProject.whitepaper)
-    
-    setProjectStatement(userProject.descr)
-    setIsProfileEditing(true)
-    
-   }
+      // const coverPictureURL = await uploadFile(coverPicture, 'coverPictures');
+      // const profilePictureURL = await uploadFile(profilePicture, 'profilePictures');
 
 
+      const docRef = doc(db, "UserProject", userProject.id);
+      await updateDoc(docRef, {
+        name: projectName,
+        website: website,
+        country: location,
+        fundingStatus: fundingStage,
+        category: partnership,
+        blockchain: ecosystem,
+        whitepaper: whitepaper,
+        descr: projectStatement,
+        coverPicture: coverPictureURL || userProject.coverPicture,  // Store URL in Firestore
+        profilePicture: profilePictureURL || userProject.profilePicture,  // Store URL in Firestore
+      });
+      toast("Profile updated successfully!", { position: "top-center" });
+    } catch (error) {
+      console.error("Error updating profile: ", error);
+    }
+  };
+
+  const handleEdit = () => {
+    setProjectName(userProject.name);
+    setWebsite(userProject.website);
+    setFundingStage(userProject.fundingStatus);
+    setPartnership(userProject.category);
+    setEcosystem(userProject.blockchain);
+    setWhitepaper(userProject.whitepaper);
+    setProjectStatement(userProject.descr);
+    setIsProfileEditing(true);
+  };
 
 
   
@@ -265,6 +295,7 @@ const EditProfile = () => {
                 name="coverPicture"
                 placeholder="JPG, PNG or PDF, file size no more than 10MB"
                 accept=".jpg,.png,.pdf"
+                onChange={handleCoverPictureChange}
               />
               
             </div>
@@ -276,12 +307,13 @@ const EditProfile = () => {
                 name="profilePicture"
                 placeholder="JPG, PNG or PDF, file size no more than 10MB"
                 accept=".jpg,.png,.pdf"
+                onChange={handleProfilePictureChange}
               />
               
             </div>
     
             <div className="form-actions">
-              <button type="button" className="cancel-btn">
+              <button type="button" className="cancel-btn" onClick={()=>setIsEditProfile(false)}>
                 Cancel
               </button>
               <button onClick={handleEdit} className="save-btn">
@@ -423,6 +455,8 @@ const EditProfile = () => {
                 name="coverPicture"
                 placeholder="JPG, PNG or PDF, file size no more than 10MB"
                 accept=".jpg,.png,.pdf"
+                onChange={handleCoverPictureChange}
+
               />
              
             </div>
@@ -434,12 +468,13 @@ const EditProfile = () => {
                 name="profilePicture"
                 placeholder="JPG, PNG or PDF, file size no more than 10MB"
                 accept=".jpg,.png,.pdf"
+                onChange={handleProfilePictureChange}
               />
               
             </div>
     
             <div className="form-actions">
-              <button type="button" className="cancel-btn">
+              <button type="button" className="cancel-btn" onClick={()=>setIsEditProfile(false)} >
                 Cancel
               </button>
               <button onClick={handleSave} className="save-btn">
