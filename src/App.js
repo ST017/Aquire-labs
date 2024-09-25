@@ -6,6 +6,7 @@ import Home from "./Components/Home";
 
 import ResetPassword from "./Components/ResetPassword";
 import Dashboard from "./Components/Dashboard/Dashboard";
+import EditProfile from "./Components/Dashboard/EditProfile";
 
 
 
@@ -19,7 +20,7 @@ function App() {
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/resetpassword" element={<ResetPassword/>}/>
-         
+          <Route path="/editprofile" element={<EditProfile/>}/>
         </Routes>
       </Router>
     </div>

@@ -85,7 +85,7 @@ const ProfileSidebar = ({ User }) => {
         </div>
         </div>
         <div className='btn'>
-        <button className='edit-btn'>Edit Profile</button></div>
+        <button className='edit-btn' onClick={()=>window.open("/editprofile","_blank")}>Edit Profile</button></div>
       </div>
     </div>
   );
