@@ -9,18 +9,19 @@ import { sassTrue } from "sass";
 import { toast, ToastContainer } from "react-toastify";
 const EditProfile = ({setIsEditProfile}) => {
   const [userProject, setUserProject] = useState([]);
+  const [userDetail, setUserDetail] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
   // Form States
   const [projectName, setProjectName] = useState(userProject.name);
   const [website, setWebsite] = useState(userProject.website);
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState(null);
   const [fundingStage, setFundingStage] = useState(userProject.fundingStatus);
   const [partnership, setPartnership] = useState(userProject.category);
   const [ecosystem, setEcosystem] = useState(userProject.blockchain);
-  const [bioData, setBioData] = useState("");
+  const [bioData, setBioData] = useState(userProject.biodata || "");
   const [whitepaper, setWhitepaper] = useState(userProject.whitepaper);
-  const [githubLink, setGithubLink] = useState("");
+  const [githubLink, setGithubLink] = useState(userProject.githubLink || "");
   const [projectStatement, setProjectStatement] = useState(userProject.descr);
   const [coverPicture, setCoverPicture] = useState(null); // Holds the file for cover picture
   const [profilePicture, setProfilePicture] = useState(null); // Holds the file for profile picture
@@ -43,6 +44,7 @@ const EditProfile = ({setIsEditProfile}) => {
     if (!currentUser) return;
 
     try {
+      // Fetch User Data
       const userQuery = query(collection(db, "User"), where("id", "==", currentUser.uid));
       const userQuerySnapshot = await getDocs(userQuery);
       if (userQuerySnapshot.empty) {
@@ -52,7 +54,8 @@ const EditProfile = ({setIsEditProfile}) => {
       const userDetail = userQuerySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
-      }))[0];
+      }))[0]; // Get the first document
+      setUserDetail(userDetail);
       
       // Fetch User Projects
       const userProjectQuery = query(collection(db, "UserProject"), where("userId", "==", currentUser.uid));
@@ -105,7 +108,7 @@ const EditProfile = ({setIsEditProfile}) => {
    
    
 
-  const handleSave = async () => {
+  /* const handleSave = async () => {
     if ((coverPicture && coverPicture.size > 10 * 1024 * 1024) 
     ) {
   toast.error("One or more files exceed the 10MB size limit.");
@@ -139,14 +142,114 @@ if (
         blockchain: ecosystem,
         whitepaper: whitepaper,
         descr: projectStatement,
+        biodata: bioData || userProject.biodata,
+        githubLink:githubLink || userProject.githublink,
+        location:location || userProject.location,
         coverPicture: coverPictureURL || userProject.coverPicture,  // Store URL in Firestore
         profilePicture: profilePictureURL || userProject.profilePicture,  // Store URL in Firestore
       });
-      toast("Profile updated successfully!", { position: "top-center" });
+      toast.success("Profile updated successfully!",{position:"top-center"});
     } catch (error) {
+        toast.error(error,{position:"top-center"})
+      console.error("Error updating profile: ", error);
+    }
+  }; */
+
+  /* const handleSave = async () => {
+    // Check file sizes before proceeding
+    if ((coverPicture && coverPicture.size > 10 * 1024 * 1024) || (profilePicture && profilePicture.size > 10 * 1024 * 1024)) {
+      toast.error("One or more files exceed the 10MB size limit.");
+      return;
+    }
+  
+    try {
+      // Upload files if present
+      const coverPictureURL = coverPicture ? await uploadFile(coverPicture, 'coverPictures') : null;
+      const profilePictureURL = profilePicture ? await uploadFile(profilePicture, 'profilePictures') : null;
+  
+      const docRef = doc(db, "UserProject", userProject.id);
+      
+      // Prepare the fields to update, conditionally excluding null values
+      const updatedData = {
+        name: projectName,
+        website: website,
+        country: location || userProject.country,
+        fundingStatus: fundingStage,
+        category: partnership,
+        blockchain: ecosystem,
+        whitepaper: whitepaper,
+        descr: projectStatement,
+        biodata: bioData || userProject.biodata,
+        coverPicture: coverPictureURL || userProject.coverPicture,
+        profilePicture: profilePictureURL || userProject.profilePicture,
+      };
+  
+      // Only include githubLink if it's not null or an empty string
+      if (githubLink !== null && githubLink !== "") {
+        updatedData.githubLink = githubLink;
+      }
+  
+      await updateDoc(docRef, updatedData);
+      toast.success("Profile updated successfully!", { position: "top-center" });
+    } catch (error) {
+      toast.error("Error updating profile: " + error, { position: "top-center" });
+      console.error("Error updating profile: ", error);
+    }
+  }; */
+
+  const handleSave = async () => {
+    // Check file sizes before proceeding
+    if ((coverPicture && coverPicture.size > 10 * 1024 * 1024) || (profilePicture && profilePicture.size > 10 * 1024 * 1024)) {
+      toast.error("One or more files exceed the 10MB size limit.");
+      return;
+    }
+  
+    try {
+      // Upload files if present
+      const coverPictureURL = coverPicture ? await uploadFile(coverPicture, 'coverPictures') : null;
+      const profilePictureURL = profilePicture ? await uploadFile(profilePicture, 'profilePictures') : null;
+  
+      const docRef = doc(db, "UserProject", userProject.id);
+      
+      // Prepare the fields to update, allowing githubLink to be null or empty
+      const updatedData = {
+        name: projectName,
+        website: website,
+        country: location || userProject.country,
+        fundingStatus: fundingStage,
+        category: partnership,
+        blockchain: ecosystem,
+        whitepaper: whitepaper,
+        descr: projectStatement,
+        biodata: bioData || userProject.biodata,
+        coverPicture: coverPictureURL || userProject.coverPicture,
+        profilePicture: profilePictureURL || userProject.profilePicture,
+        githubLink: githubLink || null,  // Explicitly set githubLink to null if it's empty
+      };
+  
+      await updateDoc(docRef, updatedData);
+
+      const docRefUser = doc(db, "User", currentUser.uid);
+      
+      // Prepare the fields to update, allowing githubLink to be null or empty
+      const updatedUserData = {
+        
+        profilePicture: profilePictureURL || userDetail.profilePicture,
+        
+      };
+      await updateDoc(docRefUser, updatedUserData);
+
+
+
+      toast.success("Profile updated successfully!", { position: "top-center" });
+      setIsEditProfile(false)
+    } catch (error) {
+      toast.error("Error updating profile: " + error, { position: "top-center" });
       console.error("Error updating profile: ", error);
     }
   };
+  
+  
 
   const handleEdit = () => {
     setProjectName(userProject.name);
@@ -156,6 +259,9 @@ if (
     setEcosystem(userProject.blockchain);
     setWhitepaper(userProject.whitepaper);
     setProjectStatement(userProject.descr);
+    setBioData(userProject.bioData || "")
+    setLocation(userProject.location)
+    setGithubLink(userProject.githubLink || "")
     setIsProfileEditing(true);
   };
 
@@ -252,7 +358,7 @@ if (
               <label>Bio Data *</label>
               <textarea
                 name="bioData"
-                value=""
+                value={userProject.bioData || ""}
                 onChange={(e)=>setBioData(e.target.value)}
                 required
               />
@@ -273,7 +379,7 @@ if (
               <input
                 type="url"
                 name="githubLink"
-                value=""
+                value={userProject.githubLink || ""}
                 onChange={(e)=>setGithubLink(e.target.value)}
               />
             </div>
@@ -294,8 +400,8 @@ if (
                 type="file"
                 name="coverPicture"
                 placeholder="JPG, PNG or PDF, file size no more than 10MB"
-                accept=".jpg,.png,.pdf"
-                onChange={handleCoverPictureChange}
+                
+                disabled
               />
               
             </div>
@@ -306,8 +412,8 @@ if (
                 type="file"
                 name="profilePicture"
                 placeholder="JPG, PNG or PDF, file size no more than 10MB"
-                accept=".jpg,.png,.pdf"
-                onChange={handleProfilePictureChange}
+                
+                disabled
               />
               
             </div>
@@ -412,7 +518,7 @@ if (
               <label>Bio Data *</label>
               <textarea
                 name="bioData"
-                value=""
+                value={bioData}
                 onChange={(e)=>setBioData(e.target.value)}
                 required
               />
@@ -433,7 +539,7 @@ if (
               <input
                 type="url"
                 name="githubLink"
-                value=""
+                value={githubLink}
                 onChange={(e)=>setGithubLink(e.target.value)}
               />
             </div>
