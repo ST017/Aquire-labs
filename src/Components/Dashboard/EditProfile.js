@@ -19,13 +19,13 @@ import {
   PartnershipInterestList,
 } from "./Filterlists";
 import close from "../../Images/close.png";
-
+ 
 import { toast, ToastContainer } from "react-toastify";
 const EditProfile = ({ setIsEditProfile }) => {
   const [userProject, setUserProject] = useState([]);
   const [userDetail, setUserDetail] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-
+ 
   // Form States
   const [projectName, setProjectName] = useState(userProject.name);
   const [website, setWebsite] = useState(userProject.website);
@@ -39,11 +39,11 @@ const EditProfile = ({ setIsEditProfile }) => {
   const [projectStatement, setProjectStatement] = useState(userProject.descr);
   const [coverPicture, setCoverPicture] = useState(null); // Holds the file for cover picture
   const [profilePicture, setProfilePicture] = useState(null); // Holds the file for profile picture
-
+ 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
-
+ 
   const storage = getStorage();
-
+ 
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -53,10 +53,10 @@ const EditProfile = ({ setIsEditProfile }) => {
     });
     return () => unsubscribe();
   }, []);
-
+ 
   const fetchData = async () => {
     if (!currentUser) return;
-
+ 
     try {
       // Fetch User Data
       const userQuery = query(
@@ -73,7 +73,7 @@ const EditProfile = ({ setIsEditProfile }) => {
         id: doc.id,
       }))[0]; // Get the first document
       setUserDetail(userDetail);
-
+ 
       // Fetch User Projects
       const userProjectQuery = query(
         collection(db, "UserProject"),
@@ -89,11 +89,11 @@ const EditProfile = ({ setIsEditProfile }) => {
       console.error(error);
     }
   };
-
+ 
   useEffect(() => {
     fetchData();
   }, [currentUser]);
-
+ 
   // File change handlers
   const handleCoverPictureChange = (e) => {
     const file = e.target.files[0];
@@ -104,7 +104,7 @@ const EditProfile = ({ setIsEditProfile }) => {
       toast.error("File size exceeds 10MB limit.");
     }
   };
-
+ 
   const handleProfilePictureChange = (e) => {
     const file = e.target.files[0];
     if (file && file.size <= 10 * 1024 * 1024) {
@@ -114,16 +114,16 @@ const EditProfile = ({ setIsEditProfile }) => {
       toast.error("File size exceeds 10MB limit.");
     }
   };
-
+ 
   const uploadFile = async (file, folder) => {
     if (!file) return null;
-
+ 
     const fileRef = ref(storage, `${folder}/${currentUser.uid}/${file.name}`);
     await uploadBytes(fileRef, file);
     const fileURL = await getDownloadURL(fileRef);
     return fileURL;
   };
-
+ 
   const handleSave = async () => {
     // Check file sizes before proceeding
     if (
@@ -133,7 +133,7 @@ const EditProfile = ({ setIsEditProfile }) => {
       toast.error("One or more files exceed the 10MB size limit.");
       return;
     }
-
+ 
     try {
       // Upload files if present
       const coverPictureURL = coverPicture
@@ -142,9 +142,9 @@ const EditProfile = ({ setIsEditProfile }) => {
       const profilePictureURL = profilePicture
         ? await uploadFile(profilePicture, "profilePictures")
         : null;
-
+ 
       const docRef = doc(db, "UserProject", userProject.id);
-
+ 
       // Prepare the fields to update, allowing githubLink to be null or empty
       const updatedData = {
         name: projectName,
@@ -160,17 +160,17 @@ const EditProfile = ({ setIsEditProfile }) => {
         profilePicture: profilePictureURL || userProject.profilePicture,
         githubLink: githubLink || null, // Explicitly set githubLink to null if it's empty
       };
-
+ 
       await updateDoc(docRef, updatedData);
-
+ 
       const docRefUser = doc(db, "User", currentUser.uid);
-
+ 
       // Prepare the fields to update, allowing githubLink to be null or empty
       const updatedUserData = {
         profilePicture: profilePictureURL || userDetail.profilePicture,
       };
       await updateDoc(docRefUser, updatedUserData);
-
+ 
       alert("Profile updated successfully!");
       setIsEditProfile(false);
     } catch (error) {
@@ -180,7 +180,7 @@ const EditProfile = ({ setIsEditProfile }) => {
       console.error("Error updating profile: ", error);
     }
   };
-
+ 
   const handleEdit = () => {
     setProjectName(userProject.name);
     setWebsite(userProject.website);
@@ -189,12 +189,12 @@ const EditProfile = ({ setIsEditProfile }) => {
     setEcosystem(userProject.blockchain);
     setWhitepaper(userProject.whitepaper);
     setProjectStatement(userProject.descr);
-    setBioData(userProject.bioData);
+    setBioData(userProject.biodata);
     setLocation(userProject.location);
     setGithubLink(userProject.githubLink || "");
     setIsProfileEditing(true);
   };
-
+ 
   if (!isProfileEditing) {
     return (
       <div className="edit-profile">
@@ -209,10 +209,10 @@ const EditProfile = ({ setIsEditProfile }) => {
           <h2>Edit Profile</h2>
           <div>
             <img src={close} alt="close" style={{ cursor: "pointer" }} onClick={() => setIsEditProfile(false)}/>{" "}
-            
+           
           </div>
         </div>
-
+ 
         <div className="form-row">
           <div className="form-group">
             <label>Project Name *</label>
@@ -224,7 +224,7 @@ const EditProfile = ({ setIsEditProfile }) => {
               required
             />
           </div>
-
+ 
           <div className="form-group">
             <label>Website *</label>
             <input
@@ -236,7 +236,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             />
           </div>
         </div>
-
+ 
         <div className="form-row">
           <div className="form-group">
             <label>Location</label>
@@ -250,7 +250,7 @@ const EditProfile = ({ setIsEditProfile }) => {
               })}
             </select>
           </div>
-
+ 
           <div className="form-group">
             <label>Funding Stage</label>
             <select
@@ -264,7 +264,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             </select>
           </div>
         </div>
-
+ 
         <div className="form-row">
           <div className="form-group">
             <label>Partnership Interests</label>
@@ -278,7 +278,7 @@ const EditProfile = ({ setIsEditProfile }) => {
               })}
             </select>
           </div>
-
+ 
           <div className="form-group">
             <label>Ecosystem</label>
             <select
@@ -292,17 +292,17 @@ const EditProfile = ({ setIsEditProfile }) => {
             </select>
           </div>
         </div>
-
+ 
         <div className="form-group">
           <label>Bio Data *</label>
           <textarea
             name="bioData"
-            value={userProject.bioData}
+            value={userProject.biodata}
             onChange={(e) => setBioData(e.target.value)}
             required
           />
         </div>
-
+ 
         <div className="form-group">
           <label>Whitepaper</label>
           <input
@@ -312,7 +312,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             onChange={(e) => setWhitepaper(e.target.value)}
           />
         </div>
-
+ 
         <div className="form-group">
           <label>Github Link</label>
           <input
@@ -322,7 +322,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             onChange={(e) => setGithubLink(e.target.value)}
           />
         </div>
-
+ 
         <div className="form-group">
           <label>Statement for projects *</label>
           <textarea
@@ -332,7 +332,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             required
           />
         </div>
-
+ 
         <div className="form-group file-input">
           <label>Cover picture</label>
           <input
@@ -342,7 +342,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             disabled
           />
         </div>
-
+ 
         <div className="form-group file-input">
           <label>Profile picture</label>
           <input
@@ -352,7 +352,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             disabled
           />
         </div>
-
+ 
         <div className="form-actions">
           <button
             type="button"
@@ -385,7 +385,7 @@ const EditProfile = ({ setIsEditProfile }) => {
            
           </div>
         </div>
-
+ 
         <div className="form-row">
           <div className="form-group">
             <label>Project Name *</label>
@@ -397,7 +397,7 @@ const EditProfile = ({ setIsEditProfile }) => {
               required
             />
           </div>
-
+ 
           <div className="form-group">
             <label>Website *</label>
             <input
@@ -409,7 +409,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             />
           </div>
         </div>
-
+ 
         <div className="form-row">
           <div className="form-group">
             <label>Location</label>
@@ -423,7 +423,7 @@ const EditProfile = ({ setIsEditProfile }) => {
               })}
             </select>
           </div>
-
+ 
           <div className="form-group">
             <label>Funding Stage</label>
             <select
@@ -437,7 +437,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             </select>
           </div>
         </div>
-
+ 
         <div className="form-row">
           <div className="form-group">
             <label>Partnership Interests</label>
@@ -451,7 +451,7 @@ const EditProfile = ({ setIsEditProfile }) => {
               })}
             </select>
           </div>
-
+ 
           <div className="form-group">
             <label>Ecosystem</label>
             <select
@@ -465,7 +465,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             </select>
           </div>
         </div>
-
+ 
         <div className="form-group">
           <label>Bio Data *</label>
           <textarea
@@ -475,7 +475,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             required
           />
         </div>
-
+ 
         <div className="form-group">
           <label>Whitepaper</label>
           <input
@@ -485,7 +485,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             onChange={(e) => setWhitepaper(e.target.value)}
           />
         </div>
-
+ 
         <div className="form-group">
           <label>Github Link</label>
           <input
@@ -495,7 +495,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             onChange={(e) => setGithubLink(e.target.value)}
           />
         </div>
-
+ 
         <div className="form-group">
           <label>Statement for projects *</label>
           <textarea
@@ -505,7 +505,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             required
           />
         </div>
-
+ 
         <div className="form-group file-input">
           <label>Cover picture</label>
           <input
@@ -516,7 +516,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             onChange={handleCoverPictureChange}
           />
         </div>
-
+ 
         <div className="form-group file-input">
           <label>Profile picture</label>
           <input
@@ -527,7 +527,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             onChange={handleProfilePictureChange}
           />
         </div>
-
+ 
         <div className="form-actions">
           <button
             type="button"
@@ -540,11 +540,11 @@ const EditProfile = ({ setIsEditProfile }) => {
             Save
           </button>
         </div>
-
+ 
         <ToastContainer />
       </div>
     );
   }
 };
-
+ 
 export default EditProfile;

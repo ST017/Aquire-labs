@@ -3,6 +3,9 @@ import "./CompanyDetails.css";
 import Navbar from "./Dashboard/Navbar";
 import receivelogo from "../Images/Received.png";
 import sentlogo from "../Images/Sent.png";
+import locationlogo from "../Images/loaction.png";
+import breadcrumb from "../Images/breadcrumb.png";
+import rightchevron from "../Images/chevron-right.png";
 
  
 const CompanyDetails = () => {
@@ -11,15 +14,27 @@ const CompanyDetails = () => {
   return (
     <>
       <Navbar />
+      <div aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item"><img src={breadcrumb} alt="home"/><a href="/dashboard">Home</a></li>
+            
+            <li class="breadcrumb-item active" aria-current="page">Current Page</li>
+        </ol>
+        </div>
+            
+
       <div className="company-details">
+    
+        
         {/* Header */}
         <div className="header-container">
-          <div className="header-section"><img className="header-section" src="" alt="cover-picture"/></div>
+          <div className="header-section"><img className="cover-photo" src={selectedProject?.coverPicture} alt="cover-picture"/></div>
           <div className="subconatiner">
                 <div className="profile-container">
-                <div className="profile-logo"></div>
+                <div className="profile-logo"><img className="profile-photo" src={selectedProject?.profilePicture} alt="profile-picture"/></div>
                 <div className="profile-text">
-                    <h6>Deal! Job</h6>
+                    <h6>{selectedProject?.name}</h6>
+                    <h6><img src={locationlogo} alt="location"/>{selectedProject?.city}{selectedProject?.country}</h6>
                 </div>
             </div>
             <div className="inner">
@@ -36,7 +51,7 @@ const CompanyDetails = () => {
             <div className="biodata-card1">
               <p className="biodata-heading">Biodata</p>
               <p className="biodata-text">
-                {selectedProject?.bioData || ""}
+                {selectedProject?.descr || ""}
                 
               </p>
             </div>

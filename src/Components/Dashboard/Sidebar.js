@@ -26,7 +26,7 @@ const Sidebar= () => {
   return (
     <aside className='side-content'>
 
-      <div>
+      <div className='side-div'>
         <h3 onClick={toggleProfile}>{isProfileExpanded ? '-' : '+'}Profile Status </h3>
         {isProfileExpanded && (
           ProfileStatusList.map((ele,i)=>{

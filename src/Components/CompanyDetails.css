@@ -12,6 +12,12 @@
   overflow-wrap: normal;
    
 }
+.cover-photo{
+
+    width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
  
 .header-container{
    
@@ -30,6 +36,7 @@
     height: 291px;
 border:1px solid red;
 border-radius: 8px ;
+overflow: hidden;
  
  
  
@@ -60,6 +67,7 @@ border-radius: 8px ;
     display: flex;
     justify-content: space-between;
     height: 100px;
+    background-color: #FFFFFF;
    
 }
 .profile-container{
@@ -75,9 +83,15 @@ border-radius: 8px ;
     border: 2px 0px 0px 0px;
     opacity: 0px;
     position: relative;
-   
+   overflow: hidden;
+
  
    
+}
+
+.profile-photo{
+
+    object-fit: fill;
 }
 .profile-text {
     position: relative;
@@ -447,7 +461,7 @@ color:rgba(24, 25, 28, 1);
     height: 62px;
     padding: 10px 16px;
     gap: 9px;
-    border-radius: 8px 0px 0px 0px;
+    border-radius: 8px ;
     //border: 1px solid;
     box-sizing: border-box;
     background-color:rgba(255, 255, 255, 1);
@@ -485,3 +499,57 @@ border-radius: 5px 0px 0px 0px;
 background-color:rgba(26, 13, 171, 1);
 
 }
+
+
+
+
+.breadcrumb {
+    justify-content: flex-start;
+    list-style: none;
+    display: flex;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .breadcrumb-item {
+    height: inherit;
+    align-items: center;
+    align-content: center;
+    font-size: 16px;
+     a {
+
+        position: relative;
+       padding: 5px;
+        
+        text-decoration: none;
+        color: #007bff;
+        align-items: center;
+        justify-content: center;
+        
+       
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+  }
+  
+ 
+  
+
+  .breadcrumb-item::after {
+    content: ""; /* Clear content to avoid text */
+    background-image: url('./../Images/chevron-right.png'); /* Path to your image */
+    background-size: contain; /* Adjust sizing */
+    background-repeat: no-repeat; /* Prevent repetition */
+    width: 16px; /* Set appropriate width */
+    height: 16px; /* Set appropriate height */
+    display: inline-block; /* Makes it act like an inline element */
+    margin-left: 8px; /* Space between text and image */
+    vertical-align: middle; /* Aligns with text */
+  }
+  
+  .breadcrumb-item:last-child::after {
+    content: "";
+  }
+  

@@ -112,6 +112,7 @@ background-color: transparent;
   display: flex;
 padding: 5px;
 width: 133px;
+align-items: center;
 height: 49px;
  
  
@@ -135,10 +136,10 @@ height: 49px;
  gap: 20px;
  
 }
- 
+/*  
 li {
     align-items: center;
        
  
  
-       }
+       } */
