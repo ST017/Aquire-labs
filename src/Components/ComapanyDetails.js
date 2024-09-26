@@ -83,7 +83,7 @@ const CompanyDetails = () => {
             {/* Request Type */}
             <div className="request-type-card1">
               <p className="request-type-heading">Request Type</p>
-              <p className="request-type-text">Technical Consultation, Funding, Listing...</p>
+              <p className="request-type-text"></p>
             </div>
  
             {/* Social Media */}
