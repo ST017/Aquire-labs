@@ -282,7 +282,7 @@ const ProjectsSection = () => {
 
       </div>
       </div>
-      <div className='card-list'>
+      <div className='card-list1'>
         {
           filterData.length>0 ?(filterData.map((ele,i)=>{
             return <Card onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.logo} desc={ele.descr} web={ele.website} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount}/>
