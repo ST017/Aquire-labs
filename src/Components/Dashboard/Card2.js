@@ -5,7 +5,7 @@ import Modal from "./ModalCategory";
 import { CategoryList } from "./Filterlists";
 import BookMark from "../../Images/Bookmark (2).png"
  
-const Card2 = ({name,logo,city,desc,requestReceivedCount,requestSentCount}) => {
+const Card2 = ({name,logo,city,desc,requestReceivedCount,requestSentCount,onClick}) => {
   // const [connects, setConnects] = useState(18);
   // const [proposals, setProposals] = useState(20);
 
@@ -22,7 +22,7 @@ const Card2 = ({name,logo,city,desc,requestReceivedCount,requestSentCount}) => {
  
   return (
     <>
-      <div className="card-container">
+      <div className="card-container" onClick={onClick}>
         <div className="card-logo">
           <img src={logo} alt="logo" aria-placeholder="img"></img>
         </div>

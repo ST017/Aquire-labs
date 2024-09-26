@@ -23,6 +23,7 @@ import ShimmerUiCard from './ShimmerUiCard';
 import ShimmerUiCard2 from './ShimmerUiCard2';
 // Add: Import the FilterContext to access the selected categories
 import { FilterContext } from './FilterContext'; 
+import CompanyDetails from '../ComapanyDetails';
 
 const cache={}
 
@@ -44,6 +45,21 @@ const ProjectsSection = () => {
   const [filterData, setFilterData] = useState([]);
   const [requestReceivedCount, setRequestReceivedCount] = useState(0);
   const [requestSentCount, setRequestSentCount] = useState(0);
+
+  const [selectedProject, setSelectedProject] = useState(null); // State to track the selected card
+
+  // Function to handle when a card is clicked
+  const handleCardClick = (project) => {
+    // Save project data to localStorage or sessionStorage
+    localStorage.setItem('selectedProject', JSON.stringify(project));
+    console.log("clicked")
+    
+    // Open the new page in a new tab
+    window.open('/companydetails', '_blank');
+  };
+  
+
+  
    // Add: Use the context to access selected categories
    const { selectedCategories } = useContext(FilterContext); 
 
@@ -269,7 +285,7 @@ const ProjectsSection = () => {
       <div className='card-list'>
         {
           filterData.length>0 ?(filterData.map((ele,i)=>{
-            return <Card key={ele.createdAt} name={ele.name} logo={ele.logo} desc={ele.descr} web={ele.website} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount}/>
+            return <Card onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.logo} desc={ele.descr} web={ele.website} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount}/>
           })):(arr.map((ele,i)=>{
             return <ShimmerUiCard/>
           }))
@@ -323,11 +339,14 @@ const ProjectsSection = () => {
       
       <div className='card2-list'>
         {filterData.length>0?(filterData.map((ele, i) => (
-          <Card2 key={ele.createdAt} name={ele.name} logo={ele.logo} city={ele.city} desc={ele.descr} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount} />
+          <Card2 onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.logo} city={ele.city} desc={ele.descr} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount} />
         ))):(arr.map((ele,i)=>{
           return <ShimmerUiCard2/>
-        }))}
-      </div>
+        }))} 
+        
+      </div> 
+
+
       <ToastContainer/>
     </section>
     

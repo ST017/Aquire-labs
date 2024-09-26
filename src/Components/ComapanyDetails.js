@@ -1,103 +1,101 @@
-import React from 'react';
-import './CompanyDetails.css';
+import React, { useEffect, useState } from "react";
+import "./CompanyDetails.css";
+import Navbar from "./Dashboard/Navbar";
+import receivelogo from "../Images/Received.png";
+import sentlogo from "../Images/Sent.png";
 
+ 
 const CompanyDetails = () => {
-    return (
-        <div className="company-details">
-            {/* Header */}
-            <div className="header-section">
-                
-                
-            </div>
-            <div className="profile-logo">
-                                
-            </div>
-            <div className='inner'>
-                        <div className="profile-text">
-                            <h6>Deal! Job</h6>
-                            
-                        </div> 
-            <button className="send-request-btn">Edit Profile</button>
-            </div>
-               
-
-            {/* Main Body */}
-            <div className="main-content">
-                {/* Left Section */}
-                <div className="left-section">
-                    {/* Biodata */}
-                    <div className="biodata-card">
-                        <h3>Biodata</h3>
-                        <p>
-                            I’ve been passionate about graphic design and digital art from an early age with a keen interest in Website and Mobile Application User Interfaces...
-                            {/* Add the rest of the content here */}
-                        </p>
-                    </div>
-
-                    {/* Ecosystem */}
-                    <div className="ecosystem-card">
-                        <h3>Ecosystem</h3>
-                        <p>
-                            Ethereum, Solana, Tron, Fantom, Skale Network, and more...
-                        </p>
-                    </div>
-
-                    {/* Partnership Interest */}
-                    <div className="partnership-card">
-                        <h3>Partnership Interested</h3>
-                        <p>AI & Big Data, Crowd Funding, Content Creation...</p>
-                    </div>
-
-                    {/* Whitepaper */}
-                    <div className="whitepaper-card">
-                        <h3>Whitepaper</h3>
-                        
-                    </div>
-
-                    {/* Statement for Projects */}
-                    <div className="statement-card">
-                        <h3>Statement for projects</h3>
-                        <p>
-                            I’ve been passionate about graphic design and digital art...
-                        </p>
-                    </div>
-                </div>
-                {/*right Section */}
-                <div className='right-section'>
-               
-                    
-                        <div className="stat-item">
-                            <p>Requests Received</p>
-                            <span>105</span>
-                        </div>
-                        <div className="stat-item">
-                            <p>Requests Sent</p>
-                            <span>105</span>
-                        </div>
-                    
-
-                    
-                    <div className="categories-card">
-                        <h3>Categories</h3>
-                        <p>AI & Big Data, Asset Management, Augmented Reality...</p>
-                    </div>
-
-                    {/* Request Type */}
-                    <div className="request-type-card">
-                        <h3>Request Type</h3>
-                        <p>Technical Consultation, Funding, Listing...</p>
-                    </div>
-
-                    {/* Social Media */}
-                    <div className="social-media-card">
-                        <h3>Social Media</h3>
-                        {/* Add icons or links to social media here */}
-                    </div>
-                    </div>
+    document.body.style.background="rgba(234, 239, 255, 1)"
+    const selectedProject = JSON.parse(localStorage.getItem('selectedProject'));
+  return (
+    <>
+      <Navbar />
+      <div className="company-details">
+        {/* Header */}
+        <div className="header-container">
+          <div className="header-section"><img className="header-section" src="" alt="cover-picture"/></div>
+          <div className="subconatiner">
+                <div className="profile-container">
+                <div className="profile-logo"></div>
+                <div className="profile-text">
+                    <h6>Deal! Job</h6>
                 </div>
             </div>
-       
-    );
+            <div className="inner">
+              <button className="send-request-btn">Edit Profile</button>
+            </div>
+          </div>
+        </div>
+ 
+        {/* Main Body */}
+        <div className="main-content1">
+          {/* Left Section */}
+          <div className="left-section1">
+            {/* Biodata */}
+            <div className="biodata-card1">
+              <p className="biodata-heading">Biodata</p>
+              <p className="biodata-text">
+                {selectedProject?.bioData || ""}
+                
+              </p>
+            </div>
+ 
+            {/* Ecosystem */}
+            <div className="ecosystem-card1">
+              <p className="ecosystem-heading">Ecosystem</p>
+              <p className="ecosytem-text">{selectedProject?.blockchain || ""}</p>
+            </div>
+ 
+            {/* Partnership Interest */}
+            <div className="partnership-card1">
+              <p className="partnership-heading">Partnership Interested</p>
+              <p className="partnership-text">{selectedProject?.partnershipInterest || ""}</p>
+            </div>
+ 
+            {/* Whitepaper */}
+            <div className="whitepaper-card1">
+              <p className="whitepaper-heading">Whitepaper:<a className="whitepaper-text">{selectedProject?.whitepaper}</a></p>
+            </div>
+ 
+            {/* Statement for Projects */}
+            <div className="statement-card1">
+              <p className="statement-heading">Statement for projects</p>
+              <p className="statement-text">
+               {selectedProject?.descr || ""}
+              </p>
+            </div>
+          </div>
+          {/*right Section */}
+          <div className="right-section1">
+            <div className="stat-item1">
+              <img src={receivelogo} alt="logo" className="received1-img1"/> <a className="stat-item1-text">Requests Received</a> <a className="number-stat">105</a>
+            </div>
+            <div className="stat-item1">
+            <img src={sentlogo} alt="logo" className="received1-img1"/><a className="stat-item1-text"> Requests Sent </a> <a className="number-stat">105</a>
+            </div>
+ 
+            <div className="categories-card1">
+              <p className="categories-heading">Categories</p>
+              <p className="categories-text">{selectedProject?.category || ""}</p>
+            </div>
+ 
+            {/* Request Type */}
+            <div className="request-type-card1">
+              <p className="request-type-heading">Request Type</p>
+              <p className="request-type-text">Technical Consultation, Funding, Listing...</p>
+            </div>
+ 
+            {/* Social Media */}
+            <div className="social-media-card1">
+              <p className="social-media-heading">Social Media</p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
-
+ 
 export default CompanyDetails;

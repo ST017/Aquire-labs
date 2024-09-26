@@ -7,9 +7,9 @@ import BookMark from "../../Images/Bookmark (2).png"
 
 
 
-const Card = ({name,logo,web,desc,requestReceivedCount,requestSentCount}) => {
+const Card = ({name,logo,web,desc,requestReceivedCount,requestSentCount,onClick}) => {
   return (
-    <div className="card">
+    <div className="card" onClick={onClick}>
       <div className="card-header">
         
         <img
