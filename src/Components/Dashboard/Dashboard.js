@@ -10,6 +10,7 @@ import { FilterProvider } from "./FilterContext";
 const Dashboard = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     const auth = getAuth();
@@ -36,7 +37,7 @@ const Dashboard = () => {
       <Navbar />
       <div className="main-content">
         <Sidebar />
-        <ProjectsSection />
+        <ProjectsSection/>
         {currentUser && <ProfileSidebar User={currentUser} />} {/* Render only if user is available */}
       </div>
     </div>

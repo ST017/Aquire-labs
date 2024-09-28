@@ -5,7 +5,11 @@ import receivelogo from "../Images/Received.png";
 import sentlogo from "../Images/Sent.png";
 import locationlogo from "../Images/loaction.png";
 import breadcrumb from "../Images/breadcrumb.png";
-import rightchevron from "../Images/chevron-right.png";
+import Telegram from "../Images/Telegram-Company.png"
+import Reddit from  "../Images/reddit-company.png"
+import Group from "../Images/Group-Company.png"
+import Twitter from "../Images/Twitter-Company.png"
+import Git from "../Images/git-company.png"
 
  
 const CompanyDetails = () => {
@@ -87,7 +91,7 @@ const CompanyDetails = () => {
               <img src={receivelogo} alt="logo" className="received1-img1"/> <a className="stat-item1-text">Requests Received</a> <a className="number-stat">105</a>
             </div>
             <div className="stat-item1">
-            <img src={sentlogo} alt="logo" className="received1-img1"/><a className="stat-item1-text"> Requests Sent </a> <a className="number-stat">105</a>
+            <img src={sentlogo} alt="logo" className="received1-img1"/><a className="stat-item1-text" style={{marginRight:"40px"}}> Requests Sent </a> <a className="number-stat">105</a>
             </div>
  
             <div className="categories-card1">
@@ -98,12 +102,55 @@ const CompanyDetails = () => {
             {/* Request Type */}
             <div className="request-type-card1">
               <p className="request-type-heading">Request Type</p>
-              <p className="request-type-text"></p>
+              <p className="request-type-text">{selectedProject?.requestType || ""}</p>
             </div>
  
             {/* Social Media */}
             <div className="social-media-card1">
               <p className="social-media-heading">Social Media</p>
+              <div className="social-media-text">
+    <div className="containericon"><img src={Telegram} alt="Telegram" onClick={() => {
+      if(selectedProject?.telegramLink){
+        window.open(selectedProject?.telegramLink, '_blank')
+      }
+      else{
+        alert("Unavailable Link")
+      }
+      }} /></div>          
+    <div className="containericon"><img src={Reddit} alt="Reddit" onClick={() => {
+      if(selectedProject?.redditLink){
+        window.open(selectedProject?.redditLink, '_blank')
+      }
+      else{
+         alert("Unavailable Link")
+      }
+      }} /></div>
+    <div className="containericon"><img src={Group} alt="Group" onClick={() => {
+      if(selectedProject?.mediumLink){
+        window.open(selectedProject?.mediumLink, '_blank')
+      }
+      else{
+        alert("Unavailable Link")
+      }
+      }} /></div>
+    <div className="containericon"><img src={Twitter} alt="Twitter" onClick={() => {
+      if(selectedProject?.twitterLink){
+        window.open(selectedProject?.twitterLink, '_blank')
+      }
+      else{
+        alert("Unavailable Link")
+      }
+      }} /></div>
+    <div className="containericon"><img src={Git} alt="Git" onClick={() => {
+      if(selectedProject?.githubLink){
+        window.open(selectedProject?.githubLink, '_blank')
+      }
+      else{
+        alert("Unavailable Link")
+      }
+     }} /></div>
+   
+              </div>
               
             </div>
           </div>

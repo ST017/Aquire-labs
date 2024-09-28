@@ -17,6 +17,7 @@ import {
   FundingStageList,
   LocationList,
   PartnershipInterestList,
+  RequestTypeList,
 } from "./Filterlists";
 import close from "../../Images/close.png";
  
@@ -29,13 +30,19 @@ const EditProfile = ({ setIsEditProfile }) => {
   // Form States
   const [projectName, setProjectName] = useState(userProject.name);
   const [website, setWebsite] = useState(userProject.website);
+  const [category,setCategory]=useState(userProject.category);
   const [location, setLocation] = useState(null);
   const [fundingStage, setFundingStage] = useState(userProject.fundingStatus);
   const [partnership, setPartnership] = useState(userProject.category);
   const [ecosystem, setEcosystem] = useState(userProject.blockchain);
   const [bioData, setBioData] = useState(userProject.biodata);
+  const [requestType,setRequestType]=useState(userProject.requestType)
   const [whitepaper, setWhitepaper] = useState(userProject.whitepaper);
   const [githubLink, setGithubLink] = useState(userProject.githubLink || "");
+  const [twitterLink,setTwitterLink]=useState(userProject.twitterLink || "");
+  const [redditLink,setRedditLink]=useState(userProject.redditLink || "");
+  const [mediumLink,setMediumLink]=useState(userProject.mediumLink || "");
+  const [telegramLink,setTelegramLink]=useState(userProject.telegramLink || "");
   const [projectStatement, setProjectStatement] = useState(userProject.descr);
   const [coverPicture, setCoverPicture] = useState(null); // Holds the file for cover picture
   const [profilePicture, setProfilePicture] = useState(null); // Holds the file for profile picture
@@ -135,6 +142,8 @@ const EditProfile = ({ setIsEditProfile }) => {
     }
  
     try {
+       
+
       // Upload files if present
       const coverPictureURL = coverPicture
         ? await uploadFile(coverPicture, "coverPictures")
@@ -144,11 +153,13 @@ const EditProfile = ({ setIsEditProfile }) => {
         : null;
  
       const docRef = doc(db, "UserProject", userProject.id);
+
  
       // Prepare the fields to update, allowing githubLink to be null or empty
       const updatedData = {
         name: projectName,
         website: website,
+        category:category,
         country: location || userProject.country,
         fundingStatus: fundingStage,
         partnershipInterest: partnership || null,
@@ -156,9 +167,14 @@ const EditProfile = ({ setIsEditProfile }) => {
         whitepaper: whitepaper,
         descr: projectStatement,
         biodata: bioData,
+        requestType:requestType || null,
         coverPicture: coverPictureURL || userProject.coverPicture,
         profilePicture: profilePictureURL || userProject.profilePicture,
         githubLink: githubLink || null, // Explicitly set githubLink to null if it's empty
+        twitterLink:twitterLink || null,
+        redditLink:redditLink || null,
+        mediumLink :mediumLink || null,
+        telegramLink:telegramLink || null
       };
  
       await updateDoc(docRef, updatedData);
@@ -184,14 +200,20 @@ const EditProfile = ({ setIsEditProfile }) => {
   const handleEdit = () => {
     setProjectName(userProject.name);
     setWebsite(userProject.website);
+    setCategory(userProject.category)
     setFundingStage(userProject.fundingStatus);
     setPartnership(userProject.partnershipInterest || "");
     setEcosystem(userProject.blockchain);
     setWhitepaper(userProject.whitepaper);
     setProjectStatement(userProject.descr);
     setBioData(userProject.biodata);
+    setRequestType(userProject.requestType)
     setLocation(userProject.location);
     setGithubLink(userProject.githubLink || "");
+    setTwitterLink(userProject.twitterLink || "");
+    setRedditLink(userProject.redditLink || "");
+    setMediumLink(userProject.mediumLink || "");
+    setTelegramLink(userProject.telegramLink || "");
     setIsProfileEditing(true);
   };
  
@@ -220,7 +242,8 @@ const EditProfile = ({ setIsEditProfile }) => {
               type="text"
               name="projectName"
               value={userProject.name}
-              onChange={(e) => setProjectName(e.target.value)}
+              readOnly
+              //onChange={(e) => setProjectName(e.target.value)}
               required
             />
           </div>
@@ -231,7 +254,8 @@ const EditProfile = ({ setIsEditProfile }) => {
               type="url"
               name="website"
               value={userProject.website}
-              onChange={(e) => setWebsite(e.target.value)}
+              readOnly
+              //onChange={(e) => setWebsite(e.target.value)}
               required
             />
           </div>
@@ -243,7 +267,8 @@ const EditProfile = ({ setIsEditProfile }) => {
             <select
               name="location"
               value={userProject.country}
-              onChange={(e) => setLocation(e.target.value)}
+              readOnly
+              //onChange={(e) => setLocation(e.target.value)}
             >
               {LocationList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
@@ -256,7 +281,8 @@ const EditProfile = ({ setIsEditProfile }) => {
             <select
               name="fundingStage"
               value={userProject.fundingStatus}
-              onChange={(e) => setFundingStage(e.target.value)}
+              readOnly
+              //onChange={(e) => setFundingStage(e.target.value)}
             >
               {FundingStageList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
@@ -271,7 +297,8 @@ const EditProfile = ({ setIsEditProfile }) => {
             <select
               name="partnership"
               value={userProject.partnershipInterest}
-              onChange={(e) => setPartnership(e.target.value)}
+              readOnly
+              //onChange={(e) => setPartnership(e.target.value)}
             >
               {PartnershipInterestList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
@@ -284,9 +311,40 @@ const EditProfile = ({ setIsEditProfile }) => {
             <select
               name="ecosystem"
               value={userProject.blockchain}
-              onChange={(e) => setEcosystem(e.target.value)}
+              readOnly
+              //onChange={(e) => setEcosystem(e.target.value)}
             >
               {EcosystemsList.map((ele, i) => {
+                return <option value={ele}>{ele}</option>;
+              })}
+            </select>
+          </div>
+        </div>
+
+        <div className="form-row">
+          <div className="form-group">
+            <label>Category</label>
+            <select
+              name="category"
+              value={userProject.category}
+              readOnly
+              //onChange={(e) => setCategory(e.target.value)}
+            >
+              {CategoryList.map((ele, i) => {
+                return <option value={ele}>{ele}</option>;
+              })}
+            </select>
+          </div>
+ 
+          <div className="form-group">
+            <label>Request Type</label>
+            <select
+              name="ecosystem"
+              value={userProject.requestType}
+              readOnly
+              //onChange={(e) => setEcosystem(e.target.value)}
+            >
+              {RequestTypeList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
               })}
             </select>
@@ -298,7 +356,8 @@ const EditProfile = ({ setIsEditProfile }) => {
           <textarea
             name="bioData"
             value={userProject.biodata}
-            onChange={(e) => setBioData(e.target.value)}
+            readOnly
+            //onChange={(e) => setBioData(e.target.value)}
             required
           />
         </div>
@@ -309,27 +368,71 @@ const EditProfile = ({ setIsEditProfile }) => {
             type="text"
             name="whitepaper"
             value={userProject.whitepaper}
-            onChange={(e) => setWhitepaper(e.target.value)}
+            readOnly
+            //onChange={(e) => setWhitepaper(e.target.value)}
           />
         </div>
  
         <div className="form-group">
-          <label>Github Link</label>
+          <label>Github Link*</label>
           <input
             type="url"
             name="githubLink"
             value={userProject.githubLink || ""}
-            onChange={(e) => setGithubLink(e.target.value)}
+            readOnly
+            //onChange={(e) => setGithubLink(e.target.value)}
           />
         </div>
+        <div className="form-group">
+          <label>Twitter Link*</label>
+          <input
+            type="url"
+            name="twitterLink"
+            value={userProject.twitterLink || ""}
+            readOnly
+            //onChange={(e) => setGithubLink(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Reddit Link*</label>
+          <input
+            type="url"
+            name="redditLink"
+            value={userProject.redditLink || ""}
+            readOnly
+            //onChange={(e) => setGithubLink(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Medium Link*</label>
+          <input
+            type="url"
+            name="mediumLink"
+            value={userProject.mediumLink || ""}
+            readOnly
+            //onChange={(e) => setGithubLink(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Telegram Link*</label>
+          <input
+            type="url"
+            name="telegramLink"
+            value={userProject.telegramLink || ""}
+            readOnly
+            //onChange={(e) => setGithubLink(e.target.value)}
+          />
+        </div>
+
  
         <div className="form-group">
           <label>Statement for projects *</label>
           <textarea
             name="projectStatement"
             value={userProject.descr}
-            onChange={(e) => setProjectStatement(e.target.value)}
+            //onChange={(e) => setProjectStatement(e.target.value)}
             required
+            readOnly
           />
         </div>
  
@@ -465,6 +568,34 @@ const EditProfile = ({ setIsEditProfile }) => {
             </select>
           </div>
         </div>
+
+        <div className="form-row">
+          <div className="form-group">
+            <label>Category</label>
+            <select
+              name="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              {PartnershipInterestList.map((ele, i) => {
+                return <option value={ele}>{ele}</option>;
+              })}
+            </select>
+          </div>
+ 
+          <div className="form-group">
+            <label>Request Type</label>
+            <select
+              name="Request Type"
+              value={requestType}
+              onChange={(e) => setRequestType(e.target.value)}
+            >
+              {RequestTypeList.map((ele, i) => {
+                return <option value={ele}>{ele}</option>;
+              })}
+            </select>
+          </div>
+        </div>
  
         <div className="form-group">
           <label>Bio Data *</label>
@@ -477,22 +608,64 @@ const EditProfile = ({ setIsEditProfile }) => {
         </div>
  
         <div className="form-group">
-          <label>Whitepaper</label>
+          <label>Whitepaper*</label>
           <input
             type="text"
             name="whitepaper"
             value={whitepaper}
             onChange={(e) => setWhitepaper(e.target.value)}
+            required
           />
         </div>
  
         <div className="form-group">
-          <label>Github Link</label>
+          <label>Github Link*</label>
           <input
             type="url"
             name="githubLink"
             value={githubLink}
             onChange={(e) => setGithubLink(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Twitter Link*</label>
+          <input
+            type="url"
+            name="twitterLink"
+            value={githubLink}
+            onChange={(e) => setTwitterLink(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Reddit Link*</label>
+          <input
+            type="url"
+            name="redditLink"
+            value={redditLink}
+            onChange={(e) => setRedditLink(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Medium Link*</label>
+          <input
+            type="url"
+            name="mediumLink"
+            value={mediumLink}
+            onChange={(e) => setMediumLink(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Telegram Link*</label>
+          <input
+            type="url"
+            name="telegramLink"
+            value={telegramLink}
+            onChange={(e) => setTelegramLink(e.target.value)}
+            required
           />
         </div>
  

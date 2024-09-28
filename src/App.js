@@ -8,6 +8,7 @@ import ResetPassword from "./Components/ResetPassword";
 import Dashboard from "./Components/Dashboard/Dashboard";
 
 import CompanyDetails from "./Components/ComapanyDetails";
+import RequestPage from "./Components/RequestPage";
 
 
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/resetpassword" element={<ResetPassword/>}/>
           
           <Route path="/companydetails" element={<CompanyDetails/>}/>
+          <Route path="/requestpage" element={<RequestPage/>}/>
         </Routes>
       </Router>
     </div>
