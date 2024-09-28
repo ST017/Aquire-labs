@@ -10,7 +10,7 @@ import Reddit from  "../Images/reddit-company.png"
 import Group from "../Images/Group-Company.png"
 import Twitter from "../Images/Twitter-Company.png"
 import Git from "../Images/git-company.png"
-
+ 
  
 const CompanyDetails = () => {
     document.body.style.background="rgba(234, 239, 255, 1)"
@@ -18,18 +18,19 @@ const CompanyDetails = () => {
   return (
     <>
       <Navbar />
-      <div aria-label="breadcrumb">
+     
+      <div  className="bbcmb"aria-label="breadcrumb">
             <ol class="breadcrumb">
-            <li class="breadcrumb-item"><img src={breadcrumb} alt="home"/><a href="/dashboard">Home</a></li>
-            
+            <li class="breadcrumb-item"><img style={{marginLeft:"135px"}} src={breadcrumb} alt="home"/><div className="a-div" ><a href="/dashboard">Home</a></div></li>
+           
             <li class="breadcrumb-item active" aria-current="page">Current Page</li>
         </ol>
         </div>
-            
-
+ 
       <div className="company-details">
-    
-        
+       
+   
+       
         {/* Header */}
         <div className="header-container">
           <div className="header-section"><img className="cover-photo" src={selectedProject?.coverPicture} alt="cover-picture"/></div>
@@ -56,7 +57,7 @@ const CompanyDetails = () => {
               <p className="biodata-heading">Biodata</p>
               <p className="biodata-text">
                 {selectedProject?.descr || ""}
-                
+               
               </p>
             </div>
  
@@ -85,8 +86,8 @@ const CompanyDetails = () => {
               </p>
             </div>
           </div>
-          {/*right Section */}
-          <div className="right-section1">
+           {/*right Section */}
+           <div className="right-section1">
             <div className="stat-item1">
               <img src={receivelogo} alt="logo" className="received1-img1"/> <a className="stat-item1-text">Requests Received</a> <a className="number-stat">105</a>
             </div>
