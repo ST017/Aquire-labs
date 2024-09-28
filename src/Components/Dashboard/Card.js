@@ -9,8 +9,8 @@ import BookMark from "../../Images/Bookmark (2).png"
 
 const Card = ({name,logo,web,desc,requestReceivedCount,requestSentCount,onClick}) => {
   return (
-    <div className="card" onClick={onClick}>
-      <div className="card-header">
+    <div className="card11" onClick={onClick}>
+      <div className="card-header1">
         
         <img
           src={logo} 
@@ -23,7 +23,7 @@ const Card = ({name,logo,web,desc,requestReceivedCount,requestSentCount,onClick}
         </div>
       </div>
       
-      <div className="card-content">
+      <div className="card-content1">
         <a href={web} className="website-link">{web}</a>
         <p className='request-type1'>Description:<span className="request-type">{desc}</span></p>
         

@@ -5,7 +5,8 @@ import { CategoryList, EcosystemsList, FundingStageList, LocationList, Partnersh
 import { FilterContext } from './FilterContext'; 
 const Sidebar= () => {
   // Add: Destructure the context state and toggle function
-  const { selectedCategories, toggleCategoryS } = useContext(FilterContext);
+  const { selectedCategories, toggleCategoryS,selectedEcosystems,toggleEcosystemS,selectedFundingStages,toggleFundingStageS,selectedRequestTypes,toggleRequestTypeS,selectedPartenerShipInterests,togglePartnerShipInterestS,selectedLocation,toggleLocationS,selectedProfileStatus,toggleProfileStatusS } = useContext(FilterContext);
+ 
   const [isProfileExpanded, setProfileExpanded] = useState(true);
   const [isRequestExpanded, setRequestExpanded] = useState(true);
   const [isEcoSystemExpanded, setEcosystemExpanded] = useState(false);
@@ -29,11 +30,22 @@ const Sidebar= () => {
       <div className='side-div'>
         <h3 onClick={toggleProfile}>{isProfileExpanded ? '-' : '+'}Profile Status </h3>
         {isProfileExpanded && (
-          ProfileStatusList.map((ele,i)=>{
-            return <div key={ele}>
-               <label><input type="checkbox" value={ele}/>{ele}</label><br/>
+          ProfileStatusList.map((profileStatus, index) => (
+            <div key={profileStatus}>
+              <label>
+                <input
+                  type="checkbox"
+                  value={profileStatus}
+                  
+                  checked={selectedProfileStatus.includes(profileStatus)} 
+                  
+                  onChange={() => toggleProfileStatusS(profileStatus)} 
+                />
+                {profileStatus}
+              </label>
+              <br />
             </div>
-          })
+          ))
         )}
       </div>
 
@@ -41,41 +53,85 @@ const Sidebar= () => {
       <div>
         <h3 onClick={toggleRequest}>{isRequestExpanded ? '-' : '+'}Request Type </h3>
         {isRequestExpanded && (
-          RequestTypeList.map((ele,i)=>{
-            return <div key={ele}>
-               <label><input type="checkbox" value={ele}/>{ele}</label><br />
+           RequestTypeList.map((requestType, index) => (
+            <div key={requestType}>
+              <label>
+                <input
+                  type="checkbox"
+                  value={requestType}
+                  
+                  checked={selectedRequestTypes.includes(requestType)} 
+                  
+                  onChange={() => toggleRequestTypeS(requestType)} 
+                />
+                {requestType}
+              </label>
+              <br />
             </div>
-          })
+          ))
         )}
       </div>
       <div>
         <h3 onClick={toggleEcoSystem}>{isEcoSystemExpanded ? '-' : '+'}EcoSystem</h3>
         {isEcoSystemExpanded && (
-          EcosystemsList.map((ele,i)=>{
-            return <div key={ele}>
-              <label><input type="checkbox" value={ele}/>{ele}</label><br />
+          EcosystemsList.map((ecosystem, index) => (
+            <div key={ecosystem}>
+              <label>
+                <input
+                  type="checkbox"
+                  value={ecosystem}
+                  
+                  checked={selectedEcosystems.includes(ecosystem)} 
+                  
+                  onChange={() => toggleEcosystemS(ecosystem)} 
+                />
+                {ecosystem}
+              </label>
+              <br />
             </div>
-          })
+          ))
         )}
       </div>
       <div>
         <h3 onClick={togglePartenershipInterest}>{isPartnershipInterestExpanded ? '-' : '+'}Partnership Interests</h3>
         {isPartnershipInterestExpanded && (
-          PartnershipInterestList.map((ele,i)=>{
-            return <div key={ele}>
-               <label><input type="checkbox" value={ele}/>{ele}</label><br />
+          PartnershipInterestList.map((partenershipInterest, index) => (
+            <div key={partenershipInterest}>
+              <label>
+                <input
+                  type="checkbox"
+                  value={partenershipInterest}
+                  
+                  checked={selectedPartenerShipInterests.includes(partenershipInterest)} 
+                  
+                  onChange={() => togglePartnerShipInterestS(partenershipInterest)} 
+                />
+                {partenershipInterest}
+              </label>
+              <br />
             </div>
-          })
+          ))
         )}
       </div>
       <div>
         <h3 onClick={toggleFundingStage}>{isFundingStageExpanded ? '-' : '+'}Funding Stage</h3>
         {isFundingStageExpanded && (
-          FundingStageList.map((ele,i)=>{
-            return <div key={ele}>
-               <label><input type="checkbox" value={ele}/>{ele}</label><br />
+          FundingStageList.map((fundingStages, index) => (
+            <div key={fundingStages}>
+              <label>
+                <input
+                  type="checkbox"
+                  value={fundingStages}
+                  
+                  checked={selectedFundingStages.includes(fundingStages)} 
+                  
+                  onChange={() => toggleFundingStageS(fundingStages)} 
+                />
+                {fundingStages}
+              </label>
+              <br />
             </div>
-          })
+          ))
         )}
       </div>
       <div>
@@ -101,11 +157,22 @@ const Sidebar= () => {
       <div>
         <h3 onClick={toggleLocation}>{isLocationExpanded ? '-' : '+'}Location</h3>
         {isLocationExpanded && (
-          LocationList.map((ele,i)=>{
-            return <div key={ele}>
-               <label><input type="checkbox" value={ele}/>{ele}</label><br />
-            </div>
-          })
+         LocationList.map((location, index) => (
+          <div key={location}>
+            <label>
+              <input
+                type="checkbox"
+                value={location}
+                
+                checked={selectedLocation.includes(location)} 
+                
+                onChange={() => toggleLocationS(location)} 
+              />
+              {location}
+            </label>
+            <br />
+          </div>
+        ))
         )}
       </div>
     </aside>

@@ -61,7 +61,7 @@ const ProjectsSection = () => {
 
   
    // Add: Use the context to access selected categories
-   const { selectedCategories } = useContext(FilterContext); 
+   const { selectedCategories,selectedEcosystems,selectedFundingStages,selectedRequestTypes,selectedPartenerShipInterests,selectedLocation,selectedProfileStatus } = useContext(FilterContext); 
 
   //Debounce and AutoSuggestion
   
@@ -220,15 +220,11 @@ const ProjectsSection = () => {
 
 
  //FilterCategory
-  useEffect(() => {
+ /*  useEffect(() => {
     // Add: Handle logic to display default data when no category is selected
     if (selectedCategories.length === 0) { 
       setPage(page); // Reset to the first page
-      /* setFilterData(
-        userProjectList.filter((item, index) => {
-          return index >= 0 && index < n; // Show items for page 1
-        })
-      ); */
+      
       setFilterData(
         userProjectList.filter((item, index) => {
           return (index >= page * n) & (index < (page + 1) * n);
@@ -241,7 +237,27 @@ const ProjectsSection = () => {
       );
       setFilterData(filteredProjects);
     }
-  }, [userProjectList, selectedCategories, page]); 
+  }, [userProjectList, selectedCategories, page]); */ 
+  useEffect(() => {
+    const filteredProjects = userProjectList.filter((project) => {
+      const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(project.category);
+      const ecosystemMatch = selectedEcosystems.length === 0 || selectedEcosystems.includes(project.blockchain);
+      const fundingstageMatch = selectedFundingStages.length === 0 || selectedFundingStages.includes(project.fundingStatus);
+      const requesttypeMatch = selectedRequestTypes.length === 0 || selectedRequestTypes.includes(project.requestType);
+      //const profileStatusMatch = selectedProfileStatus.length === 0 || selectedProfileStatus.includes(project.);
+      const locationMatch = selectedLocation.length === 0 || selectedLocation.includes(project.country);
+      const partnershipinterestMatch = selectedPartenerShipInterests.length === 0 || selectedPartenerShipInterests.includes(project.partnershipInterest);
+     
+      return categoryMatch && ecosystemMatch && fundingstageMatch && requesttypeMatch && locationMatch && partnershipinterestMatch
+    });
+  
+    setFilterData(
+      filteredProjects.filter((item, index) => {
+        return (index >= page * n) & (index < (page + 1) * n);
+      })
+    );
+  }, [userProjectList, selectedCategories, selectedEcosystems, page, n]);
+  
 
   return (
     <section className="projects-section">
@@ -285,7 +301,7 @@ const ProjectsSection = () => {
       <div className='card-list1'>
         {
           filterData.length>0 ?(filterData.map((ele,i)=>{
-            return <Card onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.logo} desc={ele.descr} web={ele.website} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount}/>
+            return <Card onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} desc={ele.descr} web={ele.website} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount}/>
           })):(arr.map((ele,i)=>{
             return <ShimmerUiCard/>
           }))
@@ -339,7 +355,7 @@ const ProjectsSection = () => {
       
       <div className='card2-list'>
         {filterData.length>0?(filterData.map((ele, i) => (
-          <Card2 onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.logo} city={ele.city} desc={ele.descr} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount} />
+          <Card2 onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} city={ele.city} desc={ele.descr} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount} />
         ))):(arr.map((ele,i)=>{
           return <ShimmerUiCard2/>
         }))} 

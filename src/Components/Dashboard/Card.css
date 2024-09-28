@@ -1,4 +1,4 @@
-.card {
+.card11 {
  
   width: 209px;
   height: 145.6px; 
@@ -13,7 +13,7 @@
   opacity: 1;
 }
 
-.card-header {
+.card-header1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,7 +41,7 @@
  
 }
 
-.card-content {
+.card-content1 {
   box-sizing: border-box ;
   width: 180px; 
   height:82.17px;

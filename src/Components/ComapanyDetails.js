@@ -10,9 +10,11 @@ import Reddit from  "../Images/reddit-company.png"
 import Group from "../Images/Group-Company.png"
 import Twitter from "../Images/Twitter-Company.png"
 import Git from "../Images/git-company.png"
+import EditProfile from "./Dashboard/EditProfile";
  
  
 const CompanyDetails = () => {
+  const [isEditprofile, setIsEditProfile] = useState(false);
     document.body.style.background="rgba(234, 239, 255, 1)"
     const selectedProject = JSON.parse(localStorage.getItem('selectedProject'));
   return (
@@ -43,7 +45,29 @@ const CompanyDetails = () => {
                 </div>
             </div>
             <div className="inner">
-              <button className="send-request-btn">Edit Profile</button>
+              <button className="send-request-btn" onClick={()=>{setIsEditProfile(true)}}>Edit Profile</button>
+              {isEditprofile && (
+  <div
+    /* className="modal-container" */
+    style={{
+      position: "fixed",
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 50,
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    }}
+   
+  >
+    <div>
+      <EditProfile setIsEditProfile={setIsEditProfile} />
+    </div>
+  </div>
+)}
             </div>
           </div>
         </div>
