@@ -21,7 +21,7 @@ const CompanyDetails = () => {
      
       <div  className="bbcmb"aria-label="breadcrumb">
             <ol class="breadcrumb">
-            <li class="breadcrumb-item"><img style={{marginLeft:"135px"}} src={breadcrumb} alt="home"/><div className="a-div" ><a href="/dashboard">Home</a></div></li>
+            <li class="breadcrumb-item"><img style={{marginLeft:"135px"}} src={breadcrumb} alt="home"/><div className="a-div" ><a href="/dashboard">Dashboard</a></div></li>
            
             <li class="breadcrumb-item active" aria-current="page">Current Page</li>
         </ol>
