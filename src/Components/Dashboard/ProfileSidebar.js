@@ -87,7 +87,7 @@ const ProfileSidebar = ({ User }) => {
       <div className="profile-sidebar1">
         <div className='profile-line-request'>
         <div className="profile">
-          <img src={userDetail.profilePicture} alt="profile" className="profile-pic" />
+          <img src={userDetail?.profilePicture} alt="profile" className="profile-pic" />
           <div className="text-info">
             <div className="profile-Name">{userDetail?.firstname} {userDetail?.lastname}</div>
             <div className="profile-web">{userProject[0]?.website || 'No website available'}</div>

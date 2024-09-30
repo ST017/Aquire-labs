@@ -11,10 +11,27 @@ import Group from "../Images/Group-Company.png"
 import Twitter from "../Images/Twitter-Company.png"
 import Git from "../Images/git-company.png"
 import EditProfile from "./Dashboard/EditProfile";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
  
  
 const CompanyDetails = () => {
   const [isEditprofile, setIsEditProfile] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+ 
+  
+
+  useEffect(() => {
+    const auth = getAuth();
+    // Listen for authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+      }
+     
+    });
+    // Cleanup the listener on unmount
+    return () => unsubscribe();
+  }, []);
     document.body.style.background="rgba(234, 239, 255, 1)"
     const selectedProject = JSON.parse(localStorage.getItem('selectedProject'));
   return (
@@ -45,29 +62,37 @@ const CompanyDetails = () => {
                 </div>
             </div>
             <div className="inner">
-              <button className="send-request-btn" onClick={()=>{setIsEditProfile(true)}}>Edit Profile</button>
-              {isEditprofile && (
-  <div
-    /* className="modal-container" */
-    style={{
-      position: "fixed",
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      zIndex: 50,
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
-    }}
-   
-  >
-    <div>
-      <EditProfile setIsEditProfile={setIsEditProfile} />
-    </div>
-  </div>
+              
+            {(currentUser?.uid
+ === selectedProject?.userId) ? (
+  <>
+    <button className="send-request-btn" onClick={() => { setIsEditProfile(true) }}>Edit Profile</button>
+    {isEditprofile && (
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 50,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        }}
+      >
+        <div>
+          <EditProfile setIsEditProfile={setIsEditProfile} />
+        </div>
+      </div>
+    )}
+  </>
+) : (
+  <button className="send-request-btn">Send Request</button>
 )}
+
+              
             </div>
           </div>
         </div>
