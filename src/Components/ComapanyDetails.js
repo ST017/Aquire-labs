@@ -12,11 +12,19 @@ import Twitter from "../Images/Twitter-Company.png"
 import Git from "../Images/git-company.png"
 import EditProfile from "./Dashboard/EditProfile";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { addDoc, collection,getDocs } from "firebase/firestore";
+import { db } from "./Firebase/firebase";
  
  
 const CompanyDetails = () => {
   const [isEditprofile, setIsEditProfile] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [requestTypes, setRequestTypes] = useState([]); 
+  const [message, setMessage] = useState("")
+  const [isRequestTypeOpen, setIsRequestTypeOpen] = useState(false);
+  const [userConnectsList,setUserConnectsList]=useState([])
+  const [matchingRequests,setMatchingRequests]=useState([])
  
   
 
@@ -34,6 +42,83 @@ const CompanyDetails = () => {
   }, []);
     document.body.style.background="rgba(234, 239, 255, 1)"
     const selectedProject = JSON.parse(localStorage.getItem('selectedProject'));
+
+
+    const handleToggleModal = () => {
+      setIsModalOpen(!isModalOpen);
+    };
+  
+    const handleRequestTypeChange = (type) => {
+      setRequestTypes((prev) => {
+        if (prev.includes(type)) {
+          // Uncheck: remove type from array
+          return prev.filter((t) => t !== type);
+        } else {
+          // Check: add type to array
+          return [...prev, type];
+        }
+      });
+    };
+  
+    const handleSendSaveRequest = async () => {
+      if(requestTypes.length==0){
+        alert("Please Select Your Request Type")
+        return
+      }
+      try {
+        // Add a new document to the UserConnects collection
+        const docRef = await addDoc(collection(db, "UserConnects"), {
+          createdAt: new Date(), // current timestamp
+          projectId: selectedProject?.id || "", // project ID (from selected project)
+          status: "pending", // initial status is "pending"
+          toUserId: selectedProject?.userId || "", // the user who owns the project
+          userId: currentUser?.uid || "", // the current user sending the request
+          requestTypes: [...requestTypes], // Array of selected request types
+          message: message, // The message input from the user
+        });
+  
+        console.log("Document written with ID: ", docRef.id);
+        setIsModalOpen(false); 
+        setIsRequestTypeOpen(false);
+        setMessage("")
+        await fetchUserConnects()
+
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    };
+
+
+   //fetch userconnects data
+   const fetchUserConnects = async () => {
+    try {
+      // Reference to the UserConnects collection
+      const userConnectsCollection = collection(db, "UserConnects");
+  
+      // Fetch all documents from the collection
+      const querySnapshot = await getDocs(userConnectsCollection);
+  
+      // Map through the documents to create a list
+      const userConnectsList = querySnapshot.docs.map(doc => ({
+        id: doc.id, // Document ID
+        ...doc.data(), // Document data
+      }));
+  
+      console.log("Fetched User Connects: ", userConnectsList);
+      setUserConnectsList(userConnectsList)
+      // Use filter to find all matches for selectedProject.id
+      const matchingRequests = userConnectsList.find(
+        ele => ele.projectId === selectedProject.id
+      );
+      setMatchingRequests(matchingRequests)
+    } catch (e) {
+      console.error("Error fetching User Connects: ", e);
+      return []; // Return an empty list in case of error
+    }
+  };
+  useEffect(()=>{
+     fetchUserConnects()
+  },[db])
   return (
     <>
       <Navbar />
@@ -62,38 +147,502 @@ const CompanyDetails = () => {
                 </div>
             </div>
             <div className="inner">
-              
-            {(currentUser?.uid
- === selectedProject?.userId) ? (
-  <>
-    <button className="send-request-btn" onClick={() => { setIsEditProfile(true) }}>Edit Profile</button>
-    {isEditprofile && (
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 50,
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-        }}
-      >
-        <div>
-          <EditProfile setIsEditProfile={setIsEditProfile} />
-        </div>
-      </div>
-    )}
-  </>
-) : (
-  <button className="send-request-btn">Send Request</button>
-)}
 
-              
+  {currentUser?.uid === selectedProject?.userId  ? (
+    <>
+      <button className="send-request-btn" onClick={() => setIsEditProfile(true)}>
+        Edit Profile
+      </button>
+      {isEditprofile && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 50,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <div>
+            <EditProfile setIsEditProfile={setIsEditProfile} />
+          </div>
+        </div>
+      )}
+    </>
+  ) : (
+    <>
+      {matchingRequests ? (
+        <>
+          {matchingRequests?.userId === currentUser?.uid ? (
+            <div>
+              <button className="send-request-btn">
+                {matchingRequests.status}
+              </button>
             </div>
+          ) : matchingRequests?.toUserId === currentUser?.uid ? (
+            <div>
+              <button
+                style={{
+                  backgroundColor: "#4A4AFF",
+                  color: "#fff",
+                  padding: "10px 20px",
+                  borderRadius: "8px",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                }}
+              >
+                Accept
+              </button>
+              <button
+                style={{
+                  backgroundColor: "#FF4A4A",
+                  color: "#fff",
+                  padding: "10px 20px",
+                  borderRadius: "8px",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                }}
+              >
+                Deny
+              </button>
+            </div>
+          ) : (
+            <>
+              {/* If no matching request exists, show the "Send Request" button */}
+              <button className="send-request-btn" onClick={handleToggleModal}>
+                Send Request
+              </button>
+
+              {/* Modal */}
+              {isModalOpen && (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    zIndex: 50,
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  }}
+                >
+                  <div
+                    style={{
+                      backgroundColor: "#fff",
+                      padding: "20px",
+                      borderRadius: "10px",
+                      width: "400px",
+                      maxWidth: "90%",
+                      border: "1px solid #ccc",
+                      boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                    }}
+                  >
+                    <h2
+                      style={{
+                        marginBottom: "10px",
+                        fontSize: "18px",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Send Requests
+                    </h2>
+
+                    {/* Request Type Dropdown */}
+                    <label
+                      style={{
+                        fontWeight: "600",
+                        fontSize: "14px",
+                        color: "#333",
+                      }}
+                    >
+                      Request Type
+                    </label>
+                    <div
+                      style={{
+                        border: "2px solid #4A4AFF", // Purple border
+                        borderRadius: "8px", // Rounded corners
+                        padding: "10px",
+                        position: "relative",
+                        marginBottom: "10px",
+                        cursor: "pointer",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        fontSize: "14px",
+                        color: "#333",
+                      }}
+                      onClick={() => setIsRequestTypeOpen(!isRequestTypeOpen)}
+                    >
+                      <span>
+                        {requestTypes.length
+                          ? requestTypes.join(", ")
+                          : "Request Type"}
+                      </span>
+                      <span
+                        style={{
+                          transform: isRequestTypeOpen
+                            ? "rotate(180deg)"
+                            : "rotate(0)",
+                          color: "blue",
+                        }}
+                      >
+                        ▼
+                      </span>
+                    </div>
+                    {isRequestTypeOpen && (
+                      <div
+                        style={{
+                          border: "1px solid #4A4AFF",
+                          borderRadius: "8px",
+                          padding: "10px",
+                          marginBottom: "10px",
+                          backgroundColor: "#f9f9f9",
+                        }}
+                      >
+                        {[
+                          "Technical Collaboration",
+                          "Funding",
+                          "Listing",
+                          "Marketing",
+                          "Integrations",
+                          "Community Building",
+                          "Explore",
+                        ].map((type) => (
+                          <div
+                            key={type}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              marginBottom: "8px",
+                              padding: "4px 0",
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              value={type}
+                              checked={requestTypes.includes(type)}
+                              onChange={() => handleRequestTypeChange(type)}
+                              style={{
+                                marginRight: "10px",
+                                width: "16px", // Fixed width for the checkbox
+                                height: "16px", // Fixed height for the checkbox
+                                border: "2px solid #4A4AFF", // Purple border for checkbox
+                                borderRadius: "4px", // Rounded checkbox
+                              }}
+                            />
+                            <label
+                              style={{
+                                fontSize: "14px",
+                                color: "#333",
+                                width: "100%",
+                              }}
+                            >
+                              {type}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Message */}
+                    <label
+                      style={{
+                        fontWeight: "600",
+                        display: "block",
+                        marginBottom: "5px",
+                        fontSize: "14px",
+                        color: "#333",
+                      }}
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Message"
+                      style={{
+                        width: "100%",
+                        height: "120px",
+                        border: "1px solid #4A4AFF",
+                        borderRadius: "8px",
+                        padding: "12px 14px",
+                        marginBottom: "16px",
+                        fontSize: "14px",
+                        color: "#333",
+                        outline: "none",
+                        boxSizing: "border-box",
+                        resize: "none", // Prevent resizing of the textarea
+                      }}
+                    ></textarea>
+
+                    {/* Buttons */}
+                    <div
+                      style={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <button
+                        onClick={() => {
+                          setIsModalOpen(!isModalOpen);
+                          setMessage("");
+                          setIsRequestTypeOpen(false);
+                        }}
+                        style={{
+                          backgroundColor: "#ccc",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          cursor: "pointer",
+                          fontSize: "14px",
+                        }}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={handleSendSaveRequest}
+                        style={{
+                          backgroundColor: "#4A4AFF",
+                          color: "#fff",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          cursor: "pointer",
+                          fontSize: "14px",
+                        }}
+                      >
+                        Send
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          {/* If no matching request exists, show the "Send Request" button */}
+          <button className="send-request-btn" onClick={handleToggleModal}>
+            Send Request
+          </button>
+
+          {/* Modal */}
+          {isModalOpen && (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    zIndex: 50,
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  }}
+                >
+                  <div
+                    style={{
+                      backgroundColor: "#fff",
+                      padding: "20px",
+                      borderRadius: "10px",
+                      width: "400px",
+                      maxWidth: "90%",
+                      border: "1px solid #ccc",
+                      boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                    }}
+                  >
+                    <h2
+                      style={{
+                        marginBottom: "10px",
+                        fontSize: "18px",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Send Requests
+                    </h2>
+
+                    {/* Request Type Dropdown */}
+                    <label
+                      style={{
+                        fontWeight: "600",
+                        fontSize: "14px",
+                        color: "#333",
+                      }}
+                    >
+                      Request Type
+                    </label>
+                    <div
+                      style={{
+                        border: "2px solid #4A4AFF", // Purple border
+                        borderRadius: "8px", // Rounded corners
+                        padding: "10px",
+                        position: "relative",
+                        marginBottom: "10px",
+                        cursor: "pointer",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        fontSize: "14px",
+                        color: "#333",
+                      }}
+                      onClick={() => setIsRequestTypeOpen(!isRequestTypeOpen)}
+                    >
+                      <span>
+                        {requestTypes.length
+                          ? requestTypes.join(", ")
+                          : "Request Type"}
+                      </span>
+                      <span
+                        style={{
+                          transform: isRequestTypeOpen
+                            ? "rotate(180deg)"
+                            : "rotate(0)",
+                          color: "blue",
+                        }}
+                      >
+                        ▼
+                      </span>
+                    </div>
+                    {isRequestTypeOpen && (
+                      <div
+                        style={{
+                          border: "1px solid #4A4AFF",
+                          borderRadius: "8px",
+                          padding: "10px",
+                          marginBottom: "10px",
+                          backgroundColor: "#f9f9f9",
+                        }}
+                      >
+                        {[
+                          "Technical Collaboration",
+                          "Funding",
+                          "Listing",
+                          "Marketing",
+                          "Integrations",
+                          "Community Building",
+                          "Explore",
+                        ].map((type) => (
+                          <div
+                            key={type}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              marginBottom: "8px",
+                              padding: "4px 0",
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              value={type}
+                              checked={requestTypes.includes(type)}
+                              onChange={() => handleRequestTypeChange(type)}
+                              style={{
+                                marginRight: "10px",
+                                width: "16px", // Fixed width for the checkbox
+                                height: "16px", // Fixed height for the checkbox
+                                border: "2px solid #4A4AFF", // Purple border for checkbox
+                                borderRadius: "4px", // Rounded checkbox
+                              }}
+                            />
+                            <label
+                              style={{
+                                fontSize: "14px",
+                                color: "#333",
+                                width: "100%",
+                              }}
+                            >
+                              {type}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Message */}
+                    <label
+                      style={{
+                        fontWeight: "600",
+                        display: "block",
+                        marginBottom: "5px",
+                        fontSize: "14px",
+                        color: "#333",
+                      }}
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Message"
+                      style={{
+                        width: "100%",
+                        height: "120px",
+                        border: "1px solid #4A4AFF",
+                        borderRadius: "8px",
+                        padding: "12px 14px",
+                        marginBottom: "16px",
+                        fontSize: "14px",
+                        color: "#333",
+                        outline: "none",
+                        boxSizing: "border-box",
+                        resize: "none", // Prevent resizing of the textarea
+                      }}
+                    ></textarea>
+
+                    {/* Buttons */}
+                    <div
+                      style={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <button
+                        onClick={() => {
+                          setIsModalOpen(!isModalOpen);
+                          setMessage("");
+                          setIsRequestTypeOpen(false);
+                        }}
+                        style={{
+                          backgroundColor: "#ccc",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          cursor: "pointer",
+                          fontSize: "14px",
+                        }}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={handleSendSaveRequest}
+                        style={{
+                          backgroundColor: "#4A4AFF",
+                          color: "#fff",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          cursor: "pointer",
+                          fontSize: "14px",
+                        }}
+                      >
+                        Send
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+        </>
+      )}
+    </>
+  )}
+</div>
           </div>
         </div>
  

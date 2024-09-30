@@ -40,7 +40,7 @@ import { auth, db } from "./Firebase/firebase";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import { addDoc, doc, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import RaisaLogo from "../Images/RaisaLogo.png";
 import { CategoryList } from "./Dashboard/Filterlists";
 
@@ -106,7 +106,7 @@ const Signup = () => {
             verified: false, // Set verified to false by default
             createdAt: new Date(), // Store the current timestamp
           });
-          await setDoc(doc(db, "UserProject", user.uid), {
+         /*  await setDoc(doc(db, "UserProject", user.uid), {
             blockchain:"",
             category:category,
             city:"",
@@ -129,6 +129,32 @@ const Signup = () => {
             userId: user.uid,  // store the user ID
             views: 1,  // number of views (1 by default)
             website:compWeb,  // website URL (empty string for now)
+            whitepaper: "",  // whitepaper URL (empty string for now)
+          }); */
+
+          await addDoc(collection(db, "UserProject"), {
+            blockchain: "",
+            category: category,
+            city: "",
+            country: "",
+            createdAt: new Date(),  // current timestamp
+            descr: projDesc,  
+            endorsements: 1,  
+            fundingStatus: "",  
+            logo: "", 
+            modifiedAt: new Date(),  
+            name: name,  
+            social: {
+              facebook: "", 
+              insta: "",  // Instagram URL
+              linkedin: "",  // LinkedIn URL
+              tg: "",  // Telegram URL
+              twitter: "",  // Twitter URL
+            },
+            status: "",  // status of the project (empty string for now)
+            userId: user.uid,  // store the user ID
+            views: 1,  // number of views (1 by default)
+            website: compWeb,  // website URL (empty string for now)
             whitepaper: "",  // whitepaper URL (empty string for now)
           });
 
