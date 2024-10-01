@@ -113,7 +113,7 @@ const CompanyDetails = () => {
       setMatchingRequests(matchingRequests)
     } catch (e) {
       console.error("Error fetching User Connects: ", e);
-      return []; // Return an empty list in case of error
+      return []; 
     }
   };
   useEffect(()=>{
