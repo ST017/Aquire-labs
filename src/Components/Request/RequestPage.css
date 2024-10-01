@@ -1,0 +1,39 @@
+.requestpage-container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.requesttable{
+    width: 1161px;
+    height: 836px;
+    top: 132px;
+    left: 229px;
+    gap: 0px;
+    opacity: 0px;
+    background-color: #ffffff;
+    .search-bar{
+
+        width:920px;
+        height: 68px;
+        padding: 10px;
+        gap: 10px;
+        opacity: 0px;
+        }
+
+        .filter-icon{
+            justify-content: flex-end;
+            align-items: center;
+            align-content: center;
+        }
+}
+.search-filter{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1,153px;
+height: 88px;
+padding: 10px 0px 0px 0px;
+gap: 136px;
+opacity: 0px;
+
+}

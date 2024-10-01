@@ -1,5 +1,12 @@
-.container {
+.Requestcontainer {
     margin: 20px;
+  
+   
+
+  }
+
+  .table-container{
+    background-color: #ffffff;
   }
   
   .segmented-control {
@@ -9,26 +16,52 @@
     background-color: #f1f3fb;
     width: fit-content;
     margin-bottom: 20px;
+    /* width: 636px;
+height: 47px;
+top: 77px;
+left: 23px;
+padding: 8px ;
+gap: 0px;
+border-radius: 8px ;
+opacity: 0px; */
+
+  }
+  .segment-icon path {
+    fill: #1a0dab; /* Default SVG fill color */
   }
   
+  .segment:hover .segment-icon path {
+    fill: #fff; /* Color on hover */
+  }
+  
+  .segment.active .segment-icon path {
+    fill: #fff; /* Color when active */
+  }
+  
+  /* Segment button styling */
   .segment {
     border: none;
     padding: 10px 15px;
     cursor: pointer;
     font-size: 14px;
     background-color: #f1f3fb;
-    color: #2f80ed;
+    color: #1a0dab; /* Text color */
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
   
   .segment.active {
-    background-color: #2f80ed;
+    background-color: #1a0dab;
     color: white;
   }
   
   .segment:hover {
-    background-color: #dfe6f3;
+    background-color: #1a0dab;
+    color: white;
   }
+  
   
   .table-container {
     margin-top: 20px;
@@ -41,13 +74,20 @@
   
   .request-table th,
   .request-table td {
-    border: 1px solid #ddd;
+    
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+
+    border-bottom: 1px solid #F5F5F5;
     padding: 10px;
     text-align: left;
   }
   
   .request-table th {
-    background-color: #f1f3fb;
+    /* background-color: #f1f3fb; */
   }
   
   .action-btn {
@@ -64,5 +104,14 @@
     background-color: #1e5fbf;
   }
   th{
+  
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+
     align-content: center;
+    background: #EAEFFF;
+
   }

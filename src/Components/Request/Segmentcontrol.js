@@ -6,9 +6,9 @@ import { addDoc, collection,doc,getDocs, updateDoc } from "firebase/firestore";
 import'./Segmentcontrol.css'
 import { db } from "../Firebase/firebase";
 
-const Segmentcontrol = () =>{
+const Segmentcontrol = ({activeSegment}) =>{
 
-    const [activeSegment, setActiveSegment] = useState("pending");
+    // const [activeSegment, setActiveSegment] = useState("pending");
     const [currentUser, setCurrentUser] = useState(null);
     const [userConnectsList,setUserConnectsList]=useState([])
   const [matchingPendingRequests,setMatchingPendingRequests]=useState([])
@@ -111,34 +111,9 @@ const handleDeny=async(docid)=>{
   ];
 
   return (
-    <div className="container">
+    <div className="Requestcontainer">
       {/* Segmented Control */}
-      <div className="segmented-control">
-        <button
-          className={`segment ${activeSegment === "pending" ? "active" : ""}`}
-          onClick={() => setActiveSegment("pending")}
-        >
-          Pending Requests
-        </button>
-        <button
-          className={`segment ${activeSegment === "send" ? "active" : ""}`}
-          onClick={() => setActiveSegment("send")}
-        >
-          Send Requests
-        </button>
-        <button
-          className={`segment ${activeSegment === "rejected" ? "active" : ""}`}
-          onClick={() => setActiveSegment("rejected")}
-        >
-          Rejected Requests
-        </button>
-        <button
-          className={`segment ${activeSegment === "followup" ? "active" : ""}`}
-          onClick={() => setActiveSegment("followup")}
-        >
-          Follow up  Requests
-        </button>
-      </div>
+     
 
       {/* Conditional Rendering of Tables */}
       <div className="table-container">

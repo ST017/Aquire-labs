@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Navbar,
   Logo,
@@ -58,11 +58,12 @@ import {
   FooterWrapper,
   FooterLink1,
   WrapperDiv,
-  
-  
+  FeatureContent,
+ 
+ 
 } from "./Home.style.js";
 import logo from "../Images/Logo.png";
-
+ 
 import logo1 from "../Images/1.png";
 import logo2 from "../Images/2.png";
 import logo3 from "../Images/3.png";
@@ -105,26 +106,40 @@ import Xicon from "../Images/Xicon.jpeg"
 import Discord from "../Images/Discord.png"
 import Telegram from "../Images/Telegram.jpeg"
 import RaisaLogo from "../Images/RaisaLogo.png"
-
+ 
 const Home = () => {
+  const [expandedFeature, setExpandedFeature] = useState(null);
+ 
   const features = [
     {
       title: 'Advanced Search & Filters',
       icon: Feature1,
+      description:"Utilize intelligent search tools and detailed filters to quickly find the right partners and projects that align with your needs."
     },
     {
       title: 'Partnership Request Hub',
       icon: Feature2,
+      description:"Streamline the process of sending, receiving, and tracking partnership requests efficiently"
     },
     {
       title: 'Instant Collaboration',
       icon: Feature3,
+      description:"Save time with automatic setup of Telegram groups for seamless communication and collaboration."
     },
     {
       title: 'Comprehensive Dashboard',
-      icon: Feature4
+      icon: Feature4,
+      description:"Save time with automatic setup of Telegram groups for seamless communication and collaboration."
     },
   ]
+ 
+  const toggleFeature = (index) => {
+    if (expandedFeature === index) {
+      setExpandedFeature(null);
+    } else {
+      setExpandedFeature(index);
+    }
+  };
   const ImageList1 = [
     logo1,
     logo2,
@@ -152,10 +167,10 @@ const Home = () => {
     logo22,
     logo23,
   ];
-
-  
-
-
+ 
+ 
+ 
+ 
   return (
     <WrapperDiv>
       {/* Navbar */}
@@ -168,7 +183,7 @@ const Home = () => {
         </NavLinksCenter>
         <NavLinksRight>
           <NavButton className="login">
-            
+           
             <NavLink className="login-lnk" onClick={() => window.open("/login", "_blank")}>
               Login
             </NavLink>
@@ -180,7 +195,7 @@ const Home = () => {
           </NavButton>
         </NavLinksRight>
       </Navbar>
-
+ 
       {/* Hero Section */}
       <HeroSection>
         <HeroTitle>One Platform, Infinite Partnership Opportunities</HeroTitle>
@@ -190,7 +205,7 @@ const Home = () => {
         <HeroSubtitle1>strategic partnerships.</HeroSubtitle1>
         <GetStartedButton onClick={()=>window.open("/signup","_blank")}>Get started</GetStartedButton>
       </HeroSection>
-
+ 
       {/* Partner Logos */}
       <PartnerLogos>
         <div className="logos-track first-row">
@@ -200,6 +215,7 @@ const Home = () => {
           {ImageList1.map((ele, index) => (
             <img key={ele} src={ele} alt={`Logo ${index + 1}`} />
           ))}
+         
         </div>
         <div className="logos-track second-row">
           {ImageList2.map((ele, index) => (
@@ -208,22 +224,23 @@ const Home = () => {
           {ImageList2.map((ele, index) => (
             <img key={ele} src={ele} alt={`Logo ${index + 1}`} />
           ))}
+         
         </div>
       </PartnerLogos>
-
+ 
       {/* Vision Section */}
       <VisionSection>
         <VisionTitle>Our Vision</VisionTitle>
         <VisionText>
           At GoWeb3 Network, we simplify the process of finding and connecting
           with the perfect partners for your project.Whether you're looking to
-          collaborate on technical developments, marketing, 
+          collaborate on technical developments, marketing,
           campaigns, or innovative DeFi solutions,our platform provides the
-          tools you need to forge strong 
+          tools you need to forge strong
           partnerships and drive success.
         </VisionText>
       </VisionSection>
-
+ 
       {/* How It Works Section */}
       <HowItWorksSection>
         <StepTitle>How Raisa Network Works</StepTitle>
@@ -298,16 +315,21 @@ const Home = () => {
           </FeaturesDescription>
           <FeatureList>
           {features.map((feature, index) => (
-        <FeatureItem key={index}>
-          <img src={feature.icon} alt={`Icon for ${feature.title}`} />
-          {feature.title}
-          <img
-            src={AccordianIcon}
-            alt="Accordion icon"
-            className="accordion-icon"
-          />
-        </FeatureItem>
-      ))}
+    <FeatureItem key={index} onClick={() => toggleFeature(index)}>
+      <img src={feature.icon} alt={`Icon for ${feature.title}`} />
+      {feature.title}
+      <img
+        src={AccordianIcon}
+        alt="Accordion icon"
+        className={`accordion-icon ${expandedFeature === index ? 'expanded' : ''}`}
+      />
+      {expandedFeature === index && (
+        <FeatureContent>
+          <p>{feature.description}</p>
+        </FeatureContent>
+      )}
+    </FeatureItem>
+  ))}
     </FeatureList>
         </FeaturesText>
         <FeatureImage
@@ -315,7 +337,7 @@ const Home = () => {
           alt="Features Image"
         />
       </KeyFeaturesSection>
-
+ 
       {/* Why Should You Use GoWeb3 Network */}
       <WhyUseSection>
         <WhyUseTitle>Why Should You Use GoWeb3 Network?</WhyUseTitle>
@@ -354,7 +376,7 @@ const Home = () => {
           </WhyUseCard>
         </WhyUseContainer>
       </WhyUseSection>
-
+ 
       {/* Footer */}
       <Footer>
         <FooterWrapper>
@@ -364,7 +386,7 @@ const Home = () => {
         the perfect partners for your project.
       </FooterText>
       </FooterWrapper>
-
+ 
       <FooterSections>
         <SocialLinks>
           <FooterColumn1>
@@ -383,7 +405,7 @@ const Home = () => {
             </SocialIcon>
           </FooterColumn1>
         </SocialLinks>
-
+ 
         <FooterLinks>
           <FooterColumn2>
             <FooterLink1>Company</FooterLink1>
@@ -391,7 +413,7 @@ const Home = () => {
             <SocialIcon>About Us</SocialIcon>
             <SocialIcon>News</SocialIcon>
           </FooterColumn2>
-
+ 
           <FooterColumn3>
             <FooterLink>Help</FooterLink>
           </FooterColumn3>
@@ -401,5 +423,6 @@ const Home = () => {
     </WrapperDiv>
   );
 };
-
+ 
 export default Home;
+ 
