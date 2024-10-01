@@ -1,10 +1,70 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { addDoc, collection,getDocs } from "firebase/firestore";
+
 
 import'./Segmentcontrol.css'
+import { db } from "../Firebase/firebase";
 
 const Segmentcontrol = () =>{
 
     const [activeSegment, setActiveSegment] = useState("pending");
+    const [currentUser, setCurrentUser] = useState(null);
+    const [userConnectsList,setUserConnectsList]=useState([])
+  const [matchingPendingRequests,setMatchingPendingRequests]=useState([])
+  const [matchingSendRequests,setMatchingSendRequests]=useState([])
+    useEffect(() => {
+      const auth = getAuth();
+      // Listen for authentication state changes
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setCurrentUser(user);
+        }
+       
+      });
+      // Cleanup the listener on unmount
+      return () => unsubscribe();
+    }, []);
+
+    // Fetch userConnects data
+const fetchUserConnects = async () => {
+  try {
+    // Reference to the UserConnects collection
+    const userConnectsCollection = collection(db, "UserConnects");
+
+    // Fetch all documents from the collection
+    const querySnapshot = await getDocs(userConnectsCollection);
+
+    // Map through the documents to create a list
+    const userConnectsList = querySnapshot.docs.map(doc => ({
+      id: doc.id, // Document ID
+      ...doc.data(), // Document data
+    }));
+
+    console.log("Fetched User Connects: ", userConnectsList);
+    setUserConnectsList(userConnectsList);
+
+    // Filter to find all matches where toUserId equals currentUser.uid and status==="pending"
+    const matchingPendingRequests = userConnectsList.filter(
+      ele => ele.toUserId === currentUser?.uid && ele.status==="pending"
+    );
+    // Filter to find all matches where userId equals currentUser.uid 
+    const matchingSendRequests = userConnectsList.filter(
+      ele => ele.userId === currentUser?.uid 
+    );
+
+    setMatchingPendingRequests(matchingPendingRequests);
+    setMatchingSendRequests(matchingSendRequests);
+  } catch (e) {
+    alert("Error fetching Data");
+    return [];
+  }
+};
+
+useEffect(() => {
+  fetchUserConnects();
+}, [db,  currentUser?.uid]);
+
 
   // Sample data for the tables
   const pendingRequests = [
@@ -67,14 +127,14 @@ const Segmentcontrol = () =>{
               </tr>
             </thead>
             <tbody>
-              {pendingRequests.map((request) => (
+              {matchingPendingRequests.map((request,i) => (
                 <tr key={request.id}>
-                  <td>{request.id}</td>
-                  <td>{request.name}</td>
-                  <td>{request.date}</td>
-                  <td>{request.message}</td>
-                  <td>{request.location}</td>
-                  <td>{request.type}</td>
+                  <td>{i+1}</td>
+                  <td>{request?.name}</td>
+                  <td>{new Date(request.createdAt.seconds * 1000).toLocaleDateString()}</td>
+                  <td>{request?.message}</td>
+                  <td>{}</td>
+                  <td>{request?.requestTypes.join(",")}</td>
                   <td >
                     <button className="action-btn">Accept</button>
                     <button className="action-btn">Deny</button>
@@ -101,14 +161,14 @@ const Segmentcontrol = () =>{
               </tr>
             </thead>
             <tbody>
-              {sendRequests.map((request) => (
+              {matchingSendRequests?.map((request,i) => (
                 <tr key={request.id}>
-                  <td>{request.id}</td>
+                  <td>{i+1}</td>
                   <td>{request.name}</td>
-                  <td>{request.date}</td>
+                  <td>{new Date(request.createdAt.seconds * 1000).toLocaleDateString()}</td>
                   <td>{request.message}</td>
-                  <td>{request.location}</td>
-                  <td>{request.type}</td>
+                  <td>{}</td>
+                  <td>{request?.requestTypes.join(",")}</td>
                   {/* <td>
                     <button className="action-btn">Request Sent</button>
                   </td> */}

@@ -33,6 +33,7 @@ import inb from '../../Images/inbox.png'
 import req from '../../Images/request.png'
 import sav from '../../Images/save.png' 
 import noti from '../../Images/notification.png' 
+import { Link } from 'react-router-dom';
  
 const Navbar = () => {
   return (
@@ -62,7 +63,7 @@ const Navbar = () => {
                     <ul className="header-ul">
                     <li  className="Discover-l"> <img src={dis} alt="discover"/> <span>Discover</span></li>
                     <li  className="Inbox-l"> <img src={inb} alt="inbox"/><span>Inbox</span></li>
-                    <li  className="Request-l"> <img src={req} alt="request"/><span >Request</span></li>
+                    <li  className="Request-l"> <img src={req} alt="request"/><Link to="/requestpage"><span >Request</span></Link></li>
                     <li  className="Saved-l"> <img src={sav} alt="saved"/><span >Saved</span></li>
                     <li  className="Notifications-l"> <img src={noti} alt="notification"/><span>Notifications</span></li>
                     </ul>

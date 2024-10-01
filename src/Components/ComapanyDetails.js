@@ -12,7 +12,7 @@ import Twitter from "../Images/Twitter-Company.png"
 import Git from "../Images/git-company.png"
 import EditProfile from "./Dashboard/EditProfile";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { addDoc, collection,getDocs } from "firebase/firestore";
+import { addDoc, collection,getDocs, query, setDoc, where } from "firebase/firestore";
 import { db } from "./Firebase/firebase";
  
  
@@ -25,6 +25,7 @@ const CompanyDetails = () => {
   const [isRequestTypeOpen, setIsRequestTypeOpen] = useState(false);
   const [userConnectsList,setUserConnectsList]=useState([])
   const [matchingRequests,setMatchingRequests]=useState([])
+  const [myproject,setMyProject]=useState([])
  
   
 
@@ -75,6 +76,9 @@ const CompanyDetails = () => {
           userId: currentUser?.uid || "", // the current user sending the request
           requestTypes: [...requestTypes], // Array of selected request types
           message: message, // The message input from the user
+          location:myproject?.location || "",//fromuser location
+          name:myproject?.name, //fromuser project name
+          
         });
   
         console.log("Document written with ID: ", docRef.id);
@@ -116,12 +120,43 @@ const CompanyDetails = () => {
       return []; 
     }
   };
+
+  const fetchMyProjectData=async()=>{
+    try {
+      
+      const userProjectsCollection = collection(db, "UserProject");
+      const userProjectsQuery=query(userProjectsCollection,where("userId","==",currentUser?.uid))
+  
+      
+      const querySnapshot = await getDocs(userProjectsQuery);
+  
+      // Map through the documents to create a list
+      const userProject = querySnapshot.docs.map(doc => ({
+        id: doc.id, // Document ID
+        ...doc.data(), // Document data
+      }));
+
+      setMyProject(userProject[0])
+  
+      
+      
+    } catch (e) {
+      console.error("Error fetching User Connects: ", e);
+    
+    }
+  }
+  useEffect(()=>{
+    fetchMyProjectData()
+    
+  },[currentUser?.uid])
+
   useEffect(()=>{
      fetchUserConnects()
   },[db])
   return (
     <>
       <Navbar />
+      
      
       <div  className="bbcmb"aria-label="breadcrumb">
             <ol class="breadcrumb">

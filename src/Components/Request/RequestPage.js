@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from '../Dashboard/Navbar'
-import Sidebar from '../Dashboard/Sidebar'
-import Listsection from './Listsection'
+
 import Segmentcontrol from './Segmentcontrol'
 const RequestPage = () => {
   return (
