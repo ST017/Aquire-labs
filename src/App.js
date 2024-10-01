@@ -8,7 +8,7 @@ import ResetPassword from "./Components/ResetPassword";
 import Dashboard from "./Components/Dashboard/Dashboard";
 
 import CompanyDetails from "./Components/ComapanyDetails";
-import RequestPage from "./Components/RequestPage";
+import RequestPage from "./Components/Request/RequestPage";
 
 
 

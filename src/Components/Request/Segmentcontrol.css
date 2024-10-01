@@ -1,0 +1,68 @@
+.container {
+    margin: 20px;
+  }
+  
+  .segmented-control {
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #f1f3fb;
+    width: fit-content;
+    margin-bottom: 20px;
+  }
+  
+  .segment {
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #f1f3fb;
+    color: #2f80ed;
+    font-weight: bold;
+  }
+  
+  .segment.active {
+    background-color: #2f80ed;
+    color: white;
+  }
+  
+  .segment:hover {
+    background-color: #dfe6f3;
+  }
+  
+  .table-container {
+    margin-top: 20px;
+  }
+  
+  .request-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .request-table th,
+  .request-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .request-table th {
+    background-color: #f1f3fb;
+  }
+  
+  .action-btn {
+    background-color: #2f80ed;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right:10px;
+  }
+  
+  .action-btn:hover {
+    background-color: #1e5fbf;
+  }
+  th{
+    align-content: center;
+  }
