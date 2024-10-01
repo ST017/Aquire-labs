@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { addDoc, collection,getDocs } from "firebase/firestore";
+import { addDoc, collection,doc,getDocs, updateDoc } from "firebase/firestore";
 
 
 import'./Segmentcontrol.css'
@@ -13,6 +13,7 @@ const Segmentcontrol = () =>{
     const [userConnectsList,setUserConnectsList]=useState([])
   const [matchingPendingRequests,setMatchingPendingRequests]=useState([])
   const [matchingSendRequests,setMatchingSendRequests]=useState([])
+  const [matchingRejectedRequests,setMatchingRejectedRequests]=useState([])
     useEffect(() => {
       const auth = getAuth();
       // Listen for authentication state changes
@@ -48,6 +49,15 @@ const fetchUserConnects = async () => {
     const matchingPendingRequests = userConnectsList.filter(
       ele => ele.toUserId === currentUser?.uid && ele.status==="pending"
     );
+
+    const matchingRejectedRequests=userConnectsList.filter(
+      ele => (ele.toUserId === currentUser?.uid || ele.userId === currentUser?.uid)  && ele.status==="Denied"
+    );
+
+    
+ 
+
+
     // Filter to find all matches where userId equals currentUser.uid 
     const matchingSendRequests = userConnectsList.filter(
       ele => ele.userId === currentUser?.uid 
@@ -55,6 +65,8 @@ const fetchUserConnects = async () => {
 
     setMatchingPendingRequests(matchingPendingRequests);
     setMatchingSendRequests(matchingSendRequests);
+    setMatchingRejectedRequests(matchingRejectedRequests)
+
   } catch (e) {
     alert("Error fetching Data");
     return [];
@@ -64,6 +76,25 @@ const fetchUserConnects = async () => {
 useEffect(() => {
   fetchUserConnects();
 }, [db,  currentUser?.uid]);
+
+
+//handling accept and deny
+
+const handleAccept=async(docid)=>{
+  await updateDoc(doc(db,"UserConnects",docid),{
+    status:"Accepted"
+ })
+ await fetchUserConnects()
+ alert("Request has been accepted!")
+}
+
+const handleDeny=async(docid)=>{
+   await updateDoc(doc(db,"UserConnects",docid),{
+      status:"Denied"
+   })
+   await fetchUserConnects()
+   alert("Request has been rejected!")
+}
 
 
   // Sample data for the tables
@@ -136,8 +167,8 @@ useEffect(() => {
                   <td>{}</td>
                   <td>{request?.requestTypes.join(",")}</td>
                   <td >
-                    <button className="action-btn">Accept</button>
-                    <button className="action-btn">Deny</button>
+                    <button className="action-btn" onClick={()=>handleAccept(request.id)}>Accept</button>
+                    <button className="action-btn" onClick={()=>handleDeny(request.id)}>Deny</button>
                   </td>
                 </tr>
               ))}
@@ -193,14 +224,14 @@ useEffect(() => {
               </tr>
             </thead>
             <tbody>
-              {sendRequests.map((request) => (
+              {matchingRejectedRequests?.map((request,i) => (
                 <tr key={request.id}>
-                  <td>{request.id}</td>
+                  <td>{`00${i+1}`}</td>
                   <td>{request.name}</td>
-                  <td>{request.date}</td>
+                  <td>{new Date(request.createdAt.seconds * 1000).toLocaleDateString()}</td>
                   <td>{request.message}</td>
-                  <td>{request.location}</td>
-                  <td>{request.type}</td>
+                  <td>{}</td>
+                  <td>{request?.requestTypes.join(",")}</td>
                   {/* <td>
                     <button className="action-btn">Request Sent</button>
                   </td> */}
