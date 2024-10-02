@@ -89,7 +89,7 @@ border:1px solid black;
 
 }
 
-.contact-container {
+/* .contact-container {
  width: 1,070px;
 height: 374px;
 top: 1069px;
@@ -97,20 +97,125 @@ left: 316px;
 padding: 0px 0px 24px 0px;
 gap: 16px;
 border-radius: 0px 0px 0px 0px;
-border:1px solid black;
+//border:1px solid black;
 margin-right: -17px;
+background-color:white;
 
-}
+} */
+.contact-container {
+    width: 1,070px;
+height: 374px;
+top: 1069px;
+left: 316px;
+padding: 5px 8px 10px 8px;
+gap: 16px;
+border-radius: 0px 0px 0px 0px;
+//border:1px solid black;
+margin-right: -17px;
+background-color:white;
+  }
+  
+  .contact-container h2 {
+   
+font-size: 18px;
+font-weight: 600;
+line-height: 18.9px;
+text-align: left;
+color:rgba(51, 66, 87, 1);
 
-.contact-heading{
-width: 1,049px;
-height: 51px;
-gap: 24px;
-border:1px solid black;
-
-}
-
-.contact-heading-text{
     
-}
+    margin-bottom: 10px;
+  }
+  
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group11 {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .form-group11 label {
+    
+font-size: 14px;
+font-weight: 500;
+line-height: 16.94px;
+text-align: left;
+color:black;
 
+    margin-bottom: 8px;
+  }
+  
+  .form-group11 input
+  {
+    width: 1,016px;
+    height:20px;
+    padding: 10px 8px 10px 8px;
+    gap: 10px;
+   
+font-size: 14px;
+font-weight: 400;
+line-height: 16.94px;
+text-align: left;
+color:rgba(151, 164, 175, 1);
+    
+    border: 1px transparent grey;
+  
+    
+   
+    
+  }
+  .form-group11 textarea {
+    width: 1,016px;
+    height: 20px;
+    padding: 10px 8px 100px 8px;
+    gap: 10px;
+    font-size: 14px;
+font-weight: 400;
+line-height: 16.94px;
+text-align: left;
+color:rgba(151, 164, 175, 1);
+    
+    border: 1px transparent grey;
+   
+    
+       resize:none;
+  }
+  
+  .form-group11 input::placeholder,
+  .form-group11 textarea::placeholder {
+    color: #888;
+  }
+  
+  .send-btn11 {
+    align-self: flex-end;
+    width: 62px;
+height: 39px;
+padding: 8px 14px 8px 14px;
+gap: 10px;
+border:none;
+border-radius: 5px 5px 5px 5px;
+
+background-color:rgba(45, 129, 229, 1);
+
+
+font-size: 14px;
+font-weight: 400;
+line-height: 22.4px;
+text-align: center;
+color:rgba(255, 255, 255, 1);
+
+
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .send-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  

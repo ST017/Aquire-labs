@@ -80,16 +80,21 @@ const Faq = () => {
         </div>
       ))}
     </div>
-      <div className='contact-container'>
-        <div className='contact-heading'>
-          <div className='contact-heading-text'>
+    <div className='contact-container'>
+  <h2>Contact Us</h2>
+  <form className="contact-form">
+    <div className="form-group11">
+      <label htmlFor="email">Email</label>
+      <input type="email" id="email" placeholder="Email@company.com" />
+    </div>
+    <div className="form-group11">
+      <label htmlFor="message">Message</label>
+      <textarea  id="message" placeholder="Message here" ></textarea>
+    </div>
+    <button type="submit" className="send-btn11">Send</button>
+  </form>
+</div>
 
-          </div>
-        </div>
-        <div className='email-heading'>
-            
-        </div>
-      </div>
       </div>
       
      </div>
