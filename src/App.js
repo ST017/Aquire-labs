@@ -9,12 +9,15 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 
 import CompanyDetails from "./Components/ComapanyDetails";
 import RequestPage from "./Components/Request/RequestPage";
+import Faq from "./Components/Faq";
+
 
 
 
 function App() {
   return (
     <div>
+      
       <Router>
         <Routes>
           <Route path="/" element={<Home/>}/>
@@ -25,6 +28,8 @@ function App() {
           
           <Route path="/companydetails" element={<CompanyDetails/>}/>
           <Route path="/requestpage" element={<RequestPage/>}/>
+          <Route path="/faq" element={<Faq/>}/>
+          
         </Routes>
       </Router>
     </div>
