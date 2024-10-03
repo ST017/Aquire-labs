@@ -7,6 +7,7 @@ import '@fontsource/inter/300.css';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/700.css';
+import { Link } from 'react-router-dom';
  
 //Wrapper
 export const WrapperDiv = styled.div`
@@ -198,14 +199,17 @@ padding: 10px 10px 10px 10px;
 gap: 10px;
  
  
-  font-size: 16px;
-  font-weight: 700;
-  font-family:Inter;
- 
-  color:rgba(0, 0, 0, 1);
   text-decoration: none;
-  &:hover{
-  color:rgba(0, 60, 255, 1);
+    font-size: 16px;
+    font-weight: 700;
+    color: black;
+    transition: color 0.3s;
+  cursor:pointer;
+ 
+ 
+  &:hover a{
+   color: #1A1AFF;
+  
   }
  
  

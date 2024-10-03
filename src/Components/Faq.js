@@ -1,8 +1,24 @@
 
 import React, { useState } from 'react'
-import { Logo, Navbar, NavButton, NavLink1, NavLinksCenter, NavLinksRight,NavLink } from './Home.style'
+import {FooterSections,
+  FooterColumn1,
+  FooterColumn2,
+  FooterColumn3,
+  FooterHead,
+  FooterWrapper,
+  FooterLink1,Footer,
+  FooterText,
+  FooterLinks,
+  FooterLink,
+  SocialLinks,
+  SocialIcon,}  from './Home.style'
 import RaisaLogo from "../Images/RaisaLogo.png"
+import LinkedIn from "../Images/LinkedIn.jpeg"
+import Xicon from "../Images/Xicon.jpeg"
+import Discord from "../Images/Discord.png"
+import Telegram from "../Images/Telegram.jpeg"
 import "./Faq.css";
+import MainNavbar from './MainNavbar'
 
 
 
@@ -49,16 +65,19 @@ const Faq = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
   return (
+    <>
     <div className='main-faq-container'>
-       <div className='nav-faq'>
-        
-        </div>
+       <MainNavbar/>
 
      
-      <div className='below-nav-container'>
+      <div className='below-nav-container' >
 
       <div className='faq-text'>
-        
+        <div className='faq-inner-text'>
+         <h1 style={{paddingLeft:"70px",marginTop:"-8px"}}>Frequently</h1>
+         <h1 style={{paddingLeft:"70px",marginTop:"-15px"}}>Asked</h1>
+         <h1 style={{paddingLeft:"70px",marginTop:"-15px",color:"rgba(26, 13, 171, 1)"}}>Questions</h1>
+         </div>
         </div>
       <div className='accordian-container'>
       <div className='accordian-outer-container'>
@@ -95,10 +114,57 @@ const Faq = () => {
   </form>
 </div>
 
+
+
       </div>
       
      </div>
      </div>
+     <div style={{marginTop:"150px"}}>
+     <Footer>
+        <FooterWrapper>
+        <FooterHead>GoWeb3 Network</FooterHead>
+      <FooterText>
+        We simplify the process of finding and connecting with
+        the perfect partners for your project.
+      </FooterText>
+      </FooterWrapper>
+ 
+      <FooterSections>
+        <SocialLinks>
+          <FooterColumn1>
+            <FooterLink>Social</FooterLink>
+            <SocialIcon>
+              <img src={LinkedIn} alt="LinkedIn" /> LinkedIn
+            </SocialIcon>
+            <SocialIcon >
+              <img src={Xicon} alt="Twitter" /> Twitter
+            </SocialIcon>
+            <SocialIcon>
+              <img src={Discord} alt="Discord" /> Discord
+            </SocialIcon>
+            <SocialIcon >
+              <img src={Telegram} alt="Telegram" /> Telegram
+            </SocialIcon>
+          </FooterColumn1>
+        </SocialLinks>
+ 
+        <FooterLinks>
+          <FooterColumn2>
+            <FooterLink1>Company</FooterLink1>
+            <SocialIcon>Branding</SocialIcon>
+            <SocialIcon>About Us</SocialIcon>
+            <SocialIcon>News</SocialIcon>
+          </FooterColumn2>
+ 
+          <FooterColumn3>
+            <FooterLink>Help</FooterLink>
+          </FooterColumn3>
+        </FooterLinks>
+      </FooterSections>
+    </Footer>
+    </div>
+     </>
   )
 }
 

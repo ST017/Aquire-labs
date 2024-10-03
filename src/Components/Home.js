@@ -106,6 +106,7 @@ import Xicon from "../Images/Xicon.jpeg"
 import Discord from "../Images/Discord.png"
 import Telegram from "../Images/Telegram.jpeg"
 import RaisaLogo from "../Images/RaisaLogo.png"
+import { Link } from "react-router-dom";
  
 const Home = () => {
   const [expandedFeature, setExpandedFeature] = useState(null);
@@ -177,9 +178,9 @@ const Home = () => {
       <Navbar>
         <Logo src={RaisaLogo} alt="logo" />
         <NavLinksCenter>
-          <NavLink1 href="#">Home</NavLink1>
-          <NavLink1 href="#">About</NavLink1>
-          <NavLink1 href="#">Help</NavLink1>
+          <NavLink1><Link to="/">Home</Link></NavLink1>
+          <NavLink1><Link to="/about">About</Link></NavLink1>
+          <NavLink1><Link to="/faq">Help</Link></NavLink1>
         </NavLinksCenter>
         <NavLinksRight>
           <NavButton className="login">
