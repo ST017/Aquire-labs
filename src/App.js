@@ -11,6 +11,7 @@ import CompanyDetails from "./Components/ComapanyDetails";
 import RequestPage from "./Components/Request/RequestPage";
 import Faq from "./Components/Faq";
 import Pricing from "./Components/Pricing";
+import About from "./Components/About";
 
 
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/requestpage" element={<RequestPage/>}/>
           <Route path="/faq" element={<Faq/>}/>
           <Route path="/price" element={<Pricing/>}/>
+          <Route path="/about" element={<About/>}/>
           
         </Routes>
       </Router>

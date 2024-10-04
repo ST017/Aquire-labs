@@ -326,6 +326,10 @@ export const VisionSection = styled.section`
   background-color: rgba(234, 239, 255, 1);
   padding: 40px 16px;
   text-align: center;
+  display: flex;
+  flex-direction: column; /* Ensures the content stacks vertically */
+  justify-content: center; /* Centers the content vertically */
+  align-items: center; /* Centers the content horizontally */
   @media (max-width:480px) {
     height:200px;
     text-align: center;
@@ -340,6 +344,10 @@ export const VisionTitle = styled.h2`
   margin-bottom: 16px;
   color:rgba(0, 0, 0, 1);
   text-align: center;
+  display: flex;
+  flex-direction: column; /* Ensures the content stacks vertically */
+  justify-content: center; /* Centers the content vertically */
+  align-items: center; /* Centers the content horizontally */
  
   @media (max-width:480px){
     font-size:21px;
@@ -377,25 +385,26 @@ export const PartnerLogos = styled.div`
   height: 350px;
   overflow: hidden;
   position: relative;
+  background-color:white;
  
   .logos-track {
     display: flex;
-    animation: scroll 5s linear infinite;
+    //animation: scroll 5s linear infinite;
   }
  
   .first-row {
-    animation: scroll 3s linear infinite;
+    //animation: scroll 3s linear infinite;
     margin-bottom: 10px;
   }
  
   // .second-row {
-  //   animation: scroll 3s linear infinite;
+  //   //animation: scroll 3s linear infinite;
   // }
   .second-row {
  
    
  
-  animation: scroll-right 3s linear infinite;
+  //animation: scroll-right 3s linear infinite;
 }
  
 @keyframes scroll-right {
@@ -451,6 +460,10 @@ export const StepTitle = styled.h1`
   font-weight: 700;
   font-family:Inter;
   margin-bottom: 24px;
+  display: flex;
+  flex-direction: column; /* Ensures the content stacks vertically */
+  justify-content: center; /* Centers the content vertically */
+  align-items: center; /* Centers the content horizontally */
  
   @media(max-width:480px){
     font-size: 21px;
@@ -729,7 +742,7 @@ margin-top:5px;
 // Key Features section
 export const KeyFeaturesSection = styled.section`
  
-  height:700px;
+  height:850px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -831,95 +844,86 @@ export const FeatureList = styled.ul`
   }
 `; */
  
-export const FeatureItem = styled.li`
-  font-size: 20px;
-  font-weight: 700;
-  color: rgba(0, 0, 0, 1);
+export const FeatureItem = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
-  position: relative;
-  padding-right: 10px;
-  margin-top: 38px;
   cursor: pointer;
- 
-  &:hover, &:hover img, &:hover .accordion-icon {
-    color: rgba(0, 40, 170, 1);
- 
-    img {
-      filter: brightness(0) saturate(100%) invert(48%) sepia(95%) saturate(1125%) hue-rotate(170deg) brightness(100%) contrast(100%);
-    }
- 
-    .accordion-icon {
-      filter: brightness(0) saturate(100%) invert(48%) sepia(95%) saturate(1125%) hue-rotate(170deg) brightness(100%) contrast(100%);
-    }
+  padding: 10px;
+  margin-bottom: 18px; /* Space between items */
+
+  img:first-child {
+    margin-right: 50px; /* Increased space between logo and title */
+    transition: filter 0.3s ease; /* Smooth transition for color change */
   }
- 
-  img {
-    width: 44px;
-    height: 44px;
-    margin-right: 36px;
+
+  .title {
+    flex: 1;
+    margin-right: 5px; /* Space between title and arrow stays reduced */
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24.2px;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+    
   }
- 
+  &.expanded .title{
+    color: rgba(0, 60, 255, 1);
+  }
+  
+
   .accordion-icon {
-    position: absolute;
-    right: 250px;
-    width: 12px;
-    height: 6px;
-    border: 3px;
-    transition: transform 0.3s ease; /* Add smooth transition */
+    transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition for rotation and color */
+    margin-right: 200px;
   }
- 
-  .accordion-icon.expanded {
-    transform: rotate(180deg); /* Rotate when expanded */
+
+  &.expanded .accordion-icon {
+    transform: rotate(180deg);
+    filter: brightness(0) saturate(100%) invert(27%) sepia(88%) saturate(4698%) hue-rotate(210deg) brightness(98%) contrast(109%);
+    /* This filter converts the icon to rgba(0, 60, 255, 1) */
   }
- 
-  @media(max-width:480px) {
-    img {
-      width: 22px;
-      height: 22px;
-      margin-right: 18px;
-    }
-    .accordion-icon {
-      right: 125px;
-      width: 6px;
-      height: 3px;
-    }
- 
-    font-size: 10px;
-    padding-right: 5px;
-    margin-top: 19px;
+
+  &.expanded img:first-child {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(88%) saturate(4698%) hue-rotate(210deg) brightness(98%) contrast(109%);
+    /* This filter applies the same rgba(0, 60, 255, 1) color to the logo */
   }
-`;
- 
- 
-export const FeatureContent = styled.div`
- 
-  //display: none;
-  width: 646px;
-height: 40px;
-gap: 0px;
-opacity: 0px;
- 
-font-size: 18px;
-font-weight: 700;
-line-height: 19.99px;
-text-align: left;
- 
-  margin-top: 35px;
-  margin-right:100px;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 60, 255, 1);
- 
+
+  /* Extra bottom margin when expanded */
   &.expanded {
-    display: block; /* Display content when expanded */
-  }
- 
-  @media (max-width:480px) {
-    font-size: 8px;
-    line-height: 12px;
+    margin-bottom: 80px; /* More space when expanded to push the next item down */
   }
 `;
+
+export const FeatureContent = styled.div`
+  position: absolute;
+  width: 90%;
+  top: 100%; /* Places the content just below the feature item */
+  left: 0;
+  padding: 10px;
+  display: none;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+  z-index: 1;
+
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24.2px;
+  text-align: left;
+  color: rgba(0, 60, 255, 1);
+
+  p {
+    margin: 0px;
+  }
+
+  &.expanded {
+    display: block;
+    opacity: 1;
+   
+  }
+`;
+
+
+
  
  
 export const FeatureImage = styled.img`
@@ -935,6 +939,10 @@ export const FeatureImage = styled.img`
  
 // Why Use section
 export const WhyUseSection = styled.section`
+  display: flex;
+  flex-direction: column; /* Ensures the content stacks vertically */
+  justify-content: center; /* Centers the content vertically */
+  align-items: center; /* Centers the content horizontally */
   text-align: center;
   padding: 40px 16px;
   background-color: #ffffff;
@@ -953,8 +961,12 @@ export const WhyUseTitle = styled.h2`
   font-family:Inter;
  
   margin-bottom:80px;
-  margin-left:200px;
+  //margin-left:200px;
   margin-top:10px;
+  display: flex;
+  flex-direction: column; /* Ensures the content stacks vertically */
+  justify-content: center; /* Centers the content vertically */
+  align-items: center; /* Centers the content horizontally */
   color:rgba(0, 0, 0, 1);
   @media (max-width:480px) {
      height:25.5px;
@@ -974,7 +986,10 @@ export const WhyUseContainer = styled.div`
   display: flex;
   justify-content: space-around;
   gap: 16px;
-  flex-wrap: wrap;
+  
+
+
+  //flex-wrap: wrap;
   align-items:center;
   @media (max-width:480px) {
     gap :8px
@@ -985,51 +1000,39 @@ export const WhyUseContainer = styled.div`
 `;
  
 export const WhyUseCard = styled.div`
- 
-  width:312px;
-  height:278px;
+  width: 312px;
+  height: 278px;
   background-color: rgba(255, 255, 255, 1);
   padding: 24px;
-  border:1px transparent;
-  radius: 16px;
+  border: 1px transparent;
+  border-radius: 16px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
-  //width: 240px;
-  align-items: center;
- 
-  //hover 3 parts
- &:hover   {
-   background:  #0028AA;
-   border-radius: 16px;
-   box-shadow: 1px 5px 22.2px 0px rgba(0, 40, 170, 1);
-    border: 1px solid  rgba(0, 40, 170, 1))
-   
- 
- 
- 
+  
+  display: flex;
+  flex-direction: column; /* Ensures the content stacks vertically */
+  justify-content: center; /* Centers the content vertically */
+  align-items: center; /* Centers the content horizontally */
+
+  /* Hover effect */
+  &:hover {
+    background: #0028AA;
+    border-radius: 16px;
+    box-shadow: 1px 5px 22.2px 0px rgba(0, 40, 170, 1);
+    border: 1px solid rgba(0, 40, 170, 1);
     box-shadow: -1px 3px 23.6px 0px rgba(255, 255, 255, 1);
- 
- 
- 
- 
- 
- 
- 
- 
- }
- 
-&:hover div ,&:hover p{
-  color:white;
   }
- 
-@media (max-width:480px) {
- 
-   width:155.1px;
-  height:144px;
-  padding: 12px;
- 
-}
- 
+
+  &:hover div, &:hover p {
+    color: white;
+  }
+
+  @media (max-width: 480px) {
+    width: 155.1px;
+    height: 144px;
+    padding: 12px;
+  }
 `;
+
  
 export const WhyUseIcon = styled.div`
   font-size: 30px;

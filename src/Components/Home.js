@@ -107,6 +107,7 @@ import Discord from "../Images/Discord.png"
 import Telegram from "../Images/Telegram.jpeg"
 import RaisaLogo from "../Images/RaisaLogo.png"
 import { Link } from "react-router-dom";
+import Marquee from "react-fast-marquee";
  
 const Home = () => {
   const [expandedFeature, setExpandedFeature] = useState(null);
@@ -209,6 +210,7 @@ const Home = () => {
  
       {/* Partner Logos */}
       <PartnerLogos>
+        <Marquee speed={400} loop={0}>
         <div className="logos-track first-row">
           {ImageList1.map((ele, index) => (
             <img key={ele} src={ele} alt={`Logo ${index + 1}`} />
@@ -218,6 +220,8 @@ const Home = () => {
           ))}
          
         </div>
+        </Marquee>
+        <Marquee speed={350} loop={0} direction="right">
         <div className="logos-track second-row">
           {ImageList2.map((ele, index) => (
             <img key={ele} src={ele} alt={`Logo ${index + 1}`} />
@@ -227,6 +231,7 @@ const Home = () => {
           ))}
          
         </div>
+        </Marquee>
       </PartnerLogos>
  
       {/* Vision Section */}
@@ -316,20 +321,21 @@ const Home = () => {
           </FeaturesDescription>
           <FeatureList>
           {features.map((feature, index) => (
-    <FeatureItem key={index} onClick={() => toggleFeature(index)}>
-      <img src={feature.icon} alt={`Icon for ${feature.title}`} />
+    <FeatureItem key={index} className={expandedFeature === index ? 'expanded' : ''} onClick={() => toggleFeature(index)}>
+    <img src={feature.icon} alt={`Icon for ${feature.title}`} />
+    <div className="title">
       {feature.title}
-      <img
-        src={AccordianIcon}
-        alt="Accordion icon"
-        className={`accordion-icon ${expandedFeature === index ? 'expanded' : ''}`}
-      />
-      {expandedFeature === index && (
-        <FeatureContent>
-          <p>{feature.description}</p>
-        </FeatureContent>
-      )}
-    </FeatureItem>
+    </div>
+    <img
+      src={AccordianIcon}
+      alt="Accordion icon"
+      className={`accordion-icon ${expandedFeature === index ? 'expanded' : ''}`}
+    />
+    <FeatureContent className={expandedFeature === index ? 'expanded' : ''}>
+      <p>{feature.description}</p>
+    </FeatureContent>
+  </FeatureItem>
+  
   ))}
     </FeatureList>
         </FeaturesText>
@@ -411,12 +417,13 @@ const Home = () => {
           <FooterColumn2>
             <FooterLink1>Company</FooterLink1>
             <SocialIcon>Branding</SocialIcon>
-            <SocialIcon>About Us</SocialIcon>
+            <Link to="/about"><SocialIcon>About Us</SocialIcon></Link>
             <SocialIcon>News</SocialIcon>
+            <Link to="/price"><SocialIcon>Pricing</SocialIcon></Link>
           </FooterColumn2>
  
           <FooterColumn3>
-            <FooterLink>Help</FooterLink>
+            <Link to="/faq"><FooterLink>Help</FooterLink></Link>
           </FooterColumn3>
         </FooterLinks>
       </FooterSections>
