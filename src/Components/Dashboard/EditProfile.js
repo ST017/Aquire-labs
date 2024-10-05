@@ -33,7 +33,7 @@ const EditProfile = ({ setIsEditProfile }) => {
   const [category,setCategory]=useState(userProject.category);
   const [location, setLocation] = useState(null);
   const [fundingStage, setFundingStage] = useState(userProject.fundingStatus);
-  const [partnership, setPartnership] = useState(userProject.category);
+  const [partnership, setPartnership] = useState(userProject.partnership);
   const [ecosystem, setEcosystem] = useState(userProject.blockchain);
   const [bioData, setBioData] = useState(userProject.biodata);
   const [requestType,setRequestType]=useState(userProject.requestType)
@@ -43,6 +43,7 @@ const EditProfile = ({ setIsEditProfile }) => {
   const [redditLink,setRedditLink]=useState(userProject.redditLink || "");
   const [mediumLink,setMediumLink]=useState(userProject.mediumLink || "");
   const [telegramLink,setTelegramLink]=useState(userProject.telegramLink || "");
+  const [oneLiner,setOneLiner]=useState(userProject.oneLiner || "");
   const [projectStatement, setProjectStatement] = useState(userProject.descr);
   const [coverPicture, setCoverPicture] = useState(null); // Holds the file for cover picture
   const [profilePicture, setProfilePicture] = useState(null); // Holds the file for profile picture
@@ -174,7 +175,8 @@ const EditProfile = ({ setIsEditProfile }) => {
         twitterLink:twitterLink || null,
         redditLink:redditLink || null,
         mediumLink :mediumLink || null,
-        telegramLink:telegramLink || null
+        telegramLink:telegramLink || null,
+        oneLiner:oneLiner || null,
       };
  
       await updateDoc(docRef, updatedData);
@@ -214,6 +216,7 @@ const EditProfile = ({ setIsEditProfile }) => {
     setRedditLink(userProject.redditLink || "");
     setMediumLink(userProject.mediumLink || "");
     setTelegramLink(userProject.telegramLink || "");
+    setOneLiner(userProject.oneLiner || "");
     setIsProfileEditing(true);
   };
  
@@ -264,90 +267,90 @@ const EditProfile = ({ setIsEditProfile }) => {
         <div className="form-row">
           <div className="form-group">
             <label>Location</label>
-            <select
+            <input
               name="location"
               value={userProject.country}
               readOnly
               //onChange={(e) => setLocation(e.target.value)}
             >
-              {LocationList.map((ele, i) => {
+             {/*  {LocationList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
-              })}
-            </select>
+              })} */}
+            </input>
           </div>
  
           <div className="form-group">
             <label>Funding Stage</label>
-            <select
+            <input
               name="fundingStage"
               value={userProject.fundingStatus}
               readOnly
               //onChange={(e) => setFundingStage(e.target.value)}
             >
-              {FundingStageList.map((ele, i) => {
+              {/* {FundingStageList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
-              })}
-            </select>
+              })} */}
+            </input>
           </div>
         </div>
  
         <div className="form-row">
           <div className="form-group">
             <label>Partnership Interests</label>
-            <select
+            <input
               name="partnership"
               value={userProject.partnershipInterest}
               readOnly
               //onChange={(e) => setPartnership(e.target.value)}
             >
-              {PartnershipInterestList.map((ele, i) => {
+              {/* {PartnershipInterestList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
-              })}
-            </select>
+              })} */}
+            </input>
           </div>
  
           <div className="form-group">
             <label>Ecosystem</label>
-            <select
+            <input
               name="ecosystem"
               value={userProject.blockchain}
               readOnly
               //onChange={(e) => setEcosystem(e.target.value)}
             >
-              {EcosystemsList.map((ele, i) => {
+              {/* {EcosystemsList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
-              })}
-            </select>
+              })} */}
+            </input>
           </div>
         </div>
 
         <div className="form-row">
           <div className="form-group">
             <label>Category</label>
-            <select
+            <input
               name="category"
               value={userProject.category}
               readOnly
               //onChange={(e) => setCategory(e.target.value)}
             >
-              {CategoryList.map((ele, i) => {
+             {/*  {CategoryList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
-              })}
-            </select>
+              })} */}
+            </input>
           </div>
  
           <div className="form-group">
             <label>Request Type</label>
-            <select
+            <input
               name="ecosystem"
               value={userProject.requestType}
               readOnly
               //onChange={(e) => setEcosystem(e.target.value)}
             >
-              {RequestTypeList.map((ele, i) => {
+              {/* {RequestTypeList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
-              })}
-            </select>
+              })} */}
+            </input>
           </div>
         </div>
  
@@ -435,6 +438,16 @@ const EditProfile = ({ setIsEditProfile }) => {
             readOnly
           />
         </div>
+        <div className="form-group">
+          <label>One Liner *</label>
+          <textarea
+            name="projectStatement"
+            value={userProject.oneLiner}
+            
+            required
+            readOnly
+          />
+        </div>
  
         <div className="form-group file-input">
           <label>Cover picture</label>
@@ -495,9 +508,10 @@ const EditProfile = ({ setIsEditProfile }) => {
             <input
               type="text"
               name="projectName"
-              value={projectName}
-              onChange={(e) => setProjectName(e.target.value)}
-              required
+              value={userProject.name}
+              onClick={()=>alert("Please Contact The Team to Edit")}
+              //onChange={(e) => setProjectName(e.target.value)}
+              readOnly
             />
           </div>
  
@@ -506,9 +520,10 @@ const EditProfile = ({ setIsEditProfile }) => {
             <input
               type="url"
               name="website"
-              value={website}
-              onChange={(e) => setWebsite(e.target.value)}
-              required
+              value={userProject.website}
+              onClick={()=>alert("Please Contact The Team to Edit")}
+              //onChange={(e) => setWebsite(e.target.value)}
+              readOnly
             />
           </div>
         </div>
@@ -549,7 +564,7 @@ const EditProfile = ({ setIsEditProfile }) => {
               value={partnership}
               onChange={(e) => setPartnership(e.target.value)}
             >
-              {CategoryList.map((ele, i) => {
+              {PartnershipInterestList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
               })}
             </select>
@@ -602,6 +617,7 @@ const EditProfile = ({ setIsEditProfile }) => {
           <textarea
             name="bioData"
             value={bioData}
+            maxLength={520}
             onChange={(e) => setBioData(e.target.value)}
             required
           />
@@ -674,7 +690,17 @@ const EditProfile = ({ setIsEditProfile }) => {
           <textarea
             name="projectStatement"
             value={projectStatement}
+            maxLength={520}
             onChange={(e) => setProjectStatement(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>One Liner *</label>
+          <textarea
+            name="one liner description"
+            value={oneLiner}
+            onChange={(e) => setOneLiner(e.target.value)}
             required
           />
         </div>

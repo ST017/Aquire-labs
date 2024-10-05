@@ -14,7 +14,14 @@ const ProfileSidebar = ({ User }) => {
   const [userDetail, setUserDetail] = useState(null); // Store user details separately
    const [isEditprofile, setIsEditProfile] = useState(false);
 
-
+   const handleViewClick = (project) => {
+    // Save project data to localStorage or sessionStorage
+    localStorage.setItem('selectedProject', JSON.stringify(project));
+    console.log("clicked")
+    
+    // Open the new page in a new tab
+    window.open('/companydetails', '_blank');
+  };
   
   // Fetch all required data
   const fetchData = async () => {
@@ -102,29 +109,8 @@ const ProfileSidebar = ({ User }) => {
         </div>
         </div>
         <div className='btn'>
-        <button className='edit-btn' onClick={()=>{setIsEditProfile(true)}}>Edit Profile</button>
-        {isEditprofile && (
-  <div
-    className="modal-container"
-    style={{
-      position: "fixed",
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      zIndex: 50,
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
-    }}
-   
-  >
-    <div className="edit-profile1">
-      <EditProfile  setIsEditProfile={setIsEditProfile} />
-    </div>
-  </div>
-)}
+        <button className='edit-btn' onClick={()=>{handleViewClick(userProject[0])}}>View Profile</button>
+        
         </div>
       </div>
     </div>

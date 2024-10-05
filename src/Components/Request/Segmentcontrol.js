@@ -11,6 +11,7 @@ import {
 import "./Segmentcontrol.css";
 import { db } from "../Firebase/firebase";
 import { FilterContext } from "../Dashboard/FilterContext";
+import Message from "./Message";
 
 const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   // const [activeSegment, setActiveSegment] = useState("pending");
@@ -236,7 +237,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                       request.createdAt.seconds * 1000
                     ).toLocaleDateString()}
                   </td>
-                  <td>{request?.message}</td>
+                  <td><Message msg={request?.message}/></td>
                   <td>{}</td>
                   <td>{request?.requestTypes.join(",")}</td>
                   <td>

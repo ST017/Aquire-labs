@@ -251,7 +251,7 @@ const CompanyDetails = () => {
           ) : (
             <>
               {/* If no matching request exists, show the "Send Request" button */}
-              <button className="send-request-btn" onClick={handleToggleModal}>
+              <button className="send-request-btn" onClick={()=>setIsModalOpen(true)}>
                 Send Request
               </button>
 
@@ -269,6 +269,7 @@ const CompanyDetails = () => {
                     justifyContent: "center",
                     zIndex: 50,
                     backgroundColor: "rgba(0, 0, 0, 0.5)",
+                   
                   }}
                 >
                   <div
@@ -465,7 +466,7 @@ const CompanyDetails = () => {
       ) : (
         <>
           {/* If no matching request exists, show the "Send Request" button */}
-          <button className="send-request-btn" onClick={handleToggleModal}>
+          <button className="send-request-btn" onClick={()=>setIsModalOpen(true)}>
             Send Request
           </button>
 
@@ -483,6 +484,7 @@ const CompanyDetails = () => {
                     justifyContent: "center",
                     zIndex: 50,
                     backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    
                   }}
                 >
                   <div
