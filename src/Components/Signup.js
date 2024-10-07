@@ -65,7 +65,13 @@ const Signup = () => {
 
   };
 
+  
+
+
   const handleFormSubmit = async (e) => {
+    // Regex for password validation
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{6,}$/;
+    
     e.preventDefault();
     if (
       !name ||
@@ -78,6 +84,11 @@ const Signup = () => {
       toast.error("All fields are required!", { position: "top-center" });
       return;
     }
+    if (!passwordRegex.test(password)) {
+      toast.error("Please use  strong password", { position: "top-center" });
+      return;
+    }
+
     if (reenterpassword !== password) {
       toast.error("password is not matching with re-entered password", {
         position: "top-center",
@@ -106,31 +117,7 @@ const Signup = () => {
             verified: false, // Set verified to false by default
             createdAt: new Date(), // Store the current timestamp
           });
-         /*  await setDoc(doc(db, "UserProject", user.uid), {
-            blockchain:"",
-            category:category,
-            city:"",
-            country:"",
-            createdAt: new Date(),  // current timestamp
-            descr: projDesc,  
-            endorsements: 1,  
-            fundingStatus: "",  
-            logo: "", 
-            modifiedAt: new Date(),  
-            name: name,  
-            social: {
-              facebook: "", 
-              insta: "",  // Instagram URL
-              linkedin: "",  // LinkedIn URL
-              tg: "",  // Telegram URL
-              twitter: "",  // Twitter URL
-            },
-            status: "",  // status of the project (empty string for now)
-            userId: user.uid,  // store the user ID
-            views: 1,  // number of views (1 by default)
-            website:compWeb,  // website URL (empty string for now)
-            whitepaper: "",  // whitepaper URL (empty string for now)
-          }); */
+         
 
           await addDoc(collection(db, "UserProject"), {
             blockchain: "",
@@ -217,6 +204,7 @@ const Signup = () => {
                 Project Name<Star1>*</Star1>
               </Label>
               <Input
+                value={name}
                 type="text"
                 placeholder="Project Name"
                 label="Project Name*"
@@ -228,6 +216,7 @@ const Signup = () => {
                 Email<Star1>*</Star1>
               </Label>
               <Input
+                value={email}
                 type="email"
                 placeholder="work email (Name@company.com)"
                 label="Email*"
@@ -241,6 +230,7 @@ const Signup = () => {
                 Company Website<Star1>*</Star1>
               </Label>
               <Input
+                value={compWeb}
                 type="url"
                 placeholder="Company.com"
                 label="Company Website*"
@@ -317,6 +307,7 @@ const Signup = () => {
                 Password<Star1>*</Star1>
               </Label>
               <Input
+               value={password}
                 type="password"
                 placeholder="Enter your password"
                 label="Password*"
@@ -329,6 +320,7 @@ const Signup = () => {
                 Re-Enter Password<Star1>*</Star1>
               </Label>
               <Input
+               value={reenterpassword}
                 type="password"
                 placeholder="Re-Enter your password"
                 label="Re-Enter Password*"
@@ -340,11 +332,11 @@ const Signup = () => {
 
           <InputWrapper>
             <Label>Project Description</Label>
-            <Input1 label="Project Description" onChange={(e)=>setProjDesc(e.target.value)} />
+            <Input1 label="Project Description" onChange={(e)=>setProjDesc(e.target.value)} value={projDesc}/>
           </InputWrapper>
 
           <CheckboxWrapper>
-            <Checkbox2 type="checkbox" checked={isChecked} onClick={()=>setIsChecked(true)} />
+            <Checkbox2 type="checkbox" checked={isChecked} onClick={()=>setIsChecked(true)}  />
             <InputWrapper>
               <CheckboxLabel>
                 By proceeding you agree to the Terms of Service and Privacy

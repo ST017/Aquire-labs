@@ -12,23 +12,27 @@ import Twitter from "../Images/Twitter-Company.png"
 import Git from "../Images/git-company.png"
 import EditProfile from "./Dashboard/EditProfile";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { addDoc, collection,getDocs, query, setDoc, where } from "firebase/firestore";
+import { addDoc, collection,deleteDoc,doc,getDocs, query, setDoc, where } from "firebase/firestore";
 import { db } from "./Firebase/firebase";
+//import verify from "../Images/verify.png"
  
  
 const CompanyDetails = () => {
   const [isEditprofile, setIsEditProfile] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [requestTypes, setRequestTypes] = useState([]); 
+  const [requestTypes, setRequestTypes] = useState([]);
   const [message, setMessage] = useState("")
   const [isRequestTypeOpen, setIsRequestTypeOpen] = useState(false);
   const [userConnectsList,setUserConnectsList]=useState([])
   const [matchingRequests,setMatchingRequests]=useState([])
   const [myproject,setMyProject]=useState([])
+  const [requestSent, setRequestSent] = useState(0);
+  const [requestReceived, setRequestReceived] = useState(0);
+  const [userConnectsDocId,setUserConnectsDocId]=useState(null)
  
-  
-
+ 
+ 
   useEffect(() => {
     const auth = getAuth();
     // Listen for authentication state changes
@@ -43,12 +47,64 @@ const CompanyDetails = () => {
   }, []);
     document.body.style.background="rgba(234, 239, 255, 1)"
     const selectedProject = JSON.parse(localStorage.getItem('selectedProject'));
-
-
+ 
+ 
     const handleToggleModal = () => {
       setIsModalOpen(!isModalOpen);
     };
+    const fetchUserConnectCounts = async (userId, setRequestSent, setRequestReceived) => {
+      try {
+        // Reference to the UserConnects collection
+        const connectsRef = collection(db, 'UserConnects');
+    
+        // Create query to match userId
+        const userQuery = query(connectsRef, where('userId', '==', userId));
+    
+        // Create query to match toUserId
+        const toUserQuery = query(connectsRef, where('toUserId', '==', userId));
+    
+        // Run both queries in parallel
+        const [userSnapshot, toUserSnapshot] = await Promise.all([
+          getDocs(userQuery),
+          getDocs(toUserQuery)
+        ]);
+    
+        // Set state for requestSent and requestReceived
+        setRequestSent(userSnapshot.size);      // Count of requests sent (userId)
+        setRequestReceived(toUserSnapshot.size); // Count of requests received (toUserId)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setRequestSent(0);      // Default to 0 if error occurs
+        setRequestReceived(0);   // Default to 0 if error occurs
+      }
+    };
+
+
+  useEffect(() => {
+    // Ensure selectedProject and userId exist
+    if (selectedProject?.userId) {
+      fetchUserConnectCounts(selectedProject.userId, setRequestSent, setRequestReceived);
+    }
+  }, [selectedProject,db]);
+
+    // Function to handle cancel request (delete operation)
+const handleCancelRequest = async () => {
   
+  try {
+    // Reference to the document in UserConnects collection
+    const docRef = doc(db, 'UserConnects', matchingRequests.id);
+
+    // Delete the document
+    await deleteDoc(docRef);
+
+    alert(`Request is cancelled!!.`);
+
+    await fetchUserConnects()
+  } catch (error) {
+    console.error("Error deleting document: ", error);
+  }
+};
+
     const handleRequestTypeChange = (type) => {
       setRequestTypes((prev) => {
         if (prev.includes(type)) {
@@ -60,7 +116,7 @@ const CompanyDetails = () => {
         }
       });
     };
-  
+ 
     const handleSendSaveRequest = async () => {
       if(requestTypes.length==0){
         alert("Please Select Your Request Type")
@@ -78,36 +134,37 @@ const CompanyDetails = () => {
           message: message, // The message input from the user
           location:myproject?.location || "",//fromuser location
           name:myproject?.name, //fromuser project name
-          
+         
         });
-  
+ 
         console.log("Document written with ID: ", docRef.id);
-        setIsModalOpen(false); 
+        setUserConnectsDocId(docRef.id)
+        setIsModalOpen(false);
         setIsRequestTypeOpen(false);
         setMessage("")
         await fetchUserConnects()
-
+ 
       } catch (e) {
         console.error("Error adding document: ", e);
       }
     };
-
-
+ 
+ 
    //fetch userconnects data
    const fetchUserConnects = async () => {
     try {
       // Reference to the UserConnects collection
       const userConnectsCollection = collection(db, "UserConnects");
-  
+ 
       // Fetch all documents from the collection
       const querySnapshot = await getDocs(userConnectsCollection);
-  
+ 
       // Map through the documents to create a list
       const userConnectsList = querySnapshot.docs.map(doc => ({
         id: doc.id, // Document ID
         ...doc.data(), // Document data
       }));
-  
+ 
       console.log("Fetched User Connects: ", userConnectsList);
       setUserConnectsList(userConnectsList)
       // Use filter to find all matches for selectedProject.id
@@ -117,46 +174,46 @@ const CompanyDetails = () => {
       setMatchingRequests(matchingRequests)
     } catch (e) {
       console.error("Error fetching User Connects: ", e);
-      return []; 
+      return [];
     }
   };
-
+ 
   const fetchMyProjectData=async()=>{
     try {
-      
+     
       const userProjectsCollection = collection(db, "UserProject");
       const userProjectsQuery=query(userProjectsCollection,where("userId","==",currentUser?.uid))
-  
-      
+ 
+     
       const querySnapshot = await getDocs(userProjectsQuery);
-  
+ 
       // Map through the documents to create a list
       const userProject = querySnapshot.docs.map(doc => ({
         id: doc.id, // Document ID
         ...doc.data(), // Document data
       }));
-
+ 
       setMyProject(userProject[0])
-  
-      
-      
+ 
+     
+     
     } catch (e) {
       console.error("Error fetching User Connects: ", e);
-    
+   
     }
   }
   useEffect(()=>{
     fetchMyProjectData()
-    
+   
   },[currentUser?.uid])
-
+ 
   useEffect(()=>{
      fetchUserConnects()
   },[db])
   return (
     <>
       <Navbar />
-      
+     
      
       <div  className="bbcmb"aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -174,15 +231,23 @@ const CompanyDetails = () => {
         <div className="header-container">
           <div className="header-section"><img className="cover-photo" src={selectedProject?.coverPicture} alt="cover-picture"/></div>
           <div className="subconatiner">
-                <div className="profile-container">
-                <div className="profile-logo"><img className="profile-photo" src={selectedProject?.profilePicture} alt="profile-picture"/></div>
-                <div className="profile-text">
-                    <h6>{selectedProject?.name}</h6>
-                    <h6><img src={locationlogo} alt="location"/>{selectedProject?.city}{selectedProject?.country}</h6>
-                </div>
-            </div>
+          <div className="profile-container">
+  <div className="company-profile-logo">
+    <img className="company-profile-photo" src={selectedProject?.profilePicture} alt="profile-picture" />
+  </div>
+  <div className="company-profile-text">
+    <h4>{selectedProject?.name} {/* <img className="verified-icon" src={verify} alt="verified" /> */}</h4>
+    <p className="oneliner">{selectedProject?.oneLiner}</p>
+    <h6>
+      <img src={locationlogo} alt="location" />
+      {selectedProject?.city}, {selectedProject?.country}
+    </h6>
+  </div>
+  {/* <button className="edit-profile-btn">Edit Profile</button> */}
+</div>
+ 
             <div className="inner">
-
+ 
   {currentUser?.uid === selectedProject?.userId  ? (
     <>
       <button className="send-request-btn" onClick={() => setIsEditProfile(true)}>
@@ -215,9 +280,15 @@ const CompanyDetails = () => {
         <>
           {matchingRequests?.userId === currentUser?.uid ? (
             <div>
-              <button className="send-request-btn">
+              
+              {matchingRequests.status==="pending"?(<button className="send-request-btn" onClick={handleCancelRequest}>
+                Cancel
+              </button>):((matchingRequests.status==="Denied" || matchingRequests.status==="Accepted")?(<button className="send-request-btn" >
                 {matchingRequests.status}
-              </button>
+              </button>):(<button className="send-request-btn" onClick={handleToggleModal}>
+                Send Request
+              </button>))}
+              
             </div>
           ) : matchingRequests?.toUserId === currentUser?.uid ? (
             <div>
@@ -251,10 +322,10 @@ const CompanyDetails = () => {
           ) : (
             <>
               {/* If no matching request exists, show the "Send Request" button */}
-              <button className="send-request-btn" onClick={()=>setIsModalOpen(true)}>
+              <button className="send-request-btn" onClick={handleToggleModal}>
                 Send Request
               </button>
-
+ 
               {/* Modal */}
               {isModalOpen && (
                 <div
@@ -269,7 +340,6 @@ const CompanyDetails = () => {
                     justifyContent: "center",
                     zIndex: 50,
                     backgroundColor: "rgba(0, 0, 0, 0.5)",
-                   
                   }}
                 >
                   <div
@@ -292,7 +362,7 @@ const CompanyDetails = () => {
                     >
                       Send Requests
                     </h2>
-
+ 
                     {/* Request Type Dropdown */}
                     <label
                       style={{
@@ -389,7 +459,7 @@ const CompanyDetails = () => {
                         ))}
                       </div>
                     )}
-
+ 
                     {/* Message */}
                     <label
                       style={{
@@ -420,7 +490,7 @@ const CompanyDetails = () => {
                         resize: "none", // Prevent resizing of the textarea
                       }}
                     ></textarea>
-
+ 
                     {/* Buttons */}
                     <div
                       style={{ display: "flex", justifyContent: "space-between" }}
@@ -466,10 +536,10 @@ const CompanyDetails = () => {
       ) : (
         <>
           {/* If no matching request exists, show the "Send Request" button */}
-          <button className="send-request-btn" onClick={()=>setIsModalOpen(true)}>
+          <button className="send-request-btn" onClick={handleToggleModal}>
             Send Request
           </button>
-
+ 
           {/* Modal */}
           {isModalOpen && (
                 <div
@@ -484,7 +554,6 @@ const CompanyDetails = () => {
                     justifyContent: "center",
                     zIndex: 50,
                     backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    
                   }}
                 >
                   <div
@@ -507,7 +576,7 @@ const CompanyDetails = () => {
                     >
                       Send Requests
                     </h2>
-
+ 
                     {/* Request Type Dropdown */}
                     <label
                       style={{
@@ -604,7 +673,7 @@ const CompanyDetails = () => {
                         ))}
                       </div>
                     )}
-
+ 
                     {/* Message */}
                     <label
                       style={{
@@ -635,7 +704,7 @@ const CompanyDetails = () => {
                         resize: "none", // Prevent resizing of the textarea
                       }}
                     ></textarea>
-
+ 
                     {/* Buttons */}
                     <div
                       style={{ display: "flex", justifyContent: "space-between" }}
@@ -698,9 +767,12 @@ const CompanyDetails = () => {
  
             {/* Ecosystem */}
             <div className="ecosystem-card1">
-              <p className="ecosystem-heading">Ecosystem</p>
-              <p className="ecosytem-text">{selectedProject?.blockchain || ""}</p>
-            </div>
+  <p className="ecosystem-heading">Ecosystem</p>
+  <div className="ecosytem-text">
+    <p className="blockchain-data">{selectedProject?.blockchain || ""}</p>
+  </div>
+</div>
+ 
  
             {/* Partnership Interest */}
             <div className="partnership-card1">
@@ -724,10 +796,10 @@ const CompanyDetails = () => {
            {/*right Section */}
            <div className="right-section1">
             <div className="stat-item1">
-              <img src={receivelogo} alt="logo" className="received1-img1"/> <a className="stat-item1-text">Requests Received</a> <a className="number-stat">105</a>
+              <img src={receivelogo} alt="logo" className="received1-img1"/> <a className="stat-item1-text">Requests Received</a> <a className="number-stat">{requestReceived}</a>
             </div>
             <div className="stat-item1">
-            <img src={sentlogo} alt="logo" className="received1-img1"/><a className="stat-item1-text" style={{marginRight:"40px"}}> Requests Sent </a> <a className="number-stat">105</a>
+            <img src={sentlogo} alt="logo" className="received1-img1"/><a className="stat-item1-text" style={{marginRight:"40px"}}> Requests Sent </a> <a className="number-stat">{requestSent}</a>
             </div>
  
             <div className="categories-card1">
@@ -787,7 +859,7 @@ const CompanyDetails = () => {
      }} /></div>
    
               </div>
-              
+             
             </div>
           </div>
         </div>
