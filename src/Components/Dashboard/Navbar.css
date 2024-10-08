@@ -1,145 +1,108 @@
-/* .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color:rgba(234
-    ,
-    239
-    ,
-    255
-    ,
-    1);
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  nav ul {
-    display: flex;
-    gap: 20px;
-  }
-  
-  nav ul li {
-    list-style: none;
-  }
-  
-  nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-  }
-  
-  .logout-btn {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-   */
-
-   .container{
-    align-content: center;
-    box-sizing: border-box;
-    align-items: center;
-    height: 69px;
-    box-sizing: border-box;
-   
-}
-.frame1, .headercomp , .headermain , .frame2 {
-    display: flex;
-    cursor:pointer;
-   
-}
-.headercomp {justify-content: space-between;
-   
-}
-.headermain  {
-    align-items: center;
-    justify-content: space-between;
-    margin: auto;
-    height: 69px;
-   
-}
-.logout{
+.container{
+  width: 100%;
  
-    align-content: center;
+  display: flex;
+  flex-direction: row;
+ 
+  margin: 0;
 }
-.logout-btn{
-  width: 105px;
-height: 39px;
-gap: 10px;
-border-radius: 6px;
- margin-bottom:10px;
-opacity: 0px;
-box-shadow: 0px 5px 15px 0px #252C6126;
+.headercontainer{
+  width: 100%;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  box-sizing: border-box;
+overflow: hidden;
  
-box-shadow: 0px 2px 4px 0px #8890C233;
-background-color: transparent;
+}
+.frame1 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 10px;
+  box-sizing: border-box;
  
-  border: 1px solid #003CFF;
  
-  color:  #1A0DAB;
-  &:hover{
-    background-color: #003CFF;
-    color: white;
-  }
+}
+.frame2{
+  width: 90%;
+  display: flex;
+}
+.headermain {
+  padding: 10px; /* Add padding for spacing */
 }
  
-.frame1{
+.header-ul {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+   /* Allows wrapping for smaller screens */
+}
  
+.header-ul li {
+  flex-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Adds 5px gap between img and span */
+  padding: 5px 10px;
+}
  
+.header-ul li img {
+  width: 18px;
+  height: 18px;
+  gap: 0px;
+  opacity: 0px;
  
+}
  
+.header-ul li span {
+  font-size: 16px;
+  color: #333;
+}
+.nav-svg{
+  width: 18px;
+  height: 18px;
+  gap: 0px;
+  opacity: 0px;
+}
+.Discover-l, .Inbox-l , .Request-l , .Saved-l , .Notifications-l {
  
-    padding: 10px;
-    gap: 111px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+  align-items: center;
+ 
+font-family: Inter;
+font-size: 16px;
+font-weight: 700;
+line-height: 19.36px;
+text-align: left;
+ 
 }
  
 .frame2{
-    padding: 10px;
-   
+  margin-right: 40px;
+  align-items: center;
+  justify-content: flex-end;
+  right: 10px;
+}
+.frame1{
+  align-items: center;
+  gap:20%
 }
  
-.Discover-l, .Inbox-l , .Request-l , .Saved-l , .Notifications-l {
-  list-style-type: none;
-  gap:8px;
-  display: flex;
-padding: 5px;
-width: 133px;
-align-items: center;
-height: 49px;
  
- 
- 
- 
-  img {
-    width: 18px;
-    height: 18px;
+@media screen  and (max-width:600px){
+  .headermain,.header-ul{
+    display: none;
   }
- span{
-  font-family: Inter;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 19.36px;
-  text-align: left;
+  .container{
+    width: 100%;
+    background-color: white;
   }
 }
-.header-ul{
-  display: flex;
-  flex-direction: row;
- gap: 20px;
- 
-}
-/*  
-li {
-    align-items: center;
-       
- 
- 
-       } */

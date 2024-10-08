@@ -23,6 +23,10 @@ import {
   Star1,
   Help,
   InputSelect,
+  CloseButtonX,
+  ImageHash1,
+  IconWrapper,
+  InputWrapperResponsive,
 } from "./Signup.style"; // This imports the styled components
 import aquirelab from "../Images/Aquirelabs.png";
 import aqdash from "../Images/Aqdash.png";
@@ -39,10 +43,12 @@ import {
 import { auth, db } from "./Firebase/firebase";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import RaisaLogo from "../Images/RaisaLogo.png";
 import { CategoryList } from "./Dashboard/Filterlists";
+import HelpSignup from "./HelpSignup";
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 
 const Signup = () => {
   document.body.style.background = "rgba(242, 246, 255, 1)";
@@ -54,6 +60,9 @@ const Signup = () => {
   const [category, setCategory] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [projDesc, setProjDesc] = useState("");
+  const [isHelpModalOpen,setIsHelpModalOpen]=useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [showReenterPassword, setShowReenterPassword] = useState(false);
   
   const [user,setUser]=useState(null)
 
@@ -65,12 +74,33 @@ const Signup = () => {
 
   };
 
+ 
+
+  // Function to toggle password visibility
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleReenterPasswordVisibility = () => {
+    setShowReenterPassword(!showReenterPassword);
+  };
+
+
+  const handleHelpModal=()=>{
+    setIsHelpModalOpen(true)
+  }
+
+  
+
   
 
 
   const handleFormSubmit = async (e) => {
     // Regex for password validation
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{6,}$/;
+
+    //Regex for email validation
+    const emailRegex=/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/;
     
     e.preventDefault();
     if (
@@ -84,10 +114,15 @@ const Signup = () => {
       toast.error("All fields are required!", { position: "top-center" });
       return;
     }
+    if(!emailRegex.test(email)){
+      toast.error("Invalid Email Format", { position: "top-center" });
+      return;
+    }
     if (!passwordRegex.test(password)) {
       toast.error("Please use  strong password", { position: "top-center" });
       return;
     }
+    
 
     if (reenterpassword !== password) {
       toast.error("password is not matching with re-entered password", {
@@ -186,14 +221,15 @@ const Signup = () => {
 
   return (
     <>
+    <div style={{overflowX:"hidden"}}>
     <SignupContainer>
       <LogoContainer>
           <Logo  src={RaisaLogo} alt="Aquire Labs" />
           
-          <CloseButton><img src={closebutton} alt="Close button" /></CloseButton>
+          <Link to="/"><CloseButtonX><img src={closebutton} alt="Close button" /></CloseButtonX></Link>
         </LogoContainer>
         <OutsideContainer>
-          <Title>Signup</Title>
+          <Title style={{marginTop:"30px"}}>Signup</Title>
           <Subtitle>Signup and get started with GoWeb3 Network</Subtitle>
         </OutsideContainer>
 
@@ -201,7 +237,7 @@ const Signup = () => {
           <InputGroup>
             <InputWrapper>
               <Label>
-                Project Name<Star1>*</Star1>
+                Project Name<a style={{color:"red"}}>*</a>
               </Label>
               <Input
                 value={name}
@@ -213,7 +249,7 @@ const Signup = () => {
             </InputWrapper>
             <InputWrapper>
               <Label>
-                Email<Star1>*</Star1>
+                Email<a style={{color:"red"}}>*</a>
               </Label>
               <Input
                 value={email}
@@ -227,7 +263,7 @@ const Signup = () => {
           <InputGroup>
             <InputWrapper>
               <Label>
-                Company Website<Star1>*</Star1>
+                Company Website<a style={{color:"red"}}>*</a>
               </Label>
               <Input
                 value={compWeb}
@@ -239,7 +275,7 @@ const Signup = () => {
             </InputWrapper>
             <InputWrapper>
               <Label>
-                Category<Star1>*</Star1>
+                Category<a style={{color:"red"}}>*</a>
               </Label>
              {/*  <InputSelect
                 onChange={(e) => setCategory(e.target.value)}
@@ -302,33 +338,40 @@ const Signup = () => {
             </InputWrapper>
           </InputGroup>
           <InputGroup>
-            <InputWrapper>
-              <Label>
-                Password<Star1>*</Star1>
-              </Label>
-              <Input
-               value={password}
-                type="password"
-                placeholder="Enter your password"
-                label="Password*"
-                icon
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <Label>
-                Re-Enter Password<Star1>*</Star1>
-              </Label>
-              <Input
-               value={reenterpassword}
-                type="password"
-                placeholder="Re-Enter your password"
-                label="Re-Enter Password*"
-                icon
-                onChange={(e) => setReenterpassword(e.target.value)}
-              />
-            </InputWrapper>
-          </InputGroup>
+          <InputWrapper>
+  <Label>
+    Password <a style={{ color: 'red' }}>*</a>
+  </Label>
+  <InputWrapperResponsive>
+    <Input
+      value={password}
+      type={showPassword ? 'text' : 'password'}
+      placeholder="Enter your password"
+      onChange={(e) => setPassword(e.target.value)}
+    />
+    <IconWrapper onClick={togglePasswordVisibility}>
+      {showPassword ? <FaEyeSlash /> : <FaEye />}
+    </IconWrapper>
+  </InputWrapperResponsive>
+</InputWrapper>
+
+      <InputWrapper>
+        <Label>
+          Re-Enter Password <a style={{ color: 'red' }}>*</a>
+        </Label>
+        <InputWrapperResponsive>
+          <Input 
+            value={reenterpassword}
+            type={showReenterPassword ? 'text' : 'password'}
+            placeholder="Re-Enter your password"
+            onChange={(e) => setReenterpassword(e.target.value)}
+          />
+          <IconWrapper onClick={toggleReenterPasswordVisibility}>
+            {showReenterPassword ? <FaEyeSlash /> : <FaEye />}
+          </IconWrapper>
+        </InputWrapperResponsive>
+      </InputWrapper>
+    </InputGroup>
 
           <InputWrapper>
             <Label>Project Description</Label>
@@ -349,12 +392,29 @@ const Signup = () => {
           <Button type="submit">Create Account</Button>
 
           <LoginLink>
-            I already have an account <LoginLink1 onClick={()=>window.open("/login","_blank")}>Login</LoginLink1>
+            I already have an account <Link to="/login"><a style={{color:"rgba(0, 60, 255, 1)",cursor:"pointer"}}>Login</a></Link>
           </LoginLink>
         </Form>
       </SignupContainer>
-      {/* <Help src={helpbutton}/>
-    <ImageHash src={aqhash} alt="Logo-Hash"/> */}
+       <Help src={helpbutton} onClick={handleHelpModal}/>
+       {isHelpModalOpen && ( <div
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    zIndex: 50,
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  }}
+                ><HelpSignup setIsHelpModalOpen={setIsHelpModalOpen}/></div>)}
+    
+    
+   <ImageHash1 src={aqhash} alt="Logo-Hash"/>  
+   </div>
       <ToastContainer />
     </>
   );

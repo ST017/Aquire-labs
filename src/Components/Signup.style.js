@@ -8,9 +8,12 @@ import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/700.css';
 
+
+
+
 export const SignupContainer = styled.div`
   width: 822px;
-  height: 1000px;
+  height: 900px;
   padding: 20px;
   margin: auto;
   background: white;
@@ -18,9 +21,11 @@ export const SignupContainer = styled.div`
   margin-bottom: 40px;
   margin-top: 40px;
   border: 1px solid transparent;
+
+  
   
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     width: 90%;
     height: auto;
     padding: 15px;
@@ -48,7 +53,57 @@ export const SignupContainer = styled.div`
   border: 1px solid transparent;
   }
 
+  @media (width:768px){
+  
+  height: 1100px;
+
+  }
+
    
+`;
+
+export const CloseButtonX = styled.button`
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size: 32px;
+  cursor: pointer;
+  border-width: 0.14px;
+  border-radius: 50%;
+  background: #eeeeee;
+  width: 30px;
+height: 30px;
+
+
+
+
+
+  
+
+  @media (min-width: 360px) {
+     margin-left: 270px;
+  }
+  @media (min-width: 375px) {
+     margin-left: 280px;
+  }
+  @media (min-width: 414px) {
+     margin-left: 300px;
+  }
+  @media (min-width: 412px) {
+     margin-left: 300px;
+  }
+  @media (min-width: 768px) {
+     margin-left: 700px;
+  }
+  @media (width: 344px) {
+     margin-left: 260px;
+  }
+  @media (width: 540px) {
+     margin-left: 400px;
+  }
+
+
+  
 `;
 
 export const Logo1 = styled.img`
@@ -243,6 +298,38 @@ export const InputGroup = styled.div`
   }
 `;
 
+// Wrapper for the eye icon
+export const IconWrapper = styled.div`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  svg {
+    font-size: 18px;
+    color: #888;
+  }
+
+  &:hover svg {
+    color: #000;
+  }
+
+  @media (max-width: 768px) {
+    right: 8px;
+    svg {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    right: 5px;
+    svg {
+      font-size: 14px;
+    }
+  }
+`;
+
 
 export const Input = styled.input`
   font-family:Inter;
@@ -257,7 +344,7 @@ export const Input = styled.input`
   outline: none;
   box-sizing: border-box;
   color:rgba(120, 139, 165, 1);
-
+  width:100%;
 
   &[type='password'] {
     position: relative;
@@ -357,10 +444,10 @@ export const CheckboxLabel1 = styled.label`
 export const Checkbox2 = styled.input`
   width:16px;
   height:16px;
-  margin-right: 10px;
+  margin-right: 0px;
   border: 1px solid rgba(209, 213, 219, 1) ;
   border-radius: 4px;
-  margin-top:-10px;
+  margin-top:-20px;
 `;
 
 export const Button = styled.button`
@@ -399,7 +486,7 @@ export const LoginLink = styled.p`
   cursor:pointer;
   margin-left:5px;
 `;
-export const LoginLink1 = styled.span`
+export const LoginLink1 = styled.a`
   font-weight:600;
   font-family:Inter;
   text-align: center;
@@ -426,21 +513,51 @@ export const Star1=styled.span`
 
 `
 
-export const Help=styled.img`
+export const Help = styled.img`
   width: 70.93px;
   height: 70px;
-  position: absolute; 
-  top: 823px;
-  left: 1188px;
-  padding: 23px 28px ;
-  gap: 14.25px; 
-  border-radius: 142.5px;
-
-   @media (max-width: 768px) {
-    top: 900px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  position: fixed; 
+  bottom: 10%; 
+  right:15%;  
+  padding: 23px 28px;
   
+  border-radius: 142.5px;
+  z-index: 10; 
+
+  @media (max-width: 768px) {
+    width: 60px;
+    height: 60px;
+    bottom: 15px; /* Adjust bottom spacing for smaller screens */
+    right: 15px;  /* Adjust right spacing for smaller screens */
+  }
+
+  @media (max-width: 480px) {
+    width: 50px;
+    height: 50px;
+    bottom: 10px; /* Further adjustments for very small screens */
+    right: 10px;  /* Keep it aligned to the right */
+  }
+`;
+
+
+
+
+export const ImageHash1 = styled.img`
+  width:300px;
+  height:300px;
+  position: absolute;
+  bottom: -450px;
+  left: 0;
+  z-index:-1;
  
+`;
+
+export const InputWrapperResponsive = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+
+  @media (max-width: 450px) {
+    width: 125%; /* Adjust the width when the screen width is below 450px */
+  }
 `;

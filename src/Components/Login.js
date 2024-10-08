@@ -44,10 +44,11 @@ import { auth } from "./Firebase/firebase";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Star1 } from "./Signup.style";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RaisaLogo from "../Images/RaisaLogo.png";
 import Hash from "../Images/Hash.png";
 import "./Login.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 const Login = () => {
   document.body.style.background = "rgba(242, 246, 255, 1)";
 
@@ -55,6 +56,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false); // New state for Remember Me
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  /* const [emailError,setEmailError]=useState(null)
+  const [passwordError,setPasswordError]=useState(null) */
 
   // Load email from localStorage if Remember Me was checked
   useEffect(() => {
@@ -111,10 +115,12 @@ const Login = () => {
         );
       }
     } catch (error) {
+      console.log(error.code);
       if (error.code === "auth/wrong-password") {
         toast.error("Incorrect password. Please try again.", {
           position: "top-center",
         });
+        //setPasswordError("Wrong Password")
       } else if (error.code === "auth/user-not-found") {
         toast.error("Email not found. Please sign up first.", {
           position: "top-center",
@@ -126,13 +132,17 @@ const Login = () => {
       }
     }
   };
+  // Toggle between showing and hiding the password
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   const handleRememberMe = (e) => {
     setRememberMe(e.target.checked);
-     
+
     if (!e.target.checked) {
       localStorage.removeItem("email"); // Remove email from localStorage when unchecked
-  }
+    }
   };
 
   return (
@@ -143,7 +153,9 @@ const Login = () => {
           <Logo src={RaisaLogo} alt="Aquire Labs" />
 
           <CloseButton>
-            <img src={closebutton} alt="Close button" />
+            <Link to="/">
+              <img src={closebutton} alt="Close button" />
+            </Link>
           </CloseButton>
         </LogoContainer>
         <InsideContainer>
@@ -158,7 +170,7 @@ const Login = () => {
 
             <Form onSubmit={handleFormSubmit}>
               <Label>
-                Email<Star1>*</Star1>
+                Email<a style={{ color: "red" }}>*</a>
               </Label>
               <Input
                 type="email"
@@ -168,13 +180,34 @@ const Login = () => {
               />
 
               <Label>
-                Password<Star1>*</Star1>
+                Password<a style={{ color: "red" }}>*</a>
               </Label>
-              <Input
-                type="password"
-                placeholder="Enter your password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div style={{ position: "relative", width: "100%" }}>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={{
+                    paddingRight: "40px", // Adjust padding to give space for the eye icon
+                    width: "100%",
+                    boxSizing: "border-box", // Ensure padding is considered in width
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "40%",
+                    right: "10px",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "rgba(120, 139, 165, 1)",
+                  }}
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </div>
+              </div>
 
               <ForgotPassword onClick={handleForgetPassword}>
                 Forget Password?
@@ -211,7 +244,7 @@ const Login = () => {
         {/* </div> */}
       </LoginContainer>
       <ToastContainer />
-      {/* <img src={Hash} alt='hash' className='imghash'/> */}
+      <img src={Hash} alt="hash" className="imghash" />
     </div>
   );
 };

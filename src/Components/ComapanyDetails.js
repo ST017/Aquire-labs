@@ -14,6 +14,8 @@ import EditProfile from "./Dashboard/EditProfile";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { addDoc, collection,deleteDoc,doc,getDocs, query, setDoc, where } from "firebase/firestore";
 import { db } from "./Firebase/firebase";
+import Footer from "./Dashboard/Footer";
+
 //import verify from "../Images/verify.png"
  
  
@@ -211,7 +213,7 @@ const handleCancelRequest = async () => {
      fetchUserConnects()
   },[db])
   return (
-    <>
+    <div className="companydetails-container">
       <Navbar />
      
      
@@ -863,8 +865,12 @@ const handleCancelRequest = async () => {
             </div>
           </div>
         </div>
+         
+
       </div>
-    </>
+      <div className="companydetails-footer"><Footer/></div> 
+
+    </div>
   );
 };
  
