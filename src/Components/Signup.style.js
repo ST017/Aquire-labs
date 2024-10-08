@@ -7,10 +7,13 @@ import '@fontsource/inter/300.css';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/700.css';
-
+ 
+ 
+ 
+ 
 export const SignupContainer = styled.div`
   width: 822px;
-  height: 1000px;
+  height: 900px;
   padding: 20px;
   margin: auto;
   background: white;
@@ -18,8 +21,10 @@ export const SignupContainer = styled.div`
   margin-bottom: 40px;
   margin-top: 40px;
   border: 1px solid transparent;
-  
-
+ 
+ 
+ 
+ 
   @media (max-width: 767px) {
     width: 90%;
     height: auto;
@@ -27,14 +32,14 @@ export const SignupContainer = styled.div`
     margin-top: 20px;
     margin-bottom: 20px;
   }
-
+ 
   @media (max-width: 480px) {
     width: 100%;
     padding: 10px;
     margin-top: 15px;
     margin-bottom: 15px;
   }
-  
+ 
    @media (width: 540px) {
   width: 450px;
   height: 1000px;
@@ -47,10 +52,54 @@ export const SignupContainer = styled.div`
   margin-top: 40px;
   border: 1px solid transparent;
   }
-
+ 
    
 `;
-
+ 
+export const CloseButtonX = styled.button`
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size: 32px;
+  cursor: pointer;
+  border-width: 0.14px;
+  border-radius: 50%;
+  background: #eeeeee;
+  width: 30px;
+height: 30px;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  @media (min-width: 360px) {
+     margin-left: 270px;
+  }
+  @media (min-width: 375px) {
+     margin-left: 280px;
+  }
+  @media (min-width: 414px) {
+     margin-left: 300px;
+  }
+  @media (min-width: 412px) {
+     margin-left: 300px;
+  }
+  @media (min-width: 768px) {
+     margin-left: 700px;
+  }
+  @media (width: 344px) {
+     margin-left: 260px;
+  }
+  @media (width: 540px) {
+     margin-left: 400px;
+  }
+ 
+ 
+ 
+`;
+ 
 export const Logo1 = styled.img`
   width:122px;
   height:49px;
@@ -67,7 +116,7 @@ export const Logo1 = styled.img`
   transform: translate(-50%, -50%);
   height: 40px;
   }
-  
+ 
   @media (min-width: 400px) {
   position: absolute;
   top: 48%;
@@ -75,7 +124,7 @@ export const Logo1 = styled.img`
   transform: translate(-50%, -50%);
   height: 40px;
   }
-  
+ 
   @media (min-width: 700px) {
     height: 30px;
     top: 53%;
@@ -94,13 +143,13 @@ export const Heading1=styled.img`
   transform: translate(-50%, -50%); /* Centering */
   height: 21.12px;
   width:126.84px;
-
+ 
   @media (max-width: 768px) {
     top: 70%;
     height: 18px;
     width: 100px;
   }
-  
+ 
 `;
 export const  Dash1=styled.img`
   position: absolute; /* Positioning it absolutely */
@@ -109,17 +158,17 @@ export const  Dash1=styled.img`
   transform: translate(-50%, -50%); /* Centering */
   height:3.85px;
   width:152px;
-
-
+ 
+ 
   @media (max-width: 768px) {
     top: 120%;
     height: 3px;
     width: 120px;
   }
-  
+ 
 `;
-
-
+ 
+ 
 export const CloseButton2 = styled.button`
   margin-left:705px;
   font-size: 22px;
@@ -127,8 +176,8 @@ export const CloseButton2 = styled.button`
   border-width: 0.14px 0.14px 0.14px 0.14px;
   border-radius: 50%;
   background: #EEEEEE;
-
-
+ 
+ 
   @media (min-width: 360px) {
      margin-left: 270px;
   }
@@ -153,10 +202,10 @@ export const CloseButton2 = styled.button`
   @media (min-width: 800px) {
      margin-left: 700px;
   }
-  
-
+ 
+ 
 `;
-
+ 
 export const Title = styled.p`
 margin:auto;
   font-family:Inter;
@@ -165,33 +214,33 @@ margin:auto;
   font-weight: 700;
   // margin-bottom: 0.5rem;
   color:rgba(0, 0, 0, 1);
-
-
-  
+ 
+ 
+ 
 `;
-
+ 
 export const OutsideContainer=styled.div`
   width:390px;
   height:69.98px;
   margin:auto;
   // margin-left:195px;
   // margin-top:50px;
-
+ 
    @media (max-width: 768px) {
     width: 100%;
     margin-left: 0;
     margin-top: 30px;
   }
-
+ 
   @media (max-width: 480px) {
     height: auto;
     margin-top: 20px;
   }
-  
-  
-  
+ 
+ 
+ 
 `
-
+ 
 export const Subtitle = styled.p`
   font-family:Inter;
   text-align: center;
@@ -201,7 +250,7 @@ export const Subtitle = styled.p`
  
   color:rgba(120, 139, 165, 1);
 `;
-
+ 
 export const Form = styled.form`
   margin-left: 40px;
   width: 740px;
@@ -209,13 +258,13 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-
+ 
   @media (max-width: 769px) {
     width: 100%;   // Ensure the form takes full width on tablets
     margin-left: 0;
     gap: 1rem;     // Slightly reduce the gap between elements for better spacing
   }
-
+ 
   @media (max-width: 480px) {
     width: 80%;  // Full width on mobile
     margin-left: 15px;
@@ -224,26 +273,26 @@ export const Form = styled.form`
     height: auto;  // Remove fixed height for better flexibility on mobile
   }
 `;
-
-
+ 
+ 
 export const InputGroup = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-
+ 
   @media (max-width: 768px) {
     flex-direction: column;  // Stacks inputs vertically on tablet-sized screens
     gap: 1.2rem;  // Slightly increase gap for better readability on tablets
   }
-
+ 
   @media (max-width: 480px) {
     flex-direction: column;  // Stacks vertically on smaller mobile screens
     gap: 1rem;  // Maintain a consistent gap on mobile
     width: 80%;  // Ensure inputs take the full width of the container
   }
 `;
-
-
+ 
+ 
 export const Input = styled.input`
   font-family:Inter;
   font-weight:400;
@@ -257,13 +306,13 @@ export const Input = styled.input`
   outline: none;
   box-sizing: border-box;
   color:rgba(120, 139, 165, 1);
-
-
+ 
+ 
   &[type='password'] {
     position: relative;
   }
-
-
+ 
+ 
   @media (max-width: 769px) {
     width: 125%;
   }
@@ -287,13 +336,13 @@ export const InputSelect = styled.select`
   outline: none;
   box-sizing: border-box;
   color:rgba(120, 139, 165, 1);
-
-
+ 
+ 
   &[type='password'] {
     position: relative;
   }
-
-
+ 
+ 
   @media (max-width: 769px) {
     width: 125%;
   }
@@ -304,14 +353,14 @@ export const InputSelect = styled.select`
     width: 100%;
   }
 `;
-
+ 
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
-
-
+ 
+ 
 export const Input1 = styled.textarea`
   width: 740px;
   height:147.04px;
@@ -320,24 +369,24 @@ export const Input1 = styled.textarea`
   border-radius: 5px;
   font-size: 14px;
   box-sizing: border-box;
-  resize: none; 
+  resize: none;
  
-
+ 
   &:focus {
     border-color: #007bff;
   }
-
+ 
    @media (max-width: 768px) {
     width: 100%;
     height: 120px;
   }
 `;
-
+ 
 export const CheckboxWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
-
+ 
 export const CheckboxLabel = styled.label`
   font-family:Inter;
   font-weight:400;
@@ -362,7 +411,7 @@ export const Checkbox2 = styled.input`
   border-radius: 4px;
   margin-top:-10px;
 `;
-
+ 
 export const Button = styled.button`
   font-family:Inter;
   width:203px;
@@ -377,18 +426,18 @@ export const Button = styled.button`
   cursor: pointer;
   margin-left:270px;
   margin-top:40px;
-
+ 
   &:hover {
     background-color: #0056b3;
   }
-
+ 
    @media (max-width: 768px) {
     width: 100%;
     margin-left: 0;
     margin-top: 20px;
   }
 `;
-
+ 
 export const LoginLink = styled.p`
   font-weight:600;
   font-family:Inter;
@@ -399,7 +448,7 @@ export const LoginLink = styled.p`
   cursor:pointer;
   margin-left:5px;
 `;
-export const LoginLink1 = styled.span`
+export const LoginLink1 = styled.a`
   font-weight:600;
   font-family:Inter;
   text-align: center;
@@ -408,7 +457,7 @@ export const LoginLink1 = styled.span`
   margin-top: 0px;
   cursor:pointer;
 `;
-
+ 
 export const CloseButton = styled.button`
   position: absolute;
   top: 20px;
@@ -423,24 +472,53 @@ export const Star1=styled.span`
  font-weight:500;
  font-size:14px;
  color:rgba(255, 54, 54, 1);
-
+ 
 `
+ 
+export const Help = styled.img`
 
-export const Help=styled.img`
-  width: 70.93px;
-  height: 70px;
-  position: absolute; 
-  top: 823px;
-  left: 1188px;
-  padding: 23px 28px ;
-  gap: 14.25px; 
-  border-radius: 142.5px;
-
-   @media (max-width: 768px) {
-    top: 900px;
-    left: 50%;
-    transform: translateX(-50%);
+  // width: 5vw;  /* Use viewport width for responsive scaling */
+  height: auto; /* Maintain aspect ratio */
+  position: relative;
+  bottom: -30%;   /* Use percentage for bottom positioning */
+  right: 15%;    /* Use percentage for right positioning */
+  padding: 0;   /* Remove padding; use margin if needed */
+  border-radius: 20%; /* Adjusted to be fully circular */
+ 
+  /* Optional: Add transition for smooth appearance */
+  transition: transform 0.3s ease;
+ 
+  /* Hover effect */
+  &:hover {
+    transform: scale(1.05); /* Slight scale effect on hover */
   }
-  
+ 
+  @media (max-width: 768px) {
+    width: 12vw;   /* Slightly larger for medium screens */
+    bottom: 7%;    /* Adjust position for medium screens */
+    right: 7%;
+  }
+ 
+  @media (max-width: 480px) {
+    width: 15vw;   /* Increase size for small screens */
+    bottom: 8%;     /* Adjust position for small screens */
+    right: 8%;
+  }
+ 
+  @media (max-width: 375px) {
+    width: 20vw;   /* Increase size for very small screens */
+    bottom: 10%;    /* Further adjustments for very small screens */
+    right: 10%;
+  }
+`;
+ 
+ 
+ 
+export const ImageHash1 = styled.img`
+  width:300px;
+  height:300px;
+  position: absolute;
+  bottom: -450px;
+  left: 0;
  
 `;

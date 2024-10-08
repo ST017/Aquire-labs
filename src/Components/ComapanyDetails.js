@@ -14,6 +14,8 @@ import EditProfile from "./Dashboard/EditProfile";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { addDoc, collection,getDocs, query, setDoc, where } from "firebase/firestore";
 import { db } from "./Firebase/firebase";
+import verify from "../Images/verify.png"
+import Footer from "./Footer";
  
  
 const CompanyDetails = () => {
@@ -154,33 +156,41 @@ const CompanyDetails = () => {
      fetchUserConnects()
   },[db])
   return (
-    <>
-      <Navbar />
+    <div className="companydetails-container">
+      <div><Navbar /></div>
       
-     
       <div  className="bbcmb"aria-label="breadcrumb">
             <ol class="breadcrumb">
-            <li class="breadcrumb-item"><img style={{marginLeft:"135px"}} src={breadcrumb} alt="home"/><div className="a-div" ><a href="/dashboard">Dashboard</a></div></li>
+            <li class="breadcrumb-item"><img  src={breadcrumb} alt="home"/><div className="a-div" ><a href="/dashboard">Dashboard</a></div></li>
            
             <li class="breadcrumb-item active" aria-current="page">Current Page</li>
         </ol>
-        </div>
+      </div>
+      
  
       <div className="company-details">
-       
+      
    
        
         {/* Header */}
         <div className="header-container">
           <div className="header-section"><img className="cover-photo" src={selectedProject?.coverPicture} alt="cover-picture"/></div>
           <div className="subconatiner">
-                <div className="profile-container">
-                <div className="profile-logo"><img className="profile-photo" src={selectedProject?.profilePicture} alt="profile-picture"/></div>
-                <div className="profile-text">
-                    <h6>{selectedProject?.name}</h6>
-                    <h6><img src={locationlogo} alt="location"/>{selectedProject?.city}{selectedProject?.country}</h6>
-                </div>
-            </div>
+          <div className="profile-container">
+  <div className="company-profile-logo">
+    <img className="company-profile-photo" src={selectedProject?.profilePicture} alt="profile-picture" />
+  </div>
+  <div className="company-profile-text">
+    <h4>{selectedProject?.name} <img className="verified-icon" src={verify} alt="verified" /></h4>
+    <p className="oneliner">{selectedProject?.oneLiner}</p>
+    <h6>
+      <img src={locationlogo} alt="location" />
+      {selectedProject?.city}, {selectedProject?.country}
+    </h6>
+  </div>
+  {/* <button className="edit-profile-btn">Edit Profile</button> */}
+</div>
+
             <div className="inner">
 
   {currentUser?.uid === selectedProject?.userId  ? (
@@ -696,9 +706,12 @@ const CompanyDetails = () => {
  
             {/* Ecosystem */}
             <div className="ecosystem-card1">
-              <p className="ecosystem-heading">Ecosystem</p>
-              <p className="ecosytem-text">{selectedProject?.blockchain || ""}</p>
-            </div>
+  <p className="ecosystem-heading">Ecosystem</p>
+  <div className="ecosytem-text">
+    <p className="blockchain-data">{selectedProject?.blockchain || ""}</p>
+  </div>
+</div>
+
  
             {/* Partnership Interest */}
             <div className="partnership-card1">
@@ -790,7 +803,9 @@ const CompanyDetails = () => {
           </div>
         </div>
       </div>
-    </>
+
+     <div className="companydetails-footer"><Footer/></div>   
+       </div>
   );
 };
  

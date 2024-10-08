@@ -1,0 +1,246 @@
+/* Footer General Styles */
+.footer-container {
+    background-color: #000;
+    color: #fff;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .footer-left {
+    max-width: 300px;
+  }
+  
+  .footer-right {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .company-name {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .footer-description {
+    margin-top: 10px;
+    font-size: 14px;
+    max-width: 300px;
+  }
+  
+  .footer-section {
+    margin: 0 20px;
+    text-align: left;
+  }
+  
+  .footer-section h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .footer-links {
+    list-style-type: none;
+    padding: 0;
+   
+    img{
+        width: 29px;
+        height: 29px;
+    }
+  }
+  
+  .footer-links li {
+    margin-bottom: 8px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    
+  }
+  
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-links a:hover {
+    color: #aaa;
+  }
+  
+  .footer-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #333;
+    padding-top: 10px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .footer-links-bottom{
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+   
+    list-style-type: none;
+    padding: 0;
+      li {
+        margin-bottom: 8px;
+       
+        margin-right: 10px;
+      }
+
+      a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s ease;
+        gap:10px;
+      } 
+
+
+  }
+  
+  /* Responsive Styles
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .footer-right {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+  
+    .footer-section {
+      margin: 10px 0;
+    }
+  
+    .footer-left {
+      margin-bottom: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer-container {
+      padding: 15px 20px;
+    }
+  
+    .company-name {
+      font-size: 20px;
+    }
+  
+    .footer-description {
+      font-size: 12px;
+    }
+  
+    .footer-section h4 {
+      font-size: 14px;
+    }
+  
+    .footer-links a {
+      font-size: 12px;
+    }
+  }
+   */
+
+
+   @media  only screen and (max-width: 600px){
+
+
+    .footer-content{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    .footer-left{
+        font-size: small;
+    }
+    .company-name{
+        font-family: Inter;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 10.75px;
+        text-align: left;
+        
+    }
+    .footer-description{
+        font-family: Poppins;
+font-size: 8px;
+font-weight: 400;
+line-height: 12px;
+text-align: left;
+
+    }
+    .footer-right{
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    .footer-section{
+        margin-right:2px;
+    }
+.footer-section h4{
+    font-family: Inter;
+font-size: 10px;
+font-weight: 700;
+line-height: 5.97px;
+text-align: left;
+
+}
+.footer-section li   a{
+    
+    font-family: Inter;
+font-size: 10px;
+font-weight: 500;
+line-height: 12.1px;
+text-align: left;
+
+
+}
+.footer-links li {
+    gap:2px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.footer-links img{
+    width: 12px;
+    height :12px;
+}
+.footer-bottom{
+    display:flex;
+    align-items: center;
+}
+.footer-bottom p{
+    font-family: Inter;
+font-size: 8px;
+font-weight: 400;
+line-height: 9.68px;
+text-align: left;
+
+}
+.footer-links-bottom li a{
+    font-family: Inter;
+font-size: 8px;
+font-weight: 400;
+line-height: 9.68px;
+text-align: left;
+flex-wrap: nowrap;
+}
+
+   }

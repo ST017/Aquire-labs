@@ -1,0 +1,80 @@
+.message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px;
+  }
+  
+  .message-box {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    width: 300px;
+  }
+  
+  .profile-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover; /* Ensures that the image fits the circle properly */
+  }
+  
+  .message-content {
+    margin-left: 10px;
+  }
+  
+  .message-content p {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .message-content small {
+    color: gray;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    width: 400px;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .chat-box {
+    height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+  }
+  
+  .chat-input {
+    width: calc(100% - 80px);
+    padding: 10px;
+    margin-right: 10px;
+  }
+  
+  .send-btn {
+    padding: 10px;
+  }
+  

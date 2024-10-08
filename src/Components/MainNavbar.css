@@ -32,6 +32,13 @@
     display: flex;
     gap: 52px;
   }
+
+  @media screen and  (max-width: 480px)
+  {
+   .nav-links{
+    display: none;
+   } 
+  }
  
   .nav-links a {
     text-decoration: none;
@@ -81,3 +88,96 @@
   }
  
  
+  .nav-links-right {
+    display: flex;
+    width: 215px;
+    height: 39px;
+    top: 38px;
+    left: 1145px;
+    gap: 18px;
+  }
+  
+  .nav-button {
+    border-radius: 6px;
+    border: 1px solid blue; /* Set the border to blue */
+    background-color: transparent; /* Optional: to ensure it's transparent unless hovered */
+  }
+  
+  .nav-button:hover,
+  .nav-button:hover .nav-link {
+    background-color: rgba(0, 60, 255, 1); /* Set the hover background color */
+    color: white; /* Optional: Set text color on hover */
+  }
+  
+  .nav-button.signup {
+    background-color: rgba(0, 60, 255, 1);
+    color: white;
+  }
+  
+  .nav-button.signup:hover,
+  .nav-button.signup:hover .nav-link {
+    background-color: transparent;
+    color: rgba(0, 60, 255, 1);
+  }
+  
+  @media (max-width: 480px) {
+    .nav-button.signup {
+      display: none; /* Hide the signup button on screens smaller than 480px */
+    }
+  
+    .nav-button.login {
+      justify-content: flex-end;
+      width: 68px;
+      height: 28.83px;
+      top: 23px;
+      left: 340px;
+      gap: 7.39px;
+      border-radius: 4.43px;
+      border: 0.74px;
+      opacity: 0;
+    }
+  }
+  
+  .nav-link {
+    width: 44px;
+    height: 19px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    color: rgba(0, 60, 255, 1);
+  }
+  
+  .nav-link:hover {
+    color: white;
+  }
+  
+  .nav-link.signup-lnk {
+    color: white;
+  }
+  
+  @media (max-width: 480px) {
+    .nav-link.login-lnk {
+      width: 33px;
+      height: 15px;
+      text-align: center;
+    }
+  }
+  
+  .nav-link1 {
+    width: 66px;
+    height: 39px;
+    padding: 10px;
+    gap: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    color: black;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+  
+  .nav-link1:hover {
+    color: #1A1AFF;
+  }
+  

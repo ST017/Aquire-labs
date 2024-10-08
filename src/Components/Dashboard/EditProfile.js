@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./EditProfile.css";
 import {
   collection,
@@ -26,7 +26,7 @@ const EditProfile = ({ setIsEditProfile }) => {
   const [userProject, setUserProject] = useState([]);
   const [userDetail, setUserDetail] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
- 
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
   // Form States
   const [projectName, setProjectName] = useState(userProject.name);
   const [website, setWebsite] = useState(userProject.website);
@@ -48,7 +48,7 @@ const EditProfile = ({ setIsEditProfile }) => {
   const [profilePicture, setProfilePicture] = useState(null); // Holds the file for profile picture
  
   const [isProfileEditing, setIsProfileEditing] = useState(false);
- 
+  const dropdownRef = useRef(null);
   const storage = getStorage();
  
   useEffect(() => {
@@ -544,19 +544,27 @@ const EditProfile = ({ setIsEditProfile }) => {
         <div className="form-row">
           <div className="form-group">
             <label>Partnership Interests</label>
-            <select
+            <input
+            type="text"
               name="partnership"
               value={partnership}
               onChange={(e) => setPartnership(e.target.value)}
-            >
+            />
               {CategoryList.map((ele, i) => {
-                return <option value={ele}>{ele}</option>;
+                return  <label key={i}>
+                <input
+                  type="checkbox"
+                  value={ele}
+                 
+                />
+                {ele}
+              </label>;
               })}
-            </select>
+           
           </div>
  
           <div className="form-group">
-            <label>Ecosystem</label>
+            {/* <label>Ecosystem</label>
             <select
               name="ecosystem"
               value={ecosystem}
@@ -565,7 +573,37 @@ const EditProfile = ({ setIsEditProfile }) => {
               {EcosystemsList.map((ele, i) => {
                 return <option value={ele}>{ele}</option>;
               })}
-            </select>
+            </select> */}
+              <div ref={dropdownRef} className="dropdown-container">
+      <label>Ecosystem</label>
+      <input
+        type="text"
+        //value={selectedEcosystems.join(", ")}
+        onClick={()=>setDropdownVisible(true)}
+        readOnly
+        placeholder="Select Ecosystems"
+      />
+      {isDropdownVisible && (
+        <div className="dropdown">
+          {EcosystemsList.map((ele, i) => (
+            <label  key={i}>
+              <input
+              style={{marginTop:"40px"}}
+                type="checkbox"
+                value={ele}
+               // checked={selectedEcosystems.includes(ele)}
+                //onChange={() => handleCheckboxChange(ele)}
+              />
+              {ele}
+            </label>
+          ))}
+        </div>
+      )}
+    </div>
+             <div>
+      
+      
+    </div>
           </div>
         </div>
 
@@ -573,12 +611,13 @@ const EditProfile = ({ setIsEditProfile }) => {
           <div className="form-group">
             <label>Category</label>
             <select
+            type="checkbox"
               name="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
               {PartnershipInterestList.map((ele, i) => {
-                return <option value={ele}>{ele}</option>;
+                return <option  type="checkbox" value={ele}>{ele}</option>;
               })}
             </select>
           </div>

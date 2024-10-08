@@ -23,6 +23,8 @@ import {
   Star1,
   Help,
   InputSelect,
+  CloseButtonX,
+  ImageHash1,
 } from "./Signup.style"; // This imports the styled components
 import aquirelab from "../Images/Aquirelabs.png";
 import aqdash from "../Images/Aqdash.png";
@@ -39,11 +41,11 @@ import {
 import { auth, db } from "./Firebase/firebase";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import RaisaLogo from "../Images/RaisaLogo.png";
 import { CategoryList } from "./Dashboard/Filterlists";
-
+ 
 const Signup = () => {
   document.body.style.background = "rgba(242, 246, 255, 1)";
   const [name, setName] = useState("");
@@ -54,18 +56,27 @@ const Signup = () => {
   const [category, setCategory] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [projDesc, setProjDesc] = useState("");
-  
+ 
   const [user,setUser]=useState(null)
-
+ 
   const navigate = useNavigate();
   const actionCodeSettings = {
     // url: `${window.location.origin}/login`, // Your domain link
     url: `${window.location.origin}/dashboard`,
     handleCodeInApp: true, // To open it in your app
-
+ 
   };
-
+ 
+ 
+ 
+ 
   const handleFormSubmit = async (e) => {
+    // Regex for password validation
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{6,}$/;
+ 
+    //Regex for email validation
+    const emailRegex=/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/;
+   
     e.preventDefault();
     if (
       !name ||
@@ -78,6 +89,16 @@ const Signup = () => {
       toast.error("All fields are required!", { position: "top-center" });
       return;
     }
+    if(!emailRegex.test(email)){
+      toast.error("Invalid Email Format", { position: "top-center" });
+      return;
+    }
+    if (!passwordRegex.test(password)) {
+      toast.error("Please use  strong password", { position: "top-center" });
+      return;
+    }
+   
+ 
     if (reenterpassword !== password) {
       toast.error("password is not matching with re-entered password", {
         position: "top-center",
@@ -89,13 +110,13 @@ const Signup = () => {
         async (userCred) => {
           const user = userCred.user;
           setUser(user)
-
+ 
           console.log(userCred);
-
+ 
           await sendEmailVerification(user, actionCodeSettings);
           // Add user details to Firestore after sending verification email
           const docRef = doc(db, "User", user.uid);
-
+ 
           await setDoc(docRef, {
             email: user.email,
             firstname: "", // Update with actual data
@@ -106,32 +127,8 @@ const Signup = () => {
             verified: false, // Set verified to false by default
             createdAt: new Date(), // Store the current timestamp
           });
-         /*  await setDoc(doc(db, "UserProject", user.uid), {
-            blockchain:"",
-            category:category,
-            city:"",
-            country:"",
-            createdAt: new Date(),  // current timestamp
-            descr: projDesc,  
-            endorsements: 1,  
-            fundingStatus: "",  
-            logo: "", 
-            modifiedAt: new Date(),  
-            name: name,  
-            social: {
-              facebook: "", 
-              insta: "",  // Instagram URL
-              linkedin: "",  // LinkedIn URL
-              tg: "",  // Telegram URL
-              twitter: "",  // Twitter URL
-            },
-            status: "",  // status of the project (empty string for now)
-            userId: user.uid,  // store the user ID
-            views: 1,  // number of views (1 by default)
-            website:compWeb,  // website URL (empty string for now)
-            whitepaper: "",  // whitepaper URL (empty string for now)
-          }); */
-
+         
+ 
           await addDoc(collection(db, "UserProject"), {
             blockchain: "",
             category: category,
@@ -141,11 +138,11 @@ const Signup = () => {
             descr: projDesc,  
             endorsements: 1,  
             fundingStatus: "",  
-            logo: "", 
+            logo: "",
             modifiedAt: new Date(),  
             name: name,  
             social: {
-              facebook: "", 
+              facebook: "",
               insta: "",  // Instagram URL
               linkedin: "",  // LinkedIn URL
               tg: "",  // Telegram URL
@@ -157,13 +154,13 @@ const Signup = () => {
             website: compWeb,  // website URL (empty string for now)
             whitepaper: "",  // whitepaper URL (empty string for now)
           });
-
-
+ 
+ 
           toast.success(
             "Verify the Link to the Given Email for the Successful registeration!!!",
             { position: "top-center" }
           );
-
+ 
           setCategory("")
           setCompWeb("")
           setEmail("")
@@ -178,8 +175,8 @@ const Signup = () => {
       console.log(error);
     }
   };
-
-
+ 
+ 
   onAuthStateChanged(auth, async (user) => {
       if (user) {
         // Check if the email is verified
@@ -194,29 +191,31 @@ const Signup = () => {
         }
       }
     });
-  
-  
-
+ 
+ 
+ 
   return (
     <>
+   
     <SignupContainer>
       <LogoContainer>
           <Logo  src={RaisaLogo} alt="Aquire Labs" />
-          
-          <CloseButton><img src={closebutton} alt="Close button" /></CloseButton>
+         
+          <Link to="/"><CloseButtonX><img src={closebutton} alt="Close button" /></CloseButtonX></Link>
         </LogoContainer>
         <OutsideContainer>
-          <Title>Signup</Title>
+          <Title style={{marginTop:"30px"}}>Signup</Title>
           <Subtitle>Signup and get started with GoWeb3 Network</Subtitle>
         </OutsideContainer>
-
+ 
         <Form onSubmit={handleFormSubmit}>
           <InputGroup>
             <InputWrapper>
               <Label>
-                Project Name<Star1>*</Star1>
+                Project Name<a style={{color:"red"}}>*</a>
               </Label>
               <Input
+                value={name}
                 type="text"
                 placeholder="Project Name"
                 label="Project Name*"
@@ -225,9 +224,10 @@ const Signup = () => {
             </InputWrapper>
             <InputWrapper>
               <Label>
-                Email<Star1>*</Star1>
+                Email<a style={{color:"red"}}>*</a>
               </Label>
               <Input
+                value={email}
                 type="email"
                 placeholder="work email (Name@company.com)"
                 label="Email*"
@@ -238,9 +238,10 @@ const Signup = () => {
           <InputGroup>
             <InputWrapper>
               <Label>
-                Company Website<Star1>*</Star1>
+                Company Website<a style={{color:"red"}}>*</a>
               </Label>
               <Input
+                value={compWeb}
                 type="url"
                 placeholder="Company.com"
                 label="Company Website*"
@@ -249,7 +250,7 @@ const Signup = () => {
             </InputWrapper>
             <InputWrapper>
               <Label>
-                Category<Star1>*</Star1>
+                Category<a style={{color:"red"}}>*</a>
               </Label>
              {/*  <InputSelect
                 onChange={(e) => setCategory(e.target.value)}
@@ -314,9 +315,10 @@ const Signup = () => {
           <InputGroup>
             <InputWrapper>
               <Label>
-                Password<Star1>*</Star1>
+                Password<a style={{color:"red"}}>*</a>
               </Label>
               <Input
+               value={password}
                 type="password"
                 placeholder="Enter your password"
                 label="Password*"
@@ -326,9 +328,10 @@ const Signup = () => {
             </InputWrapper>
             <InputWrapper>
               <Label>
-                Re-Enter Password<Star1>*</Star1>
+                Re-Enter Password<a style={{color:"red"}}>*</a>
               </Label>
               <Input
+               value={reenterpassword}
                 type="password"
                 placeholder="Re-Enter your password"
                 label="Re-Enter Password*"
@@ -337,14 +340,14 @@ const Signup = () => {
               />
             </InputWrapper>
           </InputGroup>
-
+ 
           <InputWrapper>
             <Label>Project Description</Label>
-            <Input1 label="Project Description" onChange={(e)=>setProjDesc(e.target.value)} />
+            <Input1 label="Project Description" onChange={(e)=>setProjDesc(e.target.value)} value={projDesc}/>
           </InputWrapper>
-
+ 
           <CheckboxWrapper>
-            <Checkbox2 type="checkbox" checked={isChecked} onClick={()=>setIsChecked(true)} />
+            <Checkbox2 type="checkbox" checked={isChecked} onClick={()=>setIsChecked(true)}  />
             <InputWrapper>
               <CheckboxLabel>
                 By proceeding you agree to the Terms of Service and Privacy
@@ -353,18 +356,23 @@ const Signup = () => {
               <CheckboxLabel1>Do you have any questions?</CheckboxLabel1>
             </InputWrapper>
           </CheckboxWrapper>
-
+ 
           <Button type="submit">Create Account</Button>
-
+ 
           <LoginLink>
-            I already have an account <LoginLink1 onClick={()=>window.open("/login","_blank")}>Login</LoginLink1>
+            I already have an account <Link to="/login"><a style={{color:"rgba(0, 60, 255, 1)",cursor:"pointer"}}>Login</a></Link>
           </LoginLink>
         </Form>
       </SignupContainer>
-      {/* <Help src={helpbutton}/>
-    <ImageHash src={aqhash} alt="Logo-Hash"/> */}
+      <div className="helpbutton" style={{bottom:"90%" , left:"90%" ,position:"relative",top:"-200px",zIndex:"50"}}>
+        <button ><img src={helpbutton} alt="help" /></button>
+      </div>
+       <Help />
+   
+   {/*  <ImageHash1 src={aqhash} alt="Logo-Hash"/>  */}
       <ToastContainer />
     </>
   );
 };
 export default Signup;
+ 
