@@ -91,8 +91,8 @@ const ProfileSidebar = ({ User }) => {
 
   return (
     <div className="sidebar-container">
-      <div className="profile-sidebar1">
-        <div className='profile-line-request'>
+    <div className="profile-sidebar1">
+      <div className="profile-line-request">
         <div className="profile">
           <img src={userDetail?.profilePicture} alt="profile" className="profile-pic" />
           <div className="text-info">
@@ -101,19 +101,19 @@ const ProfileSidebar = ({ User }) => {
           </div>
         </div>
         
-          <div className="profile-line"></div> 
+        <div className="profile-line"></div> 
         
         <div className="request-info">
           <span><span className="dot"></span>{userSubsDetail[0]?.credits || 0} Available Requests</span>
           <span><span className="dot"></span>{requestSentCount} Sent Requests</span>
         </div>
-        </div>
-        <div className='btn'>
-        <button className='edit-btn' onClick={()=>{handleViewClick(userProject[0])}}>View Profile</button>
-        
-        </div>
+      </div>
+      <div className="btn">
+        <button className="edit-btn" onClick={() => handleViewClick(userProject[0])}>View Profile</button>
       </div>
     </div>
+  </div>
+  
 
     
     

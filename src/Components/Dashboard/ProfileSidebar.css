@@ -1,95 +1,73 @@
+.sidebar-container{
+  width: 20%;
 
-
+}
 .profile-sidebar1 {
   background-color: #ffffff;
   align-items: center;
-  align-content: center;
-  padding: 20px 20px 20px 20px;
-  width: 228px; 
+  padding: 20px;
   
-  border-radius: 15px; 
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
- gap:16px;
- 
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  gap: 16px;
 }
 
-.profile-line-request{
+.profile-line-request {
   display: flex;
   flex-direction: column;
 }
-
-
 
 .profile {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .profile-pic {
   width: 73px;
-height: 73px;
-
-border-radius: 120.3px ;
-
-
+  height: 73px;
+  border-radius: 50%;
 }
 
 .text-info {
-  width:108px;
-height: 38px;
-gap: 1px;
-opacity: 0px;
-margin: auto;
-  align-items: center;
-  text-align: center; 
-  
-  box-sizing:border-box;
+  width:100%;
+  margin-left: 15px;
   display: flex;
   flex-direction: column;
-  
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.profile-Name{
-  width: 108px;
- height: 24px;
 
-
-  margin: 0; 
-  font-size: 14px; 
+.profile-Name {
+  font-size: 14px;
   color: #333333;
 }
 
- .profile-web {
-  width: 108px;
- height: 13px;
-
-  margin: -10px  15px  0;
+.profile-web {
+  width: 100%;
   font-size: 11px;
-  color: #888888; 
-  display: block; /* Make the link a block-level element */
-  overflow: hidden; /* Hide any overflowing text */
-  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  color: #888888;
+  margin-top: 4px;
   white-space: nowrap;
-
-}
-
-.profile-line-container {
-  width: 90%; /* Ensures it covers the full width */
-  margin-top: -10px; /* Adjust as needed to move it up */
-  overflow: hidden; /* Prevents overflow if needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
 }
 
 .profile-line {
-  border: 1px solid #D8D8D8
+  border-top: 1px solid #D8D8D8;
+  margin: 15px 0;
 }
-
 
 .request-info {
   font-size: 14px;
   color: rgba(35, 152, 82, 1);
-  margin-bottom: 20px; 
-  text-align: left; 
-  padding:0px 15px;
+  text-align: left;
 }
+
 span {
   display: flex;
   align-items: center;
@@ -99,30 +77,31 @@ span {
 .dot {
   height: 8px;
   width: 8px;
-  background-color: rgba(35, 152, 82, 1); 
+  background-color: rgba(35, 152, 82, 1);
   border-radius: 50%;
-  display: inline-block;
-  margin-right: 8px; 
+  margin-right: 8px;
 }
-
 
 .btn {
   display: flex;
   justify-content: center;
 }
 
-.edit-btn{
-  
-  width: 168px;
+.edit-btn {
+  width: 100%;
   height: 39px;
-  padding: 11px 47px 11px 47px;
-  gap: 10px;
+  padding: 11px 47px;
   border-radius: 5px;
- border: none;
   
-  
-  box-sizing: border-box;
-   &:hover{
-    cursor: pointer;
-  }
+
+  background-color: #EFEFEF; /* Button color */
+  color:black;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-items: center;
+}
+
+.edit-btn:hover {
+  background-color: #d7d6d6; /* Darken button on hover */
 }

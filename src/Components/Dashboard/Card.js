@@ -17,7 +17,7 @@ const Card = ({name,logo,web,desc,requestReceivedCount,requestSentCount,onClick}
           alt="Google Inc."
           className="company-logo"
         />
-        <p className="company-name">{name}</p>
+        <p className="cardcompany-name" >{name}</p>
         <div >
           <img  className=" card-bookmark"src={BookMark} alt="Bookmark" />
         </div>

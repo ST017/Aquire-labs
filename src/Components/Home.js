@@ -335,11 +335,11 @@ const Home = () => {
       <p>{feature.description}</p>
     </FeatureContent>
   </FeatureItem>
-  
+ 
   ))}
     </FeatureList>
         </FeaturesText>
-        <FeatureImage
+         <FeatureImage
           src={Photo}
           alt="Features Image"
         />
@@ -433,4 +433,3 @@ const Home = () => {
 };
  
 export default Home;
- 

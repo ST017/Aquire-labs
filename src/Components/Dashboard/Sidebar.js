@@ -28,7 +28,7 @@ const Sidebar= () => {
     <aside className='side-content'>
 
       <div className='side-div'>
-        <h3 onClick={toggleProfile}>{isProfileExpanded ? '-' : '+'}Profile Status </h3>
+        <h3 onClick={toggleProfile}  style={{ color: isProfileExpanded ? 'blue' : 'inherit' }}>{isProfileExpanded ? '-' : '+'}Profile Status </h3>
         {isProfileExpanded && (
           ProfileStatusList.map((profileStatus, index) => (
             <div key={profileStatus}>
@@ -50,8 +50,8 @@ const Sidebar= () => {
       </div>
 
 
-      <div>
-        <h3 onClick={toggleRequest}>{isRequestExpanded ? '-' : '+'}Request Type </h3>
+      <div className='side-div'>
+        <h3 onClick={toggleRequest } style={{ color: isRequestExpanded ? 'blue' : 'inherit' }}>{isRequestExpanded ? '-' : '+'}Request Type </h3>
         {isRequestExpanded && (
            RequestTypeList.map((requestType, index) => (
             <div key={requestType}>
@@ -71,8 +71,8 @@ const Sidebar= () => {
           ))
         )}
       </div>
-      <div>
-        <h3 onClick={toggleEcoSystem}>{isEcoSystemExpanded ? '-' : '+'}EcoSystem</h3>
+      <div className='side-div' >
+        <h3 onClick={toggleEcoSystem} style={{ color: isEcoSystemExpanded ? 'blue' : 'inherit' }}>{isEcoSystemExpanded ? '-' : '+'}EcoSystem</h3>
         {isEcoSystemExpanded && (
           EcosystemsList.map((ecosystem, index) => (
             <div key={ecosystem}>
@@ -92,8 +92,8 @@ const Sidebar= () => {
           ))
         )}
       </div>
-      <div>
-        <h3 onClick={togglePartenershipInterest}>{isPartnershipInterestExpanded ? '-' : '+'}Partnership Interests</h3>
+      <div className='side-div'>
+        <h3 onClick={togglePartenershipInterest}style={{ color: isPartnershipInterestExpanded ? 'blue' : 'inherit' }}>{isPartnershipInterestExpanded ? '-' : '+'}Partnership Interests</h3>
         {isPartnershipInterestExpanded && (
           PartnershipInterestList.map((partenershipInterest, index) => (
             <div key={partenershipInterest}>
@@ -113,8 +113,8 @@ const Sidebar= () => {
           ))
         )}
       </div>
-      <div>
-        <h3 onClick={toggleFundingStage}>{isFundingStageExpanded ? '-' : '+'}Funding Stage</h3>
+      <div className='side-div'>
+        <h3 onClick={toggleFundingStage}style={{ color: isFundingStageExpanded ? 'blue' : 'inherit' }}>{isFundingStageExpanded ? '-' : '+'}Funding Stage</h3>
         {isFundingStageExpanded && (
           FundingStageList.map((fundingStages, index) => (
             <div key={fundingStages}>
@@ -134,8 +134,8 @@ const Sidebar= () => {
           ))
         )}
       </div>
-      <div>
-        <h3 onClick={toggleCategory}>{isCategoryExpanded ? '-' : '+'}Category </h3>
+      <div className='side-div'>
+        <h3 onClick={toggleCategory}style={{ color: isCategoryExpanded ? 'blue' : 'inherit' }}>{isCategoryExpanded ? '-' : '+'}Category </h3>
         {isCategoryExpanded && (
          CategoryList.map((category, index) => (
           <div key={category}>
@@ -154,8 +154,8 @@ const Sidebar= () => {
           </div>
         )))}
       </div>
-      <div>
-        <h3 onClick={toggleLocation}>{isLocationExpanded ? '-' : '+'}Location</h3>
+      <div className='side-div'>
+        <h3 onClick={toggleLocation}style={{ color: isLocationExpanded ? 'blue' : 'inherit' }}>{isLocationExpanded ? '-' : '+'}Location</h3>
         {isLocationExpanded && (
          LocationList.map((location, index) => (
           <div key={location}>

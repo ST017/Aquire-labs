@@ -1,7 +1,7 @@
 /* import React from 'react';
 import './Navbar.css';
 import RaisaLogo from "../../Images/RaisaLogo.png"
-
+ 
 const Navbar = () => {
   return (
     <header className="navbar">
@@ -18,11 +18,11 @@ const Navbar = () => {
       </nav>
       <button className="logout-btn">Logout</button>
     </header>
-  
+ 
   );
-  
+ 
 };
-
+ 
 export default Navbar;
  */
 import React from 'react';
@@ -31,13 +31,28 @@ import RaisaLogo from "../../Images/RaisaLogo.png"
 import dis from '../../Images/discover.png'
 import inb from '../../Images/inbox.png'
 import req from '../../Images/request.png'
-import sav from '../../Images/save.png' 
-import noti from '../../Images/notification.png' 
-import { Link } from 'react-router-dom';
+import sav from '../../Images/save.png'
+import noti from '../../Images/notification.png'
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, signOut } from 'firebase/auth';
  
 const Navbar = () => {
+  const navigate = useNavigate(); // To programmatically navigate after logout
+ 
+  const handleLogout = () => {
+    const auth = getAuth(); // Get the current authentication instance
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful, redirect user to login page
+        navigate('/login'); // Redirecting to login page after logout
+      })
+      .catch((error) => {
+        // An error happened during logout
+        console.error('Logout Error:', error);
+      });
+  };
   return (
-    
+   
     <nav className="container">
     <div className="headercontainer">
       <div className="frame1">
@@ -48,7 +63,7 @@ const Navbar = () => {
           <ul className="header-ul">
             <li className="Discover-l">
              
-              <img src={dis} alt="discover" /> <span>Discover</span>
+              <img src={dis} alt="discover" /> <Link to="/dashboard"><span style={{textDecorationLine:"none"}}>Discover</span></Link>
             </li>
             <li className="Inbox-l">
              
@@ -58,7 +73,7 @@ const Navbar = () => {
             <li className="Request-l">
              
              <img src={req} alt="request" />
-              <Link to="/requestpage">
+              <Link  to="/requestpage">
                 <span>Request</span>
               </Link>
             </li>
@@ -77,7 +92,7 @@ const Navbar = () => {
       </div>
       <div className="frame2">
         <div className="logout">
-          <button className="logout-btn">Logout</button>
+          <button className="logout-btn" onClick={handleLogout}>Logout</button>
         </div>
       </div>
     </div>

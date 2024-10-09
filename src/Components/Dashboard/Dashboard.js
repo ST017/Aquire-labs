@@ -5,43 +5,55 @@ import ProjectsSection from "./ProjectsSection";
 import ProfileSidebar from "./ProfileSidebar";
 import "./Dashboard.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { FilterProvider } from "./FilterContext"; 
-
+import { FilterProvider } from "./FilterContext";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../Firebase/firebase";
+ 
 const Dashboard = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  
-
+ 
+ 
   useEffect(() => {
     const auth = getAuth();
     // Listen for authentication state changes
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setCurrentUser(user);
+        await user.reload(); // Reload user to get the latest email verification status
+        if (user.emailVerified) {
+          // If email is verified, update Firestore
+          const userDocRef = doc(db, "User", user.uid);
+          await updateDoc(userDocRef, {
+            verified: true,
+          });
+         
+        }
       }
       setLoading(false); // Stop loading state whether user is present or not
     });
     // Cleanup the listener on unmount
     return () => unsubscribe();
   }, []);
-
+ 
   if (loading) {
     return <div>Loading...</div>; // Display a loading state or spinner
   }
-
+ 
   document.body.style.background = "rgba(234, 239, 255, 1)";
 
-  return (
+  return (<div className="dashboard-container">
     <FilterProvider>
     <div>
-      <Navbar />
+      <Navbar /></div>
       <div className="main-content">
         <Sidebar />
         <ProjectsSection/>
         {currentUser && <ProfileSidebar User={currentUser} />} {/* Render only if user is available */}
       </div>
-    </div>
+    
     </FilterProvider>
+    </div>
   );
 };
 

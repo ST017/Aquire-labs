@@ -7,12 +7,12 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-
+ 
 import "./Segmentcontrol.css";
 import { db } from "../Firebase/firebase";
 import { FilterContext } from "../Dashboard/FilterContext";
 import Message from "./Message";
-
+ 
 const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   // const [activeSegment, setActiveSegment] = useState("pending");
   const [currentUser, setCurrentUser] = useState(null);
@@ -20,9 +20,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   const [matchingPendingRequests, setMatchingPendingRequests] = useState([]);
   const [matchingSendRequests, setMatchingSendRequests] = useState([]);
   const [matchingRejectedRequests, setMatchingRejectedRequests] = useState([]);
-
+ 
   const { selectedRequestTypes } = useContext(FilterContext);
-
+ 
   useEffect(() => {
     const auth = getAuth();
     // Listen for authentication state changes
@@ -34,23 +34,23 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     // Cleanup the listener on unmount
     return () => unsubscribe();
   }, []);
-
+ 
   // Sort the filtered requests
   const sortRequests = (requests) => {
     let sortedRequests = [...requests];
-
+ 
     if (sortOptions.newest) {
       sortedRequests.sort(
         (a, b) => b.createdAt?.seconds - a.createdAt?.seconds
       );
     }
-
+ 
     if (sortOptions.oldest) {
       sortedRequests.sort(
         (a, b) => a.createdAt?.seconds - b.createdAt?.seconds
       );
     }
-
+ 
     if (sortOptions.az) {
       sortedRequests.sort((a, b) => {
         const nameA = a.name || ""; // Default to an empty string if undefined
@@ -58,7 +58,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
         return nameA.localeCompare(nameB);
       });
     }
-
+ 
     if (sortOptions.za) {
       sortedRequests.sort((a, b) => {
         const nameA = a.name || ""; // Default to an empty string if undefined
@@ -66,10 +66,10 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
         return nameB.localeCompare(nameA);
       });
     }
-
+ 
     return sortedRequests;
   };
-
+ 
   // Filter requests based on search query
   const filterRequests = (requests) => {
     return requests.filter(
@@ -82,7 +82,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
         )
     );
   };
-
+ 
   // Filter requests based on selected request types
   const filterByRequestTypes = (requests) => {
     if (selectedRequestTypes.length > 0) {
@@ -97,42 +97,42 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
       return requests;
     }
   };
-
+ 
   // Fetch userConnects data
   const fetchUserConnects = async () => {
     try {
       // Reference to the UserConnects collection
       const userConnectsCollection = collection(db, "UserConnects");
-
+ 
       // Fetch all documents from the collection
       const querySnapshot = await getDocs(userConnectsCollection);
-
+ 
       // Map through the documents to create a list
       const userConnectsList = querySnapshot.docs.map((doc) => ({
         id: doc.id, // Document ID
         ...doc.data(), // Document data
       }));
-
+ 
       console.log("Fetched User Connects: ", userConnectsList);
       setUserConnectsList(userConnectsList);
-
+ 
       // Filter to find all matches where toUserId equals currentUser.uid and status==="pending"
       const matchingPendingRequests = userConnectsList.filter(
         (ele) => ele.toUserId === currentUser?.uid && ele.status === "pending"
       );
-
+ 
       const matchingRejectedRequests = userConnectsList.filter(
         (ele) =>
           (ele.toUserId === currentUser?.uid ||
             ele.userId === currentUser?.uid) &&
           ele.status === "Denied"
       );
-
+ 
       // Filter to find all matches where userId equals currentUser.uid
       const matchingSendRequests = userConnectsList.filter(
         (ele) => ele.userId === currentUser?.uid
       );
-
+ 
       setMatchingPendingRequests(matchingPendingRequests);
       setMatchingSendRequests(matchingSendRequests);
       setMatchingRejectedRequests(matchingRejectedRequests);
@@ -141,13 +141,13 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
       return [];
     }
   };
-
+ 
   useEffect(() => {
     fetchUserConnects();
   }, [db, currentUser?.uid]);
-
+ 
   //handling accept and deny
-
+ 
   const handleAccept = async (docid) => {
     await updateDoc(doc(db, "UserConnects", docid), {
       status: "Accepted",
@@ -155,7 +155,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     await fetchUserConnects();
     alert("Request has been accepted!");
   };
-
+ 
   const handleDeny = async (docid) => {
     await updateDoc(doc(db, "UserConnects", docid), {
       status: "Denied",
@@ -163,7 +163,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     await fetchUserConnects();
     alert("Request has been rejected!");
   };
-
+ 
   // Sample data for the tables
   const pendingRequests = [
     {
@@ -184,7 +184,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     },
     // Add more rows as necessary
   ];
-
+ 
   const sendRequests = [
     {
       id: 1,
@@ -204,11 +204,11 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     },
     // Add more rows as necessary
   ];
-
+ 
   return (
     <div className="Requestcontainer">
       {/* Segmented Control */}
-
+ 
       {/* Conditional Rendering of Tables */}
       <div className="table-container">
         {/* Pending request */}
@@ -238,7 +238,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                     ).toLocaleDateString()}
                   </td>
                   <td><Message msg={request?.message}/></td>
-                  <td>{}</td>
+                  <td>{request.location}</td>
                   <td>{request?.requestTypes.join(",")}</td>
                   <td>
                     <button
@@ -259,9 +259,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
             </tbody>
           </table>
         )}
-
+ 
         {/* sending request */}
-
+ 
         {activeSegment === "send" && (
           <table className="request-table">
             <thead>
@@ -288,7 +288,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                     ).toLocaleDateString()}
                   </td>
                   <td>{request.message}</td>
-                  <td>{}</td>
+                  <td>{request.location}</td>
                   <td>{request?.requestTypes.join(",")}</td>
                   {/* <td>
                     <button className="action-btn">Request Sent</button>
@@ -298,7 +298,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
             </tbody>
           </table>
         )}
-
+ 
         {/* rejected request */}
         {activeSegment === "rejected" && (
           <table className="request-table">
@@ -326,7 +326,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                     ).toLocaleDateString()}
                   </td>
                   <td>{request.message}</td>
-                  <td>{}</td>
+                  <td>{request.location}</td>
                   <td>{request?.requestTypes.join(",")}</td>
                   {/* <td>
                     <button className="action-btn">Request Sent</button>
@@ -336,9 +336,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
             </tbody>
           </table>
         )}
-
+ 
         {/* Follow request */}
-
+ 
         {activeSegment === "followup" && (
           <table className="request-table">
             <thead>
@@ -373,5 +373,5 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     </div>
   );
 };
-
+ 
 export default Segmentcontrol;

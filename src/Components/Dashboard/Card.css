@@ -1,8 +1,9 @@
 .card11 {
  
-  width: 209px;
+  width: 20%;
   height: 145.6px; 
-  padding: 11.17px 14.36px 6px 14.36px;
+  padding: 10px;
+  /* padding: 11.17px 14.36px 6px 14.36px; */
   border-radius: 7.98px 7.98px 7.98px 7.98px;
   border: 1px solid #ddd;
   background-color: #fff;
@@ -12,13 +13,20 @@
   gap: 9px;
   opacity: 1;
 }
-
+@media screen and (max-width:600px) {
+  .card11{
+    width:50%;
+    overflow: none;
+  }
+}
 .card-header1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top:-5px;
-  width:180px;
+  /* width:180px; */
+  box-sizing: border-box;
+  
 }
 
 .company-logo {
@@ -27,11 +35,15 @@
   border-radius: 5px;
 }
 
-.company-name {
+.cardcompany-name  { 
+ 
+ 
   flex-grow: 1;
   margin-left:2px;
   font-size: 14px;
   font-weight: bold;
+
+ 
 }
 
 .card-bookmark {
@@ -43,7 +55,7 @@
 
 .card-content1 {
   box-sizing: border-box ;
-  width: 180px; 
+  /* width: 180px;  */
   height:82.17px;
   margin-top: -5px;
   
@@ -92,6 +104,7 @@
 }
 
 .request-details .icon {
+
   width: 16px;
   height: 16px;
   margin-right: 5px;

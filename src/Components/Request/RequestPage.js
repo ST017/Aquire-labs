@@ -6,11 +6,11 @@ import Segmentcontrol from "./Segmentcontrol";
 import Sidebar from "../Dashboard/Sidebar";
 import { FilterProvider } from "../Dashboard/FilterContext";
 import "./RequestPage.css";
-
+ 
 const RequestPage = ({ selectedFilters }) => {
   const [activeSegment, setActiveSegment] = useState("pending");
   const [searchQuery, setSearchQuery] = useState("");
-
+ 
   const [showModal, setShowModal] = useState(false);
   const [sortOptions, setSortOptions] = useState({
     newest: false,
@@ -18,16 +18,16 @@ const RequestPage = ({ selectedFilters }) => {
     az: false,
     za: false,
   });
-
+ 
   const handleSortChange = (e) => {
     const { name, checked } = e.target;
     setSortOptions({ ...sortOptions, [name]: checked });
   };
-
+ 
   document.body.style.background = "rgba(234, 239, 255, 1)";
-
+ 
   return (
-    <div>
+    <div className="request-page-main-container">
       <FilterProvider>
         <Navbar />
         <div className="segmented-control">
@@ -47,7 +47,7 @@ const RequestPage = ({ selectedFilters }) => {
             </svg>
             Pending Requests
           </button>
-
+ 
           <button
             className={`segment ${activeSegment === "send" ? "active" : ""}`}
             onClick={() => setActiveSegment("send")}
@@ -123,7 +123,7 @@ const RequestPage = ({ selectedFilters }) => {
                     <img src={SortIcon} alt="sort-list" />
                   </span>
                 </div>
-
+ 
                 {/* The modal appearing beside the image */}
                 {showModal && (
                   <div className="modal-content">
@@ -179,5 +179,5 @@ const RequestPage = ({ selectedFilters }) => {
     </div>
   );
 };
-
+ 
 export default RequestPage;

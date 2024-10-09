@@ -216,10 +216,10 @@ const handleCancelRequest = async () => {
     <div className="companydetails-container">
       <Navbar />
      
-     
+     <div className="companydetalis-subcontainer">
       <div  className="bbcmb"aria-label="breadcrumb">
             <ol class="breadcrumb">
-            <li class="breadcrumb-item"><img style={{marginLeft:"135px"}} src={breadcrumb} alt="home"/><div className="a-div" ><a href="/dashboard">Dashboard</a></div></li>
+            <li class="breadcrumb-item"><img  src={breadcrumb} alt="home"/><div className="a-div" ><a href="/dashboard">Dashboard</a></div></li>
            
             <li class="breadcrumb-item active" aria-current="page">Current Page</li>
         </ol>
@@ -869,7 +869,7 @@ const handleCancelRequest = async () => {
 
       </div>
       <div className="companydetails-footer"><Footer/></div> 
-
+      </div>
     </div>
   );
 };

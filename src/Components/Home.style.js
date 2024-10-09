@@ -50,6 +50,39 @@ export const Navbar = styled.nav`
  
  
   }
+   @media (min-width: 768px) {
+   
+   height:74px;
+    width:100%;
+    position: fixed;
+   
+   
+ 
+ 
+   
+   
+ 
+ 
+  }
+  @media (width: 912px) {
+   
+   height:74px;
+    width:100%;
+    position: fixed;
+ 
+  }
+ 
+   @media (width: 540px) {
+   
+   height:74px;
+    width:100%;
+    position: fixed;
+ 
+  }
+ 
+ 
+ 
+ 
  
 `;
  
@@ -209,7 +242,7 @@ gap: 10px;
  
   &:hover a{
    color: #1A1AFF;
-  
+ 
   }
  
  
@@ -851,12 +884,12 @@ export const FeatureItem = styled.div`
   cursor: pointer;
   padding: 10px;
   margin-bottom: 18px; /* Space between items */
-
+ 
   img:first-child {
     margin-right: 50px; /* Increased space between logo and title */
     transition: filter 0.3s ease; /* Smooth transition for color change */
   }
-
+ 
   .title {
     flex: 1;
     margin-right: 5px; /* Space between title and arrow stays reduced */
@@ -865,35 +898,35 @@ export const FeatureItem = styled.div`
     line-height: 24.2px;
     text-align: left;
     color: rgba(0, 0, 0, 1);
-    
+   
   }
   &.expanded .title{
     color: rgba(0, 60, 255, 1);
   }
-  
-
+ 
+ 
   .accordion-icon {
     transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition for rotation and color */
     margin-right: 200px;
   }
-
+ 
   &.expanded .accordion-icon {
     transform: rotate(180deg);
     filter: brightness(0) saturate(100%) invert(27%) sepia(88%) saturate(4698%) hue-rotate(210deg) brightness(98%) contrast(109%);
     /* This filter converts the icon to rgba(0, 60, 255, 1) */
   }
-
+ 
   &.expanded img:first-child {
     filter: brightness(0) saturate(100%) invert(27%) sepia(88%) saturate(4698%) hue-rotate(210deg) brightness(98%) contrast(109%);
     /* This filter applies the same rgba(0, 60, 255, 1) color to the logo */
   }
-
+ 
   /* Extra bottom margin when expanded */
   &.expanded {
     margin-bottom: 80px; /* More space when expanded to push the next item down */
   }
 `;
-
+ 
 export const FeatureContent = styled.div`
   position: absolute;
   width: 90%;
@@ -904,26 +937,26 @@ export const FeatureContent = styled.div`
   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
   opacity: 0;
   z-index: 1;
-
+ 
   font-size: 20px;
   font-weight: 700;
   line-height: 24.2px;
   text-align: left;
   color: rgba(0, 60, 255, 1);
-
+ 
   p {
     margin: 0px;
   }
-
+ 
   &.expanded {
     display: block;
     opacity: 1;
    
   }
 `;
-
-
-
+ 
+ 
+ 
  
  
 export const FeatureImage = styled.img`
@@ -986,9 +1019,9 @@ export const WhyUseContainer = styled.div`
   display: flex;
   justify-content: space-around;
   gap: 16px;
-  
-
-
+ 
+ 
+ 
   //flex-wrap: wrap;
   align-items:center;
   @media (max-width:480px) {
@@ -1007,12 +1040,12 @@ export const WhyUseCard = styled.div`
   border: 1px transparent;
   border-radius: 16px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
-  
+ 
   display: flex;
   flex-direction: column; /* Ensures the content stacks vertically */
   justify-content: center; /* Centers the content vertically */
   align-items: center; /* Centers the content horizontally */
-
+ 
   /* Hover effect */
   &:hover {
     background: #0028AA;
@@ -1021,18 +1054,18 @@ export const WhyUseCard = styled.div`
     border: 1px solid rgba(0, 40, 170, 1);
     box-shadow: -1px 3px 23.6px 0px rgba(255, 255, 255, 1);
   }
-
+ 
   &:hover div, &:hover p {
     color: white;
   }
-
+ 
   @media (max-width: 480px) {
     width: 155.1px;
     height: 144px;
     padding: 12px;
   }
 `;
-
+ 
  
 export const WhyUseIcon = styled.div`
   font-size: 30px;

@@ -1,4 +1,5 @@
 .Requestcontainer {
+  width: 100%;
     margin: 20px;
   
    
@@ -6,10 +7,12 @@
   }
 
   .table-container{
+    width: 100%;
     background-color: #ffffff;
   }
   
   .segmented-control {
+    width: 50%;
     display: flex;
     border-radius: 5px;
     overflow: hidden;
@@ -40,6 +43,7 @@ opacity: 0px; */
   
   /* Segment button styling */
   .segment {
+    width: 50%;
     border: none;
     padding: 10px 15px;
     cursor: pointer;
@@ -74,6 +78,7 @@ opacity: 0px; */
   
   .request-table th,
   .request-table td {
+   
     
     font-family: Inter;
     font-size: 14px;
@@ -98,12 +103,14 @@ opacity: 0px; */
     border-radius: 5px;
     cursor: pointer;
     margin-right:10px;
+    width: 100%;
   }
   
   .action-btn:hover {
     background-color: #1e5fbf;
   }
   th{
+    
   
     font-family: Inter;
     font-size: 14px;

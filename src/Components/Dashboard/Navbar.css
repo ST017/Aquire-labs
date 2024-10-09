@@ -1,11 +1,64 @@
-.container{
+/* .container{
   width: 100%;
  
   display: flex;
   flex-direction: row;
  
   margin: 0;
+ 
+ 
+ 
+} */
+ 
+.container {
+ 
+  top:0;
+  height: 116px;
+  background-color: rgba(234, 239, 255, 1);
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+ 
+@media (max-width: 480px) {
+  .container {
+    height: 40px;
+    width: 100%;
+   
+    z-index: 1;
+    background-color: white;
+  }
+}
+ 
+ 
+@media (min-width: 768px) {
+  .container {
+    height: 40px;
+    width: 100%;
+   
+  }
+}
+ 
+@media (width: 912px) {
+  .container {
+    height: 40px;
+    width: 100%;
+ 
+  }
+}
+ 
+@media (width: 540px) {
+  .container {
+    height: 40px;
+    width: 100%;
+  
+  }
+}
+ 
+ 
+ 
+ 
 .headercontainer{
   width: 100%;
   display:flex;
@@ -13,6 +66,7 @@
   justify-content: space-between;
   box-sizing: border-box;
 overflow: hidden;
+ 
  
 }
 .frame1 {
@@ -31,7 +85,24 @@ overflow: hidden;
 }
 .headermain {
   padding: 10px; /* Add padding for spacing */
+  cursor:pointer;
+ 
 }
+ 
+@media (width: 820px) {
+  .headermain {
+    margin-left: -100px;
+  }
+}
+ 
+@media (width: 912px) {
+  .headermain {
+    margin-left: -100px;
+  }
+}
+ 
+ 
+ 
  
 .header-ul {
   display: flex;
@@ -97,12 +168,22 @@ text-align: left;
 }
  
  
-@media screen  and (max-width:600px){
+@media screen  and (max-width:480px){
   .headermain,.header-ul{
     display: none;
   }
-  .container{
+  /* .container{
     width: 100%;
     background-color: white;
+    position:relative;
+   
+  } */
+}
+ 
+ 
+ 
+@media (width: 853px) {
+  .headermain {
+    margin-left:-100px;
   }
 }

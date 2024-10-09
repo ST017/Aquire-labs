@@ -1,22 +1,33 @@
 
 .side-div {
-  margin: 5px /*  0px */2px;
+  width:100%;
+  margin: 5px ;
+  gap: 6px;
 }
 
 .side-content{
   background-color: #ffffff;
     padding: 20px;
-    width: 250px;
+    width: 15%;
 
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    div {
-      margin: 5px /*  0px */2px;
+    
+    h3 {
+      width: 100%;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px 0;
+      //background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+      /* color: rgba(0, 60, 255, 1); */
+      
     } 
 }
 
 
- h3 {
+.side-div h3 {
   cursor: pointer;
   font-size: 16px;
   margin: 10px 0;
@@ -27,7 +38,7 @@
   
 } 
 
-label {
+.side-div label {
   display: block;
   margin: 5px 0;
   font-size: 14px;

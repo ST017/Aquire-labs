@@ -311,7 +311,7 @@ const ProjectsSection = () => {
       
      <div style={{display:'flex',justifyContent:'space-between',margin:'5px'}}>
      <p>All Projects </p>
-      <div style={{ position: 'relative'  }}>
+      <div >
       {/* The clickable image */}
       <div className='filter-icon'>
         <span
@@ -324,7 +324,7 @@ const ProjectsSection = () => {
 
       {/* The modal appearing beside the image */}
       {showModal && (
-        <div className="modal-content">
+        <div className="filtermodal-content">
           <h4>Sort Options</h4>
           <label>
             <input type="checkbox" name="newest" checked={sortOptions.newest} onChange={handleSortChange} />
