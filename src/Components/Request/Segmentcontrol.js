@@ -240,7 +240,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                   <td><Message msg={request?.message}/></td>
                   <td>{request.location}</td>
                   <td>{request?.requestTypes.join(",")}</td>
-                  <td>
+                  <td style={{display:"flex",justifyContent:"row",alignItems:"center",marginTop:"40px"}}>
                     <button
                       className="action-btn"
                       onClick={() => handleAccept(request.id)}

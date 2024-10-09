@@ -33,6 +33,8 @@ const ProjectsSection = () => {
   const [suggestionList,setSuggestionList]=useState([])
 
   const [arr,setarr]=useState(new Array(4).fill(""))
+  const [requestSent, setRequestSent] = useState(0);
+  const [requestReceived, setRequestReceived] = useState(0);
 
   const [showModal, setShowModal] = useState(false);
   const [sortOptions, setSortOptions] = useState({
@@ -85,7 +87,7 @@ const ProjectsSection = () => {
      return ()=>clearTimeout(timer)
   },[searchInput])
 
-
+ 
 
 
   // Fetch the user projects from Firestore
@@ -301,7 +303,7 @@ const ProjectsSection = () => {
       <div className='card-list1'>
         {
           filterData.length>0 ?(filterData.map((ele,i)=>{
-            return <Card onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} desc={ele.descr} web={ele.website} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount}/>
+            return <Card onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} desc={ele.descr} web={ele.website} userId={ele.userId}/>
           })):(arr.map((ele,i)=>{
             return <ShimmerUiCard/>
           }))
@@ -355,14 +357,38 @@ const ProjectsSection = () => {
       
       <div className='card2-list'>
         {filterData.length>0?(filterData.map((ele, i) => (
-          <Card2 onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} city={ele.city} desc={ele.descr} requestReceivedCount={requestReceivedCount} requestSentCount={requestSentCount} />
+          <Card2 onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} city={ele.city} desc={ele.descr} userId={ele.userId} />
         ))):(arr.map((ele,i)=>{
           return <ShimmerUiCard2/>
         }))} 
         
       </div> 
 
+      <div className='pagination-all-projects'>
+      <ReactPaginate
+  containerClassName={"pagination"}
+  activeClassName={"active"}
+  pageClassName={"page-item"}
+  onPageChange={(event) => setPage(event.selected)}
+  breakLabel="..."
+  pageCount={Math.ceil(userProjectList.length / n)}
+  previousLabel={
+    <div className="arrow">
+      <IconContext.Provider value={{ color: "#FFFFFF", size: "36px" }}>
+        <AiFillLeftCircle />
+      </IconContext.Provider>
+    </div>
+  }
+  nextLabel={
+    <div className="arrow">
+      <IconContext.Provider value={{ color: "#FFFFFF", size: "36px" }}>
+        <AiFillRightCircle />
+      </IconContext.Provider>
+    </div>
+  }
+/>
 
+      </div>
       <ToastContainer/>
     </section>
     

@@ -1,14 +1,39 @@
 .Requestcontainer {
   width: 100%;
-    margin: 20px;
+    //margin: 20px;
   
    
 
   }
 
+  @media (min-width: 768px) {
+    .Requestcontainer {
+      
+      width: 100%;
+     
+    }
+  }
+   
+  @media (width: 912px) {
+    .Requestcontainer {
+      
+      width: 100%;
+   
+    }
+  }
+   
+  @media (width: 540px) {
+    .Requestcontainer {
+      //height: 40px;
+      width: 100%;
+    
+    }
+  }
+
   .table-container{
     width: 100%;
     background-color: #ffffff;
+    position :relative;
   }
   
   .segmented-control {
@@ -55,6 +80,9 @@ opacity: 0px; */
     align-items: center;
     gap: 10px;
   }
+
+
+
   
   .segment.active {
     background-color: #1a0dab;
@@ -74,6 +102,7 @@ opacity: 0px; */
   .request-table {
     width: 100%;
     border-collapse: collapse;
+    position:relative;
   }
   
   .request-table th,
@@ -89,6 +118,7 @@ opacity: 0px; */
     border-bottom: 1px solid #F5F5F5;
     padding: 10px;
     text-align: left;
+    position:relative;
   }
   
   .request-table th {
@@ -104,6 +134,7 @@ opacity: 0px; */
     cursor: pointer;
     margin-right:10px;
     width: 100%;
+    position:relative;
   }
   
   .action-btn:hover {
