@@ -795,8 +795,8 @@ const handleCancelRequest = async () => {
               </p>
             </div>
           </div>
-           {/*right Section */}
-           <div className="right-section1">
+           
+           <div className="right-section-companydetails">
             <div className="stat-item1">
               <img src={receivelogo} alt="logo" className="received1-img1"/> <a className="stat-item1-text">Requests Received</a> <a className="number-stat">{requestReceived}</a>
             </div>
@@ -809,13 +809,13 @@ const handleCancelRequest = async () => {
               <p className="categories-text">{selectedProject?.category || ""}</p>
             </div>
  
-            {/* Request Type */}
+            
             <div className="request-type-card1">
               <p className="request-type-heading">Request Type</p>
               <p className="request-type-text">{selectedProject?.requestType || ""}</p>
             </div>
  
-            {/* Social Media */}
+           
             <div className="social-media-card1">
               <p className="social-media-heading">Social Media</p>
               <div className="social-media-text">
