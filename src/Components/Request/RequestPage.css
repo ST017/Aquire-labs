@@ -1,3 +1,20 @@
+.request-page-main-container {
+    width: 100%;
+    height: 100%;
+    /* position: relative; */ /* Uncomment if you need this */
+    /* margin: 0 auto; */ /* Uncomment if you need this */
+  }
+  
+  @media (max-width: 480px) {
+    .request-page-main-container {
+      overflow: hidden;
+      width: 100%;
+      height: auto; /* Changed height to auto for better responsiveness */
+      margin: auto; /* Centered margin */
+    }
+  }
+  
+
 .requestpage-container{
     display: flex;
     flex-direction: row;

@@ -50,6 +50,39 @@ export const Navbar = styled.nav`
  
  
   }
+   @media (min-width: 768px) {
+   
+   height:74px;
+    width:100%;
+    position: fixed;
+    
+    
+ 
+ 
+   
+   
+ 
+ 
+  }
+  @media (width: 912px) {
+   
+   height:74px;
+    width:100%;
+    position: fixed;
+ 
+  }
+
+   @media (width: 540px) {
+   
+   height:74px;
+    width:100%;
+    position: fixed;
+ 
+  }
+
+
+
+
  
 `;
  

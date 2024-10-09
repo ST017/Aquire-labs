@@ -27,7 +27,7 @@ const RequestPage = ({ selectedFilters }) => {
   document.body.style.background = "rgba(234, 239, 255, 1)";
 
   return (
-    <div>
+    <div className="request-page-main-container">
       <FilterProvider>
         <Navbar />
         <div className="segmented-control">

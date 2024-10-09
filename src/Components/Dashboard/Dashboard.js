@@ -6,18 +6,29 @@ import ProfileSidebar from "./ProfileSidebar";
 import "./Dashboard.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { FilterProvider } from "./FilterContext"; 
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../Firebase/firebase";
 
 const Dashboard = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+ 
 
   useEffect(() => {
     const auth = getAuth();
     // Listen for authentication state changes
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setCurrentUser(user);
+        await user.reload(); // Reload user to get the latest email verification status
+        if (user.emailVerified) {
+          // If email is verified, update Firestore
+          const userDocRef = doc(db, "User", user.uid);
+          await updateDoc(userDocRef, {
+            verified: true,
+          });
+         
+        }
       }
       setLoading(false); // Stop loading state whether user is present or not
     });

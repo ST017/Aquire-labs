@@ -238,7 +238,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                     ).toLocaleDateString()}
                   </td>
                   <td><Message msg={request?.message}/></td>
-                  <td>{}</td>
+                  <td>{request.location}</td>
                   <td>{request?.requestTypes.join(",")}</td>
                   <td>
                     <button
@@ -288,7 +288,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                     ).toLocaleDateString()}
                   </td>
                   <td>{request.message}</td>
-                  <td>{}</td>
+                  <td>{request.location}</td>
                   <td>{request?.requestTypes.join(",")}</td>
                   {/* <td>
                     <button className="action-btn">Request Sent</button>
@@ -326,7 +326,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                     ).toLocaleDateString()}
                   </td>
                   <td>{request.message}</td>
-                  <td>{}</td>
+                  <td>{request.location}</td>
                   <td>{request?.requestTypes.join(",")}</td>
                   {/* <td>
                     <button className="action-btn">Request Sent</button>

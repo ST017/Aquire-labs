@@ -339,10 +339,10 @@ const Home = () => {
   ))}
     </FeatureList>
         </FeaturesText>
-        <FeatureImage
+         <FeatureImage
           src={Photo}
           alt="Features Image"
-        />
+        /> 
       </KeyFeaturesSection>
  
       {/* Why Should You Use GoWeb3 Network */}

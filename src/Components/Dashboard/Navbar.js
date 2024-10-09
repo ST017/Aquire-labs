@@ -33,9 +33,24 @@ import inb from '../../Images/inbox.png'
 import req from '../../Images/request.png'
 import sav from '../../Images/save.png' 
 import noti from '../../Images/notification.png' 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, signOut } from 'firebase/auth';
  
 const Navbar = () => {
+  const navigate = useNavigate(); // To programmatically navigate after logout
+
+  const handleLogout = () => {
+    const auth = getAuth(); // Get the current authentication instance
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful, redirect user to login page
+        navigate('/login'); // Redirecting to login page after logout
+      })
+      .catch((error) => {
+        // An error happened during logout
+        console.error('Logout Error:', error);
+      });
+  };
   return (
     
     <nav className="container">
@@ -77,7 +92,7 @@ const Navbar = () => {
       </div>
       <div className="frame2">
         <div className="logout">
-          <button className="logout-btn">Logout</button>
+          <button className="logout-btn" onClick={handleLogout}>Logout</button>
         </div>
       </div>
     </div>
