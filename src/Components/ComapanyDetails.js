@@ -827,16 +827,16 @@ const handleCancelRequest = async () => {
            
            <div className="right-section-companydetails">
             <div className="stat-item1">
-              <div className="img-text-company">
+              
               <img src={receivelogo} alt="logo" className="received1-img1"/> <a className="stat-item1-text">Requests Received</a>
-              </div>
-               <a className="number-stat">{requestReceived}</a>
+             
+               <a className="number-stat" style={{color:"white"}}>{requestReceived}</a>
             </div>
             <div className="stat-item1">
-            <div className="img-text-company"> 
+            
             <img src={sentlogo} alt="logo" className="received1-img1"/><a className="stat-item1-text" > Requests Sent </a> 
-            </div>
-            <a className="number-stat">{requestSent}</a>
+            
+            <a className="number-stat"  style={{color:"white"}}>{requestSent}</a>
             </div>
  
             <div className="categories-card1">
