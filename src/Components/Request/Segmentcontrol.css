@@ -44,14 +44,7 @@
     background-color: #f1f3fb;
     width: fit-content;
     margin-bottom: 20px;
-    /* width: 636px;
-height: 47px;
-top: 77px;
-left: 23px;
-padding: 8px ;
-gap: 0px;
-border-radius: 8px ;
-opacity: 0px; */
+    
 
   }
   .segment-icon path {
@@ -70,7 +63,7 @@ opacity: 0px; */
   .segment {
     width: 50%;
     border: none;
-    padding: 10px 15px;
+    /* padding: 10px 15px; */
     cursor: pointer;
     font-size: 14px;
     background-color: #f1f3fb;
@@ -79,6 +72,7 @@ opacity: 0px; */
     display: flex;
     align-items: center;
     gap: 10px;
+    
   }
 
 

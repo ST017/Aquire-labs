@@ -26,7 +26,7 @@ function App() {
      
       <Router>
         <Routes>
-          <Route path="/" element={<PrivateRoute><Home/></PrivateRoute>}/>
+          <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/dashboard" element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
@@ -34,9 +34,9 @@ function App() {
          
           <Route path="/companydetails" element={<PrivateRoute><CompanyDetails/></PrivateRoute>}/>
           <Route path="/requestpage" element={<PrivateRoute><RequestPage/></PrivateRoute>}/>
-          <Route path="/faq" element={<PrivateRoute><Faq/></PrivateRoute>}/>
-          <Route path="/price" element={<PrivateRoute><Pricing/></PrivateRoute>}/>
-          <Route path="/about" element={<PrivateRoute><About/></PrivateRoute>}/>
+          <Route path="/faq" element={<Faq/>}/>
+          <Route path="/price" element={<Pricing/>}/>
+          <Route path="/about" element={<About/>}/>
           <Route path="/forgetpassword" element={<PrivateRoute><ForgetPassword/></PrivateRoute>}/>
           <Route path="/resetpassword" element={<PrivateRoute><ResetPassword/></PrivateRoute>}/>
           <Route path="/verificationemail" element={<PrivateRoute><VerificationEmail/></PrivateRoute>}/>

@@ -114,13 +114,14 @@ overflow: hidden;
   margin: 0;
   list-style-type: none;
    /* Allows wrapping for smaller screens */
+   gap:20px;
 }
  
 .header-ul li {
   flex-wrap: nowrap;
   display: flex;
   align-items: center;
-  gap: 5px; /* Adds 5px gap between img and span */
+  gap: 8px; /* Adds 5px gap between img and span */
   padding: 5px 10px;
 }
  
@@ -147,6 +148,7 @@ overflow: hidden;
   flex-wrap: nowrap;
   gap: 5px;
   align-items: center;
+  align-content: center;
  
 font-family: Inter;
 font-size: 16px;
@@ -169,6 +171,10 @@ text-align: left;
  
  
 @media screen  and (max-width:480px){
+  .headercontainer{
+    background-color: white;
+
+  }
   .headermain,.header-ul{
     display: none;
   }

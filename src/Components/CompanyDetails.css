@@ -183,14 +183,18 @@ margin: 0px;
     align-content: center;
     /* padding: 32px; */
     .send-request-btn {
-       
+        white-space: nowrap;
         background-color:rgba(231, 240, 250, 1);
         color: rgba(0, 59, 255, 1);
         border: none;
         padding: auto;
         margin-right: 10px;
-        font-size: 16px;
+        /* font-size: 1em; */
         cursor: pointer;
+        white-space: nowrap;  /* Prevent text wrapping */
+  
+  width: auto;          /* Ensure the button size adjusts based on content */
+  display: inline-block; /* Ensure the button does not stretch unnecessarily */
        
        
     }
@@ -768,11 +772,19 @@ padding:8px;
         display: flex;
         flex-wrap: nowrap;
     .send-request-btn{
+        white-space: nowrap;
         display: flex;
         flex-wrap: nowrap;
         font-size: 8px;
     }
     }
+    .send-request-btn{
+        white-space: nowrap;
+        display: flex;
+        flex-wrap: nowrap;
+        font-size: 8px;
+    }
+
     .company-details{
         width: 100%;
         margin-top: 50px;
@@ -783,6 +795,7 @@ padding:8px;
     }
     .header-container{
         width: 100%;
+        background-color: #FFFFFF;
        
     }
     .main-content1{
@@ -805,7 +818,7 @@ padding:8px;
        .social-media-text{
         width: 60%;
        }
-       .right-section1{
+       .right-section-companydetails{
         width: 100%;
        }
  
