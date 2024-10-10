@@ -70,7 +70,7 @@ const ProfileSidebar = ({ User }) => {
 
   useEffect(() => {
     fetchData();
-  }, [User,isEditprofile]); // Re-fetch data when User changes
+  }, [User,isEditprofile,db]); // Re-fetch data when User changes
 
   useEffect(() => {
     if (isEditprofile) {

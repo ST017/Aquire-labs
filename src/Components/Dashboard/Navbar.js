@@ -54,49 +54,50 @@ const Navbar = () => {
   return (
    
     <nav className="container">
-    <div className="headercontainer">
+      <div className="headercontainer">
       <div className="frame1">
-        <div className="Logo">
-          <img src={RaisaLogo} alt="logo" />
-        </div>
-        <div className="headermain">
-          <ul className="header-ul">
-            <li className="Discover-l">
-             
-              <img src={dis} alt="discover" /> <Link to="/dashboard"><span style={{textDecorationLine:"none"}}>Discover</span></Link>
-            </li>
-            <li className="Inbox-l">
-             
-              <img src={inb} alt="inbox" />
-              <span>Inbox</span>
-            </li>
-            <li className="Request-l">
-             
-             <img src={req} alt="request" />
-              <Link  to="/requestpage">
-                <span>Request</span>
-              </Link>
-            </li>
-            <li className="Saved-l">
-             
-              <img src={sav} alt="saved" />
-              <span>Saved</span>
-            </li>
-            <li className="Notifications-l">
-             
-              <img src={noti} alt="notification" />
-              <span>Notifications</span>
-            </li>                
-          </ul>
-        </div>
+     
+            <img  className="RaisaLogoimg"src={RaisaLogo} alt="logo" />
+            <div className="headermain">
+            <ul className="header-ul">
+              <li className="headerli">
+               
+                <img className="headerli-img" src={dis} alt="discover" /> <span className="headerli-span">Discover</span>
+              </li>
+              <li className="headerli">
+               
+                <img className="headerli-img"src={inb} alt="inbox" />
+                <span className="headerli-span">Inbox</span>
+              </li>
+              <li className="headerli">
+               
+               <img className="headerli-img"src={req} alt="request" />
+                <Link to="/requestpage">
+                  <span className="headerli-span">Request</span>
+                </Link>
+              </li>
+              <li className="headerli">
+               
+                <img className="headerli-img" src={sav} alt="saved" />
+                <span className="headerli-span">Saved</span>
+              </li>
+              <li className="headerli">
+               
+                <img className="headerli-img" src={noti} alt="notification" />
+                <span className="headerli-span">Notifications</span>
+              </li>                
+            </ul>
+          </div>
+ 
       </div>
       <div className="frame2">
-        <div className="logout">
-          <button className="logout-btn" onClick={handleLogout}>Logout</button>
+          <div className="header-logout">
+            <button className="header-logout-btn">Logout</button>
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
+ 
+    </nav>
   );
  
 };

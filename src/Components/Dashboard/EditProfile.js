@@ -22,6 +22,7 @@ import {
 import close from "../../Images/close.png";
  
 import { toast, ToastContainer } from "react-toastify";
+import Dropdown from "./Dropdown";
 const EditProfile = ({ setIsEditProfile }) => {
   const [userProject, setUserProject] = useState([]);
   const [userDetail, setUserDetail] = useState(null);
@@ -180,6 +181,7 @@ const EditProfile = ({ setIsEditProfile }) => {
       };
  
       await updateDoc(docRef, updatedData);
+      
  
       const docRefUser = doc(db, "User", currentUser.uid);
  
@@ -188,7 +190,7 @@ const EditProfile = ({ setIsEditProfile }) => {
         profilePicture: profilePictureURL || userDetail.profilePicture,
       };
       await updateDoc(docRefUser, updatedUserData);
- 
+      await fetchData()
       alert("Profile updated successfully!");
       setIsEditProfile(false);
     } catch (error) {
@@ -543,17 +545,25 @@ const EditProfile = ({ setIsEditProfile }) => {
           </div>
  
           <div className="form-group">
-            <label>Funding Stage</label>
-            <select
-              name="fundingStage"
-              value={fundingStage}
-              onChange={(e) => setFundingStage(e.target.value)}
-            >
-              {FundingStageList.map((ele, i) => {
-                return <option value={ele}>{ele}</option>;
-              })}
-            </select>
-          </div>
+          
+  {/* The original label and select section is commented out */}
+  {/* 
+  <label>Funding Stage</label>
+  <select
+    name="fundingStage"
+    value={fundingStage}
+    onChange={(e) => setFundingStage(e.target.value)}
+  >
+    {FundingStageList.map((ele, i) => {
+      return <option value={ele}>{ele}</option>;
+    })}
+  </select> 
+  */}
+  
+  
+  <Dropdown proplist={FundingStageList} heading="Funding Stage" />
+</div>
+
         </div>
  
         <div className="form-row">
@@ -572,7 +582,7 @@ const EditProfile = ({ setIsEditProfile }) => {
  
           <div className="form-group">
             <label>Ecosystem</label>
-            <select
+            <select 
               name="ecosystem"
               value={ecosystem}
               onChange={(e) => setEcosystem(e.target.value)}
@@ -649,7 +659,7 @@ const EditProfile = ({ setIsEditProfile }) => {
           <input
             type="url"
             name="twitterLink"
-            value={githubLink}
+            value={twitterLink}
             onChange={(e) => setTwitterLink(e.target.value)}
             required
           />

@@ -1,154 +1,73 @@
-/* .container{
+.container{
   width: 100%;
  
   display: flex;
   flex-direction: row;
  
   margin: 0;
- 
- 
- 
-} */
- 
-.container {
-  width:100%;
-  top:0;
-  height: 116px;
-  background-color: rgba(234, 239, 255, 1);
-  //padding: 10px;
-  margin-top:20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+ background-color:  rgba(234, 239, 255, 1);
 }
- 
-@media (max-width: 480px) {
-  .container {
-    height: 40px;
-    width: 100%;
-   
-    z-index: 1;
-    background-color: white;
-  }
-}
- 
- 
-@media (min-width: 768px) {
-  .container {
-    height: 40px;
-    width: 100%;
-   
-  }
-}
- 
-@media (width: 912px) {
-  .container {
-    height: 40px;
-    width: 100%;
- 
-  }
-}
- 
-@media (width: 540px) {
-  .container {
-    height: 40px;
-    width: 100%;
-  
-  }
-}
- 
- 
- 
- 
 .headercontainer{
+  height: 100%;
+  align-items: center;
   width: 100%;
   display:flex;
   flex-direction:row;
   justify-content: space-between;
   box-sizing: border-box;
-overflow: hidden;
  
  
 }
 .frame1 {
-  width: 100%;
+  height:100%;
+  align-items: center;
+  padding: 10px;
+  width: 70%;
   display: flex;
   justify-content: space-between;
-  margin: 5px;
-  padding: 10px;
+ 
+  /* padding: 10px; */
   box-sizing: border-box;
  
  
 }
-.frame2{
-  width: 90%;
-  display: flex;
-}
-.headermain {
-  padding: 10px; /* Add padding for spacing */
-  cursor:pointer;
+ 
+.RaisaLogo{
  
 }
  
-@media (width: 820px) {
-  .headermain {
-    margin-left: -100px;
-  }
+.RaisaLogoimg{
+  height: 49px;
+ 
+}
+.headermain{
+  align-self: center;
+ 
+ 
 }
  
-@media (width: 912px) {
-  .headermain {
-    margin-left: -100px;
-  }
-}
- 
- 
- 
- 
-.header-ul {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0;
-  margin: 0;
+.header-ul{
+  width: 100%;
   list-style-type: none;
-   /* Allows wrapping for smaller screens */
-   gap:20px;
+ display:flex;
+ flex-direction: row;
+ margin: 0;
+ padding: 0;
+ gap:20px;
+ 
 }
  
-.header-ul li {
-  flex-wrap: nowrap;
+.headerli{
+  width: 100%;
+  padding: 5px ;
+  gap:8px;
   display: flex;
-  align-items: center;
-  gap: 8px; /* Adds 5px gap between img and span */
-  padding: 5px 10px;
+  height: 100%;
 }
  
-.header-ul li img {
-  width: 18px;
-  height: 18px;
- 
- 
-}
- 
-.header-ul li span {
-  font-size: 16px;
-  color: #333;
-}
-.nav-svg{
-  width: 18px;
-  height: 18px;
-  gap: 0px;
-  opacity: 0px;
-}
-.Discover-l, .Inbox-l , .Request-l , .Saved-l , .Notifications-l {
- 
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 5px;
-  align-items: center;
-  align-content: center;
+.headerli-span{
+  width: 100%;
+  margin:0;
  
 font-family: Inter;
 font-size: 16px;
@@ -157,39 +76,77 @@ line-height: 19.36px;
 text-align: left;
  
 }
+.headerli-img{
  
+ 
+ 
+}
 .frame2{
-  margin-right: 40px;
+  height: 100%;
+  padding: 10px;
+  width: 30%;
+  display: flex;
   align-items: center;
   justify-content: flex-end;
-  right: 10px;
+  box-sizing: border-box;
+ 
 }
-.frame1{
-  align-items: center;
-  gap:20%
+.header-logout{
+  width: 30%;
+ /* padding:10px 0px 10px 0px; */
+  display:flex;
+  justify-content: flex-end;
+  margin-right: 10%;
+  height:39px;
+ 
+ 
+}
+ 
+.header-logout-btn{
+  box-sizing: border-box;
+  width: 100%;
+ 
+  border: 1px solid #1A1AFF;
+  background-color: transparent;
+  color: #1A1AFF;
+ 
+  border-radius: 6px;
+ 
+font-family: Inter;
+font-size: 16px;
+font-weight: 700;
+line-height: 19.36px;
+ 
+ 
+  cursor: pointer;
+ 
+box-shadow: 0px 2px 4px 0px #8890C233;
+ 
 }
  
  
-@media screen  and (max-width:480px){
-  .headercontainer{
+ 
+@media screen and (max-width:830px) {
+ 
+  .container{
     background-color: white;
-
   }
-  .headermain,.header-ul{
+  .headermain{
     display: none;
   }
-  /* .container{
-    width: 100%;
-    background-color: white;
-    position:relative;
-   
-  } */
 }
+
+@media screen and (max-width:767px) {
  
- 
- 
-@media (width: 853px) {
-  .headermain {
-    margin-left:-100px;
+  .header-logout{
+    width: 77%;
+   /* padding:10px 0px 10px 0px; */
+    display:flex;
+    justify-content: flex-end;
+    margin-right: 10%;
+    height:39px;
+   
+   
   }
 }
+

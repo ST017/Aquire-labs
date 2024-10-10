@@ -15,6 +15,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { addDoc, collection,deleteDoc,doc,getDocs, query, setDoc, where } from "firebase/firestore";
 import { db } from "./Firebase/firebase";
 import Footer from "./Dashboard/Footer";
+import VerifyIcon from "../Images/VerificationIcon.png"
 
 //import verify from "../Images/verify.png"
  
@@ -31,7 +32,8 @@ const CompanyDetails = () => {
   const [myproject,setMyProject]=useState([])
   const [requestSent, setRequestSent] = useState(0);
   const [requestReceived, setRequestReceived] = useState(0);
-  const [userConnectsDocId,setUserConnectsDocId]=useState(null)
+  const [userConnectsDocId,setUserConnectsDocId]=useState(null);
+  const [isVerified, setIsVerified] = useState(false);
  
  
  
@@ -49,7 +51,31 @@ const CompanyDetails = () => {
   }, []);
     document.body.style.background="rgba(234, 239, 255, 1)"
     const selectedProject = JSON.parse(localStorage.getItem('selectedProject'));
- 
+
+     // Fetch user verification status
+   const fetchUserVerification = async (userId) => {
+    try {
+      const usersRef = collection(db, 'User'); // Assuming your collection name is 'Users'
+      const userQuery = query(usersRef, where('id', '==', userId));
+      const userSnapshot = await getDocs(userQuery);
+      if (!userSnapshot.empty) {
+        const userData = userSnapshot.docs[0].data(); // Get the first matched document
+        setIsVerified(userData.verified); // Check if the user is verified
+      }
+    } catch (error) {
+      console.error('Error fetching user verification:', error);
+      setIsVerified(false); // Default to false if error occurs
+    }
+  };
+
+
+  useEffect(() => {
+    // Ensure selectedProject and userId exist
+    if (selectedProject.userId) {
+      
+      fetchUserVerification(selectedProject.userId); // Fetch verification status
+    }
+  }, [selectedProject.userId,db]);
  
     const handleToggleModal = () => {
       setIsModalOpen(!isModalOpen);
@@ -145,6 +171,7 @@ const handleCancelRequest = async () => {
         setIsRequestTypeOpen(false);
         setMessage("")
         await fetchUserConnects()
+        await fetchMyProjectData()
  
       } catch (e) {
         console.error("Error adding document: ", e);
@@ -207,7 +234,7 @@ const handleCancelRequest = async () => {
   useEffect(()=>{
     fetchMyProjectData()
    
-  },[currentUser?.uid])
+  },[currentUser?.uid,db,isEditprofile])
  
   useEffect(()=>{
      fetchUserConnects()
@@ -215,14 +242,16 @@ const handleCancelRequest = async () => {
   return (
     <div className="companydetails-container">
       <Navbar />
+     <div className="companydetails-sub">
      
-     <div className="companydetalis-subcontainer">
+      <div className="bread-container">
       <div  className="bbcmb"aria-label="breadcrumb">
             <ol class="breadcrumb">
             <li class="breadcrumb-item"><img  src={breadcrumb} alt="home"/><div className="a-div" ><a href="/dashboard">Dashboard</a></div></li>
            
             <li class="breadcrumb-item active" aria-current="page">Current Page</li>
         </ol>
+        </div>
         </div>
  
       <div className="company-details">
@@ -231,18 +260,18 @@ const handleCancelRequest = async () => {
        
         {/* Header */}
         <div className="header-container">
-          <div className="header-section"><img className="cover-photo" src={selectedProject?.coverPicture} alt="cover-picture"/></div>
+          <div className="header-section"><img className="cover-photo" src={(selectedProject.userId===currentUser?.uid)?(myproject?.coverPicture):(selectedProject?.coverPicture)} alt="cover-picture"/></div>
           <div className="subconatiner">
           <div className="profile-container">
   <div className="company-profile-logo">
-    <img className="company-profile-photo" src={selectedProject?.profilePicture} alt="profile-picture" />
+    <img className="company-profile-photo" src={(selectedProject?.userId===currentUser?.uid)?(myproject?.profilePicture):(selectedProject?.profilePicture)} alt="profile-picture" />
   </div>
   <div className="company-profile-text">
-    <h4>{selectedProject?.name} {/* <img className="verified-icon" src={verify} alt="verified" /> */}</h4>
-    <p className="oneliner">{selectedProject?.oneLiner}</p>
+    <h4>{(selectedProject?.userId===currentUser?.uid)?(myproject?.name):(selectedProject?.name)} {isVerified && (<img src={VerifyIcon} alt="verified" className="verified-icon"/>)}</h4>
+    <p className="oneliner">{(selectedProject?.userId===currentUser?.uid)?(myproject?.oneLiner):(selectedProject?.oneLiner)}</p>
     <h6>
       <img src={locationlogo} alt="location" />
-      {selectedProject?.city}, {selectedProject?.country}
+      {(selectedProject?.userId===currentUser?.uid)?(myproject?.city):(selectedProject?.city)}, {(selectedProject.userId===currentUser?.uid)?(myproject?.country):(selectedProject?.country)}
     </h6>
   </div>
   {/* <button className="edit-profile-btn">Edit Profile</button> */}
@@ -271,7 +300,7 @@ const handleCancelRequest = async () => {
           }}
         >
           <div>
-            <EditProfile setIsEditProfile={setIsEditProfile} />
+            <EditProfile setIsEditProfile={setIsEditProfile}  />
           </div>
         </div>
       )}
@@ -762,7 +791,7 @@ const handleCancelRequest = async () => {
             <div className="biodata-card1">
               <p className="biodata-heading">Biodata</p>
               <p className="biodata-text">
-                {selectedProject?.descr || ""}
+                {(selectedProject.userId===currentUser?.uid)?(myproject?.biodata||""):(selectedProject?.biodata || "")}
                
               </p>
             </div>
@@ -771,7 +800,7 @@ const handleCancelRequest = async () => {
             <div className="ecosystem-card1">
   <p className="ecosystem-heading">Ecosystem</p>
   <div className="ecosytem-text">
-    <p className="blockchain-data">{selectedProject?.blockchain || ""}</p>
+    <p className="blockchain-data">{(selectedProject.userId===currentUser?.uid)?(myproject?.blockchain || ""):(selectedProject?.blockchain || "")}</p>
   </div>
 </div>
  
@@ -779,12 +808,12 @@ const handleCancelRequest = async () => {
             {/* Partnership Interest */}
             <div className="partnership-card1">
               <p className="partnership-heading">Partnership Interested</p>
-              <p className="partnership-text">{selectedProject?.partnershipInterest || ""}</p>
+              <p className="partnership-text">{(selectedProject.userId===currentUser?.uid)?(myproject?.partnershipInterest || ""):(selectedProject?.partnershipInterest || "")}</p>
             </div>
  
             {/* Whitepaper */}
             <div className="whitepaper-card1">
-              <p className="whitepaper-heading">Whitepaper:<a className="whitepaper-text">{selectedProject?.whitepaper}</a></p>
+              <p className="whitepaper-heading">Whitepaper:<a className="whitepaper-text">{(selectedProject.userId===currentUser?.uid)?(myproject?.whitepaper|| ""):(selectedProject?.whitepaper)}</a></p>
             </div>
  
             {/* Statement for Projects */}
@@ -798,21 +827,27 @@ const handleCancelRequest = async () => {
            
            <div className="right-section-companydetails">
             <div className="stat-item1">
-              <img src={receivelogo} alt="logo" className="received1-img1"/> <a className="stat-item1-text">Requests Received</a> <a className="number-stat">{requestReceived}</a>
+              <div className="img-text-company">
+              <img src={receivelogo} alt="logo" className="received1-img1"/> <a className="stat-item1-text">Requests Received</a>
+              </div>
+               <a className="number-stat">{requestReceived}</a>
             </div>
             <div className="stat-item1">
-            <img src={sentlogo} alt="logo" className="received1-img1"/><a className="stat-item1-text" style={{marginRight:"40px"}}> Requests Sent </a> <a className="number-stat">{requestSent}</a>
+            <div className="img-text-company"> 
+            <img src={sentlogo} alt="logo" className="received1-img1"/><a className="stat-item1-text" > Requests Sent </a> 
+            </div>
+            <a className="number-stat">{requestSent}</a>
             </div>
  
             <div className="categories-card1">
               <p className="categories-heading">Categories</p>
-              <p className="categories-text">{selectedProject?.category || ""}</p>
+              <p className="categories-text">{(selectedProject.userId===currentUser?.uid)?(myproject?.category || ""):(selectedProject?.category || "")}</p>
             </div>
  
             
             <div className="request-type-card1">
               <p className="request-type-heading">Request Type</p>
-              <p className="request-type-text">{selectedProject?.requestType || ""}</p>
+              <p className="request-type-text">{(selectedProject.userId===currentUser?.uid)?(myproject?.requestType || ""):(selectedProject?.requestType || "")}</p>
             </div>
  
            
@@ -820,44 +855,110 @@ const handleCancelRequest = async () => {
               <p className="social-media-heading">Social Media</p>
               <div className="social-media-text">
     <div className="containericon"><img src={Telegram} alt="Telegram" onClick={() => {
+     if(selectedProject?.userId===currentUser?.uid){
+         if(myproject?.telegramLink){
+        window.open(myproject?.telegramLink, '_blank')
+      }
+      else{
+        alert("Unavailable Link")
+      }
+
+     }
+     else{
       if(selectedProject?.telegramLink){
         window.open(selectedProject?.telegramLink, '_blank')
       }
       else{
         alert("Unavailable Link")
       }
+     }
       }} /></div>          
     <div className="containericon"><img src={Reddit} alt="Reddit" onClick={() => {
-      if(selectedProject?.redditLink){
+      if(selectedProject?.userId===currentUser?.uid){
+          if(myproject?.redditLink){
+        window.open(myproject?.redditLink, '_blank')
+      }
+      else{
+         alert("Unavailable Link")
+      }
+      }
+      else{
+         if(selectedProject?.redditLink){
         window.open(selectedProject?.redditLink, '_blank')
       }
       else{
          alert("Unavailable Link")
       }
+
+      }
       }} /></div>
     <div className="containericon"><img src={Group} alt="Group" onClick={() => {
+
+      if(selectedProject?.userId===currentUser?.uid){
+
+      if(myproject?.mediumLink){
+        window.open(myproject?.mediumLink, '_blank')
+      }
+      else{
+        alert("Unavailable Link")
+      }
+
+      }
+
+      else{
+
       if(selectedProject?.mediumLink){
         window.open(selectedProject?.mediumLink, '_blank')
       }
       else{
         alert("Unavailable Link")
       }
+
+      }
       }} /></div>
     <div className="containericon"><img src={Twitter} alt="Twitter" onClick={() => {
-      if(selectedProject?.twitterLink){
+       if(selectedProject?.userId===currentUser?.uid){
+               if(myproject?.twitterLink){
+        window.open(myproject?.twitterLink, '_blank')
+      }
+      else{
+        alert("Unavailable Link")
+      }
+       }
+
+      else{
+            if(selectedProject?.twitterLink){
         window.open(selectedProject?.twitterLink, '_blank')
       }
       else{
         alert("Unavailable Link")
       }
+      }
+     
       }} /></div>
     <div className="containericon"><img src={Git} alt="Git" onClick={() => {
-      if(selectedProject?.githubLink){
+         if(selectedProject?.userId===currentUser?.uid){
+             if(myproject?.githubLink){
+        window.open(myproject?.githubLink, '_blank')
+      }
+      else{
+        alert("Unavailable Link")
+      }
+           
+
+         }
+        else{
+
+        if(selectedProject?.githubLink){
         window.open(selectedProject?.githubLink, '_blank')
       }
       else{
         alert("Unavailable Link")
       }
+        }
+
+
+      
      }} /></div>
    
               </div>
@@ -868,6 +969,7 @@ const handleCancelRequest = async () => {
          
 
       </div>
+    
       <div className="companydetails-footer"><Footer/></div> 
       </div>
     </div>

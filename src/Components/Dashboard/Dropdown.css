@@ -1,0 +1,53 @@
+.dropdown {
+    position: relative;
+    width: 100%; /* Ensure it takes the container width */
+  }
+  
+  .dropdown-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .placeholder {
+    color: #999;
+  }
+  
+  .arrow {
+    font-size: 12px;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border: 1px solid #ccc;
+    background-color: white;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px; /* Add a bit of spacing below the input */
+  }
+  
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .dropdown-item input {
+    margin-right: 10px;
+  }
+  
+  .dropdown-item label {
+    margin: 0;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
