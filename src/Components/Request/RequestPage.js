@@ -113,9 +113,11 @@ const RequestPage = ({ selectedFilters }) => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-              <div style={{ position: "relative" }}>
-                {/* The clickable image */}
-                <div className="filter-icon">
+              
+     
+              <div  className="filterdiv">
+                
+                <div className="requestfilter-icon">
                   <span
                     onClick={() => setShowModal(!showModal)}
                     style={{ cursor: "pointer", fontSize: "2rem" }}
@@ -126,7 +128,7 @@ const RequestPage = ({ selectedFilters }) => {
  
                 {/* The modal appearing beside the image */}
                 {showModal && (
-                  <div className="modal-content">
+                  <div className="requestmodal-content">
                     <h4>Sort Options</h4>
                     <label>
                       <input

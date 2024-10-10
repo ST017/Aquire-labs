@@ -28,7 +28,9 @@
       width: 100%;
     
     }
+    
   }
+  
 
   .table-container{
     width: 100%;
@@ -40,10 +42,10 @@
     width: 50%;
     display: flex;
     border-radius: 5px;
-    overflow: hidden;
+    
     background-color: #f1f3fb;
     width: fit-content;
-    margin-bottom: 20px;
+    margin: 20px;
     
 
   }
@@ -63,7 +65,7 @@
   .segment {
     width: 50%;
     border: none;
-    /* padding: 10px 15px; */
+    padding: 5px;
     cursor: pointer;
     font-size: 14px;
     background-color: #f1f3fb;
@@ -72,6 +74,9 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    white-space: nowrap;
+    border-radius: 8px;
+   
     
   }
 
@@ -89,9 +94,7 @@
   }
   
   
-  .table-container {
-    margin-top: 20px;
-  }
+ 
   
   .request-table {
     width: 100%;
@@ -146,4 +149,16 @@
     align-content: center;
     background: #EAEFFF;
 
+  }
+
+  @media screen and (max-width:600px) {
+    .segmented-control{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .segment{
+      width: 100%;
+    }
+    
   }
