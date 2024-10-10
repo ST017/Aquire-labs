@@ -84,6 +84,7 @@ text-align: left;
 
   }
   .pagination-popular {
+
     display: flex;
     justify-content: end;
     width: 100%;
@@ -98,7 +99,7 @@ text-align: left;
     display: flex;
     justify-content:center;
     width: 100%;
-    margin-top:-350px;
+    /* margin-bottom:; */
     
     
    
@@ -235,6 +236,10 @@ text-align: left;
   
   .edit-profile1 {
     
+  }
+  .card2list-pagination-all{
+    display: flex;
+    flex-direction: column;
   }
  
   @media only screen and (max-width:600px) {

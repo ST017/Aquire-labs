@@ -354,7 +354,7 @@ const ProjectsSection = () => {
         
      
 
-      
+      <div className="card2list-pagination-all">
       <div className='card2-list'>
         {filterData.length>0?(filterData.map((ele, i) => (
           <Card2 onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} city={ele.city} desc={ele.descr} userId={ele.userId} />
@@ -388,6 +388,7 @@ const ProjectsSection = () => {
   }
 />
 
+</div>
       </div>
       <ToastContainer/>
     </section>
