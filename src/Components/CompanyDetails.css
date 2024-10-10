@@ -164,6 +164,9 @@
     justify-content: space-between;
     height: 100px;
     background-color: #ffffff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
   }
    
   /*
