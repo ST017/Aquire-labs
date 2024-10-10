@@ -62,6 +62,8 @@ import {
  
  
 } from "./Home.style.js";
+
+import Footer1 from "../Components/Dashboard/Footer.js"
 import logo from "../Images/Logo.png";
  
 import logo1 from "../Images/1.png";
@@ -385,7 +387,7 @@ const Home = () => {
       </WhyUseSection>
  
       {/* Footer */}
-      <Footer>
+      {/* <Footer>
         <FooterWrapper>
         <FooterHead>GoWeb3 Network</FooterHead>
       <FooterText>
@@ -427,7 +429,8 @@ const Home = () => {
           </FooterColumn3>
         </FooterLinks>
       </FooterSections>
-    </Footer>
+    </Footer> */}
+    <Footer1/>
     </WrapperDiv>
   );
 };

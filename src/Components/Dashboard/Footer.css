@@ -52,10 +52,10 @@
   .footer-links {
     list-style-type: none;
     padding: 0;
-   
+  
     img{
-        width: 29px;
-        height: 29px;
+        width: 18px;
+        height: 18px;
     }
   }
  
@@ -64,6 +64,7 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
+    gap: 5px;;
    
   }
  

@@ -19,6 +19,7 @@ import Discord from "../Images/Discord.png"
 import Telegram from "../Images/Telegram.jpeg"
 import "./Faq.css";
 import MainNavbar from './MainNavbar'
+import Footer1 from "../Components/Dashboard/Footer"
 
 
 
@@ -120,7 +121,8 @@ const Faq = () => {
       
      </div>
      </div>
-     <div style={{marginTop:"150px"}}>
+     <Footer1/>
+     {/* <div style={{marginTop:"150px"}}>
      <Footer>
         <FooterWrapper>
         <FooterHead>GoWeb3 Network</FooterHead>
@@ -163,7 +165,7 @@ const Faq = () => {
         </FooterLinks>
       </FooterSections>
     </Footer>
-    </div>
+    </div> */}
      </>
   )
 }
