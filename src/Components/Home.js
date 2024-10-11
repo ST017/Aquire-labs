@@ -108,7 +108,7 @@ import Telegram from "../Images/Telegram.jpeg"
 import RaisaLogo from "../Images/RaisaLogo.png"
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
- 
+ import Footer1 from "../Components/Dashboard/Footer.js"
 const Home = () => {
   const [expandedFeature, setExpandedFeature] = useState(null);
  
@@ -385,7 +385,7 @@ const Home = () => {
       </WhyUseSection>
  
       {/* Footer */}
-      <Footer>
+      {/* <Footer>
         <FooterWrapper>
         <FooterHead>Raisa Network</FooterHead>
       <FooterText>
@@ -427,8 +427,10 @@ const Home = () => {
           </FooterColumn3>
         </FooterLinks>
       </FooterSections>
-    </Footer>
+    </Footer> */}
+     <Footer1/>
     </WrapperDiv>
+   
   );
 };
  
