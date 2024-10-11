@@ -249,7 +249,7 @@ const handleCancelRequest = async () => {
             <ol class="breadcrumb">
             <li class="breadcrumb-item"><img  src={breadcrumb} alt="home"/><div className="a-div" ><a href="/dashboard">Dashboard</a></div></li>
            
-            <li class="breadcrumb-item active" aria-current="page">Current Page</li>
+            <li class="breadcrumb-item active" aria-current="page">Company Profile</li>
         </ol>
         </div>
         </div>
@@ -808,7 +808,9 @@ const handleCancelRequest = async () => {
             {/* Partnership Interest */}
             <div className="partnership-card1">
               <p className="partnership-heading">Partnership Interested</p>
-              <p className="partnership-text">{(selectedProject.userId===currentUser?.uid)?(myproject?.partnershipInterest || ""):(selectedProject?.partnershipInterest || "")}</p>
+              <div className="partnership-text">
+              <p className="blockchain-data">{(selectedProject.userId===currentUser?.uid)?(myproject?.partnershipInterest || ""):(selectedProject?.partnershipInterest || "")} </p>
+                </div>
             </div>
  
             {/* Whitepaper */}
@@ -844,7 +846,10 @@ const handleCancelRequest = async () => {
  
             <div className="categories-card1">
               <p className="categories-heading">Categories</p>
-              <p className="categories-text">{(selectedProject.userId===currentUser?.uid)?(myproject?.category || ""):(selectedProject?.category || "")}</p>
+              <p className="categories-text">
+             {(selectedProject.userId===currentUser?.uid)?(myproject?.category || ""):(selectedProject?.category || "")} 
+
+              </p>
             </div>
  
            
