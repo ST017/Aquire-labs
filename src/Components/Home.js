@@ -387,7 +387,7 @@ const Home = () => {
       {/* Footer */}
       <Footer>
         <FooterWrapper>
-        <FooterHead>GoWeb3 Network</FooterHead>
+        <FooterHead>Raisa Network</FooterHead>
       <FooterText>
         We simplify the process of finding and connecting with
         the perfect partners for your project.
