@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
   margin: auto;
-}
+}                          
  
 .bread-container {
   width: 100%;
@@ -66,7 +66,7 @@
   }
 }
 .a-div {
-  font-family: Inter;
+ 
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -75,7 +75,7 @@
 }
  
 .breadcrumb-item.active {
-  font-family: Inter;
+  
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -106,7 +106,7 @@
   width: 73.89%;
   height: 100%;
   margin: auto;
-  font-family: Arial, sans-serif;
+  
   color: #333;
  
   display: flex;
@@ -216,7 +216,7 @@ strong {
   align-items: center;
   color: #2f343a;
  
-  font-family: Inter;
+
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;
@@ -228,7 +228,7 @@ strong {
   align-items: center;
   color: #666;
  
-  font-family: Inter;
+ 
   font-size: 10px;
   font-weight: 500;
   line-height: 16px;
@@ -258,7 +258,7 @@ strong {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: Inter;
+  
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -288,7 +288,7 @@ strong {
   background-color: rgba(231, 240, 250, 1);
   color: rgba(0, 59, 255, 1);
  
-  font-family: Inter;
+
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -341,7 +341,7 @@ strong {
 .biodata-heading {
   width: 100%;
   height: auto;
-  font-family: Inter;
+  
   font-size: 18px;
   font-weight: 500;
   line-height: 18px;
@@ -352,7 +352,7 @@ strong {
 .biodata-text {
   width: auto;
   color: #5e6670;
-  font-family: Inter;
+ 
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -373,7 +373,7 @@ strong {
 .ecosystem-heading {
   width: 100%;
   height: auto;
-  font-family: Inter;
+  
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -388,7 +388,7 @@ strong {
   text-align: left;
   padding: 8px;
   color: black;
-  font-family: Inter;
+ 
   font-size: 12px;
   font-weight: 300;
   line-height: 20px;
@@ -417,7 +417,7 @@ strong {
 .partnership-heading {
   width: 100%;
   height: auto;
-  font-family: Inter;
+ 
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -444,7 +444,7 @@ strong {
   color: black;
  
  
-  font-family: Inter;
+  
   font-size: 12px;
   font-weight: 300;
   line-height: 20px;
@@ -475,7 +475,7 @@ strong {
 .whitepaper-heading {
   width: 100%;
   height: auto;
-  font-family: Inter;
+ 
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -486,7 +486,7 @@ strong {
 .whitepaper-text {
   width: 100%;
   height: auto;
-  font-family: Inter;
+  
   font-size: 12px;
   font-weight: 500;
   line-height: 24px;
@@ -510,7 +510,7 @@ strong {
   height: auto;
  
   color: rgba(24, 25, 28, 1);
-  font-family: Inter;
+ 
   font-size: 18px;
   font-weight: 500;
   line-height: 18px;
@@ -520,7 +520,7 @@ strong {
   width: 100%;
   height: auto;
   gap: 12px;
-  font-family: Inter;
+ 
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -543,7 +543,7 @@ strong {
 .categories-heading {
   width: 100%;
   height: auto;
-  font-family: Inter;
+ 
  
   font-size: 16px;
   font-weight: 500;
@@ -553,7 +553,7 @@ strong {
 }
 .categories-text {
   height: auto;
-  font-family: Inter;
+  
   font-size: 12px;
   font-weight: 300;
   line-height: 20px;
@@ -579,7 +579,7 @@ strong {
 .request-type-heading {
   width: 100%;
   height: auto;
-  font-family: Inter;
+  
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -591,7 +591,7 @@ strong {
 .request-type-text {
   width: auto;
   height: auto;
-  font-family: Inter;
+
   font-size: 12px;
   font-weight: 300;
   line-height: 20px;
@@ -621,7 +621,7 @@ strong {
 .social-media-heading {
   width: auto;
   height: auto;
-  font-family: Inter;
+  
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -675,7 +675,7 @@ width: 100%;
   display: inline-flex;
   white-space: nowrap;
   flex-wrap: nowrap;
-  font-family: Inter;
+
 font-size: medium;
 font-weight: 700;
 line-height: 22.39px;
@@ -687,7 +687,7 @@ width: auto;
 }
 
 .number-stat {
-  font-family: Inter;
+  
 font-size: 15px;
 font-weight: 700;
 line-height: 18.15px;
