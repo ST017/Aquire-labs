@@ -60,6 +60,7 @@
   }
  
   .footer-links li {
+    gap: 4px;
     margin-bottom: 8px;
     display: flex;
     flex-wrap: nowrap;
