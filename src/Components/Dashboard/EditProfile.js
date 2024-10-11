@@ -20,6 +20,7 @@ import {
   RequestTypeList,
 } from "./Filterlists";
 import close from "../../Images/close.png";
+import { Select, MenuItem, Checkbox, ListItemText, FormControl } from '@mui/material';
  
 import { toast, ToastContainer } from "react-toastify";
 import Dropdown from "./Dropdown";
@@ -33,7 +34,7 @@ const EditProfile = ({ setIsEditProfile }) => {
   const [website, setWebsite] = useState(userProject.website);
   const [category,setCategory]=useState(userProject.category);
   const [location, setLocation] = useState(null);
-  const [fundingStage, setFundingStage] = useState(userProject.fundingStatus);
+  const [fundingStage, setFundingStage] = useState(/* userProject.fundingStatus */ []);
   const [partnership, setPartnership] = useState(userProject.partnership);
   const [ecosystem, setEcosystem] = useState(userProject.blockchain);
   const [bioData, setBioData] = useState(userProject.biodata);
@@ -544,26 +545,54 @@ const EditProfile = ({ setIsEditProfile }) => {
             </select>
           </div>
  
-          <div className="form-group">
-          
-  {/* The original label and select section is commented out */}
-  {/* 
+         {/*  <div className="form-group">
+  
   <label>Funding Stage</label>
-  <select
+   <select
     name="fundingStage"
     value={fundingStage}
     onChange={(e) => setFundingStage(e.target.value)}
+  
   >
     {FundingStageList.map((ele, i) => {
       return <option value={ele}>{ele}</option>;
     })}
-  </select> 
-  */}
-  
-  
-  <Dropdown proplist={FundingStageList} heading="Funding Stage" />
-</div>
+  </select>  
 
+  
+
+        </div> */}
+        
+          
+          {/* <Select  className="form-group">
+          </Select>
+          
+          {FundingStageList.map((ele, i) => (
+             <MenuItem>
+             <ListItemText primary={ele}></ListItemText>
+             </MenuItem>
+    ))} */}
+    <div className="form-group">
+          <label>Funding Stage</label>
+          <FormControl fullWidth>
+            
+            <Select
+              
+              name="fundingstage"
+             
+              required
+            >
+              {FundingStageList.map((ele) => (
+                <MenuItem key={ele} value={ele}>
+                  {ele}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+      
+     
+      
         </div>
  
         <div className="form-row">
