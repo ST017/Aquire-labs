@@ -328,9 +328,11 @@ strong {
  
 /* Cards */
 .biodata-card1 {
+  display:flex;
+  flex-direction: column;
   width: 100%;
   height: auto;
-  padding: 10px;
+  padding: 3%;
   gap: 24px;
   border-radius: 8px;
  
@@ -341,7 +343,7 @@ strong {
 .biodata-heading {
   width: 100%;
   height: auto;
-  
+  margin:0;
   font-size: 18px;
   font-weight: 500;
   line-height: 18px;
@@ -352,7 +354,7 @@ strong {
 .biodata-text {
   width: auto;
   color: #5e6670;
- 
+  margin:0;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -360,9 +362,11 @@ strong {
 }
  
 .ecosystem-card1 {
+  display:flex;
+  flex-direction: column;
   width: 100%;
   height: auto;
-  padding: 10px;
+  padding: 3%;
   gap: 12px;
   border-radius: 8px;
  
@@ -373,7 +377,7 @@ strong {
 .ecosystem-heading {
   width: 100%;
   height: auto;
-  
+  margin: 0;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -388,6 +392,7 @@ strong {
   text-align: left;
   padding: 8px;
   color: black;
+  margin: 0;
  
   font-size: 12px;
   font-weight: 300;
@@ -398,15 +403,18 @@ strong {
 .blockchain-data {
     width: auto;
     height: auto;
+    margin:0;
   border: 1px solid #cee0f5b2; /* You can change the color or thickness */
-  padding: 8px; /* Adjust padding as needed */
+  padding: 5px; /* Adjust padding as needed */
   display: inline-block; /* Ensures border wraps closely around text */
   border-radius: 5px; /* Optional: Adds rounded corners */
 }
 .partnership-card1 {
+  display:flex;
+  flex-direction: column;
   width: 100%;
   height: auto;
-  padding: 10px;
+  padding: 2%;
   gap: 12px;
   border-radius: 8px;
  
@@ -417,7 +425,7 @@ strong {
 .partnership-heading {
   width: 100%;
   height: auto;
- 
+ margin:0;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -435,33 +443,24 @@ strong {
 }
  
 .partnership-text {
-    height: auto;
+  height: auto;
   width: auto;
   gap: 10px;
   border-radius: 5px;
   text-align: left;
   padding: 8px;
   color: black;
+  margin: 0;
  
- 
-  
   font-size: 12px;
   font-weight: 300;
   line-height: 20px;
   text-align: left;
- 
-  padding: 5px;
-  gap: 10px;
- 
-  color: #000000;
-  border: 1px solid #cee0f5b2;
- 
-  display: inline-block;
- 
-  border-radius: 5px;
+  
 }
  
 .whitepaper-card1 {
+  display: flex;
   width: 100%;
   height: auto;
  
@@ -473,9 +472,10 @@ strong {
   background-color: rgba(255, 255, 255, 1);
 }
 .whitepaper-heading {
+  padding: 2%;
   width: 100%;
   height: auto;
- 
+ margin: 0;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -486,7 +486,7 @@ strong {
 .whitepaper-text {
   width: 100%;
   height: auto;
-  
+  padding: 2px;
   font-size: 12px;
   font-weight: 500;
   line-height: 24px;
@@ -496,9 +496,11 @@ strong {
 }
  
 .statement-card1 {
+  display:flex;
+  flex-direction: column;
   width: 100%;
   height: auto;
-  padding: 10px;
+  padding: 3%;
   gap: 24px;
   border-radius: 8px;
  
@@ -508,7 +510,7 @@ strong {
 .statement-heading {
   width: 100%;
   height: auto;
- 
+ margin: 0;
   color: rgba(24, 25, 28, 1);
  
   font-size: 18px;
@@ -520,7 +522,7 @@ strong {
   width: 100%;
   height: auto;
   gap: 12px;
- 
+ margin: 0;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
