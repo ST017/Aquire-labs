@@ -108,7 +108,7 @@ import Telegram from "../Images/Telegram.jpeg"
 import RaisaLogo from "../Images/RaisaLogo.png"
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
- import Footer1 from "../Components/Dashboard/Footer.js"
+ import Footer1 from "../Components/Dashboard/Footer.js";
 const Home = () => {
   const [expandedFeature, setExpandedFeature] = useState(null);
  
