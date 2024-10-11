@@ -826,6 +826,7 @@ const handleCancelRequest = async () => {
           </div>
            
            <div className="right-section-companydetails">
+
            <div className="stat-item1">
   <div className="stat-item1-left">
     <img src={receivelogo} alt="logo" className="received1-img1" />
@@ -841,6 +842,7 @@ const handleCancelRequest = async () => {
   </div>
   <p className="number-stat" style={{ color: "white" }}>{requestSent}</p>
 </div>
+
  
             <div className="categories-card1">
               <p className="categories-heading">Categories</p>
