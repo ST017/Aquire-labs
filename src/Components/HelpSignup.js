@@ -29,12 +29,12 @@ color:"rgba(0, 0, 0, 1)",
 
 }}>Verify using the TG group</p>
         <HelpContact>
-          <p>Contact us</p>
+          <p style={{marginBottom:"0px"}}>Contact us</p>
           <ContactItem>
-            Email: <ContactLink href="mailto:exapmle@email.com">exapmle@email.com</ContactLink>
+            Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <ContactLink href="mailto:exapmle@email.com">exapmle@email.com</ContactLink>  
           </ContactItem>
           <ContactItem>
-            Telegram: <ContactLink href="https://t.me/VeersinghD" target="_blank">@VeersinghD</ContactLink>
+            Telegram&nbsp;&nbsp;: <ContactLink href="https://t.me/VeersinghD" target="_blank">@VeersinghD</ContactLink>
           </ContactItem>
         </HelpContact>
       </HelpSection>

@@ -16,7 +16,7 @@ import { addDoc, collection,deleteDoc,doc,getDocs, query, setDoc, where } from "
 import { db } from "./Firebase/firebase";
 import Footer from "./Dashboard/Footer";
 import VerifyIcon from "../Images/VerificationIcon.png"
-
+ 
 //import verify from "../Images/verify.png"
  
  
@@ -51,7 +51,7 @@ const CompanyDetails = () => {
   }, []);
     document.body.style.background="rgba(234, 239, 255, 1)"
     const selectedProject = JSON.parse(localStorage.getItem('selectedProject'));
-
+ 
      // Fetch user verification status
    const fetchUserVerification = async (userId) => {
     try {
@@ -67,12 +67,12 @@ const CompanyDetails = () => {
       setIsVerified(false); // Default to false if error occurs
     }
   };
-
-
+ 
+ 
   useEffect(() => {
     // Ensure selectedProject and userId exist
     if (selectedProject.userId) {
-      
+     
       fetchUserVerification(selectedProject.userId); // Fetch verification status
     }
   }, [selectedProject.userId,db]);
@@ -84,19 +84,19 @@ const CompanyDetails = () => {
       try {
         // Reference to the UserConnects collection
         const connectsRef = collection(db, 'UserConnects');
-    
+   
         // Create query to match userId
         const userQuery = query(connectsRef, where('userId', '==', userId));
-    
+   
         // Create query to match toUserId
         const toUserQuery = query(connectsRef, where('toUserId', '==', userId));
-    
+   
         // Run both queries in parallel
         const [userSnapshot, toUserSnapshot] = await Promise.all([
           getDocs(userQuery),
           getDocs(toUserQuery)
         ]);
-    
+   
         // Set state for requestSent and requestReceived
         setRequestSent(userSnapshot.size);      // Count of requests sent (userId)
         setRequestReceived(toUserSnapshot.size); // Count of requests received (toUserId)
@@ -106,33 +106,33 @@ const CompanyDetails = () => {
         setRequestReceived(0);   // Default to 0 if error occurs
       }
     };
-
-
+ 
+ 
   useEffect(() => {
     // Ensure selectedProject and userId exist
     if (selectedProject?.userId) {
       fetchUserConnectCounts(selectedProject.userId, setRequestSent, setRequestReceived);
     }
   }, [selectedProject,db]);
-
+ 
     // Function to handle cancel request (delete operation)
 const handleCancelRequest = async () => {
-  
+ 
   try {
     // Reference to the document in UserConnects collection
     const docRef = doc(db, 'UserConnects', matchingRequests.id);
-
+ 
     // Delete the document
     await deleteDoc(docRef);
-
+ 
     alert(`Request is cancelled!!.`);
-
+ 
     await fetchUserConnects()
   } catch (error) {
     console.error("Error deleting document: ", error);
   }
 };
-
+ 
     const handleRequestTypeChange = (type) => {
       setRequestTypes((prev) => {
         if (prev.includes(type)) {
@@ -311,7 +311,7 @@ const handleCancelRequest = async () => {
         <>
           {matchingRequests?.userId === currentUser?.uid ? (
             <div>
-              
+             
               {matchingRequests.status==="pending"?(<button className="send-request-btn" onClick={handleCancelRequest}>
                 Cancel
               </button>):((matchingRequests.status==="Denied" || matchingRequests.status==="Accepted")?(<button className="send-request-btn" >
@@ -319,7 +319,7 @@ const handleCancelRequest = async () => {
               </button>):(<button className="send-request-btn" onClick={handleToggleModal}>
                 Send Request
               </button>))}
-              
+             
             </div>
           ) : matchingRequests?.toUserId === currentUser?.uid ? (
             <div>
@@ -826,25 +826,28 @@ const handleCancelRequest = async () => {
           </div>
            
            <div className="right-section-companydetails">
-            <div className="stat-item1">
-              <div className="img-text-company">
-              <img src={receivelogo} alt="logo" className="received1-img1"/> <a className="stat-item1-text">Requests Received</a>
-              </div>
-               <a className="number-stat">{requestReceived}</a>
-            </div>
-            <div className="stat-item1">
-            <div className="img-text-company"> 
-            <img src={sentlogo} alt="logo" className="received1-img1"/><a className="stat-item1-text" > Requests Sent </a> 
-            </div>
-            <a className="number-stat">{requestSent}</a>
-            </div>
+           <div className="stat-item1">
+  <div className="stat-item1-left">
+    <img src={receivelogo} alt="logo" className="received1-img1" />
+    <span className="stat-item1-text">Requests Received</span>
+  </div>
+  <p className="number-stat">{requestReceived}</p>
+</div>
+ 
+<div className="stat-item1">
+  <div className="stat-item1-left">
+    <img src={sentlogo} alt="logo" className="received1-img1" />
+    <span className="stat-item1-text">Requests Sent</span>
+  </div>
+  <p className="number-stat" style={{ color: "white" }}>{requestSent}</p>
+</div>
  
             <div className="categories-card1">
               <p className="categories-heading">Categories</p>
               <p className="categories-text">{(selectedProject.userId===currentUser?.uid)?(myproject?.category || ""):(selectedProject?.category || "")}</p>
             </div>
  
-            
+           
             <div className="request-type-card1">
               <p className="request-type-heading">Request Type</p>
               <p className="request-type-text">{(selectedProject.userId===currentUser?.uid)?(myproject?.requestType || ""):(selectedProject?.requestType || "")}</p>
@@ -862,7 +865,7 @@ const handleCancelRequest = async () => {
       else{
         alert("Unavailable Link")
       }
-
+ 
      }
      else{
       if(selectedProject?.telegramLink){
@@ -889,31 +892,31 @@ const handleCancelRequest = async () => {
       else{
          alert("Unavailable Link")
       }
-
+ 
       }
       }} /></div>
     <div className="containericon"><img src={Group} alt="Group" onClick={() => {
-
+ 
       if(selectedProject?.userId===currentUser?.uid){
-
+ 
       if(myproject?.mediumLink){
         window.open(myproject?.mediumLink, '_blank')
       }
       else{
         alert("Unavailable Link")
       }
-
+ 
       }
-
+ 
       else{
-
+ 
       if(selectedProject?.mediumLink){
         window.open(selectedProject?.mediumLink, '_blank')
       }
       else{
         alert("Unavailable Link")
       }
-
+ 
       }
       }} /></div>
     <div className="containericon"><img src={Twitter} alt="Twitter" onClick={() => {
@@ -925,7 +928,7 @@ const handleCancelRequest = async () => {
         alert("Unavailable Link")
       }
        }
-
+ 
       else{
             if(selectedProject?.twitterLink){
         window.open(selectedProject?.twitterLink, '_blank')
@@ -945,10 +948,10 @@ const handleCancelRequest = async () => {
         alert("Unavailable Link")
       }
            
-
+ 
          }
         else{
-
+ 
         if(selectedProject?.githubLink){
         window.open(selectedProject?.githubLink, '_blank')
       }
@@ -956,9 +959,9 @@ const handleCancelRequest = async () => {
         alert("Unavailable Link")
       }
         }
-
-
-      
+ 
+ 
+     
      }} /></div>
    
               </div>
@@ -967,10 +970,10 @@ const handleCancelRequest = async () => {
           </div>
         </div>
          
-
+ 
       </div>
-    
-      <div className="companydetails-footer"><Footer/></div> 
+   
+      <div className="companydetails-footer"><Footer/></div>
       </div>
     </div>
   );

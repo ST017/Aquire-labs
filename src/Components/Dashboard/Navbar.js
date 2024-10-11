@@ -92,7 +92,7 @@ const Navbar = () => {
       </div>
       <div className="frame2">
           <div className="header-logout">
-            <button className="header-logout-btn">Logout</button>
+            <button className="header-logout-btn" onClick={handleLogout}>Logout</button>
           </div>
         </div>
       </div>
