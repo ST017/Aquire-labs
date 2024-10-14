@@ -12,14 +12,15 @@ import '@fontsource/inter/700.css';
 
 
 export const SignupContainer = styled.div`
-  width: 822px;
-  height: 900px;
+  width: 54.213%;
+    height: 100%;
   padding: 20px;
-  margin: auto;
+top:10.30vh;
+position:relative;
+  align-self:center;
   background: white;
   align-items: center;
-  margin-bottom: 40px;
-  margin-top: 40px;
+ 
   border: 1px solid transparent;
 
   
@@ -108,7 +109,7 @@ height: 30px;
 
 export const Logo1 = styled.img`
   width:122px;
-  height:49px;
+  height: 163.34%;
  position: absolute;
   top: 48%;
   left: 33%;
@@ -214,6 +215,7 @@ export const CloseButton2 = styled.button`
 
 export const Title = styled.p`
 margin:auto;
+padding-top: 3.847%;
   font-family:Inter;
   text-align: center;
   font-size: 24px;
@@ -226,11 +228,10 @@ margin:auto;
 `;
 
 export const OutsideContainer=styled.div`
-  width:390px;
-  height:69.98px;
+      width: 49.958%;
+    height: 8.967%;
   margin:auto;
-  // margin-left:195px;
-  // margin-top:50px;
+ 
 
    @media (max-width: 768px) {
     width: 100%;
@@ -248,22 +249,24 @@ export const OutsideContainer=styled.div`
 `
 
 export const Subtitle = styled.p`
+
   font-family:Inter;
   text-align: center;
   font-size: 14px;
   font-weight:400;
-  margin-top:10px;
+  margin:0;
  
   color:rgba(120, 139, 165, 1);
 `;
 
 export const Form = styled.form`
-  margin-left: 40px;
-  width: 740px;
-  height: 504px;
+  margin: auto;
+ width: 94.791%;
+    height: 63.414%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+gap: 16px;
+  padding-top: 2.05%;
 
   @media (max-width: 769px) {
     width: 100%;   // Ensure the form takes full width on tablets
@@ -454,7 +457,7 @@ export const Button = styled.button`
   font-family:Inter;
   width:203px;
   height:54px;
-  background-color: rgba(0, 60, 255, 1);
+  background-color: #003CFF;
   color: rgba(255, 255, 255, 1);
   padding: 0.75rem;
   border: none;
@@ -517,9 +520,10 @@ export const Help = styled.img`
   width: 70.93px;
   height: 70px;
   position: fixed; 
-  bottom: 10%; 
-  right:15%;  
-  padding: 23px 28px;
+  top:83.70% ;
+  left:82.5%; 
+  bottom:16.29%;
+  // padding: 23px 28px;
   
   border-radius: 142.5px;
   z-index: 10; 
@@ -543,12 +547,16 @@ export const Help = styled.img`
 
 
 export const ImageHash1 = styled.img`
-  width:300px;
-  height:300px;
+  // width:300px;
+  // height:300px;
+  // position: absolute;
+  // bottom: -450px;
+  // left: 0;
+  // z-index:-1;
+   width:25.834%;
+  height:372px;
   position: absolute;
-  bottom: -450px;
-  left: 0;
-  z-index:-1;
+ 
  
 `;
 

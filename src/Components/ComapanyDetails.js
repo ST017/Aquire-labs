@@ -957,7 +957,7 @@ const CompanyDetails = () => {
                   
                   <div className="number-section">
                   
-                  <p className="number-stat">{requestReceived}</p>
+                  <p className="number-stat"> {String(requestReceived).padStart(3, '0')}</p>
                   
                   </div>
                 </div>
@@ -969,7 +969,7 @@ const CompanyDetails = () => {
                   </div>
                   <div className="number-section">
                   <p className="number-stat" style={{ color: "white" }}>
-                    {requestSent}
+                  {String(requestSent).padStart(3, '0')}
                   </p>
                   </div>
                 </div>

@@ -1,0 +1,63 @@
+.main-section {
+    text-align: center;
+    padding: 50px 20px;
+  }
+  
+  .main-title {
+    font-size: 36px;
+    font-weight: bold;
+  }
+  
+  .highlight-red {
+    color: #FF4D4D;
+  }
+  
+  .highlight-blue {
+    color: #2D00F7;
+  }
+  
+  .main-text {
+    max-width: 600px;
+    margin: 20px auto;
+    color: #555;
+  }
+
+  
+  .content {
+
+    /* width: 557px; */
+
+margin: auto;
+
+padding: 10px ;
+gap: 3px;
+
+
+    position: relative;
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .text-lin3{
+    font-family: Inter;
+font-size: 48px;
+font-weight: 500;
+line-height: 70.75px;
+letter-spacing: 0.02em;
+text-align: center;
+
+  
+  }
+  
+  .bold-text {
+    font-family: Inter;
+font-size: 48px;
+font-weight: 700;
+line-height: 70.75px;
+letter-spacing: 0.02em;
+text-align: center;
+
+    
+  }
+  
+ 
