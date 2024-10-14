@@ -151,6 +151,7 @@ const Signup = () => {
             id:user.uid,
             verified: false, // Set verified to false by default
             createdAt: new Date(), // Store the current timestamp
+            tgVerified:false,
           });
          
 

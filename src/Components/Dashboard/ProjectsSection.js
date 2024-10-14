@@ -263,7 +263,7 @@ const ProjectsSection = () => {
     );
   }, [userProjectList, selectedCategories, selectedEcosystems,selectedFundingStages,selectedRequestTypes,selectedPartenerShipInterests,selectedLocation,selectedProfileStatus, page, n]); */
   
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchVerifiedStatus = async () => {
       const userIds = userProjectList.map((project) => project.userId);
       
@@ -291,16 +291,20 @@ const ProjectsSection = () => {
       }
   
       const userVerificationStatus = {};
+      const tguserVerificationStatus={};
   
       try {
         // Perform Firestore query only if userIds array is not empty
         const usersSnapshot = await getDocs(
           query(collection(db, 'User'), where('id', 'in', userIds))
         );
+        
   
         usersSnapshot.forEach((doc) => {
           const userData = doc.data();
-          userVerificationStatus[userData.userId] = userData.verified;
+         
+          userVerificationStatus[userData.id] = userData.verified;
+          tguserVerificationStatus[userData.id]=userData. tgVerified;
         });
   
         const filteredProjects = userProjectList.filter((project) => {
@@ -343,9 +347,97 @@ const ProjectsSection = () => {
     selectedProfileStatus, 
     page, 
     n
-  ]);
+  ]); */
   
+  useEffect(() => {
+    const fetchVerifiedStatus = async () => {
+        const userIds = userProjectList.map((project) => project.userId);
+        
+        // Check if userIds array is empty
+        if (userIds.length === 0) {
+            // If there are no user IDs, skip Firestore query and filter projects without profile status match
+            const filteredProjects = userProjectList.filter((project) => {
+                const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(project.category);
+                const ecosystemMatch = selectedEcosystems.length === 0 || selectedEcosystems.includes(project.blockchain);
+                const fundingstageMatch = selectedFundingStages.length === 0 || selectedFundingStages.includes(project.fundingStatus);
+                const requesttypeMatch = selectedRequestTypes.length === 0 || selectedRequestTypes.includes(project.requestType);
+                const locationMatch = selectedLocation.length === 0 || selectedLocation.includes(project.country);
+                const partnershipinterestMatch = selectedPartenerShipInterests.length === 0 || selectedPartenerShipInterests.includes(project.partnershipInterest);
+    
+                // Skip profile status check when there are no user IDs
+                return categoryMatch && ecosystemMatch && fundingstageMatch && requesttypeMatch && locationMatch && partnershipinterestMatch;
+            });
+    
+            setFilterData(
+                filteredProjects.filter((item, index) => {
+                    return index >= page * n && index < (page + 1) * n;
+                })
+            );
+            return; // Exit early if there are no user IDs
+        }
+    
+        const userVerificationStatus = {};
+        const tgUserVerificationStatus = {};
+    
+        try {
+            // Perform Firestore query only if userIds array is not empty
+            const usersSnapshot = await getDocs(
+                query(collection(db, 'User'), where('id', 'in', userIds))
+            );
+            
+    
+            usersSnapshot.forEach((doc) => {
+                const userData = doc.data();
+               
+                userVerificationStatus[userData.id] = userData.verified;
+                tgUserVerificationStatus[userData.id] = userData.tgVerified;
+            });
+    
+            const filteredProjects = userProjectList.filter((project) => {
+                const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(project.category);
+                const ecosystemMatch = selectedEcosystems.length === 0 || selectedEcosystems.includes(project.blockchain);
+                const fundingstageMatch = selectedFundingStages.length === 0 || selectedFundingStages.includes(project.fundingStatus);
+                const requesttypeMatch = selectedRequestTypes.length === 0 || selectedRequestTypes.includes(project.requestType);
+                const locationMatch = selectedLocation.length === 0 || selectedLocation.includes(project.country);
+                const partnershipinterestMatch = selectedPartenerShipInterests.length === 0 || selectedPartenerShipInterests.includes(project.partnershipInterest);
+    
+                // Check profile status for both Email Verified and TG Verified
+                const profileStatusMatch = selectedProfileStatus.length === 0 || 
+                    (selectedProfileStatus.includes("Email Verified") 
+                        ? userVerificationStatus[project.userId] === true 
+                        : true) &&
+                    (selectedProfileStatus.includes("TG Verified") 
+                        ? tgUserVerificationStatus[project.userId] === true 
+                        : true);
+    
+                return categoryMatch && ecosystemMatch && fundingstageMatch && requesttypeMatch && locationMatch && partnershipinterestMatch && profileStatusMatch;
+            });
+    
+            // Apply pagination filter after filtering projects
+            setFilterData(
+                filteredProjects.filter((item, index) => {
+                    return index >= page * n && index < (page + 1) * n;
+                })
+            );
+        } catch (error) {
+            console.error("Error fetching users:", error);
+        }
+    };
   
+    fetchVerifiedStatus(); // Fetch and filter projects based on verification status
+}, [
+    userProjectList, 
+    selectedCategories, 
+    selectedEcosystems,
+    selectedFundingStages, 
+    selectedRequestTypes, 
+    selectedPartenerShipInterests, 
+    selectedLocation, 
+    selectedProfileStatus, 
+    page, 
+    n
+]);
+
   return (
     <section className="projects-section">
     
