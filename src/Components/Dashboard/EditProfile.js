@@ -20,7 +20,7 @@ import {
   RequestTypeList,
 } from "./Filterlists";
 import close from "../../Images/close.png";
-import { Select, MenuItem, Checkbox, ListItemText, FormControl } from '@mui/material';
+import { Select, MenuItem,  FormControl, ListItemText, Checkbox, InputLabel, Box } from '@mui/material';
  
 import { toast, ToastContainer } from "react-toastify";
 import Dropdown from "./Dropdown";
@@ -103,6 +103,15 @@ const EditProfile = ({ setIsEditProfile }) => {
   useEffect(() => {
     fetchData();
   }, [currentUser]);
+
+  const [selectedarr, setSelectedarr] = useState([]);
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setSelectedarr(value); // Update the array with selected values
+  };
+
+
  
   // File change handlers
   const handleCoverPictureChange = (e) => {
@@ -575,25 +584,33 @@ const EditProfile = ({ setIsEditProfile }) => {
     <div className="form-group">
           <label>Funding Stage</label>
           <FormControl fullWidth>
-            
-            <Select
-              
-              name="fundingstage"
-             
-              required
-            >
-              {FundingStageList.map((ele) => (
-                <MenuItem key={ele} value={ele}>
-                  {ele}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+      <Select
+        name="fundingstage"
+        multiple
+        value={selectedarr}  // Bind the selected values to the state
+        onChange={handleChange}  // Handle changes
+        required
+        renderValue={(selected) => (
+          <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+          </Box>
+        )}
+        displayEmpty
+      >
+        {FundingStageList.map((ele) => (
+          <MenuItem key={ele} value={ele}>
+            <Checkbox checked={selectedarr.indexOf(ele) > -1} />
+            <ListItemText primary={ele} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
         </div>
       
      
       
         </div>
+        {console.log(selectedarr)}
  
         <div className="form-row">
           <div className="form-group">

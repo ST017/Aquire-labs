@@ -6,7 +6,7 @@ import CategoryClose from "../../Images/CategoryClose.png"
 const Modal = ({ categories, onClose }) => {
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className="modal-content-project">
         <div className="modal-close-button" onClick={onClose}>
           <img src={CategoryClose} alt='cose-button'/>
         </div>
