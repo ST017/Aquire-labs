@@ -68,11 +68,11 @@
   text-align: left;
 }
 
-span {
+/* span {
   display: flex;
   align-items: center;
   margin: 5px 0;
-}
+} */
 
 .dot {
   height: 8px;
