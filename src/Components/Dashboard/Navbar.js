@@ -25,7 +25,7 @@ const Navbar = () => {
  
 export default Navbar;
  */
-import React from 'react';
+import React, { useState } from 'react';
 import './Navbar.css';
 import RaisaLogo from "../../Images/RaisaLogo.png"
 import dis from '../../Images/discover.png'
@@ -37,6 +37,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
  
 const Navbar = () => {
+  const [hoveredItem, setHoveredItem] = useState(null);
+
+  // Handle mouse enter and leave for hover state
+  const handleMouseEnter = (item) => {
+    setHoveredItem(item);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItem(null);
+  };
   const navigate = useNavigate(); // To programmatically navigate after logout
  
   const handleLogout = () => {
@@ -59,34 +69,118 @@ const Navbar = () => {
      
             <img  className="RaisaLogoimg"src={RaisaLogo} alt="logo" />
             <div className="headermain">
-            <ul className="header-ul">
+            {/* <ul className="header-ul">
               <li className="headerli">
                
-                <img className="headerli-img" src={dis} alt="discover" /><Link to="/dashboard" style={{textDecoration:"none"}}> <a className="headerli-span">Discover</a></Link>
+                <img className="headerli-img" src={dis} alt="discover" /><Link to="/dashboard" style={{textDecoration:"none"}}> <span className="headerli-span">Discover</span></Link>
               </li>
               <li className="headerli">
                
                 <img className="headerli-img"src={inb} alt="inbox" />
+                <Link style={{textDecoration:"none"}}>
+                
                 <span className="headerli-span">Inbox</span>
+                </Link>
               </li>
               <li className="headerli">
                
                <img className="headerli-img"src={req} alt="request" />
                 <Link to="/requestpage" style={{textDecoration:"none"}}>
-                  <a className="headerli-span">Request</a>
+                  <span className="headerli-span">Request</span>
                 </Link>
               </li>
               <li className="headerli">
                
                 <img className="headerli-img" src={sav} alt="saved" />
+                <Link style={{textDecoration:"none"}}>
                 <span className="headerli-span">Saved</span>
+                </Link>
               </li>
               <li className="headerli">
                
                 <img className="headerli-img" src={noti} alt="notification" />
+                <Link style={{textDecoration:"none"}}>
                 <span className="headerli-span">Notifications</span>
+                </Link>
               </li>                
-            </ul>
+            </ul> */}
+             <ul className="header-ul">
+      <li
+        className="headerli"
+        onMouseEnter={() => handleMouseEnter('discover')}
+        onMouseLeave={handleMouseLeave}
+      >
+        <img className="headerli-img" src={dis} alt="discover" />
+        <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+          <span
+            className="headerli-span"
+            style={{ color: hoveredItem === 'discover' ? 'rgba(26, 13, 171, 1)' : 'black' }}
+          >
+            Discover
+          </span>
+        </Link>
+      </li>
+      <li
+        className="headerli"
+        onMouseEnter={() => handleMouseEnter('inbox')}
+        onMouseLeave={handleMouseLeave}
+      >
+        <img className="headerli-img" src={inb} alt="inbox" />
+        <Link  style={{ textDecoration: 'none' }}>
+          <span
+            className="headerli-span"
+            style={{ color: hoveredItem === 'inbox' ? 'rgba(26, 13, 171, 1)' : 'black' }}
+          >
+            Inbox
+          </span>
+        </Link>
+      </li>
+      <li
+        className="headerli"
+        onMouseEnter={() => handleMouseEnter('request')}
+        onMouseLeave={handleMouseLeave}
+      >
+        <img className="headerli-img" src={req} alt="request" />
+        <Link to="/requestpage" style={{ textDecoration: 'none' }}>
+          <span
+            className="headerli-span"
+            style={{ color: hoveredItem === 'request' ? 'rgba(26, 13, 171, 1)' : 'black' }}
+          >
+            Request
+          </span>
+        </Link>
+      </li>
+      <li
+        className="headerli"
+        onMouseEnter={() => handleMouseEnter('saved')}
+        onMouseLeave={handleMouseLeave}
+      >
+        <img className="headerli-img" src={sav} alt="saved" />
+        <Link  style={{ textDecoration: 'none' }}>
+          <span
+            className="headerli-span"
+            style={{ color: hoveredItem === 'saved' ? 'rgba(26, 13, 171, 1)' : 'black' }}
+          >
+            Saved
+          </span>
+        </Link>
+      </li>
+      <li
+        className="headerli"
+        onMouseEnter={() => handleMouseEnter('notifications')}
+        onMouseLeave={handleMouseLeave}
+      >
+        <img className="headerli-img" src={noti} alt="notifications" />
+        <Link  style={{ textDecoration: 'none' }}>
+          <span
+            className="headerli-span"
+            style={{ color: hoveredItem === 'notifications' ? 'rgba(26, 13, 171, 1)' : 'black' }}
+          >
+            Notifications
+          </span>
+        </Link>
+      </li>
+    </ul>
           </div>
  
       </div>

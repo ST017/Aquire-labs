@@ -34,8 +34,8 @@
   .content {
     display: flex;
     flex-direction: column;
-    width: 38.68%; /* Converted from 557px */
-    height: 51.25%; /* Converted from 307px */
+    //width: 38.68%; /* Converted from 557px */
+    height: 45.25%; /* Converted from 307px */
     position: absolute;
     top: 23.04%; /* Converted from 138px */
     left: 30.69%; /* Converted from 442px */
@@ -48,7 +48,7 @@
     font-family: Inter;
 font-size: 48px;
 font-weight: 500;
-line-height: 50px;
+line-height: 62px;
 letter-spacing: 0.02em;
 text-align: center;
 margin: 0;
@@ -87,7 +87,7 @@ text-align: center;
   .item-1 {
     width: 3.69%;
     height: 7.82%;
-    top: 44.19%;
+    top: 36.19%;
     left: 14.03%;
     transform: rotate(34.76deg);
   }
@@ -96,8 +96,8 @@ text-align: center;
   .item-2 {
     width: 4.31%;
     height: 9.14%;
-    top: 69.76%;
-    left: 25.83%;
+    top: 61.76%;
+    left: 22.83%;
     transform: rotate(68.73deg);
   }
   
@@ -113,8 +113,8 @@ text-align: center;
   .item-4 {
     width: 4.31%;
     height: 9.14%;
-    top: 70.96%;
-    left: 52.78%;
+    top: 65.96%;
+    left: 53.78%;
     transform: rotate(34.76deg);
   }
   
@@ -122,8 +122,8 @@ text-align: center;
   .item-5 {
     width: 3.69%;
     height: 7.82%;
-    top: 45.17%;
-    left: 70.21%;
+    top: 33.17%;
+    left: 69.21%;
     transform: rotate(34.76deg);
   }
   
@@ -131,8 +131,8 @@ text-align: center;
   .item-6 {
     width: 3.69%;
     height: 7.82%;
-    top: 33.43%;
-    left: 86.81%;
+    top: 21.43%;
+    left: 83.81%;
     transform: rotate(34.76deg);
   }
   
