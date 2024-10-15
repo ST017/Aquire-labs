@@ -1,7 +1,7 @@
 /* import React from 'react';
 import './Navbar.css';
 import RaisaLogo from "../../Images/RaisaLogo.png"
- 
+import {Link} from "react-router-dom"
 const Navbar = () => {
   return (
     <header className="navbar">
@@ -9,7 +9,7 @@ const Navbar = () => {
       <nav>
         <ul>
           <img src=''/>
-          <li><a href="#">Discover</a></li>
+          <Link to="/dashboard"><li><a>Discover</a></li> </Link>
           <li><a href="#">Inbox</a></li>
           <li><a href="#">Requests</a></li>
           <li><a href="#">Saved</a></li>
@@ -62,7 +62,7 @@ const Navbar = () => {
             <ul className="header-ul">
               <li className="headerli">
                
-                <img className="headerli-img" src={dis} alt="discover" /> <span className="headerli-span">Discover</span>
+                <img className="headerli-img" src={dis} alt="discover" /><Link to="/dashboard" style={{textDecoration:"none"}}> <a className="headerli-span">Discover</a></Link>
               </li>
               <li className="headerli">
                
@@ -72,8 +72,8 @@ const Navbar = () => {
               <li className="headerli">
                
                <img className="headerli-img"src={req} alt="request" />
-                <Link to="/requestpage">
-                  <span className="headerli-span">Request</span>
+                <Link to="/requestpage" style={{textDecoration:"none"}}>
+                  <a className="headerli-span">Request</a>
                 </Link>
               </li>
               <li className="headerli">
