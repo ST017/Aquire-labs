@@ -306,7 +306,7 @@ export const HeroTitle = styled.h1`
   font-size: 42px;
   font-weight: 700;
   font-family:Inter;
-widht:100%
+widht:100%;
   font-size: 42px;
   font-weight: 700;
   margin:0;
@@ -822,15 +822,15 @@ margin-top:5px;
  
 // Key Features section
 export const KeyFeaturesSection = styled.section`
- 
-     width: 94.7225%;
-     height:auto;
+  width: 100%;
+    //  width: 94.7225%;
+      height:auto;
     // height: 97.943vh;
     gap:158px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding:36px 38px 36px 38px;
+   padding:10px 10px 10px 10px;
   background-color: rgba(234, 239, 255, 1);
   @media (max-width:480px){
  

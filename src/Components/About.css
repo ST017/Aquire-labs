@@ -1,7 +1,12 @@
 .main-section {
+    display: flex;
+    justify-content: center;
+    align-content: center;
     text-align: center;
-    padding: 50px 20px;
-  }
+    flex-direction: column;
+    align-items: center;
+}
+  
   
   .main-title {
     font-size: 36px;
@@ -17,25 +22,30 @@
   }
   
   .main-text {
-    max-width: 600px;
-    margin: 20px auto;
-    color: #555;
+    width: 79.02%;
+    height: 19.74%;
+    top: 79.45%;
+    left: 10.49%;
+    padding: 10px 0 0 0; /* Padding remains fixed */
+    gap: 10px; /* Gap remains fixed */
   }
 
   
   .content {
-
+    width: 100%;
+    height: auto;
+   
     /* width: 557px; */
 
 margin: auto;
 
-padding: 10px ;
+/* padding: 10px ; */
 gap: 3px;
 
 
-    position: relative;
+    
     text-align: center;
-    padding: 50px;
+    /* padding: 50px; */
   }
   
   .text-lin3{
@@ -60,4 +70,90 @@ text-align: center;
     
   }
   
- 
+
+
+  /*flower */
+
+  .layout-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+
+    ;
+  }
+  
+  .layout-item {
+    position: absolute;
+  
+  }
+  
+  /* First Element */
+  .item-1 {
+    width: 3.69%;
+    height: 7.82%;
+    top: 44.19%;
+    left: 14.03%;
+    transform: rotate(34.76deg);
+  }
+  
+  /* Second Element */
+  .item-2 {
+    width: 4.31%;
+    height: 9.14%;
+    top: 69.76%;
+    left: 25.83%;
+    transform: rotate(68.73deg);
+  }
+  
+  /* Third Element */
+  .item-3 {
+    width: 4.31%;
+    height: 9.14%;
+    top: 25.03%;
+    left: 33.4%;
+  }
+  
+  /* Fourth Element */
+  .item-4 {
+    width: 4.31%;
+    height: 9.14%;
+    top: 70.96%;
+    left: 52.78%;
+    transform: rotate(34.76deg);
+  }
+  
+  /* Fifth Element */
+  .item-5 {
+    width: 3.69%;
+    height: 7.82%;
+    top: 45.17%;
+    left: 70.21%;
+    transform: rotate(34.76deg);
+  }
+  
+  /* Sixth Element */
+  .item-6 {
+    width: 3.69%;
+    height: 7.82%;
+    top: 33.43%;
+    left: 86.81%;
+    transform: rotate(34.76deg);
+  }
+  
+
+  .team-contianer{
+   
+  width: 86.11%;
+  height: 118.57%;
+  /* top: 123.37%;*/
+  margin: auto;
+  gap: 73px; /* Gap remains fixed */
+  background-color: #FF4D4D;
+  }
+  .our-team{
+    align-content: center;
+    width: 16.88%;
+  height: 13.41%;
+  padding: 10px 0 0 0; /* Padding remains fixed */
+  gap: 10px; /* Gap remains fixed */
+  }
