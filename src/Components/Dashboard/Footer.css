@@ -26,7 +26,7 @@
     flex-wrap: wrap;
   }
  
-  .company-name {
+  .footer-company-name {
     color: #fff;
     font-size: 24px;
     font-weight: bold;
@@ -60,6 +60,7 @@
   }
  
   .footer-links li {
+    gap: 4px;
     margin-bottom: 8px;
     display: flex;
     flex-wrap: nowrap;

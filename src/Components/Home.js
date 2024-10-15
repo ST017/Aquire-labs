@@ -108,7 +108,7 @@ import Telegram from "../Images/Telegram.jpeg"
 import RaisaLogo from "../Images/RaisaLogo.png"
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
- 
+ import Footer1 from "../Components/Dashboard/Footer.js";
 const Home = () => {
   const [expandedFeature, setExpandedFeature] = useState(null);
  
@@ -174,9 +174,8 @@ const Home = () => {
  
  
   return (
-    <WrapperDiv>
-      {/* Navbar */}
-      <Navbar>
+    <div style={{width:'100%',height:'auto'}}>
+    <Navbar>
         <Logo src={RaisaLogo} alt="logo" />
         <NavLinksCenter>
           <NavLink1><Link to="/">Home</Link></NavLink1>
@@ -197,6 +196,9 @@ const Home = () => {
           </NavButton>
         </NavLinksRight>
       </Navbar>
+    <WrapperDiv>
+      {/* Navbar */}
+      
  
       {/* Hero Section */}
       <HeroSection>
@@ -211,7 +213,7 @@ const Home = () => {
       {/* Partner Logos */}
       <PartnerLogos>
         <Marquee speed={400} loop={0}>
-        <div className="logos-track first-row">
+        <div className="logos-track first-row" style={{height:'30.295%',margin:"0",gap:'50px'}}>
           {ImageList1.map((ele, index) => (
             <img key={ele} src={ele} alt={`Logo ${index + 1}`} />
           ))}
@@ -222,7 +224,7 @@ const Home = () => {
         </div>
         </Marquee>
         <Marquee speed={350} loop={0} direction="right">
-        <div className="logos-track second-row">
+        <div className="logos-track second-row" style={{height:'30.295%',margin:"0",gap:'50px'}}>
           {ImageList2.map((ele, index) => (
             <img key={ele} src={ele} alt={`Logo ${index + 1}`} />
           ))}
@@ -238,7 +240,7 @@ const Home = () => {
       <VisionSection>
         <VisionTitle>Our Vision</VisionTitle>
         <VisionText>
-          At GoWeb3 Network, we simplify the process of finding and connecting
+          At Raisa Network, we simplify the process of finding and connecting
           with the perfect partners for your project.Whether you're looking to
           collaborate on technical developments, marketing,
           campaigns, or innovative DeFi solutions,our platform provides the
@@ -312,13 +314,15 @@ const Home = () => {
       {/* KeyFeatures Section */}
       <KeyFeaturesSection>
         <FeaturesText>
+          <div style={{gap:'32px', display:'flex',flexDirection:"column"}}>
           <FeaturesHeading>Key Features</FeaturesHeading>
           <FeaturesDescription>
-            At GoWeb3 Network, we simplify the process of finding and connecting
+            At Raisa Network, we simplify the process of finding and connecting
             with the perfect partners for your project. Whether you're looking
             to collaborate on technical developments, marketing, or innovative
             DeFi solutions, we got you covered.
           </FeaturesDescription>
+          </div>
           <FeatureList>
           {features.map((feature, index) => (
     <FeatureItem key={index} className={expandedFeature === index ? 'expanded' : ''} onClick={() => toggleFeature(index)}>
@@ -385,7 +389,7 @@ const Home = () => {
       </WhyUseSection>
  
       {/* Footer */}
-      <Footer>
+      {/* <Footer>
         <FooterWrapper>
         <FooterHead>Raisa Network</FooterHead>
       <FooterText>
@@ -427,8 +431,10 @@ const Home = () => {
           </FooterColumn3>
         </FooterLinks>
       </FooterSections>
-    </Footer>
+    </Footer> */}
+     
     </WrapperDiv>
+   <Footer1/></div>
   );
 };
  

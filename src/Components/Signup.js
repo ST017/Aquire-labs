@@ -222,7 +222,7 @@ const Signup = () => {
 
   return (
     <>
-    <div style={{overflowX:"hidden"}}>
+    <div style={{overflowX:"hidden",justifyContent: "center",display: "flex",width: "100%",height:" 100%"}}>
     <SignupContainer>
       <LogoContainer>
           <Logo  src={RaisaLogo} alt="Aquire Labs" />
@@ -230,7 +230,7 @@ const Signup = () => {
           <Link to="/"><CloseButtonX><img src={closebutton} alt="Close button" /></CloseButtonX></Link>
         </LogoContainer>
         <OutsideContainer>
-          <Title style={{marginTop:"30px"}}>Signup</Title>
+          <Title >Signup</Title>
           <Subtitle>Signup and get started with GoWeb3 Network</Subtitle>
         </OutsideContainer>
 
@@ -414,9 +414,10 @@ const Signup = () => {
                 ><HelpSignup setIsHelpModalOpen={setIsHelpModalOpen}/></div>)}
     
     
-   <ImageHash1 src={aqhash} alt="Logo-Hash"/>  
+   {/* <ImageHash1 src={aqhash} alt="Logo-Hash"/>   */}
    </div>
       <ToastContainer />
+      <ImageHash1 src={aqhash} alt="Logo-Hash"/>  
     </>
   );
 };
