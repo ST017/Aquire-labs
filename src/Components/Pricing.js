@@ -2,12 +2,15 @@ import React from 'react';
 import './Pricing.css';
 import MainNavbar from './MainNavbar';
 
+import Footer from '../Components/Dashboard/Footer';
+
 const Pricing = () => {
     document.body.style.background="rgba(234, 239, 255, 1)"
   return (
     <>
-      <div>
-        <MainNavbar/>
+    <MainNavbar/>
+      <div className='pricing-cntr'>
+        
         <div className='price-heading'>
           <div className='price-heading-main'>
           <p>Simple, transparent pricing</p>
@@ -47,7 +50,9 @@ const Pricing = () => {
             <button className="card-button123">Contact Sales</button>
           </div>
         </div>
+        
       </div>
+     <div className='footer-ctnr'> <Footer/></div>
     </>
   );
 };
