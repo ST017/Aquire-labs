@@ -87,7 +87,8 @@ export const Logo = styled.img`
   // top: 55%;
   // left: 35%;
   // transform: translate(-50%, -50%);
-  height: 40px;
+  height: 163.34%;
+  width: 15.629%;
 
   @media (max-width: 768px) {
     height: 30px;

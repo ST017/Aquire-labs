@@ -10,7 +10,7 @@ const Footer = () => {
     <footer className="footer-container">
       <div className="footer-content">
         <div className="footer-left">
-          <h3 className="company-name">Raisa Network</h3>
+          <h3 className="footer-company-name">Raisa Network</h3>
           <p className="footer-description">
             we simplify the process of finding and connecting with the perfect partners for your project
           </p>

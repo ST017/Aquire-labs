@@ -11,7 +11,8 @@ import { Link } from 'react-router-dom';
  
 //Wrapper
 export const WrapperDiv = styled.div`
- 
+display:grid;
+ gap:50px;
   width: 100%;
  
   height: 100%;
@@ -23,16 +24,17 @@ export const WrapperDiv = styled.div`
    width:100%
    height:auto;
    margin:auto;
+   
   }
    
 `;
  
 // Navbar styles
 export const Navbar = styled.nav`
- 
-  height:116px;
+ width:100%;
+  height: 11.513vh;
   background-color: rgba(234, 239, 255, 1);
-  padding: 16px 32px;
+  // padding: 16px 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,9 +54,9 @@ export const Navbar = styled.nav`
   }
    @media (min-width: 768px) {
    
-   height:74px;
+   
     width:100%;
-    position: fixed;
+    
    
    
  
@@ -68,7 +70,7 @@ export const Navbar = styled.nav`
    
    height:74px;
     width:100%;
-    position: fixed;
+   
  
   }
  
@@ -87,11 +89,10 @@ export const Navbar = styled.nav`
 `;
  
 export const Logo = styled.img`
-  top:33px;
-  left:80px
-  width:122px;
-  height:49px;
-  // margin-left:20px;
+  
+  width: 8.47%;
+    height: 71.02%;
+  padding:10px;
  
   @media (max-width:480px){
     width: 63px;
@@ -131,7 +132,7 @@ export const NavLinksRight = styled.div`
  height: 39px;
   top: 38px;
   left: 1145px;
-  gap: 18px;
+  gap: 40px;
  
  
  
@@ -256,17 +257,41 @@ gap: 10px;
  
 // Hero section
 export const HeroSection = styled.section`
-  background-color: rgba(234, 239, 255, 1);
+display: flex;
+    gap: 10px;
+    width: 100%;
+    background-color: rgba(234, 239, 255, 1);
+    height: 88.266vh;
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+
+
+
+// width:100%;
+
+//   background-color: rgba(234, 239, 255, 1);
  
-  height:470px;
-  text-align: center;
-  padding: 80px 16px;
+//   height:470px;
+//   text-align: center;
+//   padding: 80px 16px;
+// gap:10px;
+// width: 100%;
+// background-color: rgba(234, 239, 255, 1);
+// height:88.266vh; /* 470px */
+// text-align: center;
+// align-items:center;
+// justify-content:center;
+//padding: 2.2% 1.1%; /* 80px top/bottom, 16px left/right */
  
   @media (max-width:480px){
    
      width:  100%;
-     height: 235px;
-     margin-top: 100px;
+     
      
    
  
@@ -276,9 +301,15 @@ export const HeroSection = styled.section`
 `;
  
 export const HeroTitle = styled.h1`
+
+    height: 8.36%;
   font-size: 42px;
   font-weight: 700;
-  margin-bottom: 16px;
+  font-family:Inter;
+widht:100%;
+  font-size: 42px;
+  font-weight: 700;
+  margin:0;
   font-family:Inter;
   color:rgba(0, 0, 0, 1);
   @media (max-width:480px){
@@ -291,8 +322,7 @@ export const HeroSubtitle = styled.h2`
   font-size: 24px;
   font-weight: 500;
   color: rgba(180, 180, 180, 1);
-  margin-left:5px;
-  margin-bottom: 24px;
+  margin:0;
  font-family:Inter;
  line-height:50.83px;
  @media (max-width:480px){
@@ -308,9 +338,7 @@ export const HeroSubtitle1 = styled.h2`
   font-size: 24px;
   font-weight: 500;
   color: rgba(180, 180, 180, 1);
-  margin-left:-35px;
-  margin-bottom: 24px;
-  margin-top:-35px;
+  margin:0;
  font-family:Inter;
  line-height:32px;
  @media (max-width:480px){
@@ -354,10 +382,10 @@ export const GetStartedButton = styled.button`
  
 // Vision section
 export const VisionSection = styled.section`
+ height: 39.211vh;
  
-  height:200px;
   background-color: rgba(234, 239, 255, 1);
-  padding: 40px 16px;
+  // padding: 40px 16px;
   text-align: center;
   display: flex;
   flex-direction: column; /* Ensures the content stacks vertically */
@@ -371,10 +399,12 @@ export const VisionSection = styled.section`
 `;
  
 export const VisionTitle = styled.h2`
- 
+width:80%;
+  font-family:Inter;
   font-size: 42px;
   font-weight: 700;
-  margin-bottom: 16px;
+  line-height:50.83px;
+  margin:0;
   color:rgba(0, 0, 0, 1);
   text-align: center;
   display: flex;
@@ -392,12 +422,14 @@ export const VisionTitle = styled.h2`
  
 export const VisionText = styled.p`
  
-  height:128px;
+  height: 54.47%;
+    width: 78.056%;
+  font-family:Inter;
   font-size: 24px;
   font-weight:500;
   color:rgba(0, 0, 0, 0.69);
   line-height: 32px;
-  margin-left:130px;
+ margin:0;
  
   @media (max-width:480px){
     font-size:12px;
@@ -412,20 +444,23 @@ export const VisionText = styled.p`
 // Partner logos
 export const PartnerLogos = styled.div`
   display: flex;
+  gap:50px;
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  height: 350px;
+  height: auto;
   overflow: hidden;
   position: relative;
   background-color:white;
- 
+ margin:  0;
   .logos-track {
+      height: 30.295%;
     display: flex;
     //animation: scroll 5s linear infinite;
   }
  
   .first-row {
+  height: 30.295%;
     //animation: scroll 3s linear infinite;
     margin-bottom: 10px;
   }
@@ -434,7 +469,7 @@ export const PartnerLogos = styled.div`
   //   //animation: scroll 3s linear infinite;
   // }
   .second-row {
- 
+     height: 30.29%;
    
  
   //animation: scroll-right 3s linear infinite;
@@ -452,7 +487,7 @@ export const PartnerLogos = styled.div`
   img {
     width: 103.66px;
     height: 106.33px;
-    margin: 20px;
+    margin:10px;
   }
  
  
@@ -484,15 +519,25 @@ export const PartnerLogos = styled.div`
 // How It Works section
 export const HowItWorksSection = styled.section`
  
-  padding: 40px 16px;
+      width: 100%;
+    height: 101.805vh;
+
   text-align: center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:86px;
+  
 `;
  
 export const StepTitle = styled.h1`
+    width: 71.389%;
+    height: 8.36%;
   font-size: 42px;
   font-weight: 700;
   font-family:Inter;
-  margin-bottom: 24px;
+ margin:0;
   display: flex;
   flex-direction: column; /* Ensures the content stacks vertically */
   justify-content: center; /* Centers the content vertically */
@@ -505,11 +550,14 @@ export const StepTitle = styled.h1`
 `;
  
 export const StepContainer = styled.div`
+    width: 94.167%;
+    height: 65.746%;
   display: flex;
-  justify-content: center;
+  
   flex-wrap: wrap;
   gap: 24px;
-  margin-top:80px;
+  justify-content:center;
+ 
   @media(max-width:480px){
    gap: 12px;
    margin-top:40px;
@@ -520,10 +568,10 @@ export const StepContainer = styled.div`
  
 export const StepCard = styled.div`
   background-color: rgba(0, 60, 255, 1);
-  padding: 24px;
+  width: 22.181%;
+      height: 100%;
   border-radius: 10.54px;
-  width: 300px;
-  height:401px;
+  
   color: white;
   text-align: center;
   display: flex;
@@ -774,12 +822,15 @@ margin-top:5px;
  
 // Key Features section
 export const KeyFeaturesSection = styled.section`
- 
-  height:850px;
+  width: 100%;
+    //  width: 94.7225%;
+      height:auto;
+    // height: 97.943vh;
+    gap:158px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40px 16px;
+   padding:10px 10px 10px 10px;
   background-color: rgba(234, 239, 255, 1);
   @media (max-width:480px){
  
@@ -792,10 +843,11 @@ export const KeyFeaturesSection = styled.section`
 `;
  
 export const FeaturesText = styled.div`
- 
-  height:587px;
+        width: 48.1674%;
+    height:auto;
   gap:50px;
- 
+ display:flex;
+ flex-direction:column;
   @media(max-width:480px){
     height:290px;
     gap:25px;
@@ -803,8 +855,11 @@ export const FeaturesText = styled.div`
  
 `;
 export const FeaturesHeading=styled.h1`
+font-family:Inter;
+line-height:50.83px;
   font-size: 42px;
   font-weight:700;
+  margin:0;
   @media (max-width:480px){
     font-size: 21px;
   }
@@ -813,12 +868,12 @@ export const FeaturesHeading=styled.h1`
  
 export const FeaturesDescription=styled.h2`
  
- 
+ font-family:Inter;
   font-size: 24px;
   font-weight:500;
   font-family:Inter;
   line-height:32px;
-  margin-bottom:80px;
+  margin:0px;
   color:rgba(0, 0, 0, 0.6);
   @media(max-width:480px){
     font-size: 12px;
@@ -833,11 +888,17 @@ export const FeaturesDescription=styled.h2`
  
  
 export const FeatureList = styled.ul`
- 
-  height: 326px;
+display:flex;
+height:100%;
+flex-direction:column;
+ width:100%;
+      // height: 55.538%;
   list-style: none;
   padding: 0;
-  margin-bottom:40px;
+  margin:0px;
+ 
+
+   gap:50px;
   @media (max-width:480px){
    
     height:163px;
@@ -878,21 +939,25 @@ export const FeatureList = styled.ul`
 `; */
  
 export const FeatureItem = styled.div`
+    // height: 13.5%;
+    height:100%;
+    width: 69.102%;
   position: relative;
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 10px;
-  margin-bottom: 18px; /* Space between items */
+ 
+  margin: 0; /* Space between items */
  
   img:first-child {
-    margin-right: 50px; /* Increased space between logo and title */
+    margin: 0; /* Increased space between logo and title */
     transition: filter 0.3s ease; /* Smooth transition for color change */
   }
  
   .title {
+  height:100%;
     flex: 1;
-    margin-right: 5px; /* Space between title and arrow stays reduced */
+    margin: 0; /* Space between title and arrow stays reduced */
     font-size: 20px;
     font-weight: 700;
     line-height: 24.2px;
@@ -901,42 +966,47 @@ export const FeatureItem = styled.div`
    
   }
   &.expanded .title{
+   height:100%;
     color: rgba(0, 60, 255, 1);
   }
  
  
   .accordion-icon {
     transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition for rotation and color */
-    margin-right: 200px;
+    // margin-right: 200px;
   }
  
   &.expanded .accordion-icon {
+  height:100%;
     transform: rotate(180deg);
     filter: brightness(0) saturate(100%) invert(27%) sepia(88%) saturate(4698%) hue-rotate(210deg) brightness(98%) contrast(109%);
     /* This filter converts the icon to rgba(0, 60, 255, 1) */
   }
  
   &.expanded img:first-child {
+   height:auto;
     filter: brightness(0) saturate(100%) invert(27%) sepia(88%) saturate(4698%) hue-rotate(210deg) brightness(98%) contrast(109%);
     /* This filter applies the same rgba(0, 60, 255, 1) color to the logo */
   }
  
   /* Extra bottom margin when expanded */
   &.expanded {
-    margin-bottom: 80px; /* More space when expanded to push the next item down */
+  height:100%;
+    // margin-bottom: 80px; /* More space when expanded to push the next item down */
   }
 `;
  
 export const FeatureContent = styled.div`
   position: absolute;
-  width: 90%;
+  width: 100%;
+  height:100%;
   top: 100%; /* Places the content just below the feature item */
-  left: 0;
-  padding: 10px;
+  
+  // padding: 10px;
   display: none;
   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  opacity: 0;
-  z-index: 1;
+ 
+  // z-index: 1;
  
   font-size: 20px;
   font-weight: 700;
@@ -945,10 +1015,16 @@ export const FeatureContent = styled.div`
   color: rgba(0, 60, 255, 1);
  
   p {
-    margin: 0px;
+  width: 144%;
+  height:100%;
+    margin: 0;
+    position:absolute;
   }
  
   &.expanded {
+   height:100%;
+   width: 100%;
+   box-sizing:border-box;
     display: block;
     opacity: 1;
    
@@ -962,8 +1038,9 @@ export const FeatureContent = styled.div`
 export const FeatureImage = styled.img`
  
  
-  height:556px;
-  border-radius: 8px;
+  width: 37.7088%;
+    height: 84.371%;
+  
   @media (max-width:480px){
  
     height:277px;
@@ -973,11 +1050,13 @@ export const FeatureImage = styled.img`
 // Why Use section
 export const WhyUseSection = styled.section`
   display: flex;
+  width:100%;
+  height: 89.6vh;
   flex-direction: column; /* Ensures the content stacks vertically */
-  justify-content: center; /* Centers the content vertically */
+  /* Centers the content vertically */
   align-items: center; /* Centers the content horizontally */
   text-align: center;
-  padding: 40px 16px;
+  gap:50px;
   background-color: #ffffff;
   @media (max-width:480px) {
    text-align: center;
@@ -987,15 +1066,14 @@ export const WhyUseSection = styled.section`
 `;
  
 export const WhyUseTitle = styled.h2`
+ width: 71.389%;
+    height: 8.36%;
  
-  height:51px;
   font-size: 42px;
   font-weight: 700;
   font-family:Inter;
  
-  margin-bottom:80px;
-  //margin-left:200px;
-  margin-top:10px;
+ margin:0;
   display: flex;
   flex-direction: column; /* Ensures the content stacks vertically */
   justify-content: center; /* Centers the content vertically */
@@ -1033,8 +1111,7 @@ export const WhyUseContainer = styled.div`
 `;
  
 export const WhyUseCard = styled.div`
-  width: 312px;
-  height: 278px;
+ 
   background-color: rgba(255, 255, 255, 1);
   padding: 24px;
   border: 1px transparent;
