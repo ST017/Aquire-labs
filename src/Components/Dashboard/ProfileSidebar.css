@@ -130,6 +130,6 @@ text-align: center;
   align-items: center;
 }
 
-.edit-btn:hover {
-  background-color: #d7d6d6; /* Darken button on hover */
-}
+/* .edit-btn:hover {
+  background-color: #d7d6d6; 
+} */

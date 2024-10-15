@@ -2,7 +2,7 @@ import React from 'react'
 import "./About.css";
 import Footer from '../Components/Dashboard/Footer';
 import MainNavbar from './MainNavbar';
-import flower from '../Images/Flower.png'
+import flower from '../Images/Flower.png';
 // import Team from './Request/Team';
 const About = () => {
 
