@@ -822,13 +822,14 @@ margin-top:5px;
  
 // Key Features section
 export const KeyFeaturesSection = styled.section`
-  width: 100%;
-    //  width: 94.7225%;
+  // width: 100%;
+     width: 94.7225%;
       height:auto;
     // height: 97.943vh;
     gap:158px;
   display: flex;
   justify-content: space-between;
+  margin:auto;
   align-items: center;
    padding:10px 10px 10px 10px;
   background-color: rgba(234, 239, 255, 1);

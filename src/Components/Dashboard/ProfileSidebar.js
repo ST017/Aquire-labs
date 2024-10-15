@@ -142,8 +142,8 @@ useEffect(() => {
         <div className="profile-line"></div> 
         
         <div className="request-info">
-          <span><span className="dot"></span>{requestReceived} Available Requests</span>
-          <span><span className="dot"></span>{requestSent} Sent Requests</span>
+          <span className='req-info-li'><span className="dot"></span>{requestReceived} Available Requests</span>
+          <span className='req-info-li'><span className="dot"></span>{requestSent} Sent Requests</span>
         </div>
       </div>
       <div className="btn">

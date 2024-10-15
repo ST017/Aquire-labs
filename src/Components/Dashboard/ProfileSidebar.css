@@ -80,11 +80,11 @@ line-height: 14.52px;
 color:#239852;
 }
 
-/* span {
+.req-info-li {
   display: flex;
   align-items: center;
   margin: 5px 0;
-} */
+}
 
 .dot {
   height: 4px;
