@@ -174,7 +174,7 @@ const Home = () => {
  
  
   return (
-    <div style={{width:'100%',height:'auto'}}>
+    <div style={{width:'100%',height:'100%',backgroundColor:'red'}}>
     <Navbar>
         <Logo src={RaisaLogo} alt="logo" />
         <NavLinksCenter>
@@ -432,9 +432,9 @@ const Home = () => {
         </FooterLinks>
       </FooterSections>
     </Footer> */}
-     
+     <Footer1/>
     </WrapperDiv>
-   <Footer1/></div>
+   </div>
   );
 };
  
