@@ -3,6 +3,7 @@
   width: 20%;
   height: 145.6px; 
   padding: 10px;
+  //margin:auto;
   /* padding: 11.17px 14.36px 6px 14.36px; */
   border-radius: 7.98px 7.98px 7.98px 7.98px;
   border: 1px solid #ddd;
@@ -10,7 +11,7 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 10px;
   opacity: 1;
 }
 @media screen and (max-width:600px) {
@@ -30,9 +31,14 @@
 }
 
 .company-logo {
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
+  width: 23.81px;
+height: 23.81px;
+padding: 5.95px 5.95px 5.95px 5.95px;
+gap: 4.96px;
+border-radius: 1.98px;
+
+
+  
 }
 
 .cardcompany-name  { 
@@ -40,8 +46,12 @@
  
   flex-grow: 1;
   margin-left:2px;
-  font-size: 14px;
-  font-weight: bold;
+  color:rgba(0, 0, 0, 1);
+font-size: 12.57px;
+font-weight: 600;
+line-height: 19.15px;
+text-align: left;
+
 
  
 }
@@ -50,6 +60,7 @@
 
   width: 14px;
   height: 18px;
+  margin-right:12px;
  
 }
 
@@ -58,37 +69,48 @@
   /* width: 180px;  */
   height:82.17px;
   margin-top: -5px;
+  margin-left:7px;
   
  
 }
 
 .website-link {
 
-
+ 
+  font-size: 11.17px;
+  font-weight: 500;
+  line-height: 15.95px;
+ 
+  
   text-decoration: none;
-  color: #333;
-  font-size:11px;
-  font-weight: bold;
+  color: rgba(0, 0, 0, 1);
+  
   display: block; /* Make the link a block-level element */
   overflow: hidden; /* Hide any overflowing text */
   text-overflow: ellipsis; /* Add ellipsis for overflowing text */
   white-space: nowrap; /* Prevent the text from breaking to the next line */
-  height:16px;
+  //height:16px;
 }
-.request-type1 {
+.request-type-first {
   color:rgba(0, 0, 0, 1);
-  font-size: 8.77px;
+  
   font-weight:bold;
+  
+font-size: 8.77px;
+
+line-height: 9.92px;
+text-align: left;
+
   display: block; /* Make the link a block-level element */
   overflow: hidden; /* Hide any overflowing text */
   text-overflow: ellipsis; /* Add ellipsis for overflowing text */
   white-space: nowrap; /* Prevent the text from breaking to the next line */
-  height:11px;
+  //height:11px;
 }
 
 .request-type {
   color: rgba(143, 145, 149, 1);
-  font-size: 10px;
+  //font-size: 10px;
 }
 
 .request-details {
@@ -100,23 +122,29 @@
   display: flex;
   align-items: center;
   margin: 5px 0;
-  font-size: 12px;
+  
 }
 
 .request-details .icon {
 
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   margin-right: 5px;
 }
 
 .request-received, .request-sent {
-  font-weight: bold;
-  height:14px;
+  color:rgba(0, 0, 0, 1);
+  
+  font-weight:bold;
+  
+font-size: 8.77px;
+
+line-height: 9.92px;
+text-align: left;
   
 }
 
 .request-sent1{
   color:rgba(118, 127, 140, 1);
-  font-size:12px;
+  font-size:8.77px;
 }

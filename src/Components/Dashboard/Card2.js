@@ -6,12 +6,18 @@ import { db } from '../Firebase/firebase';
 import Modal from "./ModalCategory";
 import { CategoryList } from "./Filterlists";
 import BookMark from "../../Images/Bookmark (2).png"
+import Verify from "../../Images/VerificationIcon.png"
+import ReceivedLogo from '../../Images/Received.png';
+import SentLogo from '../../Images/Sent.png';
+import LocationLogo from '../../Images/LocationLogo.png';
+
  
-const Card2 = ({name,logo,city,desc,userId,onClick}) => {
+const Card2 = ({name,logo,country,desc,userId,onClick}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [requestSent, setRequestSent] = useState(0);
   const [requestReceived, setRequestReceived] = useState(0);
   const [isVerified, setIsVerified] = useState(false);
+  
 
   const fetchUserConnectCounts = async (userId, setRequestSent, setRequestReceived) => {
     try {
@@ -76,13 +82,13 @@ useEffect(() => {
  
   return (
     <>
-      <div className="card-container" onClick={onClick}>
-        <div className="card-logo">
+      <div className="card-container" >
+        <div className="card-logo" onClick={onClick}>
           <img src={logo} alt="logo" aria-placeholder="img"></img>
         </div>
-        <div className="card2-content">
-          <div className="header-card">
-            <div className="title">{name} {isVerified && (<img src="https://img.icons8.com/fluency/48/000000/verified-badge.png" alt="verified" className="verified-icon"/>)}</div>
+        <div className="card2-content" >
+          <div className="header-card" onClick={onClick}>
+            <div className="title">{name} {isVerified && (<img src={Verify} alt="verified" className="verified-icon"/>)}</div>
            
             <img
               src={BookMark}
@@ -92,15 +98,15 @@ useEffect(() => {
            
           </div>
  
-          <div className="Location-Card">
-            <div><img src="https://img.icons8.com/ios-filled/16/000000/marker.png" alt="location" />{city}</div>
-            <div> <img src="https://img.icons8.com/color/48/000000/request-money.png" alt="Requests Received" /> Requests Received :{requestReceived}</div>
-            <div><img src="https://img.icons8.com/emoji/48/000000/envelope-emoji.png" alt="Requests Sent" /> Requests Sent :{requestSent}</div>
+          <div className="Location-Card"onClick={onClick}>
+            <div><img src={LocationLogo} alt="location" />{country}</div>
+            <div> <img src={ReceivedLogo} alt="Requests Received" /> Requests Received :{requestReceived}</div>
+            <div><img src={SentLogo} alt="Requests Sent" /> Requests Sent :{requestSent}</div>
           </div>
  
-          <div className="body-content">
+          <div className="body-content" style={{marginTop:"10px"}} onClick={onClick} >
             <div className="bio">
-              Bio : {desc}
+               {desc}
             </div>
           </div>
  
@@ -110,11 +116,12 @@ useEffect(() => {
                             {CategoryList.slice(0, visibleCount).map((name, index) => (
                             <li key={index}>{name}</li>
                             ))}
+                            {CategoryList.length > visibleCount && (
+                              <li style={{fontWeight:"bold",color:"rgba(26, 13, 171, 1)"}} onClick={handleMoreClick}>+{CategoryList.length - visibleCount} More</li>
+                          )}
                          </ul>
-                            {/* Show "+X more" if there are more than 5 names */}
-                        {CategoryList.length > visibleCount && (
-                            <div className="more-list" onClick={handleMoreClick}>{CategoryList.length - visibleCount}+ more</div>
-                        )}
+                            
+                       
                     </div>
                     {isModalOpen && (
         <Modal categories={CategoryList.slice(visibleCount)} onClose={closeModal} />

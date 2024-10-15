@@ -20,6 +20,7 @@ import {
   RequestTypeList,
 } from "./Filterlists";
 import close from "../../Images/close.png";
+import { Select, MenuItem,  FormControl, ListItemText, Checkbox, InputLabel, Box } from '@mui/material';
  
 import { toast, ToastContainer } from "react-toastify";
 import Dropdown from "./Dropdown";
@@ -33,7 +34,7 @@ const EditProfile = ({ setIsEditProfile }) => {
   const [website, setWebsite] = useState(userProject.website);
   const [category,setCategory]=useState(userProject.category);
   const [location, setLocation] = useState(null);
-  const [fundingStage, setFundingStage] = useState(userProject.fundingStatus);
+  const [fundingStage, setFundingStage] = useState(/* userProject.fundingStatus */ []);
   const [partnership, setPartnership] = useState(userProject.partnership);
   const [ecosystem, setEcosystem] = useState(userProject.blockchain);
   const [bioData, setBioData] = useState(userProject.biodata);
@@ -102,6 +103,15 @@ const EditProfile = ({ setIsEditProfile }) => {
   useEffect(() => {
     fetchData();
   }, [currentUser]);
+
+  const [selectedarr, setSelectedarr] = useState([]);
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setSelectedarr(value); // Update the array with selected values
+  };
+
+
  
   // File change handlers
   const handleCoverPictureChange = (e) => {
@@ -544,27 +554,63 @@ const EditProfile = ({ setIsEditProfile }) => {
             </select>
           </div>
  
-          <div className="form-group">
-          
-  {/* The original label and select section is commented out */}
-  {/* 
+         {/*  <div className="form-group">
+  
   <label>Funding Stage</label>
-  <select
+   <select
     name="fundingStage"
     value={fundingStage}
     onChange={(e) => setFundingStage(e.target.value)}
+  
   >
     {FundingStageList.map((ele, i) => {
       return <option value={ele}>{ele}</option>;
     })}
-  </select> 
-  */}
-  
-  
-  <Dropdown proplist={FundingStageList} heading="Funding Stage" />
-</div>
+  </select>  
 
+  
+
+        </div> */}
+        
+          
+          {/* <Select  className="form-group">
+          </Select>
+          
+          {FundingStageList.map((ele, i) => (
+             <MenuItem>
+             <ListItemText primary={ele}></ListItemText>
+             </MenuItem>
+    ))} */}
+    <div className="form-group">
+          <label>Funding Stage</label>
+          <FormControl fullWidth>
+      <Select
+        name="fundingstage"
+        multiple
+        value={selectedarr}  // Bind the selected values to the state
+        onChange={handleChange}  // Handle changes
+        required
+        renderValue={(selected) => (
+          <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+          </Box>
+        )}
+        displayEmpty
+      >
+        {FundingStageList.map((ele) => (
+          <MenuItem key={ele} value={ele}>
+            <Checkbox checked={selectedarr.indexOf(ele) > -1} />
+            <ListItemText primary={ele} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
         </div>
+      
+     
+      
+        </div>
+        {console.log(selectedarr)}
  
         <div className="form-row">
           <div className="form-group">

@@ -69,6 +69,8 @@
    .pp{
    width:100%;
    height: 24px;
+   display: flex; /* Align items horizontally */
+   align-items: center; /* Vertically center the text and image */
 
 
 font-size: 16px;
@@ -80,14 +82,27 @@ white-space: nowrap;
 text-align: left;
 
 
+color:rgba(0, 0, 0, 1);
 
 
   }
+.ap{
+  display: flex; /* Align items horizontally */
+  align-items: center; /* Vertically center the text and image */
+  
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+text-align: center;
+color:rgba(0, 0, 0, 1);
+
+}
   .pagination-popular {
 
     display: flex;
     justify-content: end;
     width: 100%;
+    margin-bottom:20px;
 
     /* margin-right:96px; */
     

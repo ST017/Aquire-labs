@@ -11,20 +11,21 @@
     z-index: 1000;
   }
   
-  .modal-content {
+  .modal-content-project {
     
     position: relative; 
     background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
-    width: 35%; 
-    max-height: 80vh; 
+  
+    width: 40%; 
+    max-height: 40vh; 
     overflow-y: auto; 
   }
   
   .modal-close-button {
     
-  
+    width:24px;
+    height:24px;
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
@@ -45,10 +46,16 @@
   }
   
   .modal-category-list li {
+    display:flex;
     padding: 4px 8px;
-    border: 1px solid #CEE0F5B2;
+    border: 1px solid rgba(206, 224, 245, 0.7);
     border-radius: 4px;
     font-size: 12px;
     white-space: nowrap; 
+    height:30px;
+    font-weight:300;
+    color:rgba(0, 0, 0, 1);
+    justify-content:center;
+  align-items:center;
   }
   
