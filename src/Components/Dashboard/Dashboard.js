@@ -42,17 +42,18 @@ const Dashboard = () => {
  
   document.body.style.background = "rgba(234, 239, 255, 1)";
 
-  return (<div className="dashboard-container">
-    <FilterProvider>
-    <div>
-      <Navbar /></div>
+  return (
+  
+  <div className="dashboard-container">
+    <div className="navigationbar"><Navbar /></div>
+    <FilterProvider> 
       <div className="main-content">
-        <Sidebar />
-        <ProjectsSection/>
-        {currentUser && <ProfileSidebar User={currentUser} />} {/* Render only if user is available */}
-      </div>
-    
+    <div className="leftsidesection"><Sidebar/></div>
+    <div className="centersection"><ProjectsSection/> </div>
+    <div className="rightsection" > {currentUser && <ProfileSidebar User={currentUser} />}</div>
+    </div>
     </FilterProvider>
+	
     </div>
   );
 };

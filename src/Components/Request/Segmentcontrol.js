@@ -281,7 +281,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
               )?.map((request, i) => (
                 <tr key={request.id}>
                   <td>{i + 1}</td>
-                  <td>{request.name}</td>
+                  <td> <img src={request.profilePicture} alt="profile"/>{request.name}</td>
                   <td>
                     {new Date(
                       request.createdAt.seconds * 1000
