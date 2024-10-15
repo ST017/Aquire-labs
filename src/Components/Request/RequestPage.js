@@ -6,7 +6,7 @@ import Segmentcontrol from "./Segmentcontrol";
 import Sidebar from "../Dashboard/Sidebar";
 import { FilterProvider } from "../Dashboard/FilterContext";
 import "./RequestPage.css";
- 
+import Magnify from '../../Images/Magnify.png';
 const RequestPage = ({ selectedFilters }) => {
   const [activeSegment, setActiveSegment] = useState("pending");
   const [searchQuery, setSearchQuery] = useState("");
@@ -30,6 +30,8 @@ const RequestPage = ({ selectedFilters }) => {
     <div className="request-page-main-container">
       <FilterProvider>
         <Navbar />
+        
+        <div className="requestpage-container">
         <div className="segmented-control">
           <button
             className={`segment ${activeSegment === "pending" ? "active" : ""}`}
@@ -101,14 +103,25 @@ const RequestPage = ({ selectedFilters }) => {
             Follow up Requests
           </button>
         </div>
-        <div className="requestpage-container">
+        <div className="sidebar-req-cntainer">
           <Sidebar />
           <div className="requesttable">
             <div className="search-filter">
-              <div className="search-bar">
-                <input
-                  type="text"
-                  placeholder="Search Project..."
+              <div className="search-bar-req">
+              <input className="input-req"
+  style={{
+    fontSize: "14px",
+    fontWeight: "400",
+    color: "#282828",
+    backgroundImage: `url(${Magnify})`, 
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "17px center", // Increased horizontal position to move the icon right
+    backgroundSize: "24px 24px", // Set image size to 24x24
+    paddingLeft: "55px", // Adjusted padding to maintain space between the image and the text
+    height: "40px", // Adjust height to ensure proper alignment
+  }} 
+  type="text" 
+  placeholder="Search Project." 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -175,6 +188,7 @@ const RequestPage = ({ selectedFilters }) => {
               sortOptions={sortOptions}
               searchQuery={searchQuery}
             />
+          </div>
           </div>
         </div>
       </FilterProvider>

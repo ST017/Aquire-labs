@@ -39,13 +39,12 @@
   }
   
   .segmented-control {
-    width: 50%;
     display: flex;
     border-radius: 5px;
-    
-    background-color: #f1f3fb;
+    background-color:rgba(234, 239, 255, 1);
     width: fit-content;
-    margin: 20px;
+    margin-left: 3%;
+    padding: 8px;
     
 
   }
@@ -68,7 +67,7 @@
     padding: 5px;
     cursor: pointer;
     font-size: 14px;
-    background-color: #f1f3fb;
+    background-color: rgb(234, 239, 255);;
     color: #1a0dab; /* Text color */
     font-weight: bold;
     display: flex;
