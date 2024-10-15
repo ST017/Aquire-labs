@@ -474,7 +474,7 @@ const ProjectsSection = () => {
   containerClassName={"pagination"}
   activeClassName={"active"}
   pageClassName={"page-item"}
-  onPageChange={(event) => setPage(event.selected)}
+  //onPageChange={(event) => setPage(event.selected)}
   breakLabel="..."
   pageCount={Math.ceil(userProjectList.length / n)}
   previousLabel={
