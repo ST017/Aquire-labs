@@ -18,17 +18,36 @@
 .requestpage-container{
   width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
     gap: 10px;
 
 }
+.sidebar-req-cntainer{
+  width: 100%;
+    display: flex;
+   
+    justify-content: center;
+    gap: 10px;
+
+
+}
+
+.input-req{
+  width: 80%;
+  border-radius: 5px;
+    
+    border: 1px solid #ddd;
+    box-sizing:border-box;
+    padding: 10px;
+}
 .requesttable{
-    width: 80%;
+    width: 80.07%;
     height: auto;
     border-radius: 8px;
    
     background-color: #ffffff;
-    .search-bar{
+    .search-bar-req{
  
         width:80%;
         height: auto;
