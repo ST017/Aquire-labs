@@ -3,6 +3,7 @@ import LinkedIn from "../../Images/LinkedIn.jpeg"
 import Xicon from "../../Images/Xicon.jpeg"
 import Discord from "../../Images/Discord.png"
 import Telegram from "../../Images/Telegram-Company.png"
+import { Link } from "react-router-dom";
 import "./Footer.css"; // Import the CSS file for styling
  
 const Footer = () => {
@@ -30,15 +31,15 @@ const Footer = () => {
           <div className="footer-section">
             <h4>Company</h4>
             <ul className="footer-links">
-              <li><a href="#">Branding</a></li>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">News</a></li>
-              <li><a href="#">Pricing</a></li>
+              <li><a>Branding</a></li>
+              <Link to="/about"><li><a>About Us</a></li></Link>
+              <li><a>News</a></li>
+              <Link to="/price"><li><a>Pricing</a></li></Link>
             </ul>
           </div>
  
           <div className="footer-section">
-            <h4>Help</h4>
+            <Link to="/faq"><h4>Help</h4></Link>
            
           </div>
         </div>

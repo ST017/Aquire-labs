@@ -2,10 +2,12 @@ import React from 'react'
 import "./About.css";
 import Footer from '../Components/Dashboard/Footer';
 import MainNavbar from './MainNavbar';
+
 import flower from '../Images/Flower.png'
 import profile from '../Images/aboutprofilephoto.png';
 import linked from '../Images/aboutlink.png'
 import twitter from '../Images/abouttwitter.png'
+
 // import Team from './Request/Team';
 const About = () => {
 
