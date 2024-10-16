@@ -97,7 +97,7 @@ useEffect(() => {
             />
            
           </div>
- 
+            <div className="card2-details">
           <div className="Location-Card"onClick={onClick}>
             <div><img src={LocationLogo} alt="location" />{country}</div>
             <div> <img src={ReceivedLogo} alt="Requests Received" /> Requests Received :{requestReceived}</div>
@@ -126,6 +126,7 @@ useEffect(() => {
                     {isModalOpen && (
         <Modal categories={CategoryList.slice(visibleCount)} onClose={closeModal} />
       )}
+          </div>
           </div>
         </div>
       </div>

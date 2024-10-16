@@ -27,17 +27,17 @@ const Sidebar= () => {
   const toggleLocation = () =>  setLocationExpanded(!isLocationExpanded)
 
   return (
-    <aside className='side-content'>
-
+    <div className='side-container'>
+      <div className="side-sub-container">
       <div className='side-div'>
-      <h3 onClick={toggleProfile} style={{ color: isProfileExpanded ? 'blue' : 'inherit', display: 'flex', alignItems: 'center' }}>
+      <div className='side-div-data' onClick={toggleProfile} style={{ color: isProfileExpanded ? 'blue' : 'inherit', display: 'flex', alignItems: 'center' }}>
   {isProfileExpanded ? (
-    <img src={minus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
+    <img  className="side-img"src={minus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
   ) : (
     <img src={plus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
   )}
   Profile Status
-</h3>
+</div>
 
         {isProfileExpanded && (
           ProfileStatusList.map((profileStatus, index) => (
@@ -209,7 +209,8 @@ const Sidebar= () => {
         ))
         )}
       </div>
-    </aside>
+      </div>
+    </div>
   );
 };
 

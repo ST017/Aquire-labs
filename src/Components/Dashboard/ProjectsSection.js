@@ -506,7 +506,7 @@ const ProjectsSection = () => {
       </div>
       
       
-     <div style={{display:'flex',justifyContent:'space-between',margin:'5px'}}>
+     <div  className="allprojects-filter-cntainer">
      <p className='ap'>All Projects <img src={star} alt='star'/></p>
       <div >
       {/* The clickable image */}
