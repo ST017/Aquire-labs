@@ -440,8 +440,8 @@ const ProjectsSection = () => {
 
   return (
     <section className="projects-section">
-    
-    
+      
+    <div className='projectseciton-sub'>
       <div className="search-bar">
       <input 
   style={{
@@ -450,10 +450,10 @@ const ProjectsSection = () => {
     color: "#282828",
     backgroundImage: `url(${Magnify})`, 
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "17px center", // Increased horizontal position to move the icon right
+    backgroundPosition: "12px center", // Increased horizontal position to move the icon right
     backgroundSize: "24px 24px", // Set image size to 24x24
-    paddingLeft: "55px", // Adjusted padding to maintain space between the image and the text
-    height: "40px", // Adjust height to ensure proper alignment
+    paddingLeft: "45px", // Adjusted padding to maintain space between the image and the text
+    height: "48px", // Adjust height to ensure proper alignment
   }} 
   type="text" 
   placeholder="Search Project." 
@@ -586,6 +586,7 @@ const ProjectsSection = () => {
 </div>
       </div>
       <ToastContainer/>
+      </div>
     </section>
     
     

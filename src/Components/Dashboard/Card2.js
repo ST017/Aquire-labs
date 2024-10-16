@@ -83,12 +83,17 @@ useEffect(() => {
   return (
     <>
       <div className="card-container" >
+       
         <div className="card-logo" onClick={onClick}>
           <img src={logo} alt="logo" aria-placeholder="img"></img>
         </div>
         <div className="card2-content" >
+          <div className="card2-sub-content">
           <div className="header-card" onClick={onClick}>
-            <div className="title">{name} {isVerified && (<img src={Verify} alt="verified" className="verified-icon"/>)}</div>
+            <div className="title-name-icon">
+              <div className="title-name">{name} </div>{isVerified && (<img src={Verify} alt="verified" className="verified-icon"/>)}
+              
+              </div>
            
             <img
               src={BookMark}
@@ -104,7 +109,7 @@ useEffect(() => {
             <div><img src={SentLogo} alt="Requests Sent" /> Requests Sent :{requestSent}</div>
           </div>
  
-          <div className="body-content" style={{marginTop:"10px"}} onClick={onClick} >
+          <div className="body-content"  onClick={onClick} >
             <div className="bio">
                {desc}
             </div>
@@ -128,7 +133,9 @@ useEffect(() => {
       )}
           </div>
           </div>
+          </div>
         </div>
+        
       </div>
     </>
   );

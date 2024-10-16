@@ -32,18 +32,19 @@ const Sidebar= () => {
       <div className='side-div'>
       <div className='side-div-data' onClick={toggleProfile} style={{ color: isProfileExpanded ? 'blue' : 'inherit', display: 'flex', alignItems: 'center' }}>
   {isProfileExpanded ? (
-    <img  className="side-img"src={minus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
+    <img  className="side-img"src={minus} style={{ width: '12.75px', marginRight: '9px', verticalAlign: 'middle' }} />
   ) : (
-    <img src={plus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
+    <img className="side-img"src={plus} style={{ width: '12.75px', marginRight: '9px', verticalAlign: 'middle' }} />
   )}
   Profile Status
-</div>
-
+</div >
+<div className='side-checkbox-li'>
         {isProfileExpanded && (
           ProfileStatusList.map((profileStatus, index) => (
             <div key={profileStatus}>
-              <label style={{fontSize:"12px",fontWeight:"600"}}>
+              <label >
                 <input
+                className='check-box'
                   type="checkbox"
                   value={profileStatus}
                   
@@ -53,24 +54,27 @@ const Sidebar= () => {
                 />
                 {profileStatus}
               </label>
-              <br />
+              
             </div>
           ))
         )}
+        </div>
       </div>
 
 
       <div className='side-div'>
-        <h3 onClick={toggleRequest } style={{ color: isRequestExpanded ? 'blue' : 'inherit', display: 'flex', alignItems: 'center' }}>{isRequestExpanded ?(
-    <img src={minus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
+        <div  className='side-div-data' onClick={toggleRequest } style={{ color: isRequestExpanded ? 'blue' : 'inherit', display: 'flex', alignItems: 'center' }}>{isRequestExpanded ?(
+    <img src={minus} style={{ width: '12.75px', marginRight: '9px', verticalAlign: 'middle' }} />
   ) : (
-    <img src={plus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
-  ) }Request Type </h3>
+    <img src={plus} style={{ width: '12.75px', marginRight: '9px', verticalAlign: 'middle' }} />
+  ) }Request Type </div>
+  <div className='side-checkbox-li'>
         {isRequestExpanded && (
            RequestTypeList.map((requestType, index) => (
-            <div key={requestType}>
+            <div className='key' key={requestType}>
               <label>
                 <input
+                className='check-box'
                   type="checkbox"
                   value={requestType}
                   
@@ -80,22 +84,24 @@ const Sidebar= () => {
                 />
                 {requestType}
               </label>
-              <br />
+             
             </div>
           ))
-        )}
+        )}</div>
       </div>
       <div className='side-div' >
-        <h3 onClick={toggleEcoSystem} style={{ color: isEcoSystemExpanded ? 'blue' : 'inherit',display: 'flex', alignItems: 'center' }}>{isEcoSystemExpanded ?(
+        <h3  className='side-div-data' onClick={toggleEcoSystem} style={{ color: isEcoSystemExpanded ? 'blue' : 'inherit',display: 'flex', alignItems: 'center' }}>{isEcoSystemExpanded ?(
     <img src={minus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
   ) : (
     <img src={plus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
   ) }EcoSystem</h3>
+   <div className='side-checkbox-li'>
         {isEcoSystemExpanded && (
           EcosystemsList.map((ecosystem, index) => (
             <div key={ecosystem}>
               <label>
                 <input
+                className='check-box'
                   type="checkbox"
                   value={ecosystem}
                   
@@ -105,22 +111,24 @@ const Sidebar= () => {
                 />
                 {ecosystem}
               </label>
-              <br />
+              
             </div>
           ))
-        )}
+        )}</div>
       </div>
       <div className='side-div'>
-        <h3 onClick={togglePartenershipInterest}style={{ color: isPartnershipInterestExpanded ? 'blue' : 'inherit',display: 'flex', alignItems: 'center' }}>{isPartnershipInterestExpanded ?(
+        <h3   className='side-div-data'onClick={togglePartenershipInterest}style={{ color: isPartnershipInterestExpanded ? 'blue' : 'inherit',display: 'flex', alignItems: 'center' }}>{isPartnershipInterestExpanded ?(
     <img src={minus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
   ) : (
     <img src={plus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
   ) }Partnership Interests</h3>
+  <div className='side-checkbox-li'>
         {isPartnershipInterestExpanded && (
           PartnershipInterestList.map((partenershipInterest, index) => (
             <div key={partenershipInterest}>
               <label>
                 <input
+                className='check-box'
                   type="checkbox"
                   value={partenershipInterest}
                   
@@ -130,22 +138,24 @@ const Sidebar= () => {
                 />
                 {partenershipInterest}
               </label>
-              <br />
+             
             </div>
           ))
-        )}
+        )}</div>
       </div>
       <div className='side-div'>
-        <h3 onClick={toggleFundingStage}style={{ color: isFundingStageExpanded ? 'blue' : 'inherit',display:"flex",alignItems:"center" }}>{isFundingStageExpanded ? (
+        <h3   className='side-div-data'onClick={toggleFundingStage}style={{ color: isFundingStageExpanded ? 'blue' : 'inherit',display:"flex",alignItems:"center" }}>{isFundingStageExpanded ? (
     <img src={minus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
   ) : (
     <img src={plus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
   )}Funding Stage</h3>
+  <div className='side-checkbox-li'>
         {isFundingStageExpanded && (
           FundingStageList.map((fundingStages, index) => (
             <div key={fundingStages}>
               <label>
                 <input
+                className='check-box'
                   type="checkbox"
                   value={fundingStages}
                   
@@ -155,22 +165,24 @@ const Sidebar= () => {
                 />
                 {fundingStages}
               </label>
-              <br />
+             
             </div>
           ))
-        )}
+        )} </div>
       </div>
       <div className='side-div'>
-        <h3 onClick={toggleCategory}style={{ color: isCategoryExpanded ? 'blue' : 'inherit',display:"flex",alignItems:"center" }}>{isCategoryExpanded ? (
+        <h3  className='side-div-data' onClick={toggleCategory}style={{ color: isCategoryExpanded ? 'blue' : 'inherit',display:"flex",alignItems:"center" }}>{isCategoryExpanded ? (
     <img src={minus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
   ) : (
     <img src={plus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
   )}Category </h3>
+  <div className='side-checkbox-li'>
         {isCategoryExpanded && (
          CategoryList.map((category, index) => (
           <div key={category}>
             <label>
               <input
+              className='check-box'
                 type="checkbox"
                 value={category}
                 // Add: Use context state to determine if checkbox is checked
@@ -180,21 +192,23 @@ const Sidebar= () => {
               />
               {category}
             </label>
-            <br />
+           
           </div>
-        )))}
+        )))}</div>
       </div>
       <div className='side-div'>
-        <h3 onClick={toggleLocation}style={{ color: isLocationExpanded ? 'blue' : 'inherit',display:"flex",alignItems:"center" }}>{isLocationExpanded ? (
-    <img src={minus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
+        <h3  className='side-div-data' onClick={toggleLocation}style={{ color: isLocationExpanded ? 'blue' : 'inherit',display:"flex",alignItems:"center" }}>{isLocationExpanded ? (
+    <img src={minus} style={{ width: '12.75px', marginRight: '9px', verticalAlign: 'middle' }} />
   ) : (
-    <img src={plus} style={{ width: '12.75px', marginRight: '8px', verticalAlign: 'middle' }} />
+    <img src={plus} style={{ width: '12.75px', marginRight: '9px', verticalAlign: 'middle' }} />
   )}Location</h3>
+  <div className='side-checkbox-li'>
         {isLocationExpanded && (
          LocationList.map((location, index) => (
           <div key={location}>
             <label>
               <input
+              className='check-box'
                 type="checkbox"
                 value={location}
                 
@@ -204,10 +218,10 @@ const Sidebar= () => {
               />
               {location}
             </label>
-            <br />
+            
           </div>
         ))
-        )}
+        )}</div>
       </div>
       </div>
     </div>
