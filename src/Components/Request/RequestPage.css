@@ -34,14 +34,20 @@
 }
 
 .input-req{
-  width: 80%;
-  border-radius: 5px;
+  width: 90%;
+  border-radius: 5px ;
+  
+height: 48px;
+gap: 0px;
+;
+
     
     border: 1px solid #ddd;
     box-sizing:border-box;
     padding: 10px;
 }
 .requesttable{
+   
     width: 80.07%;
     height: auto;
     border-radius: 8px;
@@ -49,22 +55,25 @@
     background-color: #ffffff;
     .search-bar-req{
  
-        width:80%;
+        width:90%;
         height: auto;
         padding: 10px;
         gap: 10px;
-        opacity: 0px;
+        
         }
  
         .filter-icon{
+          
             justify-content: flex-end;
             align-items: center;
             align-content: center;
+            
         }
         @media (max-width: 500px) {
           .filter-icon {
             
             margin-top:-10px;
+
            
            
            
@@ -79,7 +88,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100%;
+    width: 98%;
 /* height: 88px; */
 /* padding: 10px 0px 0px 0px;
 gap: 136px;
@@ -122,6 +131,18 @@ opacity: 0px; */
     overflow: scroll;
   }
 }
+
+.checkbox-label {
+  display: flex;
+  align-items: center; /* Center align the checkbox and text */
+  margin-bottom: 10px; /* Space between each checkbox */
+}
+
+.input-request-checkbox{
+  margin-top:5px;
+  margin-right: 10px; /* Space between checkbox and text */
+}
+
  
 
 

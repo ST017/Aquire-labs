@@ -30,6 +30,15 @@
     }
     
   }
+
+  .below-message-container{
+    
+    display:flex;
+    flex-direction:column;
+    width:50%;
+    align-items:flex-start;
+    
+  }
   
 
   .table-container{
@@ -102,7 +111,7 @@
   }
   .id-request{
     
-    width: 50px;
+    width: 3.75%;
 height: 64px;
 padding: 12px 24px 12px 24px;
 gap: 12px;
@@ -111,7 +120,7 @@ border: 0px 0px 1px 0px;
 
   }
   .name-request{
-    width: 160px;
+    width: 12.01%;
     height: 44ppx;
     padding: 12px 24px 12px 0px;
     gap: 20px;
@@ -122,7 +131,7 @@ border: 0px 0px 1px 0px;
 
   .date-request{
     tect-align:center;
-    width: 164px;
+    width: 12.31%;
 height: 64px;
 padding: 10px 10px 10px 4px;
 gap: 12px;
@@ -132,7 +141,7 @@ border: 0px 0px 1px 0px;
   }
 
   .location-request{
-    width: 160px;
+    width: 12.01%;
     height: 64px;
     padding: 12px 0px 12px 0px;
     gap: 12px;
@@ -142,7 +151,7 @@ border: 0px 0px 1px 0px;
   }
 
   .requestType-request{
-    width: 160px;
+    width: 12.01%;
     height: 64px;
     padding: 12px 0px 12px 0px;
     gap: 12px;
@@ -152,15 +161,53 @@ border: 0px 0px 1px 0px;
   }
 
   .message-request{
-    width: 394px;
+    width: 29.57%;
     height: 64px;
     padding: 10px 10px 10px 4px;
     gap: 6px;
-    border: 0px 0px 1px 0px ;
-    //background:rgba(237, 243, 255, 1);
+    border: 0px 0px 1px 0px  ;
+    background:rgba(237, 243, 255, 1);
+    //box-shadow:  0px 0px 1px 0px;
    
     
   }
+  .msg-image-request{
+    width: 48px;
+height: 48px;
+padding: 9px 10px 9px 10px;
+
+border-radius:200px;
+margin-right:37px;
+
+
+  }
+  .below-message{
+  
+font-size: 10px;
+font-weight: 500;
+line-height: 0px;
+text-align: left;
+margin-top:10px;
+  }
+
+.action-button-request{
+  width: 11.63%;
+height: 64px;
+padding: 12px 24px 12px 24px;
+gap: 12px;
+border: 0px 0px 1px 0px;
+
+
+}
+.status-request{
+  width: 12.01%;
+height: 64px;
+padding: 12px 24px 12px 24px;
+gap: 12px;
+border: 0px 0px 1px 0px;
+
+
+}
   
   .request-table th,
   .request-table td {
@@ -225,3 +272,257 @@ border: 0px 0px 1px 0px;
     }
     
   }
+  .request-page-cancel-button {
+    width: 71px;       /* Fixed width */
+    height: 28px;      /* Fixed height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;         /* Gap between elements inside the button (if any) */
+    background-color: rgba(26, 13, 171, 1); /* You can choose your color */
+    border: none;
+    border-radius: 4px; /* Slight rounding of the edges */
+    
+    cursor: pointer;
+   
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+text-align: left;
+color:rgba(255, 255, 255, 1);
+
+    
+  }
+  
+  .cancel-button:hover {
+    opacity: 1;        /* On hover, button will be fully visible */
+  }
+  
+
+  .id-request-rejected{
+    
+    width: 4.59%;
+height: 64px;
+padding: 12px 24px 12px 24px;
+gap: 12px;
+border: 0px 0px 1px 0px;
+
+
+  }
+  .name-request-rejected{
+    width: 14.70%;
+    height: 44ppx;
+    padding: 12px 24px 12px 0px;
+    gap: 20px;
+    //border: 0px 0px 1px 0px;
+    
+
+  }
+
+  .date-request-rejected{
+    tect-align:center;
+    width: 15.07%;
+height: 64px;
+padding: 10px 10px 10px 4px;
+gap: 12px;
+border: 0px 0px 1px 0px;
+
+
+  }
+
+  .location-request-rejected{
+    width: 14.70%;
+    height: 64px;
+    padding: 12px 0px 12px 0px;
+    gap: 12px;
+    border: 0px 0px 1px 0px;
+   
+    
+  }
+
+  .requestType-request-rejected{
+    width: 14.70%;
+    height: 64px;
+    padding: 12px 0px 12px 0px;
+    gap: 12px;
+    border: 0px 0px 1px 0px;
+   
+    
+  }
+
+  .message-request-rejected{
+    width: 36.21%;
+    height: 64px;
+    padding: 10px 10px 10px 4px;
+    gap: 6px;
+    border: 0px 0px 1px 0px  ;
+    background:rgba(237, 243, 255, 1);
+    //box-shadow:  0px 0px 1px 0px;
+   
+    
+  }
+  .msg-image-request-rejected{
+    width: 48px;
+height: 48px;
+padding: 9px 10px 9px 10px;
+
+border-radius:200px;
+margin-right:37px;
+
+
+  }
+  .below-message-rejected{
+  
+font-size: 10px;
+font-weight: 500;
+line-height: 0px;
+text-align: left;
+margin-top:10px;
+  }
+  .below-message-container-rejected{
+    
+    display:flex;
+    flex-direction:column;
+    width:50%;
+    align-items:flex-start;
+    
+  }
+
+
+
+  .id-request-pending{
+    
+    width: 3.94%;
+height: 64px;
+padding: 12px 24px 12px 24px;
+gap: 12px;
+border: 0px 0px 1px 0px;
+
+
+  }
+  .name-request-pending{
+    width: 12.61%;
+    height: 44ppx;
+    padding: 12px 24px 12px 0px;
+    gap: 20px;
+    //border: 0px 0px 1px 0px;
+    
+
+  }
+
+  .date-request-pending{
+    tect-align:center;
+    width: 12.93%;
+height: 64px;
+padding: 10px 10px 10px 4px;
+gap: 12px;
+border: 0px 0px 1px 0px;
+
+
+  }
+
+  .location-request-pending{
+    width: 12.61%;
+    height: 64px;
+    padding: 12px 0px 12px 0px;
+    gap: 12px;
+    border: 0px 0px 1px 0px;
+   
+    
+  }
+
+  .requestType-request-pending{
+    width: 12.61%;
+    height: 64px;
+    padding: 12px 0px 12px 0px;
+    gap: 12px;
+    border: 0px 0px 1px 0px;
+   
+    
+  }
+
+  .message-request-pending{
+    width: 31.07%;
+    height: 64px;
+    padding: 10px 10px 10px 4px;
+    gap: 6px;
+    border: 0px 0px 1px 0px  ;
+    background:rgba(237, 243, 255, 1);
+    //box-shadow:  0px 0px 1px 0px;
+   
+    
+  }
+  .msg-image-request-pending{
+    width: 48px;
+height: 48px;
+padding: 9px 10px 9px 10px;
+
+border-radius:200px;
+margin-right:37px;
+
+
+  }
+  .below-message-pending{
+  
+font-size: 10px;
+font-weight: 500;
+line-height: 0px;
+text-align: left;
+margin-top:10px;
+  }
+  .below-message-container-pending{
+    
+    display:flex;
+    flex-direction:column;
+    width:50%;
+    align-items:flex-start;
+    
+  }
+
+  .action-button-request-pending{
+    width: 12.61%;
+  height: 64px;
+  padding: 12px 24px 12px 24px;
+  gap: 12px;
+  border: 0px 0px 1px 0px;
+  
+  
+  }
+
+  .request-page-cancel-button-pending {
+   
+   
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+text-align: left;
+color:rgba(255, 255, 255, 1);
+gap:5px;
+    
+  }
+  .request-page-accept-button-pending,
+  .request-page-decline-button-pending {
+      width: 69px;       /* Fixed width */
+      height: 28px;      /* Fixed height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;         /* Gap between elements inside the button (if any) */
+      background-color: rgba(26, 13, 171, 1); /* Default background color */
+      border: none;
+      border-radius: 4px; /* Slight rounding of the edges */
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      text-align: left;
+      color: rgba(255, 255, 255, 1); /* Text color */
+  }
+  
+  /* Specific background colors for Accept and Decline */
+  .request-page-accept-button-pending,.request-page-decline-button-pending {
+      background-color: rgba(26, 13, 171, 1); 
+  }
+  
+  
+  
