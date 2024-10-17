@@ -51,7 +51,9 @@ const Dashboard = () => {
         <div className="dashboard-profile">{currentUser && <ProfileSidebar User={currentUser} />}</div> {/* Render only if user is available */}
       </div>
     
+
     </FilterProvider>
+	
     </div>
   );
 };

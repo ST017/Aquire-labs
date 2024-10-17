@@ -338,6 +338,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                 filterByRequestTypes(filterRequests(matchingSendRequests))
               )?.map((request, i) => (
                 <tr key={request.id}>
+
   <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
     {String(i+1).padStart(3, '0')} 
     
@@ -409,6 +410,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
 
 
 </tr>
+
 
               ))}
             </tbody>

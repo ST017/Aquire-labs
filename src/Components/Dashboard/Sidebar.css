@@ -7,10 +7,12 @@
 
 .side-container{
   background-color: #ffffff;
+
     /* padding: 20px; */
     /* width: 10.625%; */
     padding-top: 26px;
     /* width:35.741vh; */
+
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
