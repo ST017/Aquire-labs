@@ -7,6 +7,12 @@ import Sidebar from "../Dashboard/Sidebar";
 import { FilterProvider } from "../Dashboard/FilterContext";
 import "./RequestPage.css";
 import Magnify from '../../Images/Magnify.png';
+import ReactPaginate from "react-paginate";
+import { IconContext } from "react-icons/lib";
+import { AiFillLeftCircle, AiFillRightCircle } from 'react-icons/ai';
+import RightArrow from "../../Images/RightArrow.png";
+import LeftArrow from "../../Images/LeftArrow.png";
+
 const RequestPage = ({ selectedFilters }) => {
   const [activeSegment, setActiveSegment] = useState("pending");
   const [searchQuery, setSearchQuery] = useState("");
@@ -229,6 +235,30 @@ const RequestPage = ({ selectedFilters }) => {
               sortOptions={sortOptions}
               searchQuery={searchQuery}
             />
+            <div className="pagination-request">
+  <ReactPaginate
+    containerClassName={"pagination-container-request"}
+    activeClassName={"active-request"}
+    pageClassName={"page-item-request"}
+    breakLabel="..."
+    pageCount={Math.ceil(4)}
+    previousLabel={
+      <div className="arrow-request-paginate">
+        <IconContext.Provider value={{ color: "grey", size: "25px" }}>
+          <img src={LeftArrow} alt="left-arrow"/>
+        </IconContext.Provider>
+      </div>
+    }
+    nextLabel={
+      <div className="arrow-request-paginate">
+        <IconContext.Provider value={{ color: "grey", size: "25px" }}>
+         <img src={RightArrow} alt="right-arrow"/>
+        </IconContext.Provider>
+      </div>
+    }
+  />
+</div>
+
           </div>
           </div>
         </div>

@@ -3,8 +3,10 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDocs,
+  serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
 
@@ -121,12 +123,12 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
 
       // Filter to find all matches where toUserId equals currentUser.uid and status==="pending"
       const matchingPendingRequests = userConnectsList.filter(
-        (ele) => ele.toUserId === currentUser?.uid && ele.status === "pending"
+        (ele) => ele.toUserId === currentUser?.uid && ele.status === "Pending"
       );
 
       const matchingRejectedRequests = userConnectsList.filter(
         (ele) =>
-          (ele.toUserId === currentUser?.uid ||
+          (/* ele.toUserId === currentUser?.uid || */
             ele.userId === currentUser?.uid) &&
           ele.status === "Denied"
       );
@@ -154,6 +156,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   const handleAccept = async (docid) => {
     await updateDoc(doc(db, "UserConnects", docid), {
       status: "Accepted",
+      lastCreatedAt: serverTimestamp(),
     });
     await fetchUserConnects();
     alert("Request has been accepted!");
@@ -162,9 +165,27 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   const handleDeny = async (docid) => {
     await updateDoc(doc(db, "UserConnects", docid), {
       status: "Denied",
+      lastCreatedAt: serverTimestamp(),
     });
     await fetchUserConnects();
     alert("Request has been rejected!");
+  };
+
+  // Function to handle cancel request (delete operation)
+  const handleCancelRequest = async (docid) => {
+    try {
+      // Reference to the document in UserConnects collection
+      const docRef = doc(db, "UserConnects", docid);
+
+      // Delete the document
+      await deleteDoc(docRef);
+
+      alert(`Request is cancelled!!.`);
+
+      await fetchUserConnects();
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+    }
   };
 
   // Sample data for the tables
@@ -231,9 +252,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
               </tr>
             </thead>
             <tbody>
-              {/* sortRequests(
+              {sortRequests(
                 filterByRequestTypes(filterRequests(matchingPendingRequests))
-              ) */RejectDummyRequests.map((request, i) => (
+              ).map((request, i) => (
                 <tr key={request.id}>
 
   <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
@@ -248,7 +269,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     <div className="name-request-pending"
     style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
      <img
-      src={Raisa}
+      src={request.profilePicture}
       alt="profile-pic"
       style={{
         width: "28px",
@@ -259,20 +280,20 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     /> 
 
 
-     {/* {request.toname} */} {request.name}
+      {request.name}
     </div>
   </td>
   
   <td className="date-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     {/* {new Date(request.createdAt.seconds * 1000)
+      {/* {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
-      .replace(/\//g, "-")}  */} {request.date}
+      .replace(/\//g, "-")} */}  {new Date(request.lastCreatedAt.seconds * 1000).toLocaleDateString()}
   </td>
   
   <td className="message-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request-pending"
-      src={Raisa}
+      src={request.profilePicture}
       alt="profile-pic"
     />
     <div className="below-message-container-pending">
@@ -284,11 +305,11 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
  
   
   <td className="location-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     {/* {request.tolocation}  */}Dummy Location
+    {request.location}  
   </td>
   
   <td className="requestType-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {/* {request?.requestTypes.join(", ")}  */} Dummy Request Type
+   {request?.requestTypes.join(", ")}  
   </td>
 
 
@@ -301,12 +322,33 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
 </td> */}
 <td className="action-button-request-pending" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
   <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", gap: "5px" }}>
-    <button className="request-page-accept-button-pending">
+     {
+      request.status==="Pending"?(<>
+       <button className="request-page-accept-button-pending" onClick={()=>handleAccept(request.id)}>
       Accept
     </button>
-    <button className="request-page-decline-button-pending">
+    <button className="request-page-decline-button-pending" onClick={()=>handleDeny(request.id)}>
       Decline
     </button>
+      </>):(<>
+        <button className="request-page-accept-button-pending" disabled
+  style={{
+    opacity: 0.5, // Optional: Visual effect when disabled
+    cursor: "not-allowed"
+  }} >
+      Accept
+    </button>
+    <button className="request-page-decline-button-pending" disabled
+  style={{
+    opacity: 0.5, // Optional: Visual effect when disabled
+    cursor: "not-allowed"
+  }}>
+      Decline
+    </button>
+      </>)
+     }
+
+   
   </div>
 </td>
 
@@ -382,7 +424,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   
   <td className="date-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
 
-     {new Date(request.createdAt.seconds * 1000)
+     {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
       .replace(/\//g, "-")} 
   </td>
@@ -410,15 +452,18 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   </td>
 
   <td className="status-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    hardcoded-pending
+    {request?.status}
   </td>
 
 
   <td className="action-button-request" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
   <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
-    <button className="request-page-cancel-button">
+    
+      <button className="request-page-cancel-button" onClick={()=>handleCancelRequest(request.id)}>
       Cancel
     </button>
+    
+    
   </div>
 </td>
 
@@ -448,9 +493,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
               </tr>
             </thead>
             <tbody>
-              {/* sortRequests(
+              {sortRequests(
                 filterByRequestTypes(filterRequests(matchingRejectedRequests))
-              )? */   RejectDummyRequests.map((request, i) =>(
+              )?.map((request, i) =>(
                 <tr key={request.id}>
 
   <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
@@ -465,7 +510,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     <div className="name-request-rejected"
     style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
      <img
-      src={Raisa}
+      src={request?.toprofilePicture}
       alt="profile-pic"
       style={{
         width: "28px",
@@ -476,24 +521,24 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     /> 
 
 
-     {/* {request.toname} */} {request.name}
+{request.toname}
     </div>
   </td>
   
   <td className="date-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     {/* {new Date(request.createdAt.seconds * 1000)
+      {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
-      .replace(/\//g, "-")}  */}  {request.date}
+      .replace(/\//g, "-")}   
   </td>
   
   <td className="message-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request-rejected"
-      src={Raisa}
+      src={request?.toprofilePicture}
       alt="profile-pic"
     />
     <div className="below-message-container-rejected">
-      <span>Hi this is demo message</span>
+      <span>{request.message}</span>
       <p className="below-message">last updated</p>
     </div>
   </div>
@@ -501,11 +546,11 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
  
   
   <td className="location-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     dummy location
+  {request.tolocation}
   </td>
   
   <td className="requestType-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    dummy request type
+  {request?.requestTypes.join(", ")} 
   </td>
 
 
