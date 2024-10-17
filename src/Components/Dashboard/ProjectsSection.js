@@ -496,8 +496,8 @@ const fetchUserConnectCounts = async (userId) => {
 
   return (
     <section className="projects-section">
-    
-    
+      
+    <div className='projectseciton-sub'>
       <div className="search-bar">
       <input 
   style={{
@@ -506,10 +506,10 @@ const fetchUserConnectCounts = async (userId) => {
     color: "#282828",
     backgroundImage: `url(${Magnify})`, 
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "17px center", // Increased horizontal position to move the icon right
+    backgroundPosition: "12px center", // Increased horizontal position to move the icon right
     backgroundSize: "24px 24px", // Set image size to 24x24
-    paddingLeft: "55px", // Adjusted padding to maintain space between the image and the text
-    height: "40px", // Adjust height to ensure proper alignment
+    paddingLeft: "45px", // Adjusted padding to maintain space between the image and the text
+    height: "48px", // Adjust height to ensure proper alignment
   }} 
   type="text" 
   placeholder="Search Project." 
@@ -562,7 +562,7 @@ const fetchUserConnectCounts = async (userId) => {
       </div>
       
       
-     <div style={{display:'flex',justifyContent:'space-between',margin:'5px'}}>
+     <div  className="allprojects-filter-cntainer">
      <p className='ap'>All Projects <img src={star} alt='star'/></p>
       <div >
       {/* The clickable image */}
@@ -642,6 +642,7 @@ const fetchUserConnectCounts = async (userId) => {
 </div>
       </div>
       <ToastContainer/>
+      </div>
     </section>
     
     

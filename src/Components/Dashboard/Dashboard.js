@@ -44,15 +44,16 @@ const Dashboard = () => {
 
   return (<div className="dashboard-container">
     <FilterProvider>
-    <div>
-      <Navbar /></div>
+    <div className="dashborad-navbar"><Navbar /></div>
       <div className="main-content">
-        <Sidebar />
-        <ProjectsSection/>
-        {currentUser && <ProfileSidebar User={currentUser} />} {/* Render only if user is available */}
+       <div className="dashborad-sidebar"> <Sidebar /></div>
+        <div  className="dashboard-prjct-section"><ProjectsSection/></div>
+        <div className="dashboard-profile">{currentUser && <ProfileSidebar User={currentUser} />}</div> {/* Render only if user is available */}
       </div>
     
+
     </FilterProvider>
+	
     </div>
   );
 };

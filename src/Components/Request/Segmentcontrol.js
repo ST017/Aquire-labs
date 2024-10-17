@@ -13,6 +13,9 @@ import { db } from "../Firebase/firebase";
 import { FilterContext } from "../Dashboard/FilterContext";
 import Message from "./Message";
 
+import Raisa from "../../Images/1.png"
+
+
 const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   // const [activeSegment, setActiveSegment] = useState("pending");
   const [currentUser, setCurrentUser] = useState(null);
@@ -185,14 +188,16 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     // Add more rows as necessary
   ];
 
-  const sendRequests = [
+
+  const RejectDummyRequests = [
+
     {
       id: 1,
-      name: "PreludeSys",
+      name: "testdemo",
       location: "India",
-      type: "Funding",
-      date: "09-12-2024",
-      message: "Last message: 23-10-2024",
+      type: "Listing",
+      date: "10-12-2024",
+      message: "Hi I am test demo",
     },
     {
       id: 2,
@@ -200,7 +205,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
       location: "Hungary",
       type: "Listing",
       date: "09-12-2024",
-      message: "Last message: 23-10-2024",
+      message: "This is test demo2",
     },
     // Add more rows as necessary
   ];
@@ -216,54 +221,101 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
           <table className="request-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name of Project</th>
-                <th>Date</th>
-                <th>Message</th>
-                <th>Location</th>
-                <th>Request Type</th>
-                <th>Actions</th>
+              <th  style={{ textAlign: "center", verticalAlign: "middle" }}>ID</th>
+                <th style={{ textAlign: "center", verticalAlign: "middle"}} >Name of Project</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Last Updated</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Message</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Location</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Request Type</th>
+               <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Actions</th> 
               </tr>
             </thead>
             <tbody>
-              {sortRequests(
+              {/* sortRequests(
                 filterByRequestTypes(filterRequests(matchingPendingRequests))
-              ).map((request, i) => (
+              ) */RejectDummyRequests.map((request, i) => (
                 <tr key={request.id}>
-                  <td>{i + 1}</td>
-                  <td>{request?.name}</td>
-                  <td>
-                    {new Date(request.createdAt.seconds * 1000)
-                      .toLocaleDateString()
-                      .replace(/\//g, "-")}
-                  </td>
-                  <td>
-                    <Message msg={request?.message} />
-                  </td>
-                  <td>{request.location}</td>
-                  <td>{request?.requestTypes.join(",")}</td>
-                  <td
-                    style={{
-                      display: "flex",
-                      justifyContent: "row",
-                      alignItems: "center",
-                      marginTop: "40px",
-                    }}
-                  >
-                    <button
-                      className="action-btn"
-                      onClick={() => handleAccept(request.id)}
-                    >
-                      Accept
-                    </button>
-                    <button
-                      className="action-btn"
-                      onClick={() => handleDeny(request.id)}
-                    >
-                      Deny
-                    </button>
-                  </td>
-                </tr>
+
+  <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+    {String(i+1).padStart(3, '0')} 
+    
+
+  </td>
+  
+  <td
+    
+  >
+    <div className="name-request-pending"
+    style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
+     <img
+      src={Raisa}
+      alt="profile-pic"
+      style={{
+        width: "28px",
+        height: "28px",
+        borderRadius: "50%",
+        marginRight: "4px",
+      }}
+    /> 
+
+
+     {/* {request.toname} */} {request.name}
+    </div>
+  </td>
+  
+  <td className="date-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
+     {/* {new Date(request.createdAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}  */} {request.date}
+  </td>
+  
+  <td className="message-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <img className="msg-image-request-pending"
+      src={Raisa}
+      alt="profile-pic"
+    />
+    <div className="below-message-container-pending">
+      <span>{request.message}</span>
+      <p className="below-message-pending">last updated</p>
+    </div>
+  </div>
+</td>
+ 
+  
+  <td className="location-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
+     {/* {request.tolocation}  */}Dummy Location
+  </td>
+  
+  <td className="requestType-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
+    {/* {request?.requestTypes.join(", ")}  */} Dummy Request Type
+  </td>
+
+
+  {/* <td className="action-button-request-pending" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+    <button className="request-page-cancel-button-pending">
+      Cancel
+    </button>
+  </div>
+</td> */}
+<td className="action-button-request-pending" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", gap: "5px" }}>
+    <button className="request-page-accept-button-pending">
+      Accept
+    </button>
+    <button className="request-page-decline-button-pending">
+      Decline
+    </button>
+  </div>
+</td>
+
+
+
+
+</tr>
+
+
               ))}
             </tbody>
           </table>
@@ -275,12 +327,17 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
           <table className="request-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name of Project</th>
-                <th>Last Updated</th>
-                <th>Message</th>
-                <th>Location</th>
-                <th>Request Type</th>
+
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>ID</th>
+                <th style={{ textAlign: "center", verticalAlign: "middle"}} >Name of Project</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Last Updated</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Message</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Location</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Request Type</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Status</th> 
+               <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Actions</th> 
+
+
                 {/* <th>Actions</th> */}
               </tr>
             </thead>
@@ -289,8 +346,13 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                 filterByRequestTypes(filterRequests(matchingSendRequests))
               )?.map((request, i) => (
                 <tr key={request.id}>
+
+
   <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {String(i+1).padStart(3, '0')}
+    {String(i+1).padStart(3, '0')} 
+    
+
+
   </td>
   
   <td
@@ -298,39 +360,75 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   >
     <div className="name-request"
     style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
-    <img
+
+     <img
+
       src={request?.toprofilePicture}
       alt="profile-pic"
       style={{
         width: "28px",
         height: "28px",
         borderRadius: "50%",
-        marginRight: "8px",
+
+        marginRight: "4px",
       }}
-    />
-    {request.toname}
+    /> 
+
+
+     {request.toname} 
+
     </div>
   </td>
   
   <td className="date-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {new Date(request.createdAt.seconds * 1000)
+
+     {new Date(request.createdAt.seconds * 1000)
       .toLocaleDateString()
-      .replace(/\//g, "-")}
+      .replace(/\//g, "-")} 
   </td>
   
   <td className="message-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {request.message}
-  </td>
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <img className="msg-image-request"
+      src={request?.toprofilePicture}
+      alt="profile-pic"
+    />
+    <div className="below-message-container">
+      <span>{request.message}</span>
+      <p className="below-message">last updated</p>
+    </div>
+  </div>
+</td>
+ 
   
   <td className="location-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {request.tolocation}
+     {request.tolocation} 
   </td>
   
   <td className="requestType-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {request?.requestTypes.join(", ")}
+    {request?.requestTypes.join(", ")} 
   </td>
+
+  <td className="status-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+    hardcoded-pending
+  </td>
+
+
+  <td className="action-button-request" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+    <button className="request-page-cancel-button">
+      Cancel
+    </button>
+  </div>
+</td>
+
+
+
 </tr>
 
+
+
+   
               ))}
             </tbody>
           </table>
@@ -341,38 +439,82 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
           <table className="request-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name of Project</th>
-                <th>Date</th>
-                <th>Message</th>
-                <th>Location</th>
-                <th>Request Type</th>
-                {/* <th>Actions</th> */}
+              <th  style={{ textAlign: "center", verticalAlign: "middle" }}>ID</th>
+                <th style={{ textAlign: "center", verticalAlign: "middle"}} >Name of Project</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Last Updated</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Message</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Location</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Request Type</th>
               </tr>
             </thead>
             <tbody>
-              {sortRequests(
+              {/* sortRequests(
                 filterByRequestTypes(filterRequests(matchingRejectedRequests))
-              )?.map((request, i) => (
+              )? */   RejectDummyRequests.map((request, i) =>(
                 <tr key={request.id}>
-                  <td>{`00${i + 1}`}</td>
-                  <td>
-                    <img src={request?.profilePicture} alt="profile-pic" />
-                    {request.name}
-                  </td>
-                  <td>
-                    {new Date(request.createdAt.seconds * 1000)
-                      .toLocaleDateString()
-                      .replace(/\//g, "-")}
-                  </td>
-                  <td>{request.message}</td>
-                  <td>{request.location}</td>
-                  <td>{request?.requestTypes.join(",")}</td>
-                  {/* <td>
-                    <button className="action-btn">Request Sent</button>
-                  </td> */}
-                </tr>
-              ))}
+
+  <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+    {String(i+1).padStart(3, '0')} 
+    
+
+  </td>
+  
+  <td
+    
+  >
+    <div className="name-request-rejected"
+    style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
+     <img
+      src={Raisa}
+      alt="profile-pic"
+      style={{
+        width: "28px",
+        height: "28px",
+        borderRadius: "50%",
+        marginRight: "4px",
+      }}
+    /> 
+
+
+     {/* {request.toname} */} {request.name}
+    </div>
+  </td>
+  
+  <td className="date-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
+     {/* {new Date(request.createdAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}  */}  {request.date}
+  </td>
+  
+  <td className="message-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <img className="msg-image-request-rejected"
+      src={Raisa}
+      alt="profile-pic"
+    />
+    <div className="below-message-container-rejected">
+      <span>Hi this is demo message</span>
+      <p className="below-message">last updated</p>
+    </div>
+  </div>
+</td>
+ 
+  
+  <td className="location-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
+     dummy location
+  </td>
+  
+  <td className="requestType-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
+    dummy request type
+  </td>
+
+
+
+
+</tr>
+
+              ) )}
+
             </tbody>
           </table>
         )}
@@ -393,7 +535,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
               </tr>
             </thead>
             <tbody>
-              {sortRequests(sendRequests)?.map((request) => (
+              {sortRequests(RejectDummyRequests)?.map((request) => (
                 <tr key={request.id}>
                   <td>{request.id}</td>
                   <td>{request.name}</td>
@@ -414,4 +556,6 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   );
 };
 
+
 export default Segmentcontrol;
+

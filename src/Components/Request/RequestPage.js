@@ -29,7 +29,7 @@ const RequestPage = ({ selectedFilters }) => {
   return (
     <div className="request-page-main-container">
       <FilterProvider>
-        <Navbar />
+        <div className="request-page-navbar"><Navbar /></div>
         
         <div className="requestpage-container">
         <div className="segmented-control">
@@ -104,7 +104,7 @@ const RequestPage = ({ selectedFilters }) => {
           </button> */}
         </div>
         <div className="sidebar-req-cntainer">
-          <Sidebar />
+          <div className="requestpage-sidebar"><Sidebar /></div>
           <div className="requesttable">
             <div className="search-filter">
               <div className="search-bar-req">
@@ -121,7 +121,7 @@ const RequestPage = ({ selectedFilters }) => {
     height: "40px", // Adjust height to ensure proper alignment
   }} 
   type="text" 
-  placeholder="Search Project." 
+  placeholder="search project..." 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -141,7 +141,7 @@ const RequestPage = ({ selectedFilters }) => {
  
                 {/* The modal appearing beside the image */}
                 {showModal && (
-                  <div className="requestmodal-content">
+                   /* <div className="requestmodal-content">
                     <h4>Sort Options</h4>
                     <label>
                       <input
@@ -179,7 +179,48 @@ const RequestPage = ({ selectedFilters }) => {
                       />
                       Z-A
                     </label>
-                  </div>
+                  </div>  */
+                  <div className="requestmodal-content">
+  <h4>Sort Options</h4>
+  <label className="checkbox-label">
+    <input className="input-request-checkbox"
+      type="checkbox"
+      name="newest"
+      checked={sortOptions.newest}
+      onChange={handleSortChange}
+    />
+    Newest First
+  </label>
+  <label className="checkbox-label">
+    <input className="input-request-checkbox"
+      type="checkbox"
+      name="oldest"
+      checked={sortOptions.oldest}
+      onChange={handleSortChange}
+    />
+    Oldest First
+  </label>
+  <label className="checkbox-label">
+    <input className="input-request-checkbox"
+      type="checkbox"
+      name="az"
+      checked={sortOptions.az}
+      onChange={handleSortChange}
+    />
+    A-Z
+  </label>
+  <label className="checkbox-label">
+    <input className="input-request-checkbox"
+      type="checkbox"
+      name="za"
+      checked={sortOptions.za}
+      onChange={handleSortChange}
+    />
+    Z-A
+  </label>
+</div>
+
+                  
                 )}
               </div>
             </div>

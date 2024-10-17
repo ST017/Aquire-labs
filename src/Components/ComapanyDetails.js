@@ -174,10 +174,12 @@ const CompanyDetails = () => {
         message: message, // The message input from the user
         location: myproject?.location || "", //fromuser location
         name: myproject?.name, //fromuser project name
+
         profilePicture:myproject?.profilePicture,
         toname:selectedProject?.name,
         tolocation:selectedProject?.location || "",
         toprofilePicture:selectedProject?.profilePicture
+
       });
 
       console.log("Document written with ID: ", docRef.id);
