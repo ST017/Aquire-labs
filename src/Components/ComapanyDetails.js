@@ -44,7 +44,7 @@ const CompanyDetails = () => {
   const [isVerified, setIsVerified] = useState(false);
 
   /* category code  */
-  const [showAllCategories, setShowAllCategories] = useState(false);
+  //const [showAllCategories, setShowAllCategories] = useState(false);
 
   useEffect(() => {
     const auth = getAuth();
@@ -174,7 +174,12 @@ const CompanyDetails = () => {
         message: message, // The message input from the user
         location: myproject?.location || "", //fromuser location
         name: myproject?.name, //fromuser project name
-        profilePicture: myproject?.profilePicture,
+
+        profilePicture:myproject?.profilePicture,
+        toname:selectedProject?.name,
+        tolocation:selectedProject?.location || "",
+        toprofilePicture:selectedProject?.profilePicture
+
       });
 
       console.log("Document written with ID: ", docRef.id);
@@ -248,14 +253,14 @@ const CompanyDetails = () => {
 
   /* category code  */
   // Decide which category array to use based on the user
-  const categories =
+ /*  const categories =
     selectedProject.userId === currentUser?.uid
       ? myproject?.category || []
       : selectedProject?.category || [];
 
   const visibleCategories = showAllCategories
     ? categories
-    : categories.slice(0, 14); // Show first 14, rest hidden
+    : categories.slice(0, 14); // Show first 14, rest hidden */
   /* category code end  */
 
   return (
@@ -927,6 +932,7 @@ const CompanyDetails = () => {
 
               {/* Whitepaper */}
               <div className="whitepaper-card1">
+                {console.log('Matching request status:', matchingRequests?.status)}
                 <p className="whitepaper-heading">
                   Whitepaper:
                   <a className="whitepaper-text">
@@ -1008,7 +1014,7 @@ const CompanyDetails = () => {
               <div className="categories-card1">
                 <p className="categories-heading">Categories</p>
                 <div className="categories-text">
-                  {categories
+                  {/* {categories
                     .sort((a, b) =>
                       a.toLowerCase().localeCompare(b.toLowerCase())
                     ) // Case-insensitive alphabetical sorting
@@ -1025,7 +1031,13 @@ const CompanyDetails = () => {
                     >
                       +{categories.length - 14} More
                     </span>
-                  )}
+                  )} */}
+
+{selectedProject.userId === currentUser?.uid
+                    ? myproject?.category || ""
+                    : selectedProject?.category || ""}
+
+
                 </div>
               </div>
 

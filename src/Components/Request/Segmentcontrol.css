@@ -112,7 +112,9 @@
   }
   .id-request{
     
+
     width: 3.75%;
+
 height: 64px;
 padding: 12px 24px 12px 24px;
 gap: 12px;
@@ -121,7 +123,9 @@ border: 0px 0px 1px 0px;
 
   }
   .name-request{
+
     width: 12.01%;
+
     height: 44ppx;
     padding: 12px 24px 12px 0px;
     gap: 20px;
@@ -132,7 +136,9 @@ border: 0px 0px 1px 0px;
 
   .date-request{
     tect-align:center;
+
     width: 12.31%;
+
 height: 64px;
 padding: 10px 10px 10px 4px;
 gap: 12px;
@@ -142,7 +148,9 @@ border: 0px 0px 1px 0px;
   }
 
   .location-request{
+
     width: 12.01%;
+
     height: 64px;
     padding: 12px 0px 12px 0px;
     gap: 12px;
@@ -152,7 +160,9 @@ border: 0px 0px 1px 0px;
   }
 
   .requestType-request{
+
     width: 12.01%;
+
     height: 64px;
     padding: 12px 0px 12px 0px;
     gap: 12px;
@@ -162,6 +172,7 @@ border: 0px 0px 1px 0px;
   }
 
   .message-request{
+
     width: 29.57%;
     height: 64px;
     padding: 10px 10px 10px 4px;
@@ -209,6 +220,7 @@ border: 0px 0px 1px 0px;
 
 
 }
+
   
   .request-table th,
   .request-table td {

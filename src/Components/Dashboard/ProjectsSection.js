@@ -34,6 +34,7 @@ const ProjectsSection = () => {
 
   const [searchInput,setSearchInput]=useState("")
   const [suggestionList,setSuggestionList]=useState([])
+  const [sortedProjectList, setSortedProjectList] = useState([]);
 
   const [arr,setarr]=useState(new Array(4).fill(""))
   const [requestSent, setRequestSent] = useState(0);
@@ -50,6 +51,7 @@ const ProjectsSection = () => {
   const [filterData, setFilterData] = useState([]);
   const [requestReceivedCount, setRequestReceivedCount] = useState(0);
   const [requestSentCount, setRequestSentCount] = useState(0);
+  const [sortedPaginatedProjectList,setSortedPaginatedProjectList]=useState([])
 
   const [selectedProject, setSelectedProject] = useState(null); // State to track the selected card
 
@@ -90,7 +92,53 @@ const ProjectsSection = () => {
      return ()=>clearTimeout(timer)
   },[searchInput])
 
- 
+ // Fetch function to get request counts
+const fetchUserConnectCounts = async (userId) => {
+  try {
+    const connectsRef = collection(db, 'UserConnects');
+
+    // Queries to match userId and toUserId
+    const userQuery = query(connectsRef, where('userId', '==', userId));
+    const toUserQuery = query(connectsRef, where('toUserId', '==', userId));
+
+    // Run both queries in parallel
+    const [userSnapshot, toUserSnapshot] = await Promise.all([getDocs(userQuery), getDocs(toUserQuery)]);
+
+    // Return the requestSent and requestReceived counts
+    return {
+      requestSent: userSnapshot.size,
+      requestReceived: toUserSnapshot.size
+    };
+  } catch (error) {
+    console.error('Error fetching user connect counts:', error);
+    return { requestSent: 0, requestReceived: 0 }; // Default in case of error
+  }
+};
+  useEffect(() => {
+    const sortProjectsByRequestReceived = async () => {
+      // Clone the array to avoid mutating the original
+      const updatedList = await Promise.all(userProjectList.map(async (project) => {
+        // Fetch request counts for each user
+        const { requestSent, requestReceived } = await fetchUserConnectCounts(project.userId);
+
+        // Return the updated project object with requestSent and requestReceived
+        return {
+          ...project,
+          requestSent,
+          requestReceived
+        };
+      }));
+
+      // Sort the updated list by requestReceived in descending order
+      updatedList.sort((a, b) => b.requestReceived - a.requestReceived);
+
+      // Update the state with the sorted list
+      setSortedProjectList(updatedList);
+    };
+
+    // Call the function to sort projects
+    sortProjectsByRequestReceived();
+  }, [userProjectList]);
 
 
   // Fetch the user projects from Firestore
@@ -198,6 +246,14 @@ const ProjectsSection = () => {
       })
     );
   }, [userProjectList,page]);
+
+  useEffect(()=>{
+    setSortedPaginatedProjectList(
+      sortedProjectList.filter((item, index) => {
+        return (index >= page * 4) & (index < (page + 1) * 4);
+      })
+    );
+  },[sortedProjectList,page])
 
   const handleSortChange = (e) => {
     const { name, checked } = e.target;
@@ -474,7 +530,7 @@ const ProjectsSection = () => {
   containerClassName={"pagination"}
   activeClassName={"active"}
   pageClassName={"page-item"}
-  //onPageChange={(event) => setPage(event.selected)}
+  onPageChange={(event) => setPage(event.selected)}
   breakLabel="..."
   pageCount={Math.ceil(userProjectList.length / n)}
   previousLabel={
@@ -497,7 +553,7 @@ const ProjectsSection = () => {
       </div>
       <div className='card-list1'>
         {
-          userProjectList.length>0 ?(userProjectList.slice(0,4).map((ele,i)=>{
+          sortedPaginatedProjectList.length>0 ?(sortedPaginatedProjectList.map((ele,i)=>{
             return <Card onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} desc={ele.descr} web={ele.website} userId={ele.userId} requestType={ele.requestType}/>
           })):(arr.map((ele,i)=>{
             return <ShimmerUiCard/>

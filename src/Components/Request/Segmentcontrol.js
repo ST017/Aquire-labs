@@ -12,7 +12,9 @@ import "./Segmentcontrol.css";
 import { db } from "../Firebase/firebase";
 import { FilterContext } from "../Dashboard/FilterContext";
 import Message from "./Message";
+
 import Raisa from "../../Images/1.png"
+
 
 const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   // const [activeSegment, setActiveSegment] = useState("pending");
@@ -186,7 +188,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     // Add more rows as necessary
   ];
 
+
   const RejectDummyRequests = [
+
     {
       id: 1,
       name: "testdemo",
@@ -231,6 +235,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                 filterByRequestTypes(filterRequests(matchingPendingRequests))
               ) */RejectDummyRequests.map((request, i) => (
                 <tr key={request.id}>
+
   <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
     {String(i+1).padStart(3, '0')} 
     
@@ -310,6 +315,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
 
 </tr>
 
+
               ))}
             </tbody>
           </table>
@@ -321,6 +327,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
           <table className="request-table">
             <thead>
               <tr>
+
                 <th  style={{ textAlign: "center", verticalAlign: "middle" }}>ID</th>
                 <th style={{ textAlign: "center", verticalAlign: "middle"}} >Name of Project</th>
                 <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Last Updated</th>
@@ -329,6 +336,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                 <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Request Type</th>
                 <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Status</th> 
                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Actions</th> 
+
 
                 {/* <th>Actions</th> */}
               </tr>
@@ -339,9 +347,11 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
               )?.map((request, i) => (
                 <tr key={request.id}>
 
+
   <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
     {String(i+1).padStart(3, '0')} 
     
+
 
   </td>
   
@@ -350,23 +360,28 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   >
     <div className="name-request"
     style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
+
      <img
+
       src={request?.toprofilePicture}
       alt="profile-pic"
       style={{
         width: "28px",
         height: "28px",
         borderRadius: "50%",
+
         marginRight: "4px",
       }}
     /> 
 
 
      {request.toname} 
+
     </div>
   </td>
   
   <td className="date-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+
      {new Date(request.createdAt.seconds * 1000)
       .toLocaleDateString()
       .replace(/\//g, "-")} 
@@ -412,6 +427,8 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
 </tr>
 
 
+
+   
               ))}
             </tbody>
           </table>
@@ -435,6 +452,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
                 filterByRequestTypes(filterRequests(matchingRejectedRequests))
               )? */   RejectDummyRequests.map((request, i) =>(
                 <tr key={request.id}>
+
   <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
     {String(i+1).padStart(3, '0')} 
     
@@ -496,6 +514,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
 </tr>
 
               ) )}
+
             </tbody>
           </table>
         )}
@@ -537,4 +556,6 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   );
 };
 
+
 export default Segmentcontrol;
+
