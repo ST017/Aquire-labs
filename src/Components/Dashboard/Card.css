@@ -1,9 +1,9 @@
 .card11 {
  
-  width: 20%;
+  width: 23.266%;
   height: 145.6px; 
   padding: 10px;
-  //margin:auto;
+  
   /* padding: 11.17px 14.36px 6px 14.36px; */
   border-radius: 7.98px 7.98px 7.98px 7.98px;
   border: 1px solid #ddd;
@@ -13,6 +13,7 @@
   flex-direction: column;
   gap: 10px;
   opacity: 1;
+  box-sizing: border-box;
 }
 @media screen and (max-width:600px) {
   .card11{
@@ -24,16 +25,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top:-5px;
+ 
   /* width:180px; */
   box-sizing: border-box;
   
+}
+.card-header1-sub{
+  display:flex;
+  gap:5px;
 }
 
 .company-logo {
   width: 23.81px;
 height: 23.81px;
-padding: 5.95px 5.95px 5.95px 5.95px;
+object-fit: fill;
 gap: 4.96px;
 border-radius: 1.98px;
 
@@ -44,13 +49,14 @@ border-radius: 1.98px;
 .cardcompany-name  { 
  
  
-  flex-grow: 1;
-  margin-left:2px;
+  
+  margin:0;
   color:rgba(0, 0, 0, 1);
 font-size: 12.57px;
 font-weight: 600;
 line-height: 19.15px;
 text-align: left;
+
 
 
  
@@ -60,18 +66,24 @@ text-align: left;
 
   width: 14px;
   height: 18px;
-  margin-right:12px;
+  
  
 }
 
 .card-content1 {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box ;
   /* width: 180px;  */
-  height:82.17px;
-  margin-top: -5px;
-  margin-left:7px;
+  
+ gap:11.17px;
   
  
+}
+.card-content1-sub{
+  gap:7.98px;
+  display: flex;
+  flex-direction: column;
 }
 
 .website-link {
@@ -105,7 +117,7 @@ text-align: left;
   overflow: hidden; /* Hide any overflowing text */
   text-overflow: ellipsis; /* Add ellipsis for overflowing text */
   white-space: nowrap; /* Prevent the text from breaking to the next line */
-  //height:11px;
+  margin:0;
 }
 
 .request-type {
@@ -114,14 +126,15 @@ text-align: left;
 }
 
 .request-details {
-  margin-top: 10px;
-
+ display: flex;
+ flex-direction: column;
+ gap:7.98px;
 }
 
 .request-details p {
   display: flex;
   align-items: center;
-  margin: 5px 0;
+ margin: 0;
   
 }
 
@@ -129,7 +142,7 @@ text-align: left;
 
   width: 14px;
   height: 14px;
-  margin-right: 5px;
+  margin-right: 9px;
 }
 
 .request-received, .request-sent {
@@ -141,6 +154,7 @@ font-size: 8.77px;
 
 line-height: 9.92px;
 text-align: left;
+
   
 }
 

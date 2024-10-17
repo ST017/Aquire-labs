@@ -34,59 +34,93 @@
       transform: rotate(360deg);
     }
   }
-  .dashboard-container{
+
+  .dashboard-container {
+
     width: 100vw;
     height: 100vh;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    position: relative;
-  }
-  .leftsidesection{
-    /* width: 193px;
-height: 1091px; */
- width: 13.403%;
-/* top: 95px; */
-top: 26px;
-/* left: 23px; */
-left: 1.5972%;
-border-radius: 10px 0px 0px 0px;
 
-position:absolute;
-    
-
-  }
-.centersection{
-
-  /* width: Hug (921px)px;
-height: Hug (1,189px)px; */
-width: 63.9588%;
-/* top: 87px; */
-top:18px;
-/* left: 231px; */
-left: 16.0417%; 
-position: absolute;
-
+    overflow-x: hidden;
 }
-.rightsection{
-  width: 16.1112%;
-  /* top: 94px; */
-  top:25px;
-  /* left: 1167px; */
-  gap: 20px;
-  left: 81.0417%;
+
+.dashborad-navbar {
   
-  position: absolute;
-
+    width: 100vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    padding-right: 2%;
 }
 
+.main-content {
+    margin-left: 23px;
+    width: 100vw;
+    /* width: calc(100vw - 23px); Adjusted to account for margin-left */
+    gap: 15px;
+    height: 100vh;
+    display: flex;
+    box-sizing: border-box;
+    background-color: rgba(234, 239, 255, 1);
+     /* To prevent scroll */
+}
 
-  .main-content{
-    
-    
-    width: 100%;
-    height: auto;
-    
+.dashborad-sidebar {
+    width: 13.403%; /* 193px of 1440px */
+    margin-top: 26px;
+}
+
+.dashboard-prjct-section {
+    margin-top: 18px;
+    box-sizing: border-box;
     position: relative;
-    background-color:rgba(234, 239, 255, 1) ;
+    width: 63.958%; /* 921px of 1440px */
+}
+
+.dashboard-profile {
+    margin-top: 25px;
+    width: 16.111%; /* 232px of 1440px */
+    box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+  .dashborad-navbar {
+      width: 100vw;
+      flex-direction: column; /* Stack navbar content vertically */
+      align-items: center;
+      padding: 10px;
   }
+
+  .main-content {
+      flex-direction: column; /* Stack content vertically */
+      margin-left: 0;
+      width: 100vw;
+      padding: 10px;
+  }
+
+  .dashborad-sidebar {
+      width: 100%; /* Full width for sidebar */
+      margin-top: 10px;
+  }
+
+  .dashboard-prjct-section {
+      width: 100%; /* Full width for project section */
+      margin-top: 15px;
+  }
+
+  .dashboard-profile {
+      width: 100%; /* Full width for profile section */
+      margin-top: 15px;
+  }
+}
+@media (max-width: 1024px) {
+  .dashborad-navbar {
+      flex-direction: row;
+      padding: 0 10px; /* Reduce padding on smaller screens */
+  }
+
+  .logout-btn {
+      padding: 8px 15px; /* Adjust button size for smaller screens */
+  }
+}

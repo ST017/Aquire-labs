@@ -5,8 +5,9 @@
 .profile-sidebar1 {
   background-color: #ffffff;
   align-items: center;
-  padding: 20px;
-  
+  width: 100%;
+  padding-top: 10.69px;
+  padding-bottom: 10.69px;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   gap: 16px;
