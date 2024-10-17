@@ -16,6 +16,7 @@ import { FilterContext } from "../Dashboard/FilterContext";
 import Message from "./Message";
 
 import Raisa from "../../Images/1.png"
+import RequestMessage from "./RequestMessage";
 
 
 const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
@@ -25,6 +26,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   const [matchingPendingRequests, setMatchingPendingRequests] = useState([]);
   const [matchingSendRequests, setMatchingSendRequests] = useState([]);
   const [matchingRejectedRequests, setMatchingRejectedRequests] = useState([]);
+  
 
   const { selectedRequestTypes } = useContext(FilterContext);
 
@@ -298,7 +300,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     />
     <div className="below-message-container-pending">
       <span>{request.message}</span>
-      <p className="below-message-pending">last updated</p>
+      <p className="below-message-pending">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p>
     </div>
   </div>
 </td>
@@ -437,7 +439,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     />
     <div className="below-message-container">
       <span>{request.message}</span>
-      <p className="below-message">last updated</p>
+      <p className="below-message">{<RequestMessage request={request}/>} at { new Date(request.createdAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}</p>
     </div>
   </div>
 </td>
@@ -539,7 +543,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     />
     <div className="below-message-container-rejected">
       <span>{request.message}</span>
-      <p className="below-message">last updated</p>
+      <p className="below-message">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p>
     </div>
   </div>
 </td>

@@ -42,6 +42,7 @@ const CompanyDetails = () => {
   const [requestReceived, setRequestReceived] = useState(0);
   const [userConnectsDocId, setUserConnectsDocId] = useState(null);
   const [isVerified, setIsVerified] = useState(false);
+  
 
   /* category code  */
   //const [showAllCategories, setShowAllCategories] = useState(false);
@@ -178,7 +179,8 @@ const CompanyDetails = () => {
         toname:selectedProject?.name,
         tolocation:selectedProject?.location || "",
         toprofilePicture:selectedProject?.profilePicture,
-        lastCreatedAt:new Date()
+        lastCreatedAt:new Date(),
+        
       });
 
       console.log("Document written with ID: ", docRef.id);
