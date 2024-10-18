@@ -54,7 +54,7 @@ const ProjectsSection = () => {
   const [sortedPaginatedProjectList,setSortedPaginatedProjectList]=useState([])
 
   const [selectedProject, setSelectedProject] = useState(null); // State to track the selected card
-
+ const[popularPage, setPopularPage]=useState(0);
   // Function to handle when a card is clicked
   const handleCardClick = (project) => {
     // Save project data to localStorage or sessionStorage
@@ -250,10 +250,10 @@ const fetchUserConnectCounts = async (userId) => {
   useEffect(()=>{
     setSortedPaginatedProjectList(
       sortedProjectList.filter((item, index) => {
-        return (index >= page * 4) & (index < (page + 1) * 4);
+        return (index >= popularPage * 4) & (index < (popularPage + 1) * 4);
       })
     );
-  },[sortedProjectList,page])
+  },[sortedProjectList,popularPage])
 
   const handleSortChange = (e) => {
     const { name, checked } = e.target;
@@ -491,6 +491,7 @@ const fetchUserConnectCounts = async (userId) => {
     selectedLocation, 
     selectedProfileStatus, 
     page, 
+    popularPage,
     n
 ]);
 
@@ -530,9 +531,9 @@ const fetchUserConnectCounts = async (userId) => {
   containerClassName={"pagination"}
   activeClassName={"active"}
   pageClassName={"page-item"}
-  onPageChange={(event) => setPage(event.selected)}
+  onPageChange={(event) => setPopularPage(event.selected)}
   breakLabel="..."
-  pageCount={Math.ceil(userProjectList.length / n)}
+  pageCount={Math.ceil(userProjectList.length / 4)}
   previousLabel={
     <div className="arrow">
       <IconContext.Provider value={{ color: "#FFFFFF", size: "36px" }}>

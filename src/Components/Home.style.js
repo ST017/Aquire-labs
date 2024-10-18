@@ -11,7 +11,8 @@ import { Link } from 'react-router-dom';
  
 //Wrapper
 export const WrapperDiv = styled.div`
-display:grid;
+display:flex;
+flex-direction:column;
  gap:50px;
   width: 100%;
  
@@ -29,236 +30,18 @@ display:grid;
    
 `;
  
-// Navbar styles
-export const Navbar = styled.nav`
- width:100%;
-  height: 11.513vh;
-  background-color: rgba(234, 239, 255, 1);
-  // padding: 16px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  @media (max-width: 480px) {
-   
-   height:74px;
-    width:100%;
-    position: fixed;
-    z-index:1;
-    background-color:white;
+
  
  
-   
-   
  
  
-  }
-   @media (min-width: 768px) {
-   
-   
-    width:100%;
-    
-   
-   
  
  
-   
-   
- 
- 
-  }
-  @media (width: 912px) {
-   
-   height:74px;
-    width:100%;
-   
- 
-  }
- 
-   @media (width: 540px) {
-   
-   height:74px;
-    width:100%;
-    position: fixed;
- 
-  }
- 
- 
- 
- 
- 
-`;
- 
-export const Logo = styled.img`
-  
-  width: 8.47%;
-    height: 71.02%;
-  padding:10px;
- 
-  @media (max-width:480px){
-    width: 63px;
-    height: 25px;
-    top: 20px;
-    left: 22px;
-   
- 
-  }
- 
-`;
- 
-export const NavLinksCenter = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-grow: 1;
-  //gap: 20px;
- // left:488.5px;
- // margin-right:222px;
-  width: 231px;
-height: 39px;
-top: 38px;
-left: 488.5px;
-gap: 20px;
-@media (max-width:480px){
-display:none;
-}
- 
- 
- 
-`;
- 
-export const NavLinksRight = styled.div`
-  display: flex;
- 
-  width: 215px;
- height: 39px;
-  top: 38px;
-  left: 1145px;
-  gap: 40px;
- 
- 
- 
- 
- 
-`;
- 
-export const NavButton = styled.button`
- // height: 39px;
-  border-radius: 6px;
-  border: 1px solid blue; /* Set the border to blue */
-  background-color: transparent; /* Optional: to ensure it's transparent unless hovered */
- 
-  &:hover ,&:hover a{
-    background-color: rgba(0, 60, 255, 1); /* Set the hover background color */
-    color: white; /* Optional: Set text color on hover */
-  }
-  &.signup {
-    background-color:rgba(0, 60, 255, 1);
-    color:white;
-   
-    &:hover ,&:hover a{
-     
-      background-color:transparent;
-      color:rgba(0, 60, 255, 1);
-    }
-  }
-  @media (max-width: 480px) {
- 
-   &.signup {
-      display: none; /* Hide the signup button on screens smaller than 480px */
-    }
- 
-   &.login {
-     
-      width: 68px;
-      height: 28.83px;
-      top: 23px;
-     
-      left:340px;
-      gap: 7.39px;
-      border-radius: 4.43px 4.43px 4.43px 4.43px;
-      border: 0.74px 0.74px 0.74px 0.74px;
-      opacity: 0px;
-     
-   
-   }
- 
-   
- 
-   
- 
- 
-  }
- 
- 
- 
-  }
-`;
- 
- 
-export const NavLink = styled.a`
- 
-  width:44px;
-  height:19px;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 700;
-  font-family:Inter;
-  color:rgba(0, 60, 255, 1);
- 
-  &:hover {
-    color: white;
-  }
- 
-  &.signup-lnk{
-    color:white;
-    text-color:white;
-    }
- 
-  @media (max-width:480px) {
-    &.login-lnk {
-     width: 33px;
-     height: 15px;
-     
-    align:center;
- 
-    }
- 
-  }
-   
-`;
- 
-export const NavLink1 = styled.a`
-width: 66px;
-height: 39px;
-padding: 10px 10px 10px 10px;
-gap: 10px;
- 
- 
-  text-decoration: none;
-    font-size: 16px;
-    font-weight: 700;
-    color: black;
-    transition: color 0.3s;
-  cursor:pointer;
- 
- 
-  &:hover a{
-   color: #1A1AFF;
- 
-  }
- 
- 
- 
-`;
- 
- 
- 
- 
- 
- 
-// Hero section
-export const HeroSection = styled.section`
+// Hero div
+export const HeroSection = styled.div`
 display: flex;
     gap: 10px;
+    
     width: 100%;
     background-color: rgba(234, 239, 255, 1);
     height: 88.266vh;
@@ -380,9 +163,9 @@ export const GetStartedButton = styled.button`
   }
 `;
  
-// Vision section
-export const VisionSection = styled.section`
- height: 39.211vh;
+// Vision div
+export const VisionSection = styled.div`
+//  height: 39.211vh;
  
   background-color: rgba(234, 239, 255, 1);
   // padding: 40px 16px;
@@ -422,7 +205,7 @@ width:80%;
  
 export const VisionText = styled.p`
  
-  height: 54.47%;
+  // height: 54.47%;
     width: 78.056%;
   font-family:Inter;
   font-size: 24px;
@@ -449,7 +232,7 @@ export const PartnerLogos = styled.div`
   justify-content: center;
   width: 100%;
   height: auto;
-  overflow: hidden;
+  // overflow: hidden;
   position: relative;
   background-color:white;
  margin:  0;
@@ -516,8 +299,8 @@ export const PartnerLogos = styled.div`
  
  
  
-// How It Works section
-export const HowItWorksSection = styled.section`
+// How It Works div
+export const HowItWorksSection = styled.div`
  
       width: 100%;
     height: 101.805vh;
@@ -569,7 +352,7 @@ export const StepContainer = styled.div`
 export const StepCard = styled.div`
   background-color: rgba(0, 60, 255, 1);
   width: 22.181%;
-      height: 100%;
+      
   border-radius: 10.54px;
   
   color: white;
@@ -820,8 +603,8 @@ margin-top:5px;
  
  
  
-// Key Features section
-export const KeyFeaturesSection = styled.section`
+// Key Features div
+export const KeyFeaturesSection = styled.div`
   // width: 100%;
      width: 94.7225%;
       height:auto;
@@ -1048,8 +831,8 @@ export const FeatureImage = styled.img`
   }
 `;
  
-// Why Use section
-export const WhyUseSection = styled.section`
+// Why Use div
+export const WhyUseSection = styled.div`
   display: flex;
   width:100%;
   height: 89.6vh;

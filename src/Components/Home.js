@@ -109,6 +109,7 @@ import RaisaLogo from "../Images/RaisaLogo.png"
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
  import Footer1 from "../Components/Dashboard/Footer.js";
+import MainNavbar from "./MainNavbar.js";
 const Home = () => {
   const [expandedFeature, setExpandedFeature] = useState(null);
  
@@ -174,40 +175,21 @@ const Home = () => {
  
  
   return (
-    <div style={{width:'100%',height:'100%'}}>
-    <Navbar>
-        <Logo src={RaisaLogo} alt="logo" />
-        <NavLinksCenter>
-          <NavLink1><Link to="/">Home</Link></NavLink1>
-          <NavLink1><Link to="/about">About</Link></NavLink1>
-          <NavLink1><Link to="/faq">Help</Link></NavLink1>
-        </NavLinksCenter>
-        <NavLinksRight>
-          <NavButton className="login">
-           
-            <NavLink className="login-lnk" onClick={() => window.open("/login", "_blank")}>
-              Login
-            </NavLink>
-          </NavButton>
-          <NavButton  className="signup" >
-            <NavLink  className="signup-lnk" onClick={() => window.open("/signup", "_blank")}>
-              Signup
-            </NavLink>
-          </NavButton>
-        </NavLinksRight>
-      </Navbar>
+    <div style={{width:'100vw',height:'100vh'}}>
+    <div className='home-nav'><MainNavbar/></div>
     <WrapperDiv>
       {/* Navbar */}
       
  
       {/* Hero Section */}
       <HeroSection>
+        <div style={{display:'flex',flexDirection:'column',gap:'42px',marginTop:'149px',justifyContent:'center',alignItems:'center',alignSelf:'center'}}>
         <HeroTitle>One Platform, Infinite Partnership Opportunities</HeroTitle>
         <HeroSubtitle>
           Build powerful collaborations and expand your project's horizons through
         </HeroSubtitle>
         <HeroSubtitle1>strategic partnerships.</HeroSubtitle1>
-        <GetStartedButton onClick={()=>window.open("/signup","_blank")}>Get started</GetStartedButton>
+        <GetStartedButton onClick={()=>window.open("/signup","_blank")}>Get started</GetStartedButton></div>
       </HeroSection>
  
       {/* Partner Logos */}

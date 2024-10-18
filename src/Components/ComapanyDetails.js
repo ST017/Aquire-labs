@@ -265,7 +265,7 @@ const CompanyDetails = () => {
 
   return (
     <div className="companydetails-container">
-      <Navbar />
+      <div className="companydetails-navbar"><Navbar /></div>
       <div className="companydetails-sub">
         <div className="bread-container">
           <div className="bbcmb" aria-label="breadcrumb">

@@ -96,7 +96,7 @@ text-align: left;
 .side-div label {
   display: flex; /* Align checkbox and label text side by side */
   align-items: center; /* Vertically center the checkbox and text */
- white-space: nowrap;
+ /* white-space: nowrap; */
   font-size: 10px;
   font-weight: 600;
   color:rgba(0, 0, 0, 1);
@@ -112,7 +112,7 @@ text-align: left;
 }
 
 .check-box {
-  margin-right: 10px; /* Keep a small gap between the checkbox and label text */
+  /* margin-right: 10px; Keep a small gap between the checkbox and label text */
   width: 18px;
 height: 18px;
 
@@ -129,3 +129,48 @@ border: 1.25px  rgba(209, 213, 219, 1);
   font-size: 18px;
   
 }
+
+
+
+
+
+
+
+/* Remove the default browser styles */
+input[type="checkbox"].check-box {
+  margin: 0;
+  /* margin-right: 9px; */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  border: 1.25px solid rgba(209, 213, 219, 1);
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+/* Add a checkmark when checked */
+input[type="checkbox"].check-box:checked {
+  background-color: #4a90e2; /* Your custom color when checked */
+  border-color: #4a90e2;
+}
+
+input[type="checkbox"].check-box:checked::before {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  top: 2px;
+  left: 5px;
+  transform: rotate(45deg);
+}
+
+
+
+

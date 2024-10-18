@@ -18,23 +18,24 @@
 
 
 .card-logo {
-  width: 7.086%;
+  /* width: 7.086%;
   height: 28.623%;
+   */
+   width:56px;
+   height:56px;
+   box-sizing: border-box;
+ 
 }
 
-.card-logo{
-  
-  
 
-  img{
-    width: 100%;
+.cardlogo-img{
+
+  width: 100%;
   height: 100%;
  
-  object-fit: fill;
- 
-    
-  }
+  box-sizing: border-box;
 }
+
 
 .card2-content{
   width: 90%; 

@@ -1,18 +1,46 @@
  
  
   .mainnavbar {
+    width:100vw;
+    padding-left: 16px;
+    padding-left: 16px;
+   box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color:rgba(234, 239, 255, 1);
    
+    align-items: center;
+    
+    background-color:rgba(234, 239, 255, 1);
+   justify-content: space-between;
+   gap:210px;
   }
  
   .logo {
+    width:142px;
     display: flex;
     align-items: center;
   }
+
+.raisa-logo-img{
+  width: 122px;
+  height:49px;
+}
+
+
+.mainnav-frame2{
+  width:100%;
+ display:flex;
+
+ justify-content: space-between;
+padding-top: 5px;
+padding-bottom: 5px;
+
+}
+
+.mainnav-links{
+
+  display: flex;
+  justify-content: flex-start;
+}
  
   .logo-letter {
     font-size: 24px;
@@ -30,7 +58,10 @@
   .nav-links {
     list-style: none;
     display: flex;
-    gap: 52px;
+   margin:0;
+   padding:0;
+   gap:52px;
+
   }
  
   .nav-links a {
@@ -44,40 +75,87 @@
   .nav-links a:hover {
     color: #1A1AFF;
   }
+
+ .nav-links-li{
+  display: flex;
+  width: 86px;
+  height: 56px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+ }
  
-  .nav-buttons {
-    display: flex;
-    gap: 40px;
+  
+ .mainnav-buttons{
+  display: flex;
+  justify-content: flex-end;
+  gap:10px;
+ }
+ .login , .signup{
+  display: flex;
+  width: 125px;
+  height: 59px;
+  align-content: center;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+ }
+
+.login-lnk , .signup-lnk{
+  width:105px;
+  height:39px;
+  background-color: transparent;
+  border: 1px solid #003CFF;
+  border-radius: 6px;
+
+}
+.login-lnk {
+  
+font-family: Inter;
+font-size: 16px;
+font-weight: 700;
+line-height: 19.36px;
+color:  #1A0DAB;
+&:hover{
+  background-color: #0028AA;
+  color: white;
+}
+
+}
+
+.signup-lnk {
+  
+  
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19.36px;
+ background-color: #0028AA;
+
+  color:  white;
+  &:hover {
+    color:#0028AA;
+    background-color:transparent;
+
   }
- 
-  .logout-btn, .signup-btn {
-    border: 1px solid #1A1AFF;
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
+  
   }
- 
-  .logout-btn {
-    background-color: transparent;
-    color: #1A1AFF;
-    transition: background-color 0.3s;
+
+
+
+@media screen and  (max-width: 768px){
+
+  .mainnav-links{
+    display:none;
   }
- 
-  .logout-btn:hover {
-    background-color: rgba(26, 26, 255, 0.1);
+
+  .signup,.signup-lnk{
+    display: none;
   }
- 
-  .signup-btn {
-    background-color: #1A1AFF;
-    color: white;
-    border: none;
-    transition: background-color 0.3s;
+
+  .mainnavbar , .mainnav-frame2{
+    background-color: #ffffff;
   }
- 
-  .signup-btn:hover {
-    background-color: #0000FF;
-  }
- 
- 
+
+}
+  
