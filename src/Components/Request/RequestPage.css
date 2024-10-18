@@ -75,6 +75,18 @@ gap: 0px;
       gap: 10px;
       
       }
+      .pagination-request {
+        margin-top:10px;
+        display: flex;
+        justify-content: center; /* Centers horizontally */
+        align-items: center; /* Centers vertically */
+        width: auto;
+        height: 32px;
+        gap: 10px;
+        //border: 1px solid black;
+        
+      }
+      
 
       .filter-icon{
         
@@ -156,6 +168,66 @@ margin-bottom: 10px; /* Space between each checkbox */
 margin-top:5px;
 margin-right: 10px; /* Space between checkbox and text */
 }
+
+
+
+
+
+
+.page-item-request {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 1px solid rgba(241, 241, 241, 1);
+  border-radius: 4px;
+  cursor: pointer;
+  width: 32px;  /* Adjust this size as per your design */
+  height: 32px;
+  
+
+gap: 10px;
+border-radius: 8px;
+border: 1px 0px 0px 0px;
+  transition: background-color 0.3s ease;
+}
+
+.page-item-request:hover {
+  background-color: rgba(47, 128, 237, 1); /* Change background on hover */
+}
+
+.active-request {
+  background-color: white; /* Change the background color of the active page */
+  color: black;
+}
+
+.arrow-request-paginate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  
+  width: 32px;  /* Adjust this size as per your design */
+  height: 32px;
+  
+
+gap: 10px;
+border-radius: 8px;
+border: 1px 0px 0px 0px;
+
+
+  border: 1px solid rgba(241, 241, 241, 1);
+  transition: background-color 0.3s ease;
+}
+
+.pagination-container-request{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px; /* Adds space between each page number */
+  list-style:none;
+}
+
 
 
 

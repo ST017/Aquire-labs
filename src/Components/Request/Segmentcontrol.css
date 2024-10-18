@@ -38,6 +38,7 @@
     width:50%;
     align-items:flex-start;
     
+    
   }
   
 
@@ -194,12 +195,14 @@ margin-right:37px;
 
   }
   .below-message{
+    
   
 font-size: 10px;
 font-weight: 500;
 line-height: 0px;
 text-align: left;
 margin-top:10px;
+
   }
 
 .action-button-request{
