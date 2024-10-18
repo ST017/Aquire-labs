@@ -31,6 +31,7 @@ margin: 0 1.6%;
 .request-page-navbar{
   width:100%;
   box-sizing: border-box;
+  padding-right: 2%;
 }
 .sidebar-req-cntainer{
 width: 100%;
