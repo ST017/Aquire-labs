@@ -19,28 +19,14 @@ import Raisa from "../../Images/1.png"
 import RequestMessage from "./RequestMessage";
 
 
-const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
+const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConnects,matchingPendingRequests,matchingRejectedRequests,matchingSendRequests,sample,sampleSend,sampleReject }) => {
   // const [activeSegment, setActiveSegment] = useState("pending");
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userConnectsList, setUserConnectsList] = useState([]);
-  const [matchingPendingRequests, setMatchingPendingRequests] = useState([]);
-  const [matchingSendRequests, setMatchingSendRequests] = useState([]);
-  const [matchingRejectedRequests, setMatchingRejectedRequests] = useState([]);
+
   
 
   const { selectedRequestTypes } = useContext(FilterContext);
 
-  useEffect(() => {
-    const auth = getAuth();
-    // Listen for authentication state changes
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user);
-      }
-    });
-    // Cleanup the listener on unmount
-    return () => unsubscribe();
-  }, []);
+  
 
   // Sort the filtered requests
   const sortRequests = (requests) => {
@@ -105,53 +91,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     }
   };
 
-  // Fetch userConnects data
-  const fetchUserConnects = async () => {
-    try {
-      // Reference to the UserConnects collection
-      const userConnectsCollection = collection(db, "UserConnects");
 
-      // Fetch all documents from the collection
-      const querySnapshot = await getDocs(userConnectsCollection);
-
-      // Map through the documents to create a list
-      const userConnectsList = querySnapshot.docs.map((doc) => ({
-        id: doc.id, // Document ID
-        ...doc.data(), // Document data
-      }));
-
-      console.log("Fetched User Connects: ", userConnectsList);
-      setUserConnectsList(userConnectsList);
-
-      // Filter to find all matches where toUserId equals currentUser.uid and status==="pending"
-      const matchingPendingRequests = userConnectsList.filter(
-        (ele) => ele.toUserId === currentUser?.uid && ele.status === "Pending"
-      );
-
-      const matchingRejectedRequests = userConnectsList.filter(
-        (ele) =>
-          (/* ele.toUserId === currentUser?.uid || */
-            ele.userId === currentUser?.uid) &&
-          ele.status === "Denied"
-      );
-
-      // Filter to find all matches where userId equals currentUser.uid
-      const matchingSendRequests = userConnectsList.filter(
-        (ele) => ele.userId === currentUser?.uid
-      );
-
-      setMatchingPendingRequests(matchingPendingRequests);
-      setMatchingSendRequests(matchingSendRequests);
-      setMatchingRejectedRequests(matchingRejectedRequests);
-    } catch (e) {
-      alert("Error fetching Data");
-      return [];
-    }
-  };
-
-  useEffect(() => {
-    fetchUserConnects();
-  }, [db, currentUser?.uid]);
 
   //handling accept and deny
 
@@ -190,26 +130,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     }
   };
 
-  // Sample data for the tables
-  const pendingRequests = [
-    {
-      id: 1,
-      name: "PreludeSys",
-      location: "India",
-      type: "Funding",
-      date: "09-12-2024",
-      message: "Last message: 23-10-2024",
-    },
-    {
-      id: 2,
-      name: "PreludeSys",
-      location: "Hungary",
-      type: "Listing",
-      date: "09-12-2024",
-      message: "Last message: 23-10-2024",
-    },
-    // Add more rows as necessary
-  ];
+  
 
 
   const RejectDummyRequests = [
@@ -255,7 +176,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
             </thead>
             <tbody>
               {sortRequests(
-                filterByRequestTypes(filterRequests(matchingPendingRequests))
+                filterByRequestTypes(filterRequests(/* matchingPendingRequests */  sample))
               ).map((request, i) => (
                 <tr key={request.id}>
 
@@ -289,7 +210,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   <td className="date-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
       {/* {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
-      .replace(/\//g, "-")} */}  {new Date(request.lastCreatedAt.seconds * 1000).toLocaleDateString()}
+      .replace(/\//g, "-")} */}  {/* {new Date(request.lastCreatedAt.seconds * 1000).toLocaleDateString()} */} {request.date}
   </td>
   
   <td className="message-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
@@ -300,7 +221,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     />
     <div className="below-message-container-pending">
       <span>{request.message}</span>
-      <p className="below-message-pending">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p>
+     {/*  <p className="below-message-pending">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p> */}
     </div>
   </div>
 </td>
@@ -311,7 +232,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   </td>
   
   <td className="requestType-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-   {request?.requestTypes.join(", ")}  
+  {/*  {request?.requestTypes.join(", ")}  */}  {request.requestTypes}
   </td>
 
 
@@ -387,7 +308,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
             </thead>
             <tbody>
               {sortRequests(
-                filterByRequestTypes(filterRequests(matchingSendRequests))
+                filterByRequestTypes(filterRequests(sampleSend))
               )?.map((request, i) => (
                 <tr key={request.id}>
 
@@ -419,20 +340,20 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     /> 
 
 
-     {request.toname} 
+     {/* {request.toname}  */} {request.name}
 
     </div>
   </td>
   
   <td className="date-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
 
-     {new Date(request.lastCreatedAt.seconds * 1000)
+    {/*  {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
-      .replace(/\//g, "-")} 
+      .replace(/\//g, "-")}  */}
   </td>
   
   <td className="message-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-  <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+  {/* <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request"
       src={request?.toprofilePicture}
       alt="profile-pic"
@@ -443,20 +364,20 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
       .toLocaleDateString()
       .replace(/\//g, "-")}</p>
     </div>
-  </div>
+  </div> */}
 </td>
  
   
   <td className="location-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     {request.tolocation} 
+     {/* {request.tolocation} */} 
   </td>
   
   <td className="requestType-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {request?.requestTypes.join(", ")} 
+   {/*  {request?.requestTypes.join(", ")} */} 
   </td>
 
   <td className="status-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {request?.status}
+   {/*  {request?.status} */}
   </td>
 
 
@@ -498,7 +419,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
             </thead>
             <tbody>
               {sortRequests(
-                filterByRequestTypes(filterRequests(matchingRejectedRequests))
+                filterByRequestTypes(filterRequests(sampleReject))
               )?.map((request, i) =>(
                 <tr key={request.id}>
 
@@ -513,7 +434,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   >
     <div className="name-request-rejected"
     style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
-     <img
+     {/* <img
       src={request?.toprofilePicture}
       alt="profile-pic"
       style={{
@@ -522,21 +443,21 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
         borderRadius: "50%",
         marginRight: "4px",
       }}
-    /> 
+    />  */}
 
 
-{request.toname}
+{/* {request.toname} */} {request.name}
     </div>
   </td>
   
   <td className="date-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-      {new Date(request.lastCreatedAt.seconds * 1000)
+     {/*  {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
-      .replace(/\//g, "-")}   
+      .replace(/\//g, "-")}  */}  
   </td>
   
   <td className="message-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-  <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+  {/* <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request-rejected"
       src={request?.toprofilePicture}
       alt="profile-pic"
@@ -545,16 +466,16 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
       <span>{request.message}</span>
       <p className="below-message">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p>
     </div>
-  </div>
+  </div> */}
 </td>
  
   
   <td className="location-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-  {request.tolocation}
+  {/* {request.tolocation} */}
   </td>
   
   <td className="requestType-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-  {request?.requestTypes.join(", ")} 
+  {/* {request?.requestTypes.join(", ")}  */}
   </td>
 
 

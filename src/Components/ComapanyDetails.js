@@ -174,11 +174,11 @@ const CompanyDetails = () => {
         requestTypes: [...requestTypes], // Array of selected request types
         message: message, // The message input from the user
         location: myproject?.location || "", //fromuser location
-        name: myproject?.name, //fromuser project name
-        profilePicture:myproject?.profilePicture,
-        toname:selectedProject?.name,
+        name: myproject?.name || "", //fromuser project name
+        profilePicture:myproject?.profilePicture || "",
+        toname:selectedProject?.name || "",
         tolocation:selectedProject?.location || "",
-        toprofilePicture:selectedProject?.profilePicture,
+        toprofilePicture:selectedProject?.profilePicture || "",
         lastCreatedAt:new Date(),
         
       });
