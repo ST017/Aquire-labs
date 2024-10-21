@@ -24,8 +24,21 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
 
   
 
-  const { selectedRequestTypes } = useContext(FilterContext);
+  const { selectedCategories,selectedEcosystems,selectedFundingStages,selectedRequestTypes,selectedPartenerShipInterests,selectedLocation,selectedProfileStatus } = useContext(FilterContext);
+  const [users, setUsers] = useState([]); 
 
+
+
+ // Fetch users from Firestore
+ useEffect(() => {
+  const fetchUsers = async () => {
+    const usersSnapshot = await getDocs(collection(db, 'User'));
+    const usersList = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setUsers(usersList);
+  };
+
+  fetchUsers();
+}, []);
   
 
   // Sort the filtered requests
@@ -77,7 +90,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
   };
 
   // Filter requests based on selected request types
-  const filterByRequestTypes = (requests) => {
+  /* const filterByRequestTypes = (requests) => {
     if (selectedRequestTypes.length > 0) {
       return requests.filter(
         (request) =>
@@ -89,9 +102,146 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
     } else {
       return requests;
     }
+  }; */
+
+
+ /*  const filterByRequestTypes = (requests) => {
+    return requests.filter((request) => {
+      // Find the user with matching toUserId in the User collection
+      const user = users.find((u) => u.id === request.toUserId);
+      const isVerifiedUser = user && user.verified === true;
+      // Filter by Request Types
+      const matchesRequestTypes =
+        selectedRequestTypes.length === 0 ||
+        (request?.requestTypes?.length > 0 &&
+          request.requestTypes.some((type) =>
+            selectedRequestTypes.includes(type)
+          ));
+  
+      // Filter by Categories
+      const matchesCategories =
+        selectedCategories.length === 0 ||
+        (request?.tocategory?.length > 0 &&
+          request.tocategory.some((category) =>
+            selectedCategories.includes(category)
+          ));
+  
+      // Filter by Ecosystems
+      const matchesEcosystems =
+        selectedEcosystems.length === 0 ||
+        (request?.toecosystem?.length > 0 &&
+          request.toecosystem.some((ecosystem) =>
+            selectedEcosystems.includes(ecosystem)
+          ));
+  
+      // Filter by Funding Stages
+      const matchesFundingStages =
+        selectedFundingStages.length === 0 ||
+        (request?.tofundingstage?.length >0  &&
+          request.tofundingstage.some((fs)=>selectedFundingStages.includes(fs))
+          );
+  
+      // Filter by Partnership Interests
+      const matchesPartnershipInterests =
+        selectedPartenerShipInterests.length === 0 ||
+        (request?.topartnershipinterest?.length > 0 &&
+          request.topartnershipinterest.some((interest) =>
+            selectedPartenerShipInterests.includes(interest)
+          ));
+  
+      // Filter by Location
+      const matchesLocation =
+        selectedLocation.length === 0 ||
+        (request?.location && selectedLocation.includes(request.location));
+  
+      // Filter by Profile Status
+      const matchesProfileStatus =
+       
+  
+      // Return true if all filters match
+      return (
+        matchesRequestTypes &&
+        matchesCategories &&
+        matchesEcosystems &&
+        matchesFundingStages &&
+        matchesPartnershipInterests &&
+        matchesLocation &&
+        matchesProfileStatus
+      );
+    });
+  }; */
+  
+
+  const filterByRequestTypes = (requests) => {
+    return requests.filter((request) => {
+      // Find the user with matching toUserId in the User collection
+      const user = users.find((u) => u.id === request.toUserId);
+      const isVerifiedUser = user && user.verified === true;
+      const isTgVerified=user && user.tgVerified === true;
+  
+      // Filter by Request Types
+      const matchesRequestTypes =
+        selectedRequestTypes.length === 0 ||
+        (request?.requestTypes?.length > 0 &&
+          request.requestTypes.some((type) =>
+            selectedRequestTypes.includes(type)
+          ));
+  
+      // Filter by Categories
+      const matchesCategories =
+        selectedCategories.length === 0 ||
+        (request?.tocategory?.length > 0 &&
+          request.tocategory.some((category) =>
+            selectedCategories.includes(category)
+          ));
+  
+      // Filter by Ecosystems
+      const matchesEcosystems =
+        selectedEcosystems.length === 0 ||
+        (request?.toecosystem?.length > 0 &&
+          request.toecosystem.some((ecosystem) =>
+            selectedEcosystems.includes(ecosystem)
+          ));
+  
+      // Filter by Funding Stages
+      const matchesFundingStages =
+        selectedFundingStages.length === 0 ||
+        (request?.tofundingstage?.length > 0 &&
+          request.tofundingstage.some((fs) =>
+            selectedFundingStages.includes(fs)
+          ));
+  
+      // Filter by Partnership Interests
+      const matchesPartnershipInterests =
+        selectedPartenerShipInterests.length === 0 ||
+        (request?.topartnershipinterest?.length > 0 &&
+          request.topartnershipinterest.some((interest) =>
+            selectedPartenerShipInterests.includes(interest)
+          ));
+  
+      // Filter by Location
+      const matchesLocation =
+        selectedLocation.length === 0 ||
+        (request?.location && selectedLocation.includes(request.location));
+  
+      // Filter by Profile Status
+      const matchesProfileStatus =
+        selectedProfileStatus.length === 0 ||
+        (selectedProfileStatus.includes("Email Verified") && isVerifiedUser || selectedProfileStatus.includes("TG Verified") && isTgVerified);
+  
+      // Return true if all filters match
+      return (
+        matchesRequestTypes &&
+        matchesCategories &&
+        matchesEcosystems &&
+        matchesFundingStages &&
+        matchesPartnershipInterests &&
+        matchesLocation &&
+        matchesProfileStatus
+      );
+    });
   };
-
-
+  
 
   //handling accept and deny
 
@@ -208,9 +358,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
   </td>
   
   <td className="date-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-      {/* {new Date(request.lastCreatedAt.seconds * 1000)
+       {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
-      .replace(/\//g, "-")} */}  {/* {new Date(request.lastCreatedAt.seconds * 1000).toLocaleDateString()} */} {request.date}
+      .replace(/\//g, "-")}   
   </td>
   
   <td className="message-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
@@ -221,7 +371,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
     />
     <div className="below-message-container-pending">
       <span>{request.message}</span>
-     {/*  <p className="below-message-pending">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p> */}
+      <p className="below-message-pending">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p> 
     </div>
   </div>
 </td>
@@ -232,7 +382,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
   </td>
   
   <td className="requestType-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-  {/*  {request?.requestTypes.join(", ")}  */}  {request.requestTypes}
+    {request?.requestTypes.join(", ")}  
   </td>
 
 
@@ -340,20 +490,20 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
     /> 
 
 
-     {/* {request.toname}  */} {request.name}
+      {request.toname}  
 
     </div>
   </td>
   
   <td className="date-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
 
-    {/*  {new Date(request.lastCreatedAt.seconds * 1000)
+      {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
-      .replace(/\//g, "-")}  */}
+      .replace(/\//g, "-")} 
   </td>
   
   <td className="message-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-  {/* <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request"
       src={request?.toprofilePicture}
       alt="profile-pic"
@@ -364,20 +514,20 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
       .toLocaleDateString()
       .replace(/\//g, "-")}</p>
     </div>
-  </div> */}
+  </div> 
 </td>
  
   
   <td className="location-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     {/* {request.tolocation} */} 
+     {request.tolocation} 
   </td>
   
   <td className="requestType-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-   {/*  {request?.requestTypes.join(", ")} */} 
+    {request?.requestTypes.join(", ")} 
   </td>
 
   <td className="status-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-   {/*  {request?.status} */}
+     {request?.status} 
   </td>
 
 
@@ -434,7 +584,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
   >
     <div className="name-request-rejected"
     style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
-     {/* <img
+      <img
       src={request?.toprofilePicture}
       alt="profile-pic"
       style={{
@@ -443,21 +593,21 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
         borderRadius: "50%",
         marginRight: "4px",
       }}
-    />  */}
+    />  
 
 
-{/* {request.toname} */} {request.name}
+ {request.toname} 
     </div>
   </td>
   
   <td className="date-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     {/*  {new Date(request.lastCreatedAt.seconds * 1000)
+       {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
-      .replace(/\//g, "-")}  */}  
+      .replace(/\//g, "-")}   
   </td>
   
   <td className="message-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-  {/* <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request-rejected"
       src={request?.toprofilePicture}
       alt="profile-pic"
@@ -466,16 +616,16 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
       <span>{request.message}</span>
       <p className="below-message">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p>
     </div>
-  </div> */}
+  </div> 
 </td>
  
   
   <td className="location-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-  {/* {request.tolocation} */}
+   {request.tolocation} 
   </td>
   
   <td className="requestType-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-  {/* {request?.requestTypes.join(", ")}  */}
+   {request?.requestTypes.join(", ")}  
   </td>
 
 

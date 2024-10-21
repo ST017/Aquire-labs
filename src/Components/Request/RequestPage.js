@@ -497,27 +497,27 @@ const RequestPage = ({ selectedFilters }) => {
 
   useEffect(()=>{
     setSampleFilterPendingList(
-      samplePendingList.filter((item, index) => {
+      matchingPendingRequests.filter((item, index) => {
         return (index >= pendingPage * 10) & (index < (pendingPage + 1) * 10);
       })
     );
-  },[samplePendingList,pendingPage])
+  },[matchingPendingRequests,pendingPage])
 
   useEffect(()=>{
     setSampleFilterSendList(
-      sampleSendList.filter((item, index) => {
+      matchingSendRequests.filter((item, index) => {
         return (index >= sendPage * 10) & (index < (sendPage + 1) * 10);
       })
     );
-  },[sampleSendList,sendPage])
+  },[matchingSendRequests,sendPage])
 
   useEffect(()=>{
     setSampleFilterRejectList(
-      sampleRejectList.filter((item, index) => {
+      matchingRejectedRequests.filter((item, index) => {
         return (index >= rejectPage * 10) & (index < (rejectPage + 1) * 10);
       })
     );
-  },[sampleRejectList,rejectPage])
+  },[matchingRejectedRequests,rejectPage])
  
  
   document.body.style.background = "rgba(234, 239, 255, 1)";
@@ -740,7 +740,7 @@ const RequestPage = ({ selectedFilters }) => {
     pageClassName={"page-item-request"}
     breakLabel="..."
     onPageChange={(event) => setPendingPage(event.selected)}
-    pageCount={Math.ceil(pendingRequests.length/10)}
+    pageCount={Math.ceil(matchingPendingRequests.length/10)}
     previousLabel={
       <div className="arrow-request-paginate">
         <IconContext.Provider value={{ color: "grey", size: "25px" }}>
@@ -762,7 +762,7 @@ const RequestPage = ({ selectedFilters }) => {
     pageClassName={"page-item-request"}
     breakLabel="..."
     onPageChange={(event) => setSendPage(event.selected)}
-    pageCount={Math.ceil(sendRequests.length/10)}
+    pageCount={Math.ceil(matchingSendRequests.length/10)}
     previousLabel={
       <div className="arrow-request-paginate">
         <IconContext.Provider value={{ color: "grey", size: "25px" }}>
@@ -785,7 +785,7 @@ const RequestPage = ({ selectedFilters }) => {
     pageClassName={"page-item-request"}
     breakLabel="..."
     onPageChange={(event) => setRejectPage(event.selected)}
-    pageCount={Math.ceil(rejectRequests.length/10)}
+    pageCount={Math.ceil(matchingRejectedRequests.length/10)}
     previousLabel={
       <div className="arrow-request-paginate">
         <IconContext.Provider value={{ color: "grey", size: "25px" }}>

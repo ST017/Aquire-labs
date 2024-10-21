@@ -45,7 +45,8 @@
   .table-container{
     width: 100%;
     background-color: #ffffff;
-    position :relative;
+    //position :relative;
+    overflow:scroll;
   }
   
   .segmented-control {
@@ -114,9 +115,9 @@
   .id-request{
     
 
-    width: 3.75%;
+    width: 50px;
 
-height: 64px;
+//height: 64px;
 padding: 12px 24px 12px 24px;
 gap: 12px;
 border: 0px 0px 1px 0px;
@@ -125,9 +126,9 @@ border: 0px 0px 1px 0px;
   }
   .name-request{
 
-    width: 12.01%;
+    width: 160px;
 
-    height: 44ppx;
+    //height: 44ppx;
     padding: 12px 24px 12px 0px;
     gap: 20px;
     //border: 0px 0px 1px 0px;
@@ -138,9 +139,9 @@ border: 0px 0px 1px 0px;
   .date-request{
     tect-align:center;
 
-    width: 12.31%;
+    width: 164px;
 
-height: 64px;
+
 padding: 10px 10px 10px 4px;
 gap: 12px;
 border: 0px 0px 1px 0px;
@@ -150,9 +151,9 @@ border: 0px 0px 1px 0px;
 
   .location-request{
 
-    width: 12.01%;
+    width: 160px;
 
-    height: 64px;
+    //height: 64px;
     padding: 12px 0px 12px 0px;
     gap: 12px;
     border: 0px 0px 1px 0px;
@@ -162,9 +163,9 @@ border: 0px 0px 1px 0px;
 
   .requestType-request{
 
-    width: 12.01%;
+    width: 160px;
 
-    height: 64px;
+    //height: 64px;
     padding: 12px 0px 12px 0px;
     gap: 12px;
     border: 0px 0px 1px 0px;
@@ -174,8 +175,8 @@ border: 0px 0px 1px 0px;
 
   .message-request{
 
-    width: 29.57%;
-    height: 64px;
+    width: 394px;
+    //height: 64px;
     padding: 10px 10px 10px 4px;
     gap: 6px;
     border: 0px 0px 1px 0px  ;
@@ -206,8 +207,8 @@ margin-top:10px;
   }
 
 .action-button-request{
-  width: 11.63%;
-height: 64px;
+  width: 155px;
+//height: 64px;
 padding: 12px 24px 12px 24px;
 gap: 12px;
 border: 0px 0px 1px 0px;
@@ -215,8 +216,8 @@ border: 0px 0px 1px 0px;
 
 }
 .status-request{
-  width: 12.01%;
-height: 64px;
+  width: 160px;
+//height: 64px;
 padding: 12px 24px 12px 24px;
 gap: 12px;
 border: 0px 0px 1px 0px;
@@ -224,8 +225,27 @@ border: 0px 0px 1px 0px;
 
 }
 
+.request-table th{
+
+  font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: middle;
+   
+   
+
+
+    border-bottom: 1px solid #F5F5F5;
+    padding: 10px;
+    text-align: left;
+    position:relative;
+
+}
+
   
-  .request-table th,
+  
   .request-table td {
    
     
@@ -235,6 +255,7 @@ border: 0px 0px 1px 0px;
     line-height: 20px;
     text-align: left;
     vertical-align: middle;
+    height:64px;
    
 
 
@@ -317,7 +338,7 @@ color:rgba(255, 255, 255, 1);
 
   .id-request-rejected{
     
-    width: 4.59%;
+    width: 50px;
 height: 64px;
 padding: 12px 24px 12px 24px;
 gap: 12px;
@@ -326,7 +347,7 @@ border: 0px 0px 1px 0px;
 
   }
   .name-request-rejected{
-    width: 14.70%;
+    width: 160px;
     height: 44ppx;
     padding: 12px 24px 12px 0px;
     gap: 20px;
@@ -337,7 +358,7 @@ border: 0px 0px 1px 0px;
 
   .date-request-rejected{
     tect-align:center;
-    width: 15.07%;
+    width: 164px;
 height: 64px;
 padding: 10px 10px 10px 4px;
 gap: 12px;
@@ -347,7 +368,7 @@ border: 0px 0px 1px 0px;
   }
 
   .location-request-rejected{
-    width: 14.70%;
+    width: 160px;
     height: 64px;
     padding: 12px 0px 12px 0px;
     gap: 12px;
@@ -357,8 +378,8 @@ border: 0px 0px 1px 0px;
   }
 
   .requestType-request-rejected{
-    width: 14.70%;
-    height: 64px;
+    width: 160px;
+    //height: 64px;
     padding: 12px 0px 12px 0px;
     gap: 12px;
     border: 0px 0px 1px 0px;
@@ -367,7 +388,7 @@ border: 0px 0px 1px 0px;
   }
 
   .message-request-rejected{
-    width: 36.21%;
+    width: 394px;
     height: 64px;
     padding: 10px 10px 10px 4px;
     gap: 6px;
@@ -408,8 +429,8 @@ margin-top:10px;
 
   .id-request-pending{
     
-    width: 3.94%;
-height: 64px;
+    width: 50px;
+//height: 64px;
 padding: 12px 24px 12px 24px;
 gap: 12px;
 border: 0px 0px 1px 0px;
@@ -417,8 +438,8 @@ border: 0px 0px 1px 0px;
 
   }
   .name-request-pending{
-    width: 12.61%;
-    height: 44ppx;
+    width: 160px;
+    //height: 44ppx;
     padding: 12px 24px 12px 0px;
     gap: 20px;
     //border: 0px 0px 1px 0px;
@@ -428,8 +449,8 @@ border: 0px 0px 1px 0px;
 
   .date-request-pending{
     text-align:center;
-    width: 12.93%;
-height: 64px;
+    width: 164px;
+//height: 64px;
 padding: 10px 10px 10px 4px;
 gap: 12px;
 border: 0px 0px 1px 0px;
@@ -438,8 +459,8 @@ border: 0px 0px 1px 0px;
   }
 
   .location-request-pending{
-    width: 12.61%;
-    height: 64px;
+    width: 160px;
+    //height: 64px;
     padding: 12px 0px 12px 0px;
     gap: 12px;
     border: 0px 0px 1px 0px;
@@ -448,8 +469,8 @@ border: 0px 0px 1px 0px;
   }
 
   .requestType-request-pending{
-    width: 12.61%;
-    height: 64px;
+    width: 160px;
+    //height: 64px;
     padding: 12px 0px 12px 0px;
     gap: 12px;
     border: 0px 0px 1px 0px;
@@ -458,8 +479,8 @@ border: 0px 0px 1px 0px;
   }
 
   .message-request-pending{
-    width: 31.07%;
-    height: 64px;
+    width: 394px;;
+    //height: 64px;
     padding: 10px 10px 10px 4px;
     gap: 6px;
     border: 0px 0px 1px 0px  ;
@@ -496,8 +517,8 @@ margin-top:10px;
   }
 
   .action-button-request-pending{
-    width: 12.61%;
-  height: 64px;
+    width: 160px;
+  //height: 64px;
   padding: 12px 24px 12px 24px;
   gap: 12px;
   border: 0px 0px 1px 0px;
@@ -518,7 +539,7 @@ gap:5px;
   }
   .request-page-accept-button-pending,
   .request-page-decline-button-pending {
-      width: 69px;       /* Fixed width */
+      width: 74px;       /* Fixed width */
       height: 28px;      /* Fixed height */
       display: flex;
       justify-content: center;
