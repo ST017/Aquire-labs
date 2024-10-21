@@ -54,7 +54,7 @@ const ProjectsSection = () => {
   const [sortedPaginatedProjectList,setSortedPaginatedProjectList]=useState([])
 
   const [selectedProject, setSelectedProject] = useState(null); // State to track the selected card
- const[popularPage, setPopularPage]=useState(0);
+
   // Function to handle when a card is clicked
   const handleCardClick = (project) => {
     // Save project data to localStorage or sessionStorage
@@ -250,10 +250,10 @@ const fetchUserConnectCounts = async (userId) => {
   useEffect(()=>{
     setSortedPaginatedProjectList(
       sortedProjectList.filter((item, index) => {
-        return (index >= popularPage * 4) & (index < (popularPage + 1) * 4);
+        return (index >= page * 4) & (index < (page + 1) * 4);
       })
     );
-  },[sortedProjectList,popularPage])
+  },[sortedProjectList,page])
 
   const handleSortChange = (e) => {
     const { name, checked } = e.target;
@@ -491,7 +491,6 @@ const fetchUserConnectCounts = async (userId) => {
     selectedLocation, 
     selectedProfileStatus, 
     page, 
-    popularPage,
     n
 ]);
 
@@ -531,9 +530,9 @@ const fetchUserConnectCounts = async (userId) => {
   containerClassName={"pagination"}
   activeClassName={"active"}
   pageClassName={"page-item"}
-  onPageChange={(event) => setPopularPage(event.selected)}
+  onPageChange={(event) => setPage(event.selected)}
   breakLabel="..."
-  pageCount={Math.ceil(userProjectList.length / 4)}
+  pageCount={Math.ceil(userProjectList.length / n)}
   previousLabel={
     <div className="arrow">
       <IconContext.Provider value={{ color: "#FFFFFF", size: "36px" }}>
@@ -565,7 +564,7 @@ const fetchUserConnectCounts = async (userId) => {
       
      <div  className="allprojects-filter-cntainer">
      <p className='ap'>All Projects <img src={star} alt='star'/></p>
-      <div >
+     <div className='filter-container'>
       {/* The clickable image */}
       <div className='filter-icon'>
         <span
@@ -599,8 +598,8 @@ const fetchUserConnectCounts = async (userId) => {
           <button onClick={applySorting}>Apply Sorting</button>
         </div>
       )}
-    </div>
-          
+    
+    </div>  
         
     </div>
         
