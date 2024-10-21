@@ -17,7 +17,7 @@ flex-direction:column;
   width: 100vw;
   gap:50px;
  background-color:white;
-  height: 100vh;
+ 
   // position: relative;
  
   // margin: 0 auto;
@@ -46,7 +46,7 @@ display: flex;
     padding-bottom:149px;
     width: 100%;
     background-color: rgba(234, 239, 255, 1);
-    height: 88.266vh;
+    // height: 88.266vh;
     text-align: center;
     align-self: center;
     justify-self: center;
@@ -237,7 +237,7 @@ export const VisionText = styled.p`
 // Partner logos
 export const PartnerLogos = styled.div`
   display: flex;
-  // gap:50px;
+  gap:50px;
   flex-direction: column;
   justify-content: center;
   width: 100%;
@@ -312,7 +312,7 @@ export const PartnerLogos = styled.div`
 // How It Works div
 export const HowItWorksSection = styled.div`
  
-      width: 100%;
+      width: 94.2%;
     // height: 101.805vh;
   // padding-left:80px;
   // padding-right:80px;
@@ -320,7 +320,7 @@ export const HowItWorksSection = styled.div`
   display:flex;
   flex-direction:column;
   justify-content:center;
-  align-items:center;
+  align-self:center;
   gap:86px;
   
 `;
@@ -350,7 +350,7 @@ export const StepContainer = styled.div`
   display: flex;
   
  flex-direction:row;
-  
+      gap: 51px;
   justify-content:space-between;
  
   @media(max-width:480px){
@@ -631,9 +631,9 @@ margin-top:5px;
 export const KeyFeaturesSection = styled.div`
   width: 100%;
     //  width: 94.7225%;
-      height:auto;
+      // height:auto;
     // height: 97.943vh;
-    
+        padding: 36px 38px;
   display: flex;
   justify-content: space-between;
   margin:auto;
@@ -748,104 +748,56 @@ flex-direction:column;
 `; */
  
 export const FeatureItem = styled.div`
-    // height: 13.5%;
-    height:100%;
-    width: 69.102%;
-  // position: relative;
-  display: flex;
-  
-  // align-items: center;
+  width: 100%;
+  // margin-bottom: 20px; /* Space between each item */
   cursor: pointer;
-  box-sizing:border-box;
- 
-  margin: 0; /* Space between items */
- 
-  img:first-child {
-    margin: 0; /* Increased space between logo and title */
-    transition: filter 0.3s ease; /* Smooth transition for color change */
-  }
- 
+  // border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  // padding-bottom: 16px;
+
   .title {
-  height:100%;
-   
-    margin: 0; /* Space between title and arrow stays reduced */
     font-size: 20px;
     font-weight: 700;
     line-height: 24.2px;
-    
     color: rgba(0, 0, 0, 1);
-   
   }
-  &.expanded .title{
-   height:100%;
+
+  &.expanded .title {
     color: rgba(0, 60, 255, 1);
   }
- 
- 
+
   .accordion-icon {
-   with:18px;
-   height:18px;
-   align-self:center;
-    transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition for rotation and color */
-    // margin-right: 200px;
+    transition: transform 0.3s ease;
   }
- 
+
   &.expanded .accordion-icon {
-  align-self:center;
-  with:18px;
-   height:18px;
-  height:100%;
     transform: rotate(180deg);
-    filter: brightness(0) saturate(100%) invert(27%) sepia(88%) saturate(4698%) hue-rotate(210deg) brightness(98%) contrast(109%);
-    /* This filter converts the icon to rgba(0, 60, 255, 1) */
   }
- 
+
+  img:first-child {
+    transition: filter 0.3s ease;
+  }
+
   &.expanded img:first-child {
-   height:auto;
     filter: brightness(0) saturate(100%) invert(27%) sepia(88%) saturate(4698%) hue-rotate(210deg) brightness(98%) contrast(109%);
-    /* This filter applies the same rgba(0, 60, 255, 1) color to the logo */
-  }
- 
-  /* Extra bottom margin when expanded */
-  &.expanded {
-  flex-direction: column;
-  height:100%;
-    // margin-bottom: 80px; /* More space when expanded to push the next item down */
   }
 `;
- 
+
 export const FeatureContent = styled.div`
-  // position: absolute;
-  width: 100%;
-  height:100%;
-  top: 100%; /* Places the content just below the feature item */
-  
-  // padding: 10px;
   display: none;
   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
- 
-  // z-index: 1;
- 
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 24.2px;
-  // text-align: left;
-  color: rgba(0, 60, 255, 1);
- 
-  p {
-  width: 144%;
-  height:100%;
-    margin: 0;
-    position:absolute;
-  }
- 
+
   &.expanded {
-   height:100%;
-   width: 100%;
-   box-sizing:border-box;
+  margin-top:20px;
+  font-family: Inter;
+font-size: 18px;
+font-weight: 700;
+line-height: 19.99px;
+text-align: left;
+
     display: block;
-    opacity: 1;
-   
+    // margin-top: 16px;
+    font-size: 16px;
+    color: rgba(0, 60, 255, 1);
   }
 `;
 
@@ -871,7 +823,8 @@ export const FeatureImage = styled.img`
 export const WhyUseSection = styled.div`
   display: flex;
   flex-direction:row;
-  width:100%;
+  width: 94.2%;
+  margin: auto;
   // height: 89.6vh;
   flex-direction: column; /* Ensures the content stacks vertically */
   /* Centers the content vertically */
@@ -917,10 +870,11 @@ export const WhyUseTitle = styled.h2`
 export const WhyUseContainer = styled.div`
   display: flex;
   flex-direction:row;
-
-  justify-content: space-evenly;
+    gap: 37px;
+  
   // gap: 16px;
   width:100%;
+  justify-content: space-between;
  
  
  
@@ -940,13 +894,14 @@ export const WhyUseCard = styled.div`
   padding: 24px;
   border: 1px transparent;
   border-radius: 16px;
+  width:100%;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
- 
+ height:278px;
   display: flex;
   flex-direction: column; /* Ensures the content stacks vertically */
   justify-content: center; /* Centers the content vertically */
   align-items: center; /* Centers the content horizontally */
- 
+ gap:50px;
   /* Hover effect */
   &:hover {
     background: #0028AA;
@@ -1003,9 +958,14 @@ export const WhyUseDescription = styled.p`
 export const WhyUseSubtitle = styled.p`
   // width:264px;
   // height:80px;
-  font-size: 16.5px;
-  font-weight:400;
+  
   margin:0;
+  font-family: Inter;
+font-size: 16.5px;
+font-weight: 400;
+line-height: 20px;
+text-align: center;
+
   
   color:rgba(66, 82, 107, 1);
   @media (max-width:480px) {
