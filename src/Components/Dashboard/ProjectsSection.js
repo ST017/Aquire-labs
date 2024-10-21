@@ -617,7 +617,7 @@ const fetchUserConnectCounts = async (userId) => {
 
       <div className='pagination-all-projects'>
       <ReactPaginate
-  containerClassName={"pagination"}
+  containerClassName={"pagination1"}
   activeClassName={"active"}
   pageClassName={"page-item"}
   onPageChange={(event) => setPage(event.selected)}

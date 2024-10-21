@@ -209,6 +209,14 @@ color:rgba(0, 0, 0, 1);
     padding: 0;
     margin: 0;
   }
+   .pagination1 {
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
   
   .page-item {
     display: flex;
