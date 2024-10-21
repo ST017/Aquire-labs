@@ -4,7 +4,8 @@
  
   display: flex;
   flex-direction: row;
- 
+ padding-right: 16px;
+ padding-left:16px;
   margin: 0;
  background-color:  rgba(234, 239, 255, 1);
 }
@@ -12,6 +13,7 @@
   height: 100%;
   align-items: center;
   width: 100%;
+  
   display:flex;
   flex-direction:row;
   justify-content: space-between;
@@ -85,8 +87,11 @@ text-align: left;
  
 }
 .headerli-img{
-  width: 14.4%;
-  height: 36.75%;
+  /* width: 14.4%;
+  height: 36.75%; */
+
+  width: 18px;
+  height: 18px;
  
  
  
@@ -118,9 +123,11 @@ text-align: left;
  
 .header-logout-btn{
   padding: 0;
-    height: 66.11%;
+    /* height: 66.11%; */
+    height:39px;
     box-sizing: border-box;
-    width: 84%;
+    /* width: 84%; */
+    width:125px;
     border: 1px solid #003CFF;
     background-color: transparent;
     color: #1A0DAB;

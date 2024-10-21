@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Dashboard/Navbar";
 import SortIcon from "../../Images/FilterIcon.png";
 import plus from "../../Images/Symbol.png";
@@ -7,9 +7,419 @@ import Sidebar from "../Dashboard/Sidebar";
 import { FilterProvider } from "../Dashboard/FilterContext";
 import "./RequestPage.css";
 import Magnify from '../../Images/Magnify.png';
+import ReactPaginate from "react-paginate";
+import { IconContext } from "react-icons/lib";
+import { AiFillLeftCircle, AiFillRightCircle } from 'react-icons/ai';
+import RightArrow from "../../Images/RightArrow.png";
+import LeftArrow from "../../Images/LeftArrow.png";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { db } from "../Firebase/firebase";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+
+
 const RequestPage = ({ selectedFilters }) => {
+   // Sample data for the tables
+   const pendingRequests = [
+    {
+      id: 1,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 2,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 3,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 4,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 5,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 6,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 7,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 8,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 9,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 10,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 11,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 12,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 13,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 14,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 15,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    // Add more rows as necessary
+  ];
+
+
+  const sendRequests = [
+    {
+      id: 1,
+      name: "send",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 2,
+      name: "PreludeSys Sen2",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 3,
+      name: "udeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 4,
+      name: "PrelSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 5,
+      name: "send",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 6,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 7,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 8,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 9,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 10,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 11,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 12,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 13,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 14,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 15,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    // Add more rows as necessary
+  ];
+
+  const rejectRequests = [
+    {
+      id: 1,
+      name: "Reject",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 2,
+      name: "Rejectall",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 3,
+      name: "udeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 4,
+      name: "PrelSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 5,
+      name: "send",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 6,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 7,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 8,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 9,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 10,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 11,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 12,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 13,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 14,
+      name: "PreludeSys",
+      location: "Hungary",
+      type: "Listing",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    {
+      id: 15,
+      name: "PreludeSys",
+      location: "India",
+      type: "Funding",
+      date: "09-12-2024",
+      message: "Last message: 23-10-2024",
+    },
+    // Add more rows as necessary
+  ];
+  
+
+
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userConnectsList, setUserConnectsList] = useState([]);
+  const [matchingPendingRequests, setMatchingPendingRequests] = useState([]);
+  const [matchingSendRequests, setMatchingSendRequests] = useState([]);
+  const [matchingRejectedRequests, setMatchingRejectedRequests] = useState([]);
+  const [samplePendingList,setSamplePendingList]=useState(pendingRequests)
+  const [sampleFilterPendingList,setSampleFilterPendingList]=useState([])
+  const [sampleSendList,setSampleSendList]=useState(sendRequests)
+  const [sampleFilterSendList,setSampleFilterSendList]=useState([])
+  const [sampleRejectList,setSampleRejectList]=useState(rejectRequests)
+  const [sampleFilterRejectList,setSampleFilterRejectList]=useState([])
+
   const [activeSegment, setActiveSegment] = useState("pending");
   const [searchQuery, setSearchQuery] = useState("");
+  //page
+  const[pendingPage,setPendingPage]=useState(0)
+  const [sendPage,setSendPage]=useState(0)
+  const [rejectPage,setRejectPage]=useState(0)
  
   const [showModal, setShowModal] = useState(false);
   const [sortOptions, setSortOptions] = useState({
@@ -18,11 +428,97 @@ const RequestPage = ({ selectedFilters }) => {
     az: false,
     za: false,
   });
+
+
+  useEffect(() => {
+    const auth = getAuth();
+    // Listen for authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+      }
+    });
+    // Cleanup the listener on unmount
+    return () => unsubscribe();
+  }, []);
+
+   // Fetch userConnects data
+   const fetchUserConnects = async () => {
+    try {
+      // Reference to the UserConnects collection
+      const userConnectsCollection = collection(db, "UserConnects");
+
+      // Fetch all documents from the collection
+      const querySnapshot = await getDocs(userConnectsCollection);
+
+      // Map through the documents to create a list
+      const userConnectsList = querySnapshot.docs.map((doc) => ({
+        id: doc.id, // Document ID
+        ...doc.data(), // Document data
+      }));
+
+      console.log("Fetched User Connects: ", userConnectsList);
+      setUserConnectsList(userConnectsList);
+
+      // Filter to find all matches where toUserId equals currentUser.uid and status==="pending"
+      const matchingPendingRequests = userConnectsList.filter(
+        (ele) => ele.toUserId === currentUser?.uid && ele.status === "Pending"
+      );
+
+      const matchingRejectedRequests = userConnectsList.filter(
+        (ele) =>
+          (/* ele.toUserId === currentUser?.uid || */
+            ele.userId === currentUser?.uid) &&
+          ele.status === "Denied"
+      );
+
+      // Filter to find all matches where userId equals currentUser.uid
+      const matchingSendRequests = userConnectsList.filter(
+        (ele) => ele.userId === currentUser?.uid
+      );
+
+      setMatchingPendingRequests(matchingPendingRequests);
+      setMatchingSendRequests(matchingSendRequests);
+      setMatchingRejectedRequests(matchingRejectedRequests);
+    } catch (e) {
+      alert("Error fetching Data");
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    fetchUserConnects();
+  }, [db, currentUser?.uid]);
  
   const handleSortChange = (e) => {
     const { name, checked } = e.target;
     setSortOptions({ ...sortOptions, [name]: checked });
   };
+
+  useEffect(()=>{
+    setSampleFilterPendingList(
+      matchingPendingRequests.filter((item, index) => {
+        return (index >= pendingPage * 10) & (index < (pendingPage + 1) * 10);
+      })
+    );
+  },[matchingPendingRequests,pendingPage])
+
+  useEffect(()=>{
+    setSampleFilterSendList(
+      matchingSendRequests.filter((item, index) => {
+        return (index >= sendPage * 10) & (index < (sendPage + 1) * 10);
+      })
+    );
+  },[matchingSendRequests,sendPage])
+
+  useEffect(()=>{
+    setSampleFilterRejectList(
+      matchingRejectedRequests.filter((item, index) => {
+        return (index >= rejectPage * 10) & (index < (rejectPage + 1) * 10);
+      })
+    );
+  },[matchingRejectedRequests,rejectPage])
+ 
  
   document.body.style.background = "rgba(234, 239, 255, 1)";
  
@@ -84,11 +580,11 @@ const RequestPage = ({ selectedFilters }) => {
             </svg>{" "}
             Rejected Requests
           </button>
-         {/*  <button
+           <button title="Coming Soon"
             className={`segment ${
               activeSegment === "followup" ? "active" : ""
             }`}
-            onClick={() => setActiveSegment("followup")}
+            /* onClick={() => setActiveSegment("followup")} */
           >
             <svg
               width="14"
@@ -101,7 +597,7 @@ const RequestPage = ({ selectedFilters }) => {
               <path d="M7 0.46875C10.7461 0.46875 13.7812 3.50391 13.7812 7.25C13.7812 10.9961 10.7461 14.0312 7 14.0312C3.25391 14.0312 0.21875 10.9961 0.21875 7.25C0.21875 3.50391 3.25391 0.46875 7 0.46875ZM10.9375 8.01562V6.48438C10.9375 6.32031 10.7734 6.15625 10.6094 6.15625H8.09375V3.64062C8.09375 3.47656 7.92969 3.3125 7.76562 3.3125H6.23438C6.04297 3.3125 5.90625 3.47656 5.90625 3.64062V6.15625H3.39062C3.19922 6.15625 3.0625 6.32031 3.0625 6.48438V8.01562C3.0625 8.20703 3.19922 8.34375 3.39062 8.34375H5.90625V10.8594C5.90625 11.0508 6.04297 11.1875 6.23438 11.1875H7.76562C7.92969 11.1875 8.09375 11.0508 8.09375 10.8594V8.34375H10.6094C10.7734 8.34375 10.9375 8.20703 10.9375 8.01562Z" />
             </svg>
             Follow up Requests
-          </button> */}
+          </button> 
         </div>
         <div className="sidebar-req-cntainer">
           <div className="requestpage-sidebar"><Sidebar /></div>
@@ -228,7 +724,85 @@ const RequestPage = ({ selectedFilters }) => {
               activeSegment={activeSegment}
               sortOptions={sortOptions}
               searchQuery={searchQuery}
+              fetchUserConnects={fetchUserConnects}
+              matchingPendingRequests={matchingPendingRequests}
+              matchingSendRequests={matchingSendRequests}
+              matchingRejectedRequests={matchingRejectedRequests}
+              sample={sampleFilterPendingList}
+              sampleSend={sampleFilterSendList}
+              sampleReject={sampleFilterRejectList}
+
             />
+            <div className="pagination-request">
+            {activeSegment==="pending" && (<ReactPaginate
+    containerClassName={"pagination-container-request"}
+    activeClassName={"active-request"}
+    pageClassName={"page-item-request"}
+    breakLabel="..."
+    onPageChange={(event) => setPendingPage(event.selected)}
+    pageCount={Math.ceil(matchingPendingRequests.length/10)}
+    previousLabel={
+      <div className="arrow-request-paginate">
+        <IconContext.Provider value={{ color: "grey", size: "25px" }}>
+          <img src={LeftArrow} alt="left-arrow"/>
+        </IconContext.Provider>
+      </div>
+    }
+    nextLabel={
+      <div className="arrow-request-paginate">
+        <IconContext.Provider value={{ color: "grey", size: "25px" }}>
+         <img src={RightArrow} alt="right-arrow"/>
+        </IconContext.Provider>
+      </div>
+    }
+  />)}
+  {activeSegment==="send" && (<ReactPaginate
+    containerClassName={"pagination-container-request"}
+    activeClassName={"active-request"}
+    pageClassName={"page-item-request"}
+    breakLabel="..."
+    onPageChange={(event) => setSendPage(event.selected)}
+    pageCount={Math.ceil(matchingSendRequests.length/10)}
+    previousLabel={
+      <div className="arrow-request-paginate">
+        <IconContext.Provider value={{ color: "grey", size: "25px" }}>
+          <img src={LeftArrow} alt="left-arrow"/>
+        </IconContext.Provider>
+      </div>
+    }
+    nextLabel={
+      <div className="arrow-request-paginate">
+        <IconContext.Provider value={{ color: "grey", size: "25px" }}>
+         <img src={RightArrow} alt="right-arrow"/>
+        </IconContext.Provider>
+      </div>
+    }
+  />)}
+
+  {activeSegment==="rejected" && (<ReactPaginate
+    containerClassName={"pagination-container-request"}
+    activeClassName={"active-request"}
+    pageClassName={"page-item-request"}
+    breakLabel="..."
+    onPageChange={(event) => setRejectPage(event.selected)}
+    pageCount={Math.ceil(matchingRejectedRequests.length/10)}
+    previousLabel={
+      <div className="arrow-request-paginate">
+        <IconContext.Provider value={{ color: "grey", size: "25px" }}>
+          <img src={LeftArrow} alt="left-arrow"/>
+        </IconContext.Provider>
+      </div>
+    }
+    nextLabel={
+      <div className="arrow-request-paginate">
+        <IconContext.Provider value={{ color: "grey", size: "25px" }}>
+         <img src={RightArrow} alt="right-arrow"/>
+        </IconContext.Provider>
+      </div>
+    }
+  />)}
+</div>
+
           </div>
           </div>
         </div>

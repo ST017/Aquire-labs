@@ -85,7 +85,7 @@ useEffect(() => {
       <div className="card-container" >
        
         <div className="card-logo" onClick={onClick}>
-          <img src={logo} alt="logo" aria-placeholder="img"></img>
+          <img className="cardlogo-img" src={logo} alt="logo" aria-placeholder="img"></img>
         </div>
         <div className="card2-content" >
           <div className="card2-sub-content">

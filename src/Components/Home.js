@@ -109,6 +109,7 @@ import RaisaLogo from "../Images/RaisaLogo.png"
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
  import Footer1 from "../Components/Dashboard/Footer.js";
+import MainNavbar from "./MainNavbar.js";
 const Home = () => {
   const [expandedFeature, setExpandedFeature] = useState(null);
  
@@ -174,40 +175,22 @@ const Home = () => {
  
  
   return (
-    <div style={{width:'100%',height:'100%'}}>
-    <Navbar>
-        <Logo src={RaisaLogo} alt="logo" />
-        <NavLinksCenter>
-          <NavLink1><Link to="/">Home</Link></NavLink1>
-          <NavLink1><Link to="/about">About</Link></NavLink1>
-          <NavLink1><Link to="/faq">Help</Link></NavLink1>
-        </NavLinksCenter>
-        <NavLinksRight>
-          <NavButton className="login">
-           
-            <NavLink className="login-lnk" onClick={() => window.open("/login", "_blank")}>
-              Login
-            </NavLink>
-          </NavButton>
-          <NavButton  className="signup" >
-            <NavLink  className="signup-lnk" onClick={() => window.open("/signup", "_blank")}>
-              Signup
-            </NavLink>
-          </NavButton>
-        </NavLinksRight>
-      </Navbar>
+    <div style={{width:'100vw',height:'100vh'}}>
+    <div className='home-nav'><MainNavbar/></div>
     <WrapperDiv>
       {/* Navbar */}
       
  
       {/* Hero Section */}
       <HeroSection>
+        <div style={{display:'flex',flexDirection:'column',gap:'42px',justifyContent:'center',alignItems:'center',alignSelf:'center',width: '68.264%'}}>
+          <div style={{display:'flex',flexDirection:'column',gap:'16px'}}>
         <HeroTitle>One Platform, Infinite Partnership Opportunities</HeroTitle>
         <HeroSubtitle>
-          Build powerful collaborations and expand your project's horizons through
+          Build powerful collaborations and expand your project's horizons  through strategic partnerships.
         </HeroSubtitle>
-        <HeroSubtitle1>strategic partnerships.</HeroSubtitle1>
-        <GetStartedButton onClick={()=>window.open("/signup","_blank")}>Get started</GetStartedButton>
+        </div>
+        <GetStartedButton onClick={()=>window.open("/signup","_blank")}>Get started</GetStartedButton></div>
       </HeroSection>
  
       {/* Partner Logos */}
@@ -258,63 +241,71 @@ const Home = () => {
               <img src={Cardlogo1} alt="card-logo" />
             </StepIcon1>
             <StepNumber>Step 1:</StepNumber>
+            <div style={{display:'flex',flexDirection:'column',gap:'22.67px'}}>
             <StepHeading>Discover Potential Partners</StepHeading>
             <StepDescription1>
               Utilize our advanced search and filter tools to find projects that
               fit your goals. Customize filters by category, interests,
               location, size, and blockchain platforms.
             </StepDescription1>
+            </div>
           </StepCard>
           <StepCard>
-            <StepIcon2>
+            <StepIcon1>
               <img src={Cardlogo2} alt="card-logo" />
-            </StepIcon2>
+            </StepIcon1>
             <StepNumber>Step 2:</StepNumber>
+            <div style={{display:'flex',flexDirection:'column',gap:'22.67px'}}>
             <StepHeading>Send Partenership Request</StepHeading>
-            <StepDescription2>
+            <StepDescription1>
               Connect with Potential partners by sending customizes partnership
               requests. Clearly state your Collaboration interest to initiate
               meaningful conversations.
-            </StepDescription2>
+            </StepDescription1>
+            </div>
           </StepCard>
           <StepCard>
             <StepIcon1>
               <img src={Cardlogo3} alt="card-logo" />
             </StepIcon1>
             <StepNumber>Step 3: </StepNumber>
+            <div style={{display:'flex',flexDirection:'column',gap:'22.67px'}}>
             <StepHeading>
               Manage
-              <br />
+              
               Requests
             </StepHeading>
-            <StepDescription3>
+            <StepDescription1>
               Track all your partnership requests- Sent, Receive, & Pending
               through an intuitive dashboard. Approve or decline requests &
               request additional information if needed.
-            </StepDescription3>
+            </StepDescription1>
+            </div>
           </StepCard>
           <StepCard>
             <StepIcon1>
               <img src={Cardlogo4} alt="card-logo" />
             </StepIcon1>
             <StepNumber>Step 4:</StepNumber>
+            <div style={{display:'flex',flexDirection:'column',gap:'22.67px'}}>
             <StepHeading>
               Collaborate
-              <br />
+              
               Effortlessly
             </StepHeading>
-            <StepDescription4>
+            <StepDescription1>
               Once a partner is confirmed, Our team will help your coordinate
               with your partner using your preferred Communication channels,
               ensuring smooth collaborations.
-            </StepDescription4>
+            </StepDescription1>
+            </div>
           </StepCard>
         </StepContainer>
       </HowItWorksSection>
       {/* KeyFeatures Section */}
       <KeyFeaturesSection>
         <FeaturesText>
-          <div style={{gap:'32px', display:'flex',flexDirection:"column"}}>
+          <div style={{gap:'32px', display:'flex',flexDirection:"column", width:'40%'}}>
           <FeaturesHeading>Key Features</FeaturesHeading>
           <FeaturesDescription>
             At Raisa Network, we simplify the process of finding and connecting
@@ -326,17 +317,23 @@ const Home = () => {
           <FeatureList>
           {features.map((feature, index) => (
     <FeatureItem key={index} className={expandedFeature === index ? 'expanded' : ''} onClick={() => toggleFeature(index)}>
+      <div style={{display:'flex',gap:'36px'}}>
     <img src={feature.icon} alt={`Icon for ${feature.title}`} />
+    <div style={{ width:'100%',display:'flex', justifyContent:'center', alignItems:'center'}}>
     <div className="title">
       {feature.title}
     </div>
-    <img
+    <div ><img
       src={AccordianIcon}
       alt="Accordion icon"
       className={`accordion-icon ${expandedFeature === index ? 'expanded' : ''}`}
     />
+    </div>
+    </div>
+    </div>
     <FeatureContent className={expandedFeature === index ? 'expanded' : ''}>
-      <p>{feature.description}</p>
+      
+      <div>{feature.description}</div>
     </FeatureContent>
   </FeatureItem>
  

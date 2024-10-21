@@ -42,6 +42,7 @@ const CompanyDetails = () => {
   const [requestReceived, setRequestReceived] = useState(0);
   const [userConnectsDocId, setUserConnectsDocId] = useState(null);
   const [isVerified, setIsVerified] = useState(false);
+  
 
   /* category code  */
   //const [showAllCategories, setShowAllCategories] = useState(false);
@@ -129,10 +130,10 @@ const CompanyDetails = () => {
   }, [selectedProject, db]);
 
   // Function to handle cancel request (delete operation)
-  const handleCancelRequest = async () => {
+  const handleCancelRequest = async (docid) => {
     try {
       // Reference to the document in UserConnects collection
-      const docRef = doc(db, "UserConnects", matchingRequests.id);
+      const docRef = doc(db, "UserConnects", docid);
 
       // Delete the document
       await deleteDoc(docRef);
@@ -167,19 +168,25 @@ const CompanyDetails = () => {
       const docRef = await addDoc(collection(db, "UserConnects"), {
         createdAt: new Date(), // current timestamp
         projectId: selectedProject?.id || "", // project ID (from selected project)
-        status: "pending", // initial status is "pending"
+        status: "Pending", // initial status is "pending"
         toUserId: selectedProject?.userId || "", // the user who owns the project
         userId: currentUser?.uid || "", // the current user sending the request
         requestTypes: [...requestTypes], // Array of selected request types
         message: message, // The message input from the user
         location: myproject?.location || "", //fromuser location
-        name: myproject?.name, //fromuser project name
-
-        profilePicture:myproject?.profilePicture,
-        toname:selectedProject?.name,
+        name: myproject?.name || "", //fromuser project name
+        profilePicture:myproject?.profilePicture || "",
+        toname:selectedProject?.name || "",
         tolocation:selectedProject?.location || "",
-        toprofilePicture:selectedProject?.profilePicture
+        toprofilePicture:selectedProject?.profilePicture || "",
+        lastCreatedAt:new Date(),
+        tocategory:selectedProject?.category || "",
+        tofundingstage:selectedProject?.fundingStatus || "",
+        toecosystem:selectedProject?.blockchain || "",
+        topartnershipinterest:selectedProject?.partnershipInterest || "",
+        
 
+        
       });
 
       console.log("Document written with ID: ", docRef.id);
@@ -265,7 +272,7 @@ const CompanyDetails = () => {
 
   return (
     <div className="companydetails-container">
-      <Navbar />
+      <div className="companydetails-navbar"><Navbar /></div>
       <div className="companydetails-sub">
         <div className="bread-container">
           <div className="bbcmb" aria-label="breadcrumb">
@@ -386,10 +393,10 @@ const CompanyDetails = () => {
                       <>
                         {matchingRequests?.userId === currentUser?.uid ? (
                           <div>
-                            {matchingRequests.status === "pending" ? (
+                            {matchingRequests.status === "Pending" ? (
                               <button
                                 className="send-request-btn"
-                                onClick={handleCancelRequest}
+                                onClick={()=>handleCancelRequest(matchingRequests.id)}
                               >
                                 Cancel
                               </button>

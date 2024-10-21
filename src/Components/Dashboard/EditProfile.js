@@ -51,6 +51,15 @@ const EditProfile = ({ setIsEditProfile }) => {
   const [profilePicture, setProfilePicture] = useState(null); // Holds the file for profile picture
  
   const [isProfileEditing, setIsProfileEditing] = useState(false);
+
+  //For multiple inputs create an array
+  const [selectedFundingStageArray, setSelectedFundingStageArray] = useState([]);
+  const [selectedLocationArray, setSelectedLocationArray] = useState([]);
+  const [selectedPartnershipInterestArray, setSelectedPartnershipInterestArray] = useState([]);
+  const [selectedEcosystemArray, setSelectedEcosystemArray] = useState([]);
+  const [selectedCategoryArray, setSelectedCategoryArray] = useState([]);
+  const [selectedRequestTypeArray, setSelectedRequestTypeArray] = useState([]);
+
  
   const storage = getStorage();
  
@@ -104,11 +113,31 @@ const EditProfile = ({ setIsEditProfile }) => {
     fetchData();
   }, [currentUser]);
 
-  const [selectedarr, setSelectedarr] = useState([]);
-
-  const handleChange = (event) => {
+ 
+  //update array
+  const handleFundingStageChange = (event) => {
     const { value } = event.target;
-    setSelectedarr(value); // Update the array with selected values
+    setSelectedFundingStageArray(value);
+  };
+  const handleLocationChange = (event) => {
+    const { value } = event.target;
+    setSelectedLocationArray(value);
+  };
+  const handlePartnershipInterstChange = (event) => {
+    const { value } = event.target;
+    setSelectedPartnershipInterestArray(value);
+  };
+  const handleEcosystemChange = (event) => {
+    const { value } = event.target;
+    setSelectedEcosystemArray(value);
+  };
+  const handleCategoryChange = (event) => {
+    const { value } = event.target;
+    setSelectedCategoryArray(value);
+  };
+  const handleRequestTypeChange = (event) => {
+    const { value } = event.target;
+    setSelectedRequestTypeArray(value);
   };
 
 
@@ -541,7 +570,7 @@ const EditProfile = ({ setIsEditProfile }) => {
         </div>
  
         <div className="form-row">
-          <div className="form-group">
+          {/* <div className="form-group">
             <label>Location</label>
             <select
               name="location"
@@ -552,7 +581,34 @@ const EditProfile = ({ setIsEditProfile }) => {
                 return <option value={ele}>{ele}</option>;
               })}
             </select>
-          </div>
+          </div> */}
+          <div className="form-group">
+          <label>Location</label>
+          <FormControl fullWidth>
+      <Select
+        name="location"
+        multiple
+        value={selectedLocationArray}  // Bind the selected values to the state
+        onChange={handleLocationChange}  // Handle changes
+        required
+        renderValue={(selected) => (
+          <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+          </Box>
+        )}
+        displayEmpty
+      >
+        {LocationList.map((ele) => (
+          <MenuItem key={ele} value={ele}>
+            <Checkbox checked={selectedLocationArray.indexOf(ele) > -1} />
+            <ListItemText primary={ele} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+        </div>
+
+
  
          {/*  <div className="form-group">
   
@@ -587,8 +643,8 @@ const EditProfile = ({ setIsEditProfile }) => {
       <Select
         name="fundingstage"
         multiple
-        value={selectedarr}  // Bind the selected values to the state
-        onChange={handleChange}  // Handle changes
+        value={selectedFundingStageArray}  // Bind the selected values to the state
+        onChange={handleFundingStageChange}  // Handle changes
         required
         renderValue={(selected) => (
           <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -599,7 +655,7 @@ const EditProfile = ({ setIsEditProfile }) => {
       >
         {FundingStageList.map((ele) => (
           <MenuItem key={ele} value={ele}>
-            <Checkbox checked={selectedarr.indexOf(ele) > -1} />
+            <Checkbox checked={selectedFundingStageArray.indexOf(ele) > -1} />
             <ListItemText primary={ele} />
           </MenuItem>
         ))}
@@ -610,10 +666,10 @@ const EditProfile = ({ setIsEditProfile }) => {
      
       
         </div>
-        {console.log(selectedarr)}
+        {console.log(selectedFundingStageArray)}
  
         <div className="form-row">
-          <div className="form-group">
+          {/* <div className="form-group">
             <label>Partnership Interests</label>
             <select
               name="partnership"
@@ -624,9 +680,35 @@ const EditProfile = ({ setIsEditProfile }) => {
                 return <option value={ele}>{ele}</option>;
               })}
             </select>
-          </div>
+          </div> */}
+
+<div className="form-group">
+          <label>Partnership Interests</label>
+          <FormControl fullWidth>
+      <Select
+        name="partnership interest"
+        multiple
+        value={selectedPartnershipInterestArray}  // Bind the selected values to the state
+        onChange={handlePartnershipInterstChange}  // Handle changes
+        required
+        renderValue={(selected) => (
+          <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+          </Box>
+        )}
+        displayEmpty
+      >
+        {PartnershipInterestList.map((ele) => (
+          <MenuItem key={ele} value={ele}>
+            <Checkbox checked={selectedPartnershipInterestArray.indexOf(ele) > -1} />
+            <ListItemText primary={ele} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+        </div>
  
-          <div className="form-group">
+          {/* <div className="form-group">
             <label>Ecosystem</label>
             <select 
               name="ecosystem"
@@ -637,11 +719,37 @@ const EditProfile = ({ setIsEditProfile }) => {
                 return <option value={ele}>{ele}</option>;
               })}
             </select>
-          </div>
+          </div> */}
+
+<div className="form-group">
+          <label>Ecosystem</label>
+          <FormControl fullWidth>
+      <Select
+        name="ecosystem"
+        multiple
+        value={selectedEcosystemArray}  // Bind the selected values to the state
+        onChange={handleEcosystemChange}  // Handle changes
+        required
+        renderValue={(selected) => (
+          <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+          </Box>
+        )}
+        displayEmpty
+      >
+        {EcosystemsList.map((ele) => (
+          <MenuItem key={ele} value={ele}>
+            <Checkbox checked={selectedEcosystemArray.indexOf(ele) > -1} />
+            <ListItemText primary={ele} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+        </div>
         </div>
 
         <div className="form-row">
-          <div className="form-group">
+          {/* <div className="form-group">
             <label>Category</label>
             <select
               name="category"
@@ -652,9 +760,34 @@ const EditProfile = ({ setIsEditProfile }) => {
                 return <option value={ele}>{ele}</option>;
               })}
             </select>
-          </div>
- 
+          </div> */}
           <div className="form-group">
+          <label>Funding Stage</label>
+          <FormControl fullWidth>
+      <Select
+        name="category"
+        multiple
+        value={selectedCategoryArray}  // Bind the selected values to the state
+        onChange={handleCategoryChange}  // Handle changes
+        required
+        renderValue={(selected) => (
+          <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+          </Box>
+        )}
+        displayEmpty
+      >
+        {CategoryList.map((ele) => (
+          <MenuItem key={ele} value={ele}>
+            <Checkbox checked={selectedCategoryArray.indexOf(ele) > -1} />
+            <ListItemText primary={ele} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+        </div>
+ 
+          {/* <div className="form-group">
             <label>Request Type</label>
             <select
               name="Request Type"
@@ -665,7 +798,33 @@ const EditProfile = ({ setIsEditProfile }) => {
                 return <option value={ele}>{ele}</option>;
               })}
             </select>
-          </div>
+          </div> */}
+
+<div className="form-group">
+          <label>Request Types</label>
+          <FormControl fullWidth>
+      <Select
+        name="request type"
+        multiple
+        value={selectedRequestTypeArray}  // Bind the selected values to the state
+        onChange={handleRequestTypeChange}  // Handle changes
+        required
+        renderValue={(selected) => (
+          <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+          </Box>
+        )}
+        displayEmpty
+      >
+        {RequestTypeList.map((ele) => (
+          <MenuItem key={ele} value={ele}>
+            <Checkbox checked={selectedRequestTypeArray.indexOf(ele) > -1} />
+            <ListItemText primary={ele} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+        </div>
         </div>
  
         <div className="form-group">

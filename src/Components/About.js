@@ -12,33 +12,38 @@ import twitter from '../Images/abouttwitter.png'
 const About = () => {
 
   return (
-    <>
+
+    <div className='about-container'>
     
     
-    <MainNavbar/>
     
-    <div className='layout-container '>
-    <div className="content">
-    <h1  className='text-lin3'> We Do The</h1>
+   <div className='about-Navbar'> <MainNavbar/></div>
+   
+   <div className='flower-with-text'>
+   <div className="content">
+    <div  className='text-lin3'> We Do The</div>
     <div className='bold-text'>Groundwork,</div>
-    <h1 className='text-lin3'>
-So You Can <strong className='bold-text'>Build</strong> The
+    <div className='text-lin3'>
+    So You Can <strong className='bold-text'>Build</strong> The
 <br />
 Future.
-</h1>
+</div>
+
+
+  </div>
+  {/* <img src={flower} alt="flower" class="flower-image-0" />
+<img src={flower} alt="flower" class="flower-image-1" />
+<img src={flower} alt="flower" class="flower-image-2" />
+<img src={flower} alt="flower" class="flower-image-3" />
+<img src={flower} alt="flower" class="flower-image-4" />
+<img src={flower} alt="flower" class="flower-image-5" /> */}
+  </div>
+  
+
 
     
-  </div>
-      
-    <div className="layout-item item-1"><img src={flower} alt='flower'/></div>
-    <div className="layout-item item-2"><img src={flower} alt='flower'/></div>
-    <div className="layout-item item-3"><img src={flower} alt='flower'/></div>
-    <div className="layout-item item-4"><img src={flower} alt='flower'/></div>
-    <div className="layout-item item-5"><img src={flower} alt='flower'/></div>
-    <div className="layout-item item-6"><img src={flower} alt='flower'/></div>
     
-  
-  </div>
+  <div className="about-text-container">
   <section className="main-section">
     
     <p className="main-text">
@@ -59,9 +64,14 @@ Future.
     <div class="team-grid">
     
       <div class="team-card">
+        <div className='team-card-container'>
+
         <img src={profile} alt="Zane Sorell" class="team-image" />
-        <h3>Zane Sorell</h3>
+        <div className='name-sub-link'>
+          <div className='name-sub'>
+        <h3 className='team-member-name'>Zane Sorell</h3>
         <p class="team-subtitle">CEO</p>
+        </div>
         <div class="social-icons">
           <a href="#" class="social-link">
             <img src={twitter} alt="Twitter" />
@@ -69,14 +79,21 @@ Future.
           <a href="#" class="social-link">
             <img src={linked} alt="LinkedIn" />
           </a>
+        </div>
+        </div>
         </div>
       </div>
 
 
       <div class="team-card">
+        <div className='team-card-container'>
+
         <img src={profile} alt="Zane Sorell" class="team-image" />
-        <h3>Zane Sorell</h3>
+        <div className='name-sub-link'>
+          <div className='name-sub'>
+        <h3 className='team-member-name'>Zane Sorell</h3>
         <p class="team-subtitle">CEO</p>
+        </div>
         <div class="social-icons">
           <a href="#" class="social-link">
             <img src={twitter} alt="Twitter" />
@@ -84,14 +101,21 @@ Future.
           <a href="#" class="social-link">
             <img src={linked} alt="LinkedIn" />
           </a>
+        </div>
+        </div>
         </div>
       </div>
 
 
       <div class="team-card">
+        <div className='team-card-container'>
+
         <img src={profile} alt="Zane Sorell" class="team-image" />
-        <h3>Zane Sorell</h3>
+        <div className='name-sub-link'>
+          <div className='name-sub'>
+        <h3 className='team-member-name'>Zane Sorell</h3>
         <p class="team-subtitle">CEO</p>
+        </div>
         <div class="social-icons">
           <a href="#" class="social-link">
             <img src={twitter} alt="Twitter" />
@@ -99,14 +123,21 @@ Future.
           <a href="#" class="social-link">
             <img src={linked} alt="LinkedIn" />
           </a>
+        </div>
+        </div>
         </div>
       </div>
 
 
       <div class="team-card">
+        <div className='team-card-container'>
+
         <img src={profile} alt="Zane Sorell" class="team-image" />
-        <h3>Zane Sorell</h3>
+        <div className='name-sub-link'>
+          <div className='name-sub'>
+        <h3 className='team-member-name'>Zane Sorell</h3>
         <p class="team-subtitle">CEO</p>
+        </div>
         <div class="social-icons">
           <a href="#" class="social-link">
             <img src={twitter} alt="Twitter" />
@@ -114,14 +145,21 @@ Future.
           <a href="#" class="social-link">
             <img src={linked} alt="LinkedIn" />
           </a>
+        </div>
+        </div>
         </div>
       </div>
 
 
       <div class="team-card">
+        <div className='team-card-container'>
+
         <img src={profile} alt="Zane Sorell" class="team-image" />
-        <h3>Zane Sorell</h3>
+        <div className='name-sub-link'>
+          <div className='name-sub'>
+        <h3 className='team-member-name'>Zane Sorell</h3>
         <p class="team-subtitle">CEO</p>
+        </div>
         <div class="social-icons">
           <a href="#" class="social-link">
             <img src={twitter} alt="Twitter" />
@@ -129,14 +167,21 @@ Future.
           <a href="#" class="social-link">
             <img src={linked} alt="LinkedIn" />
           </a>
+        </div>
+        </div>
         </div>
       </div>
 
 
       <div class="team-card">
+        <div className='team-card-container'>
+
         <img src={profile} alt="Zane Sorell" class="team-image" />
-        <h3>Zane Sorell</h3>
+        <div className='name-sub-link'>
+          <div className='name-sub'>
+        <h3 className='team-member-name'>Zane Sorell</h3>
         <p class="team-subtitle">CEO</p>
+        </div>
         <div class="social-icons">
           <a href="#" class="social-link">
             <img src={twitter} alt="Twitter" />
@@ -144,14 +189,21 @@ Future.
           <a href="#" class="social-link">
             <img src={linked} alt="LinkedIn" />
           </a>
+        </div>
+        </div>
         </div>
       </div>
 
 
       <div class="team-card">
+        <div className='team-card-container'>
+
         <img src={profile} alt="Zane Sorell" class="team-image" />
-        <h3>Zane Sorell</h3>
+        <div className='name-sub-link'>
+          <div className='name-sub'>
+        <h3 className='team-member-name'>Zane Sorell</h3>
         <p class="team-subtitle">CEO</p>
+        </div>
         <div class="social-icons">
           <a href="#" class="social-link">
             <img src={twitter} alt="Twitter" />
@@ -159,13 +211,20 @@ Future.
           <a href="#" class="social-link">
             <img src={linked} alt="LinkedIn" />
           </a>
+        </div>
+        </div>
         </div>
       </div>
 
       <div class="team-card">
+        <div className='team-card-container'>
+
         <img src={profile} alt="Zane Sorell" class="team-image" />
-        <h3>Zane Sorell</h3>
+        <div className='name-sub-link'>
+          <div className='name-sub'>
+        <h3 className='team-member-name'>Zane Sorell</h3>
         <p class="team-subtitle">CEO</p>
+        </div>
         <div class="social-icons">
           <a href="#" class="social-link">
             <img src={twitter} alt="Twitter" />
@@ -174,7 +233,57 @@ Future.
             <img src={linked} alt="LinkedIn" />
           </a>
         </div>
+        </div>
+        </div>
       </div>
+
+
+      <div class="team-card">
+        <div className='team-card-container'>
+
+        <img src={profile} alt="Zane Sorell" class="team-image" />
+        <div className='name-sub-link'>
+          <div className='name-sub'>
+        <h3 className='team-member-name'>Zane Sorell</h3>
+        <p class="team-subtitle">CEO</p>
+        </div>
+        <div class="social-icons">
+          <a href="#" class="social-link">
+            <img src={twitter} alt="Twitter" />
+          </a>
+          <a href="#" class="social-link">
+            <img src={linked} alt="LinkedIn" />
+          </a>
+        </div>
+        </div>
+        </div>
+      </div>
+
+
+
+      <div class="team-card">
+        <div className='team-card-container'>
+
+        <img src={profile} alt="Zane Sorell" class="team-image" />
+        <div className='name-sub-link'>
+          <div className='name-sub'>
+        <h3 className='team-member-name'>Zane Sorell</h3>
+        <p class="team-subtitle">CEO</p>
+        </div>
+        <div class="social-icons">
+          <a href="#" class="social-link">
+            <img src={twitter} alt="Twitter" />
+          </a>
+          <a href="#" class="social-link">
+            <img src={linked} alt="LinkedIn" />
+          </a>
+        </div>
+        </div>
+        </div>
+      </div>
+
+
+
 
       
 
@@ -184,10 +293,10 @@ Future.
       
     </div>
   </div>
-
+  </div>
 
   <Footer/>
-  </>
+ </div>
   )
 }
 

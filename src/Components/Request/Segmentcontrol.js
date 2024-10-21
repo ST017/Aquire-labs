@@ -3,8 +3,10 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDocs,
+  serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
 
@@ -14,29 +16,30 @@ import { FilterContext } from "../Dashboard/FilterContext";
 import Message from "./Message";
 
 import Raisa from "../../Images/1.png"
+import RequestMessage from "./RequestMessage";
 
 
-const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
+const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConnects,matchingPendingRequests,matchingRejectedRequests,matchingSendRequests,sample,sampleSend,sampleReject }) => {
   // const [activeSegment, setActiveSegment] = useState("pending");
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userConnectsList, setUserConnectsList] = useState([]);
-  const [matchingPendingRequests, setMatchingPendingRequests] = useState([]);
-  const [matchingSendRequests, setMatchingSendRequests] = useState([]);
-  const [matchingRejectedRequests, setMatchingRejectedRequests] = useState([]);
 
-  const { selectedRequestTypes } = useContext(FilterContext);
+  
 
-  useEffect(() => {
-    const auth = getAuth();
-    // Listen for authentication state changes
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user);
-      }
-    });
-    // Cleanup the listener on unmount
-    return () => unsubscribe();
-  }, []);
+  const { selectedCategories,selectedEcosystems,selectedFundingStages,selectedRequestTypes,selectedPartenerShipInterests,selectedLocation,selectedProfileStatus } = useContext(FilterContext);
+  const [users, setUsers] = useState([]); 
+
+
+
+ // Fetch users from Firestore
+ useEffect(() => {
+  const fetchUsers = async () => {
+    const usersSnapshot = await getDocs(collection(db, 'User'));
+    const usersList = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setUsers(usersList);
+  };
+
+  fetchUsers();
+}, []);
+  
 
   // Sort the filtered requests
   const sortRequests = (requests) => {
@@ -87,7 +90,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   };
 
   // Filter requests based on selected request types
-  const filterByRequestTypes = (requests) => {
+  /* const filterByRequestTypes = (requests) => {
     if (selectedRequestTypes.length > 0) {
       return requests.filter(
         (request) =>
@@ -99,61 +102,153 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     } else {
       return requests;
     }
+  }; */
+
+
+ /*  const filterByRequestTypes = (requests) => {
+    return requests.filter((request) => {
+      // Find the user with matching toUserId in the User collection
+      const user = users.find((u) => u.id === request.toUserId);
+      const isVerifiedUser = user && user.verified === true;
+      // Filter by Request Types
+      const matchesRequestTypes =
+        selectedRequestTypes.length === 0 ||
+        (request?.requestTypes?.length > 0 &&
+          request.requestTypes.some((type) =>
+            selectedRequestTypes.includes(type)
+          ));
+  
+      // Filter by Categories
+      const matchesCategories =
+        selectedCategories.length === 0 ||
+        (request?.tocategory?.length > 0 &&
+          request.tocategory.some((category) =>
+            selectedCategories.includes(category)
+          ));
+  
+      // Filter by Ecosystems
+      const matchesEcosystems =
+        selectedEcosystems.length === 0 ||
+        (request?.toecosystem?.length > 0 &&
+          request.toecosystem.some((ecosystem) =>
+            selectedEcosystems.includes(ecosystem)
+          ));
+  
+      // Filter by Funding Stages
+      const matchesFundingStages =
+        selectedFundingStages.length === 0 ||
+        (request?.tofundingstage?.length >0  &&
+          request.tofundingstage.some((fs)=>selectedFundingStages.includes(fs))
+          );
+  
+      // Filter by Partnership Interests
+      const matchesPartnershipInterests =
+        selectedPartenerShipInterests.length === 0 ||
+        (request?.topartnershipinterest?.length > 0 &&
+          request.topartnershipinterest.some((interest) =>
+            selectedPartenerShipInterests.includes(interest)
+          ));
+  
+      // Filter by Location
+      const matchesLocation =
+        selectedLocation.length === 0 ||
+        (request?.location && selectedLocation.includes(request.location));
+  
+      // Filter by Profile Status
+      const matchesProfileStatus =
+       
+  
+      // Return true if all filters match
+      return (
+        matchesRequestTypes &&
+        matchesCategories &&
+        matchesEcosystems &&
+        matchesFundingStages &&
+        matchesPartnershipInterests &&
+        matchesLocation &&
+        matchesProfileStatus
+      );
+    });
+  }; */
+  
+
+  const filterByRequestTypes = (requests) => {
+    return requests.filter((request) => {
+      // Find the user with matching toUserId in the User collection
+      const user = users.find((u) => u.id === request.toUserId);
+      const isVerifiedUser = user && user.verified === true;
+      const isTgVerified=user && user.tgVerified === true;
+  
+      // Filter by Request Types
+      const matchesRequestTypes =
+        selectedRequestTypes.length === 0 ||
+        (request?.requestTypes?.length > 0 &&
+          request.requestTypes.some((type) =>
+            selectedRequestTypes.includes(type)
+          ));
+  
+      // Filter by Categories
+      const matchesCategories =
+        selectedCategories.length === 0 ||
+        (request?.tocategory?.length > 0 &&
+          request.tocategory.some((category) =>
+            selectedCategories.includes(category)
+          ));
+  
+      // Filter by Ecosystems
+      const matchesEcosystems =
+        selectedEcosystems.length === 0 ||
+        (request?.toecosystem?.length > 0 &&
+          request.toecosystem.some((ecosystem) =>
+            selectedEcosystems.includes(ecosystem)
+          ));
+  
+      // Filter by Funding Stages
+      const matchesFundingStages =
+        selectedFundingStages.length === 0 ||
+        (request?.tofundingstage?.length > 0 &&
+          request.tofundingstage.some((fs) =>
+            selectedFundingStages.includes(fs)
+          ));
+  
+      // Filter by Partnership Interests
+      const matchesPartnershipInterests =
+        selectedPartenerShipInterests.length === 0 ||
+        (request?.topartnershipinterest?.length > 0 &&
+          request.topartnershipinterest.some((interest) =>
+            selectedPartenerShipInterests.includes(interest)
+          ));
+  
+      // Filter by Location
+      const matchesLocation =
+        selectedLocation.length === 0 ||
+        (request?.location && selectedLocation.includes(request.location));
+  
+      // Filter by Profile Status
+      const matchesProfileStatus =
+        selectedProfileStatus.length === 0 ||
+        (selectedProfileStatus.includes("Email Verified") && isVerifiedUser || selectedProfileStatus.includes("TG Verified") && isTgVerified);
+  
+      // Return true if all filters match
+      return (
+        matchesRequestTypes &&
+        matchesCategories &&
+        matchesEcosystems &&
+        matchesFundingStages &&
+        matchesPartnershipInterests &&
+        matchesLocation &&
+        matchesProfileStatus
+      );
+    });
   };
-
-  // Fetch userConnects data
-  const fetchUserConnects = async () => {
-    try {
-      // Reference to the UserConnects collection
-      const userConnectsCollection = collection(db, "UserConnects");
-
-      // Fetch all documents from the collection
-      const querySnapshot = await getDocs(userConnectsCollection);
-
-      // Map through the documents to create a list
-      const userConnectsList = querySnapshot.docs.map((doc) => ({
-        id: doc.id, // Document ID
-        ...doc.data(), // Document data
-      }));
-
-      console.log("Fetched User Connects: ", userConnectsList);
-      setUserConnectsList(userConnectsList);
-
-      // Filter to find all matches where toUserId equals currentUser.uid and status==="pending"
-      const matchingPendingRequests = userConnectsList.filter(
-        (ele) => ele.toUserId === currentUser?.uid && ele.status === "pending"
-      );
-
-      const matchingRejectedRequests = userConnectsList.filter(
-        (ele) =>
-          (ele.toUserId === currentUser?.uid ||
-            ele.userId === currentUser?.uid) &&
-          ele.status === "Denied"
-      );
-
-      // Filter to find all matches where userId equals currentUser.uid
-      const matchingSendRequests = userConnectsList.filter(
-        (ele) => ele.userId === currentUser?.uid
-      );
-
-      setMatchingPendingRequests(matchingPendingRequests);
-      setMatchingSendRequests(matchingSendRequests);
-      setMatchingRejectedRequests(matchingRejectedRequests);
-    } catch (e) {
-      alert("Error fetching Data");
-      return [];
-    }
-  };
-
-  useEffect(() => {
-    fetchUserConnects();
-  }, [db, currentUser?.uid]);
+  
 
   //handling accept and deny
 
   const handleAccept = async (docid) => {
     await updateDoc(doc(db, "UserConnects", docid), {
       status: "Accepted",
+      lastCreatedAt: serverTimestamp(),
     });
     await fetchUserConnects();
     alert("Request has been accepted!");
@@ -162,31 +257,30 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   const handleDeny = async (docid) => {
     await updateDoc(doc(db, "UserConnects", docid), {
       status: "Denied",
+      lastCreatedAt: serverTimestamp(),
     });
     await fetchUserConnects();
     alert("Request has been rejected!");
   };
 
-  // Sample data for the tables
-  const pendingRequests = [
-    {
-      id: 1,
-      name: "PreludeSys",
-      location: "India",
-      type: "Funding",
-      date: "09-12-2024",
-      message: "Last message: 23-10-2024",
-    },
-    {
-      id: 2,
-      name: "PreludeSys",
-      location: "Hungary",
-      type: "Listing",
-      date: "09-12-2024",
-      message: "Last message: 23-10-2024",
-    },
-    // Add more rows as necessary
-  ];
+  // Function to handle cancel request (delete operation)
+  const handleCancelRequest = async (docid) => {
+    try {
+      // Reference to the document in UserConnects collection
+      const docRef = doc(db, "UserConnects", docid);
+
+      // Delete the document
+      await deleteDoc(docRef);
+
+      alert(`Request is cancelled!!.`);
+
+      await fetchUserConnects();
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+    }
+  };
+
+  
 
 
   const RejectDummyRequests = [
@@ -231,9 +325,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
               </tr>
             </thead>
             <tbody>
-              {/* sortRequests(
-                filterByRequestTypes(filterRequests(matchingPendingRequests))
-              ) */RejectDummyRequests.map((request, i) => (
+              {sortRequests(
+                filterByRequestTypes(filterRequests(/* matchingPendingRequests */  sample))
+              ).map((request, i) => (
                 <tr key={request.id}>
 
   <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
@@ -248,7 +342,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     <div className="name-request-pending"
     style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
      <img
-      src={Raisa}
+      src={request.profilePicture}
       alt="profile-pic"
       style={{
         width: "28px",
@@ -259,36 +353,36 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     /> 
 
 
-     {/* {request.toname} */} {request.name}
+      {request.name}
     </div>
   </td>
   
   <td className="date-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     {/* {new Date(request.createdAt.seconds * 1000)
+       {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
-      .replace(/\//g, "-")}  */} {request.date}
+      .replace(/\//g, "-")}   
   </td>
   
   <td className="message-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request-pending"
-      src={Raisa}
+      src={request.profilePicture}
       alt="profile-pic"
     />
     <div className="below-message-container-pending">
       <span>{request.message}</span>
-      <p className="below-message-pending">last updated</p>
+      <p className="below-message-pending">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p> 
     </div>
   </div>
 </td>
  
   
   <td className="location-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     {/* {request.tolocation}  */}Dummy Location
+    {request.location}  
   </td>
   
   <td className="requestType-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {/* {request?.requestTypes.join(", ")}  */} Dummy Request Type
+    {request?.requestTypes.join(", ")}  
   </td>
 
 
@@ -301,12 +395,33 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
 </td> */}
 <td className="action-button-request-pending" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
   <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", gap: "5px" }}>
-    <button className="request-page-accept-button-pending">
+     {
+      request.status==="Pending"?(<>
+       <button className="request-page-accept-button-pending" onClick={()=>handleAccept(request.id)}>
       Accept
     </button>
-    <button className="request-page-decline-button-pending">
+    <button className="request-page-decline-button-pending" onClick={()=>handleDeny(request.id)}>
       Decline
     </button>
+      </>):(<>
+        <button className="request-page-accept-button-pending" disabled
+  style={{
+    opacity: 0.5, // Optional: Visual effect when disabled
+    cursor: "not-allowed"
+  }} >
+      Accept
+    </button>
+    <button className="request-page-decline-button-pending" disabled
+  style={{
+    opacity: 0.5, // Optional: Visual effect when disabled
+    cursor: "not-allowed"
+  }}>
+      Decline
+    </button>
+      </>)
+     }
+
+   
   </div>
 </td>
 
@@ -343,7 +458,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
             </thead>
             <tbody>
               {sortRequests(
-                filterByRequestTypes(filterRequests(matchingSendRequests))
+                filterByRequestTypes(filterRequests(sampleSend))
               )?.map((request, i) => (
                 <tr key={request.id}>
 
@@ -375,29 +490,31 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     /> 
 
 
-     {request.toname} 
+      {request.toname}  
 
     </div>
   </td>
   
   <td className="date-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
 
-     {new Date(request.createdAt.seconds * 1000)
+      {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
       .replace(/\//g, "-")} 
   </td>
   
   <td className="message-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-  <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request"
       src={request?.toprofilePicture}
       alt="profile-pic"
     />
     <div className="below-message-container">
       <span>{request.message}</span>
-      <p className="below-message">last updated</p>
+      <p className="below-message">{<RequestMessage request={request}/>} at { new Date(request.createdAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}</p>
     </div>
-  </div>
+  </div> 
 </td>
  
   
@@ -410,15 +527,18 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   </td>
 
   <td className="status-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    hardcoded-pending
+     {request?.status} 
   </td>
 
 
   <td className="action-button-request" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
   <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
-    <button className="request-page-cancel-button">
+    
+      <button className="request-page-cancel-button" onClick={()=>handleCancelRequest(request.id)}>
       Cancel
     </button>
+    
+    
   </div>
 </td>
 
@@ -448,9 +568,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
               </tr>
             </thead>
             <tbody>
-              {/* sortRequests(
-                filterByRequestTypes(filterRequests(matchingRejectedRequests))
-              )? */   RejectDummyRequests.map((request, i) =>(
+              {sortRequests(
+                filterByRequestTypes(filterRequests(sampleReject))
+              )?.map((request, i) =>(
                 <tr key={request.id}>
 
   <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
@@ -464,8 +584,8 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
   >
     <div className="name-request-rejected"
     style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
-     <img
-      src={Raisa}
+      <img
+      src={request?.toprofilePicture}
       alt="profile-pic"
       style={{
         width: "28px",
@@ -473,39 +593,39 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
         borderRadius: "50%",
         marginRight: "4px",
       }}
-    /> 
+    />  
 
 
-     {/* {request.toname} */} {request.name}
+ {request.toname} 
     </div>
   </td>
   
   <td className="date-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     {/* {new Date(request.createdAt.seconds * 1000)
+       {new Date(request.lastCreatedAt.seconds * 1000)
       .toLocaleDateString()
-      .replace(/\//g, "-")}  */}  {request.date}
+      .replace(/\//g, "-")}   
   </td>
   
   <td className="message-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-  <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request-rejected"
-      src={Raisa}
+      src={request?.toprofilePicture}
       alt="profile-pic"
     />
     <div className="below-message-container-rejected">
-      <span>Hi this is demo message</span>
-      <p className="below-message">last updated</p>
+      <span>{request.message}</span>
+      <p className="below-message">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p>
     </div>
-  </div>
+  </div> 
 </td>
  
   
   <td className="location-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     dummy location
+   {request.tolocation} 
   </td>
   
   <td className="requestType-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    dummy request type
+   {request?.requestTypes.join(", ")}  
   </td>
 
 

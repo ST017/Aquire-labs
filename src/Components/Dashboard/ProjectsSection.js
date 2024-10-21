@@ -564,7 +564,7 @@ const fetchUserConnectCounts = async (userId) => {
       
      <div  className="allprojects-filter-cntainer">
      <p className='ap'>All Projects <img src={star} alt='star'/></p>
-      <div >
+     <div className='filter-container'>
       {/* The clickable image */}
       <div className='filter-icon'>
         <span
@@ -598,8 +598,8 @@ const fetchUserConnectCounts = async (userId) => {
           <button onClick={applySorting}>Apply Sorting</button>
         </div>
       )}
-    </div>
-          
+    
+    </div>  
         
     </div>
         

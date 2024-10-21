@@ -7,6 +7,12 @@
   overflow-wrap: normal;
   overflow: hidden;
 }
+
+.companydetails-navbar{
+  /* width: 100%; */
+  /* box-sizing: border-box; */
+  padding-right:2% ;
+}
 .companydetails-sub {
   width: 100%;
   height: auto;
@@ -173,26 +179,24 @@ strong {
  chatgpt code
 */
 .profile-container {
+  margin-left: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 20px;
   max-width: 1440px;
-  gap:6px;
- 
- 
-  height: auto; /* Adjust this as needed */
+  gap: 21px;
+  height: auto;
+  margin-bottom: 24px;
 }
  
 .company-profile-logo {
   background-color: #ffffff;
   /* position: absolute; */
-  top: 291px; /* 301px to percentage based on the overall design */
-  left: 167px; /* 167px to percentage */
+  
   width: 108px; /* 108px to percentage based on the width of the design (1440px) */
   border: 2px solid rgb(255, 255, 255);
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   border-radius: 4px;
   height: 108px; /* Keep aspect ratio */
 }
@@ -298,7 +302,7 @@ strong {
    flex-direction: row;
     justify-content: flex-end; */
   /* padding: 32px; */
-  margin-right: 5%;
+  margin-right: 21px;
 }
  
 .send-request-btn {
@@ -830,6 +834,7 @@ strong {
   .right-section-companydetails {
     height: 100%;
     width: 100%;
+    margin-bottom: 20px;
   }
  
   .companydetails-footer {
