@@ -173,17 +173,17 @@ const CompanyDetails = () => {
         userId: currentUser?.uid || "", // the current user sending the request
         requestTypes: [...requestTypes], // Array of selected request types
         message: message, // The message input from the user
-        location: myproject?.location || "", //fromuser location
+        location: myproject?.country || "", //fromuser location
         name: myproject?.name || "", //fromuser project name
         profilePicture:myproject?.profilePicture || "",
         toname:selectedProject?.name || "",
-        tolocation:selectedProject?.location || "",
+        tolocation:selectedProject?.country || "",
         toprofilePicture:selectedProject?.profilePicture || "",
         lastCreatedAt:new Date(),
-        tocategory:selectedProject?.category || "",
-        tofundingstage:selectedProject?.fundingStatus || "",
-        toecosystem:selectedProject?.blockchain || "",
-        topartnershipinterest:selectedProject?.partnershipInterest || "",
+        tocategory:selectedProject?.category || []  ,
+        tofundingstage:selectedProject?.fundingStatus || [],
+        toecosystem:selectedProject?.blockchain || [],
+        topartnershipinterest:selectedProject?.partnershipInterest || [],
         
 
         
@@ -914,7 +914,7 @@ const CompanyDetails = () => {
               </div>
 
               {/* Ecosystem */}
-              <div className="ecosystem-card1">
+             {/*  <div className="ecosystem-card1">
                 <p className="ecosystem-heading">Ecosystem</p>
                 <div className="ecosytem-text">
                   <p className="blockchain-data">
@@ -923,10 +923,24 @@ const CompanyDetails = () => {
                       : selectedProject?.blockchain || ""}
                   </p>
                 </div>
-              </div>
+              </div> */}
+
+<div className="ecosystem-card1">
+  <p className="ecosystem-heading">Ecosystem</p>
+  <div className="ecosystem-text">
+    {selectedProject.userId === currentUser?.uid
+      ? myproject?.blockchain?.map((ecosystem, index) => (
+          <span key={index}>{ecosystem}</span>
+        ))
+      : selectedProject?.blockchain?.map((ecosystem, index) => (
+          <span key={index}>{ecosystem}</span>
+        ))}
+  </div>
+</div>
+
 
               {/* Partnership Interest */}
-              <div className="partnership-card1">
+              {/* <div className="partnership-card1">
                 <p className="partnership-heading">Partnership Interested</p>
                 <div className="partnership-text">
                   <p className="blockchain-data">
@@ -935,7 +949,20 @@ const CompanyDetails = () => {
                       : selectedProject?.partnershipInterest || ""}{" "}
                   </p>
                 </div>
-              </div>
+              </div> */}
+              <div className="partnership-card1">
+  <p className="partnership-heading">Partnership Interested</p>
+  <div className="partnership-text">
+    {selectedProject.userId === currentUser?.uid
+      ? myproject?.partnershipInterest?.map((interest, index) => (
+          <span key={index}>{interest}</span>
+        ))
+      : selectedProject?.partnershipInterest?.map((interest, index) => (
+          <span key={index}>{interest}</span>
+        ))}
+  </div>
+</div>
+
 
               {/* Whitepaper */}
               <div className="whitepaper-card1">
@@ -1018,27 +1045,12 @@ const CompanyDetails = () => {
   </div>
 </div> */}
 
-              <div className="categories-card1">
+              {/* <div className="categories-card1">
                 <p className="categories-heading">Categories</p>
+                
+
                 <div className="categories-text">
-                  {/* {categories
-                    .sort((a, b) =>
-                      a.toLowerCase().localeCompare(b.toLowerCase())
-                    ) // Case-insensitive alphabetical sorting
-                    .slice(0, showAllCategories ? categories.length : 14) // Show first 14 or all if toggled
-                    .map((cat, index) => (
-                      <span key={index} className="category-item">
-                        {cat}
-                      </span>
-                    ))}
-                  {!showAllCategories && categories.length > 14 && (
-                    <span
-                      className="category-more"
-                      onClick={() => setShowAllCategories(true)}
-                    >
-                      +{categories.length - 14} More
-                    </span>
-                  )} */}
+                  
 
 {selectedProject.userId === currentUser?.uid
                     ? myproject?.category || ""
@@ -1046,16 +1058,43 @@ const CompanyDetails = () => {
 
 
                 </div>
-              </div>
+              </div> */}
 
-              <div className="request-type-card1">
+ <div className="categories-card1">
+  <p className="categories-heading">Categories</p>
+  <div className="categories-text">
+    {selectedProject.userId === currentUser?.uid
+      ? myproject?.category?.map((cat, index) => (
+          <span key={index}>{cat}</span>
+        ))
+      : selectedProject?.category?.map((cat, index) => (
+          <span key={index}>{cat}</span>
+        ))}
+  </div>
+</div> 
+
+              {/* <div className="request-type-card1">
                 <p className="request-type-heading">Request Type</p>
                 <p className="request-type-text">
                   {selectedProject.userId === currentUser?.uid
                     ? myproject?.requestType || ""
                     : selectedProject?.requestType || ""}
                 </p>
-              </div>
+              </div> */}
+
+<div className="request-type-card1">
+  <p className="request-type-heading">Request Type</p>
+  <div className="request-type-text">
+    {selectedProject.userId === currentUser?.uid
+      ? myproject?.requestType?.map((type, index) => (
+          <span key={index}>{type}</span>
+        ))
+      : selectedProject?.requestType?.map((type, index) => (
+          <span key={index}>{type}</span>
+        ))}
+  </div>
+</div>
+
 
               <div className="social-media-card1">
                 <p className="social-media-heading">Social Media</p>

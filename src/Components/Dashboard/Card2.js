@@ -12,7 +12,7 @@ import SentLogo from '../../Images/Sent.png';
 import LocationLogo from '../../Images/LocationLogo.png';
 
  
-const Card2 = ({name,logo,country,desc,userId,onClick}) => {
+const Card2 = ({name,logo,country,desc,userId,onClick,category}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [requestSent, setRequestSent] = useState(0);
   const [requestReceived, setRequestReceived] = useState(0);
@@ -78,7 +78,7 @@ useEffect(() => {
     setIsModalOpen(false);
   };
  
-  const visibleCount = 4;
+  const visibleCount = 5;
  
   return (
     <>
@@ -118,18 +118,18 @@ useEffect(() => {
           <div className="cardin">
                     <div className="cardin-list" >
                         <ul>
-                            {CategoryList.slice(0, visibleCount).map((name, index) => (
+                            {category.slice(0, visibleCount).map((name, index) => (
                             <li key={index}>{name}</li>
                             ))}
-                            {CategoryList.length > visibleCount && (
-                              <li style={{fontWeight:"bold",color:"rgba(26, 13, 171, 1)"}} onClick={handleMoreClick}>+{CategoryList.length - visibleCount} More</li>
+                            {category.length > visibleCount && (
+                              <li style={{fontWeight:"bold",color:"rgba(26, 13, 171, 1)"}} onClick={handleMoreClick}>+{category.length - visibleCount} More</li>
                           )}
                          </ul>
                             
                        
                     </div>
                     {isModalOpen && (
-        <Modal categories={CategoryList.slice(visibleCount)} onClose={closeModal} />
+        <Modal categories={category.slice(visibleCount)} onClose={closeModal} />
       )}
           </div>
           </div>

@@ -134,7 +134,7 @@ useEffect(() => {
         <div className="profile">
           <img src={userDetail?.profilePicture} alt="profile" className="profile-pic" />
           <div className="text-info">
-            <div className="profile-Name">{/* {userDetail?.firstname} {userDetail?.lastname} */} {userProject[0].name}</div>
+            <div className="profile-Name">{/* {userDetail?.firstname} {userDetail?.lastname} */} {userProject[0]?.name}</div>
             <div className="profile-web">{userProject[0]?.website || 'No website available'}</div>
           </div>
         </div>

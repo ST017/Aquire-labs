@@ -32,13 +32,25 @@ const EditProfile = ({ setIsEditProfile }) => {
   // Form States
   const [projectName, setProjectName] = useState(userProject.name);
   const [website, setWebsite] = useState(userProject.website);
-  const [category,setCategory]=useState(userProject.category);
-  const [location, setLocation] = useState(null);
-  const [fundingStage, setFundingStage] = useState(/* userProject.fundingStatus */ []);
-  const [partnership, setPartnership] = useState(userProject.partnership);
-  const [ecosystem, setEcosystem] = useState(userProject.blockchain);
+  const [category, setCategory] = useState(
+    userProject?.category?.length > 0 ? userProject.category[0] : []
+  );
+  const [location, setLocation] = useState(userProject.country);
+  const [fundingStage, setFundingStage] = useState(
+    userProject?.fundingStatus?.length > 0 ? userProject.fundingStatus[0] : []
+  );
+  const [partnership, setPartnership] = useState(
+    userProject?.partnershipInterest?.length > 0
+      ? userProject.partnershipInterest[0]
+      : []
+  );
+  const [ecosystem, setEcosystem] = useState(
+    userProject?.blockchain?.length > 0 ? userProject.blockchain[0] : []
+  );
   const [bioData, setBioData] = useState(userProject.biodata);
-  const [requestType,setRequestType]=useState(userProject.requestType)
+  const [requestType, setRequestType] = useState(
+    userProject?.requestType?.length > 0 ? userProject.requestType[0] : []
+  );
   const [whitepaper, setWhitepaper] = useState(userProject.whitepaper);
   const [githubLink, setGithubLink] = useState(userProject.githubLink || "");
   const [twitterLink,setTwitterLink]=useState(userProject.twitterLink || "");
@@ -53,12 +65,16 @@ const EditProfile = ({ setIsEditProfile }) => {
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
   //For multiple inputs create an array
-  const [selectedFundingStageArray, setSelectedFundingStageArray] = useState([]);
-  const [selectedLocationArray, setSelectedLocationArray] = useState([]);
-  const [selectedPartnershipInterestArray, setSelectedPartnershipInterestArray] = useState([]);
-  const [selectedEcosystemArray, setSelectedEcosystemArray] = useState([]);
-  const [selectedCategoryArray, setSelectedCategoryArray] = useState([]);
-  const [selectedRequestTypeArray, setSelectedRequestTypeArray] = useState([]);
+  const [selectedFundingStageArray, setSelectedFundingStageArray] = useState( userProject?.fundingStatus?.length > 0 ? userProject.fundingStatus[0] : []);
+  const [selectedLocationArray, setSelectedLocationArray] = useState([userProject.country || ""]);
+  const [selectedPartnershipInterestArray, setSelectedPartnershipInterestArray] = useState(userProject?.partnershipInterest?.length > 0
+    ? userProject.partnershipInterest[0]
+    : []);
+  const [selectedEcosystemArray, setSelectedEcosystemArray] = useState(userProject?.blockchain?.length > 0 ? userProject.blockchain[0] : []);
+  const [selectedCategoryArray, setSelectedCategoryArray] = useState(
+    userProject?.category?.length > 0 ? userProject.category[0] : []
+  );
+  const [selectedRequestTypeArray, setSelectedRequestTypeArray] = useState(userProject?.requestType?.length > 0 ? userProject.requestType[0] : []);
 
  
   const storage = getStorage();
@@ -200,15 +216,15 @@ const EditProfile = ({ setIsEditProfile }) => {
       const updatedData = {
         name: projectName,
         website: website,
-        category:category,
-        country: location || userProject.country,
-        fundingStatus: fundingStage,
-        partnershipInterest: partnership || null,
-        blockchain: ecosystem,
+        category:selectedCategoryArray || null,
+        country: selectedLocationArray || null,
+        fundingStatus: selectedFundingStageArray || null,
+        partnershipInterest: selectedPartnershipInterestArray || null,
+        blockchain: selectedEcosystemArray || null,
         whitepaper: whitepaper,
         descr: projectStatement,
         biodata: bioData,
-        requestType:requestType || null,
+        requestType:selectedRequestTypeArray || null,
         coverPicture: coverPictureURL || userProject.coverPicture,
         profilePicture: profilePictureURL || userProject.profilePicture,
         githubLink: githubLink || null, // Explicitly set githubLink to null if it's empty
@@ -233,25 +249,26 @@ const EditProfile = ({ setIsEditProfile }) => {
       alert("Profile updated successfully!");
       setIsEditProfile(false);
     } catch (error) {
-      toast.error("Error updating profile: " + error, {
+      toast.error("Error updating profile:", {
         position: "top-center",
       });
-      console.error("Error updating profile: ", error);
+      
     }
   };
  
   const handleEdit = () => {
     setProjectName(userProject.name);
     setWebsite(userProject.website);
-    setCategory(userProject.category)
-    setFundingStage(userProject.fundingStatus);
-    setPartnership(userProject.partnershipInterest || "");
-    setEcosystem(userProject.blockchain);
+    setSelectedCategoryArray(userProject?.category?.length > 0 ? userProject.category : []);
+    setSelectedFundingStageArray(userProject?.fundingStatus?.length > 0 ? userProject.fundingStatus : []);
+    setSelectedPartnershipInterestArray(userProject?.partnershipInterest?.length > 0 ? userProject.partnershipInterest : []);
+    setSelectedEcosystemArray(userProject?.blockchain?.length > 0 ? userProject.blockchain : []);
+    setSelectedRequestTypeArray(userProject?.requestType?.length > 0 ? userProject.requestType : []);
     setWhitepaper(userProject.whitepaper);
     setProjectStatement(userProject.descr);
     setBioData(userProject.biodata);
-    setRequestType(userProject.requestType)
-    setLocation(userProject.location);
+    
+    setSelectedLocationArray(userProject?.country?[userProject.country] :[]);
     setGithubLink(userProject.githubLink || "");
     setTwitterLink(userProject.twitterLink || "");
     setRedditLink(userProject.redditLink || "");
@@ -324,7 +341,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             <label>Funding Stage</label>
             <input
               name="fundingStage"
-              value={userProject.fundingStatus}
+              value={userProject?.fundingStatus?.length > 0 ? userProject.fundingStatus[0] : ""}
               readOnly
               //onChange={(e) => setFundingStage(e.target.value)}
             >
@@ -340,7 +357,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             <label>Partnership Interests</label>
             <input
               name="partnership"
-              value={userProject.partnershipInterest}
+              value={userProject?.partnershipInterest?.length > 0 ? userProject.partnershipInterest[0] : ""}
               readOnly
               //onChange={(e) => setPartnership(e.target.value)}
             >
@@ -354,7 +371,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             <label>Ecosystem</label>
             <input
               name="ecosystem"
-              value={userProject.blockchain}
+              value={userProject?.blockchain?.length > 0 ? userProject.blockchain[0] : ""}
               readOnly
               //onChange={(e) => setEcosystem(e.target.value)}
             >
@@ -370,7 +387,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             <label>Category</label>
             <input
               name="category"
-              value={userProject.category}
+              value={userProject?.category?.length > 0 ? userProject.category[0] : ""}
               readOnly
               //onChange={(e) => setCategory(e.target.value)}
             >
@@ -383,8 +400,8 @@ const EditProfile = ({ setIsEditProfile }) => {
           <div className="form-group">
             <label>Request Type</label>
             <input
-              name="ecosystem"
-              value={userProject.requestType}
+              name="request type"
+              value={userProject?.requestType?.length > 0 ? userProject.requestType[0] : ""}
               readOnly
               //onChange={(e) => setEcosystem(e.target.value)}
             >
@@ -583,30 +600,30 @@ const EditProfile = ({ setIsEditProfile }) => {
             </select>
           </div> */}
           <div className="form-group">
-          <label>Location</label>
-          <FormControl fullWidth>
-      <Select
-        name="location"
-        multiple
-        value={selectedLocationArray}  // Bind the selected values to the state
-        onChange={handleLocationChange}  // Handle changes
-        required
-        renderValue={(selected) => (
-          <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
-          </Box>
-        )}
-        displayEmpty
-      >
-        {LocationList.map((ele) => (
-          <MenuItem key={ele} value={ele}>
-            <Checkbox checked={selectedLocationArray.indexOf(ele) > -1} />
-            <ListItemText primary={ele} />
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-        </div>
+  <label>Location</label>
+  <FormControl fullWidth>
+    <Select
+      name="location"
+      value={selectedLocationArray[0] || ""}  // Bind to the first item of the array or an empty string
+      onChange={handleLocationChange}  // Handle changes
+      required
+      renderValue={(selected) => (
+        <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          {selected && selected} 
+        </Box>
+      )}
+      displayEmpty
+    >
+      {LocationList.map((ele) => (
+        <MenuItem key={ele} value={ele}>
+          <Checkbox checked={selectedLocationArray[0] === ele} />  {/* Check if the selected location matches the current item */}
+          <ListItemText primary={ele} />
+        </MenuItem>
+      ))}
+    </Select>
+  </FormControl>
+</div>
+
 
 
  
@@ -648,7 +665,7 @@ const EditProfile = ({ setIsEditProfile }) => {
         required
         renderValue={(selected) => (
           <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+             {selected.join(', ')}
           </Box>
         )}
         displayEmpty
@@ -693,7 +710,7 @@ const EditProfile = ({ setIsEditProfile }) => {
         required
         renderValue={(selected) => (
           <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+             {selected.join(', ')}
           </Box>
         )}
         displayEmpty
@@ -732,7 +749,7 @@ const EditProfile = ({ setIsEditProfile }) => {
         required
         renderValue={(selected) => (
           <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+            {selected.join(', ')}
           </Box>
         )}
         displayEmpty
@@ -762,7 +779,7 @@ const EditProfile = ({ setIsEditProfile }) => {
             </select>
           </div> */}
           <div className="form-group">
-          <label>Funding Stage</label>
+          <label>Category</label>
           <FormControl fullWidth>
       <Select
         name="category"
@@ -772,7 +789,7 @@ const EditProfile = ({ setIsEditProfile }) => {
         required
         renderValue={(selected) => (
           <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+             {selected.join(', ')}
           </Box>
         )}
         displayEmpty
@@ -811,7 +828,7 @@ const EditProfile = ({ setIsEditProfile }) => {
         required
         renderValue={(selected) => (
           <Box sx={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {selected.join(', ')}  {/* Display selected values, but limit width and add ellipsis */}
+            {selected.join(', ')} 
           </Box>
         )}
         displayEmpty
@@ -914,6 +931,7 @@ const EditProfile = ({ setIsEditProfile }) => {
           <label>One Liner *</label>
           <textarea
             name="one liner description"
+            maxLength={100}
             value={oneLiner}
             onChange={(e) => setOneLiner(e.target.value)}
             required

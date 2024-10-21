@@ -64,7 +64,7 @@ const Signup = () => {
   const [compWeb, setCompWeb] = useState("");
   const [password, setPassword] = useState("");
   const [reenterpassword, setReenterpassword] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [projDesc, setProjDesc] = useState("");
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
@@ -91,6 +91,14 @@ const Signup = () => {
 
   const handleHelpModal = () => {
     setIsHelpModalOpen(true);
+  };
+
+  const handleCategoryChange = (e) => {
+    const value = e.target.value;
+    if (value && !category.includes(value)) {
+      setCategory([...category, value]); // Add selected category to the array
+      
+    }
   };
 
   const handleFormSubmit = async (e) => {
@@ -153,14 +161,14 @@ const Signup = () => {
           });
 
           await addDoc(collection(db, "UserProject"), {
-            blockchain: "",
+            blockchain: [],
             category: category,
             city: "",
             country: "",
             createdAt: new Date(), // current timestamp
             descr: projDesc,
             endorsements: 1,
-            fundingStatus: "",
+            fundingStatus: [],
             logo: "",
             modifiedAt: new Date(),
             name: name,
@@ -229,7 +237,7 @@ const Signup = () => {
             <Title style={{ marginTop: "30px" }}>Signup</Title>
             <Subtitle>Signup and get started with GoWeb3 Network</Subtitle>
           </OutsideContainer>
-
+            
           <Form onSubmit={handleFormSubmit}>
             <InputGroup>
               <InputWrapper>
@@ -296,54 +304,8 @@ const Signup = () => {
                 <Label>
                   Category<a style={{ color: "red" }}>*</a>
                 </Label>
-                {/*  <InputSelect
-                onChange={(e) => setCategory(e.target.value)}
-                defaultValue=""
-              >
-                <option value="">Select a Category</option>
-                <option value="DeFi">DeFi</option>
-                <option value="NFT">NFT</option>
-                <option value="Gaming">Gaming</option>
-                <option value="AI (Artificial Intelligence)">
-                  AI (Artificial Intelligence)
-                </option>
-                <option value="Real World Assets (RWA)">
-                  Real World Assets (RWA)
-                </option>
-                <option value="SocialFi">SocialFi</option>
-                <option value="Privacy">Privacy</option>
-                <option value="Prediction Markets">Prediction Markets</option>
-                <option value="Payment Solutions">Payment Solutions</option>
-                <option value="Yield Farming">Yield Farming</option>
-                <option value="Stablecoins">Stablecoins</option>
-                <option value="Layer 1 / Layer 2 Ecosystems">
-                  Layer 1 / Layer 2 Ecosystems (e.g., Ethereum, Solana)
-                </option>
-                <option value="Proof of Stake (PoS)">
-                  Proof of Stake (PoS)
-                </option>
-                <option value="Proof of Work (PoW)">Proof of Work (PoW)</option>
-                <option value="Synthetic Assets">Synthetic Assets</option>
-                <option value="Tokenized Commodities">
-                  Tokenized Commodities
-                </option>
-                <option value="Virtual Reality">Virtual Reality</option>
-                <option value="Decentralized Identity">
-                  Decentralized Identity
-                </option>
-                <option value="Governance">Governance</option>
-                <option value="Insurance">Insurance</option>
-                <option value="Oracles">Oracles</option>
-                <option value="Data Storage">Data Storage</option>
-                <option value="CEX">CEX</option>
-                <option value="DEX">DEX</option>
-                <option value="VCs">VCs</option>
-                <option value="Liquidity providers">Liquidity providers</option>
-                <option value="Validator">Validator</option>
-                <option value="Depin">Depin</option>
-                <option value="Others">Others</option>
-              </InputSelect> */}
-                <InputSelect
+               
+                {/* <InputSelect
                   onChange={(e) => setCategory(e.target.value)}
                   defaultValue=""
                 >
@@ -353,7 +315,16 @@ const Signup = () => {
                       {category}
                     </option>
                   ))}
-                </InputSelect>
+                </InputSelect> */}
+
+<InputSelect onChange={handleCategoryChange} defaultValue="">
+  <option value="">Select a Category</option>
+  {CategoryList.map((category, index) => (
+    <option key={category} value={category}>
+      {category}
+    </option>
+  ))}
+</InputSelect>
               </InputWrapper>
             </InputGroup>
             <InputGroup>

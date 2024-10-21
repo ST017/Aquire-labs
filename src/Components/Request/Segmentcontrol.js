@@ -222,7 +222,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
       // Filter by Location
       const matchesLocation =
         selectedLocation.length === 0 ||
-        (request?.location && selectedLocation.includes(request.location));
+        (request?.tolocation && selectedLocation.includes(request.tolocation));
   
       // Filter by Profile Status
       const matchesProfileStatus =
