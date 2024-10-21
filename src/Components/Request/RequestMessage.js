@@ -19,9 +19,9 @@ export const RequestMessage = ({ request }) => {
         if (hoursAgo > 0) {
             return `${hoursAgo} hour${hoursAgo > 1 ? "s" : ""} ago`;
         } else if (minutesAgo > 0) {
-            return `${minutesAgo} minute${minutesAgo > 1 ? "s" : ""} ago`;
+            return `${minutesAgo} min${minutesAgo > 1 ? "s" : ""} ago`;
         } else {
-            return `${secondsAgo} second${secondsAgo > 1 ? "s" : ""} ago`;
+            return `${secondsAgo}  sec${secondsAgo > 1 ? "s" : ""} ago`;
         }
     };
 

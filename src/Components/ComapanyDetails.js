@@ -180,6 +180,12 @@ const CompanyDetails = () => {
         tolocation:selectedProject?.location || "",
         toprofilePicture:selectedProject?.profilePicture || "",
         lastCreatedAt:new Date(),
+        tocategory:selectedProject?.category || "",
+        tofundingstage:selectedProject?.fundingStatus || "",
+        toecosystem:selectedProject?.blockchain || "",
+        topartnershipinterest:selectedProject?.partnershipInterest || "",
+        
+
         
       });
 
