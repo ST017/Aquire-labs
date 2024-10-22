@@ -195,9 +195,8 @@ export const VisionSection = styled.div`
   justify-content: center; /* Centers the content vertically */
   align-items: center; /* Centers the content horizontally */
   @media (max-width:480px) {
-    height:200px;
-    text-align: center;
-    padding: 20px 8px ;
+  display:none;
+    
   }
 `;
  
