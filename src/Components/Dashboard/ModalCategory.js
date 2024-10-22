@@ -3,7 +3,7 @@ import "./ModalCategory.css"
 import CategoryClose from "../../Images/CategoryClose.png"
 
 
-const Modal = ({ categories, onClose }) => {
+const Modal = ({ maplist, onClose }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content-project">
@@ -12,7 +12,7 @@ const Modal = ({ categories, onClose }) => {
         </div>
         
         <ul className="modal-category-list">
-          {categories.map((category, index) => (
+          {maplist.map((category, index) => (
             <li key={index}>{category}</li>
           ))}
         </ul>
@@ -22,3 +22,4 @@ const Modal = ({ categories, onClose }) => {
 };
 
 export default Modal;
+
