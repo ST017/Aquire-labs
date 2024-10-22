@@ -182,17 +182,17 @@ const [showAllRequestTypes, setShowAllRequestTypes] = useState(false);
         userId: currentUser?.uid || "", // the current user sending the request
         requestTypes: [...requestTypes], // Array of selected request types
         message: message, // The message input from the user
-        location: myproject?.location || "", //fromuser location
+        location: myproject?.country || "", //fromuser location
         name: myproject?.name || "", //fromuser project name
         profilePicture:myproject?.profilePicture || "",
         toname:selectedProject?.name || "",
-        tolocation:selectedProject?.location || "",
+        tolocation:selectedProject?.country || "",
         toprofilePicture:selectedProject?.profilePicture || "",
         lastCreatedAt:new Date(),
-        tocategory:selectedProject?.category || "",
-        tofundingstage:selectedProject?.fundingStatus || "",
-        toecosystem:selectedProject?.blockchain || "",
-        topartnershipinterest:selectedProject?.partnershipInterest || "",
+        tocategory:selectedProject?.category || []  ,
+        tofundingstage:selectedProject?.fundingStatus || [],
+        toecosystem:selectedProject?.blockchain || [],
+        topartnershipinterest:selectedProject?.partnershipInterest || [],
         
 
         
@@ -964,6 +964,7 @@ const visibleBlockchains = showAllBlockchains
               </div>
 
               {/* Ecosystem */}
+
               <div className="ecosystem-card1">
               <p className="ecosystem-heading">Ecosystem</p>
 <div className="ecosystem-text">
@@ -1016,6 +1017,7 @@ const visibleBlockchains = showAllBlockchains
 </div>
 
               </div>
+
 
               {/* Whitepaper */}
               <div className="whitepaper-card1">
@@ -1100,10 +1102,14 @@ const visibleBlockchains = showAllBlockchains
   </div>
 </div> */}
 
+
               <div className="categories-card1">
-                
+
                 <p className="categories-heading">Categories</p>
+                
+
                 <div className="categories-text">
+
                   {categories
                     .sort((a, b) =>
                       a.toLowerCase().localeCompare(b.toLowerCase())
@@ -1127,13 +1133,14 @@ const visibleBlockchains = showAllBlockchains
         <Modal categories={categories.slice(categories.length - 14)} onClose={closeModal} />
       )}
 
+
 {/* {selectedProject.userId === currentUser?.uid
                     ? myproject?.category || ""
                     : selectedProject?.category || ""} */}
 
 
                 </div>
-              </div>
+              </div> */}
 
               <div className="request-type-card1">
               <p className="request-type-heading">Request Type</p>
@@ -1160,6 +1167,7 @@ const visibleBlockchains = showAllBlockchains
 </div>
 
               </div>
+
 
               <div className="social-media-card1">
                 <p className="social-media-heading">Social Media</p>
