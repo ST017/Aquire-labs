@@ -156,6 +156,9 @@ color:  #1A0DAB;
   .mainnavbar , .mainnav-frame2{
     background-color: #ffffff;
   }
+  .mainnavbar{
+    gap:0px;
+  }
 
 }
   

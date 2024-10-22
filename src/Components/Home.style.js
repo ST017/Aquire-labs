@@ -77,7 +77,7 @@ display: flex;
    
      width:  100%;
      
-     
+     gap:23px;
    
  
   }
@@ -98,7 +98,13 @@ export const HeroTitle = styled.h1`
   font-family:Inter;
   color:rgba(0, 0, 0, 1);
   @media (max-width:480px){
-    font-size: 22px;
+    
+font-family: Inter;
+font-size: 20px;
+font-weight: 700;
+line-height: 24.2px;
+text-align: center;
+
  
   }
 `;
@@ -117,8 +123,12 @@ display:flex;
  
   align-items: center;
  @media (max-width:480px){
-    font-size: 12px;
-    line-height:25px;
+   font-family: Inter;
+font-size: 14px;
+font-weight: 600;
+line-height: 20px;
+text-align: center;
+
     margin:auto;
  
   }
