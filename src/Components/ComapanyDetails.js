@@ -25,6 +25,7 @@ import {
 import { db } from "./Firebase/firebase";
 import Footer from "./Dashboard/Footer";
 import VerifyIcon from "../Images/VerificationIcon.png";
+import Modal from "./Dashboard/ModalCategory";
 
 //import verify from "../Images/verify.png"
 
@@ -42,9 +43,18 @@ const CompanyDetails = () => {
   const [requestReceived, setRequestReceived] = useState(0);
   const [userConnectsDocId, setUserConnectsDocId] = useState(null);
   const [isVerified, setIsVerified] = useState(false);
+ const [showMore , setShowMore] = useState(false);
+  
 
   /* category code  */
   const [showAllCategories, setShowAllCategories] = useState(false);
+/* blockchain (eco system)*/ 
+const [showAllBlockchains, setShowAllBlockchains] = useState(false);
+
+const [showAllPartnerships, setShowAllPartnerships] = useState(false);
+
+const [showAllRequestTypes, setShowAllRequestTypes] = useState(false);
+
 
   useEffect(() => {
     const auth = getAuth();
@@ -129,10 +139,10 @@ const CompanyDetails = () => {
   }, [selectedProject, db]);
 
   // Function to handle cancel request (delete operation)
-  const handleCancelRequest = async () => {
+  const handleCancelRequest = async (docid) => {
     try {
       // Reference to the document in UserConnects collection
-      const docRef = doc(db, "UserConnects", matchingRequests.id);
+      const docRef = doc(db, "UserConnects", docid);
 
       // Delete the document
       await deleteDoc(docRef);
@@ -167,13 +177,25 @@ const CompanyDetails = () => {
       const docRef = await addDoc(collection(db, "UserConnects"), {
         createdAt: new Date(), // current timestamp
         projectId: selectedProject?.id || "", // project ID (from selected project)
-        status: "pending", // initial status is "pending"
+        status: "Pending", // initial status is "pending"
         toUserId: selectedProject?.userId || "", // the user who owns the project
         userId: currentUser?.uid || "", // the current user sending the request
         requestTypes: [...requestTypes], // Array of selected request types
         message: message, // The message input from the user
         location: myproject?.location || "", //fromuser location
-        name: myproject?.name, //fromuser project name
+        name: myproject?.name || "", //fromuser project name
+        profilePicture:myproject?.profilePicture || "",
+        toname:selectedProject?.name || "",
+        tolocation:selectedProject?.location || "",
+        toprofilePicture:selectedProject?.profilePicture || "",
+        lastCreatedAt:new Date(),
+        tocategory:selectedProject?.category || "",
+        tofundingstage:selectedProject?.fundingStatus || "",
+        toecosystem:selectedProject?.blockchain || "",
+        topartnershipinterest:selectedProject?.partnershipInterest || "",
+        
+
+        
       });
 
       console.log("Document written with ID: ", docRef.id);
@@ -247,19 +269,60 @@ const CompanyDetails = () => {
 
   /* category code  */
   // Decide which category array to use based on the user
-  const categories =
+   const categories =
     selectedProject.userId === currentUser?.uid
       ? myproject?.category || []
       : selectedProject?.category || [];
 
   const visibleCategories = showAllCategories
     ? categories
-    : categories.slice(0, 14); // Show first 14, rest hidden
+    : categories.slice(0, 14); // Show first 14, rest hidden */
   /* category code end  */
+
+  /* blockchain (ecosystem) */
+  const blockchains =
+  selectedProject.userId === currentUser?.uid
+    ? myproject?.blockchain || []
+    : selectedProject?.blockchain || [];
+
+const visibleBlockchains = showAllBlockchains
+  ? blockchains
+  : blockchains.slice(0, 14);
+
+    /* blockchain (ecosystem) */
+
+
+    const partnershipInterests =
+    selectedProject.userId === currentUser?.uid
+      ? myproject?.partnershipInterest || []
+      : selectedProject?.partnershipInterest || [];
+  
+  const visiblePartnershipInterests = showAllPartnerships
+    ? partnershipInterests
+    : partnershipInterests.slice(0, 14);
+  
+
+  const requesttypes =
+  selectedProject.userId === currentUser?.uid
+    ? myproject?.requestType || []
+    : selectedProject?.requestType || [];
+
+    const visibleRequestTypes = showAllRequestTypes
+    ? requestTypes
+    : requestTypes.slice(0, 14);
+  
+
+    const handleMoreClick = () => {
+      setShowMore(true);
+    };
+  
+    const closeModal = () => {
+      setShowMore(false);
+    };
 
   return (
     <div className="companydetails-container">
-      <Navbar />
+      <div className="companydetails-navbar"><Navbar /></div>
       <div className="companydetails-sub">
         <div className="bread-container">
           <div className="bbcmb" aria-label="breadcrumb">
@@ -380,10 +443,10 @@ const CompanyDetails = () => {
                       <>
                         {matchingRequests?.userId === currentUser?.uid ? (
                           <div>
-                            {matchingRequests.status === "pending" ? (
+                            {matchingRequests.status === "Pending" ? (
                               <button
                                 className="send-request-btn"
-                                onClick={handleCancelRequest}
+                                onClick={()=>handleCancelRequest(matchingRequests.id)}
                               >
                                 Cancel
                               </button>
@@ -902,30 +965,61 @@ const CompanyDetails = () => {
 
               {/* Ecosystem */}
               <div className="ecosystem-card1">
-                <p className="ecosystem-heading">Ecosystem</p>
-                <div className="ecosytem-text">
-                  <p className="blockchain-data">
-                    {selectedProject.userId === currentUser?.uid
-                      ? myproject?.blockchain || ""
-                      : selectedProject?.blockchain || ""}
-                  </p>
-                </div>
+              <p className="ecosystem-heading">Ecosystem</p>
+<div className="ecosystem-text">
+  
+    {blockchains
+      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())) // Case-insensitive alphabetical sorting
+      .slice(0, showAllBlockchains ? blockchains.length : 9) // Show first 14 or all if toggled
+      .map((blockchain, index) => (
+        <span key={index} className="category-item">
+          {blockchain}
+        </span>
+      ))}
+
+    {/* 'Show More' functionality for blockchains */}
+    {!showAllBlockchains && blockchains.length > 9 && (
+      <span
+        className="category-more"
+        onClick={() => setShowAllBlockchains(true)}
+      >
+        +{blockchains.length - 9} More
+      </span>
+    )}
+  
+</div>
               </div>
 
               {/* Partnership Interest */}
               <div className="partnership-card1">
-                <p className="partnership-heading">Partnership Interested</p>
-                <div className="partnership-text">
-                  <p className="blockchain-data">
-                    {selectedProject.userId === currentUser?.uid
-                      ? myproject?.partnershipInterest || ""
-                      : selectedProject?.partnershipInterest || ""}{" "}
-                  </p>
-                </div>
+              <p className="partnership-heading">Partnership Interested</p>
+<div className="partnership-text">
+  {partnershipInterests
+    .sort((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase())
+    ) // Case-insensitive alphabetical sorting
+    .slice(0, showAllPartnerships ? partnershipInterests.length : 14) // Show first 14 or all if toggled
+    .map((interest, index) => (
+      <span key={index} className="category-item">
+        {interest}
+      </span>
+    ))}
+
+  {!showAllPartnerships && partnershipInterests.length > 14 && (
+    <span
+      className="category-more"
+      onClick={() => setShowAllPartnerships(true)}
+    >
+      +{partnershipInterests.length - 14} More
+    </span>
+  )}
+</div>
+
               </div>
 
               {/* Whitepaper */}
               <div className="whitepaper-card1">
+                {console.log('Matching request status:', matchingRequests?.status)}
                 <p className="whitepaper-heading">
                   Whitepaper:
                   <a className="whitepaper-text">
@@ -939,7 +1033,9 @@ const CompanyDetails = () => {
               {/* Statement for Projects */}
               <div className="statement-card1">
                 <p className="statement-heading">Statement for projects</p>
-                <p className="statement-text">{selectedProject?.descr || ""}</p>
+                <p className="statement-text">{selectedProject.userId === currentUser?.uid
+                      ? myproject?.descr || ""
+                      : selectedProject?.descr}</p>
               </div>
             </div>
 
@@ -1005,6 +1101,7 @@ const CompanyDetails = () => {
 </div> */}
 
               <div className="categories-card1">
+                
                 <p className="categories-heading">Categories</p>
                 <div className="categories-text">
                   {categories
@@ -1020,21 +1117,48 @@ const CompanyDetails = () => {
                   {!showAllCategories && categories.length > 14 && (
                     <span
                       className="category-more"
-                      onClick={() => setShowAllCategories(true)}
+                      // onClick={() => setShowAllCategories(true)}
+                      onClick={handleMoreClick}
                     >
                       +{categories.length - 14} More
                     </span>
                   )}
+                   {showMore && (
+        <Modal categories={categories.slice(categories.length - 14)} onClose={closeModal} />
+      )}
+
+{/* {selectedProject.userId === currentUser?.uid
+                    ? myproject?.category || ""
+                    : selectedProject?.category || ""} */}
+
+
                 </div>
               </div>
 
               <div className="request-type-card1">
-                <p className="request-type-heading">Request Type</p>
-                <p className="request-type-text">
-                  {selectedProject.userId === currentUser?.uid
-                    ? myproject?.requestType || ""
-                    : selectedProject?.requestType || ""}
-                </p>
+              <p className="request-type-heading">Request Type</p>
+<div className="request-type-text">
+  {requesttypes
+    .sort((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase())
+    ) // Case-insensitive alphabetical sorting
+    .slice(0, showAllRequestTypes ? requesttypes.length : 14) // Show first 14 or all if toggled
+    .map((type, index) => (
+      <span key={index} className="category-item">
+        {type}
+      </span>
+    ))}
+
+  {!showAllRequestTypes && requesttypes.length > 14 && (
+    <span
+      className="category-more"
+      onClick={() => setShowAllRequestTypes(true)}
+    >
+      +{requestTypes.length - 14} More
+    </span>
+  )}
+</div>
+
               </div>
 
               <div className="social-media-card1">

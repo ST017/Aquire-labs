@@ -12,15 +12,14 @@ import '@fontsource/inter/700.css';
 
 
 export const SignupContainer = styled.div`
-  width: 54.213%;
-    height: 100%;
+  width: 822px;
+  height: 900px;
   padding: 20px;
-top:10.30vh;
-position:relative;
-  align-self:center;
+  margin: auto;
   background: white;
   align-items: center;
- 
+  margin-bottom: 40px;
+  margin-top: 40px;
   border: 1px solid transparent;
 
   
@@ -72,8 +71,9 @@ export const CloseButtonX = styled.button`
   border-width: 0.14px;
   border-radius: 50%;
   background: #eeeeee;
-  width: 30px;
-height: 30px;
+  width: 40px;
+height: 40px;
+border:none;
 
 
 
@@ -109,7 +109,7 @@ height: 30px;
 
 export const Logo1 = styled.img`
   width:122px;
-  height: 163.34%;
+  height:49px;
  position: absolute;
   top: 48%;
   left: 33%;
@@ -215,7 +215,6 @@ export const CloseButton2 = styled.button`
 
 export const Title = styled.p`
 margin:auto;
-padding-top: 3.847%;
   font-family:Inter;
   text-align: center;
   font-size: 24px;
@@ -228,10 +227,11 @@ padding-top: 3.847%;
 `;
 
 export const OutsideContainer=styled.div`
-      width: 49.958%;
-    height: 8.967%;
+  width:390px;
+  height:69.98px;
   margin:auto;
- 
+  // margin-left:195px;
+  // margin-top:50px;
 
    @media (max-width: 768px) {
     width: 100%;
@@ -249,24 +249,22 @@ export const OutsideContainer=styled.div`
 `
 
 export const Subtitle = styled.p`
-
   font-family:Inter;
   text-align: center;
   font-size: 14px;
   font-weight:400;
-  margin:0;
+  margin-top:10px;
  
   color:rgba(120, 139, 165, 1);
 `;
 
 export const Form = styled.form`
-  margin: auto;
- width: 94.791%;
-    height: 63.414%;
+  margin-left: 40px;
+  width: 740px;
+  height: 504px;
   display: flex;
   flex-direction: column;
-gap: 16px;
-  padding-top: 2.05%;
+  gap: 1.5rem;
 
   @media (max-width: 769px) {
     width: 100%;   // Ensure the form takes full width on tablets
@@ -455,9 +453,15 @@ export const Checkbox2 = styled.input`
 
 export const Button = styled.button`
   font-family:Inter;
+ 
+padding: 16px 32px 16px 32px;
+gap: 10px;
+border-radius: 6px;
+
+
   width:203px;
   height:54px;
-  background-color: #003CFF;
+  background-color: rgba(0, 60, 255, 1);
   color: rgba(255, 255, 255, 1);
   padding: 0.75rem;
   border: none;
@@ -520,10 +524,9 @@ export const Help = styled.img`
   width: 70.93px;
   height: 70px;
   position: fixed; 
-  top:83.70% ;
-  left:82.5%; 
-  bottom:16.29%;
-  // padding: 23px 28px;
+  bottom: 10%; 
+  right:15%;  
+  padding: 23px 28px;
   
   border-radius: 142.5px;
   z-index: 10; 
@@ -547,16 +550,12 @@ export const Help = styled.img`
 
 
 export const ImageHash1 = styled.img`
-  // width:300px;
-  // height:300px;
-  // position: absolute;
-  // bottom: -450px;
-  // left: 0;
-  // z-index:-1;
-   width:25.834%;
-  height:372px;
+  width:300px;
+  height:300px;
   position: absolute;
- 
+  bottom: -450px;
+  left: 0;
+  z-index:-1;
  
 `;
 

@@ -3,54 +3,60 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDocs,
+  serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
- 
+
 import "./Segmentcontrol.css";
 import { db } from "../Firebase/firebase";
 import { FilterContext } from "../Dashboard/FilterContext";
 import Message from "./Message";
- 
-const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
+
+import Raisa from "../../Images/1.png"
+import RequestMessage from "./RequestMessage";
+
+
+const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConnects,matchingPendingRequests,matchingRejectedRequests,matchingSendRequests,sample,sampleSend,sampleReject }) => {
   // const [activeSegment, setActiveSegment] = useState("pending");
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userConnectsList, setUserConnectsList] = useState([]);
-  const [matchingPendingRequests, setMatchingPendingRequests] = useState([]);
-  const [matchingSendRequests, setMatchingSendRequests] = useState([]);
-  const [matchingRejectedRequests, setMatchingRejectedRequests] = useState([]);
- 
-  const { selectedRequestTypes } = useContext(FilterContext);
- 
-  useEffect(() => {
-    const auth = getAuth();
-    // Listen for authentication state changes
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user);
-      }
-    });
-    // Cleanup the listener on unmount
-    return () => unsubscribe();
-  }, []);
- 
+
+  
+
+  const { selectedCategories,selectedEcosystems,selectedFundingStages,selectedRequestTypes,selectedPartenerShipInterests,selectedLocation,selectedProfileStatus } = useContext(FilterContext);
+  const [users, setUsers] = useState([]); 
+
+
+
+ // Fetch users from Firestore
+ useEffect(() => {
+  const fetchUsers = async () => {
+    const usersSnapshot = await getDocs(collection(db, 'User'));
+    const usersList = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setUsers(usersList);
+  };
+
+  fetchUsers();
+}, []);
+  
+
   // Sort the filtered requests
   const sortRequests = (requests) => {
     let sortedRequests = [...requests];
- 
+
     if (sortOptions.newest) {
       sortedRequests.sort(
         (a, b) => b.createdAt?.seconds - a.createdAt?.seconds
       );
     }
- 
+
     if (sortOptions.oldest) {
       sortedRequests.sort(
         (a, b) => a.createdAt?.seconds - b.createdAt?.seconds
       );
     }
- 
+
     if (sortOptions.az) {
       sortedRequests.sort((a, b) => {
         const nameA = a.name || ""; // Default to an empty string if undefined
@@ -58,7 +64,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
         return nameA.localeCompare(nameB);
       });
     }
- 
+
     if (sortOptions.za) {
       sortedRequests.sort((a, b) => {
         const nameA = a.name || ""; // Default to an empty string if undefined
@@ -66,10 +72,10 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
         return nameB.localeCompare(nameA);
       });
     }
- 
+
     return sortedRequests;
   };
- 
+
   // Filter requests based on search query
   const filterRequests = (requests) => {
     return requests.filter(
@@ -82,9 +88,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
         )
     );
   };
- 
+
   // Filter requests based on selected request types
-  const filterByRequestTypes = (requests) => {
+  /* const filterByRequestTypes = (requests) => {
     if (selectedRequestTypes.length > 0) {
       return requests.filter(
         (request) =>
@@ -96,83 +102,196 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     } else {
       return requests;
     }
+  }; */
+
+
+ /*  const filterByRequestTypes = (requests) => {
+    return requests.filter((request) => {
+      // Find the user with matching toUserId in the User collection
+      const user = users.find((u) => u.id === request.toUserId);
+      const isVerifiedUser = user && user.verified === true;
+      // Filter by Request Types
+      const matchesRequestTypes =
+        selectedRequestTypes.length === 0 ||
+        (request?.requestTypes?.length > 0 &&
+          request.requestTypes.some((type) =>
+            selectedRequestTypes.includes(type)
+          ));
+  
+      // Filter by Categories
+      const matchesCategories =
+        selectedCategories.length === 0 ||
+        (request?.tocategory?.length > 0 &&
+          request.tocategory.some((category) =>
+            selectedCategories.includes(category)
+          ));
+  
+      // Filter by Ecosystems
+      const matchesEcosystems =
+        selectedEcosystems.length === 0 ||
+        (request?.toecosystem?.length > 0 &&
+          request.toecosystem.some((ecosystem) =>
+            selectedEcosystems.includes(ecosystem)
+          ));
+  
+      // Filter by Funding Stages
+      const matchesFundingStages =
+        selectedFundingStages.length === 0 ||
+        (request?.tofundingstage?.length >0  &&
+          request.tofundingstage.some((fs)=>selectedFundingStages.includes(fs))
+          );
+  
+      // Filter by Partnership Interests
+      const matchesPartnershipInterests =
+        selectedPartenerShipInterests.length === 0 ||
+        (request?.topartnershipinterest?.length > 0 &&
+          request.topartnershipinterest.some((interest) =>
+            selectedPartenerShipInterests.includes(interest)
+          ));
+  
+      // Filter by Location
+      const matchesLocation =
+        selectedLocation.length === 0 ||
+        (request?.location && selectedLocation.includes(request.location));
+  
+      // Filter by Profile Status
+      const matchesProfileStatus =
+       
+  
+      // Return true if all filters match
+      return (
+        matchesRequestTypes &&
+        matchesCategories &&
+        matchesEcosystems &&
+        matchesFundingStages &&
+        matchesPartnershipInterests &&
+        matchesLocation &&
+        matchesProfileStatus
+      );
+    });
+  }; */
+  
+
+  const filterByRequestTypes = (requests) => {
+    return requests.filter((request) => {
+      // Find the user with matching toUserId in the User collection
+      const user = users.find((u) => u.id === request.toUserId);
+      const isVerifiedUser = user && user.verified === true;
+      const isTgVerified=user && user.tgVerified === true;
+  
+      // Filter by Request Types
+      const matchesRequestTypes =
+        selectedRequestTypes.length === 0 ||
+        (request?.requestTypes?.length > 0 &&
+          request.requestTypes.some((type) =>
+            selectedRequestTypes.includes(type)
+          ));
+  
+      // Filter by Categories
+      const matchesCategories =
+        selectedCategories.length === 0 ||
+        (request?.tocategory?.length > 0 &&
+          request.tocategory.some((category) =>
+            selectedCategories.includes(category)
+          ));
+  
+      // Filter by Ecosystems
+      const matchesEcosystems =
+        selectedEcosystems.length === 0 ||
+        (request?.toecosystem?.length > 0 &&
+          request.toecosystem.some((ecosystem) =>
+            selectedEcosystems.includes(ecosystem)
+          ));
+  
+      // Filter by Funding Stages
+      const matchesFundingStages =
+        selectedFundingStages.length === 0 ||
+        (request?.tofundingstage?.length > 0 &&
+          request.tofundingstage.some((fs) =>
+            selectedFundingStages.includes(fs)
+          ));
+  
+      // Filter by Partnership Interests
+      const matchesPartnershipInterests =
+        selectedPartenerShipInterests.length === 0 ||
+        (request?.topartnershipinterest?.length > 0 &&
+          request.topartnershipinterest.some((interest) =>
+            selectedPartenerShipInterests.includes(interest)
+          ));
+  
+      // Filter by Location
+      const matchesLocation =
+        selectedLocation.length === 0 ||
+        (request?.location && selectedLocation.includes(request.location));
+  
+      // Filter by Profile Status
+      const matchesProfileStatus =
+        selectedProfileStatus.length === 0 ||
+        (selectedProfileStatus.includes("Email Verified") && isVerifiedUser || selectedProfileStatus.includes("TG Verified") && isTgVerified);
+  
+      // Return true if all filters match
+      return (
+        matchesRequestTypes &&
+        matchesCategories &&
+        matchesEcosystems &&
+        matchesFundingStages &&
+        matchesPartnershipInterests &&
+        matchesLocation &&
+        matchesProfileStatus
+      );
+    });
   };
- 
-  // Fetch userConnects data
-  const fetchUserConnects = async () => {
-    try {
-      // Reference to the UserConnects collection
-      const userConnectsCollection = collection(db, "UserConnects");
- 
-      // Fetch all documents from the collection
-      const querySnapshot = await getDocs(userConnectsCollection);
- 
-      // Map through the documents to create a list
-      const userConnectsList = querySnapshot.docs.map((doc) => ({
-        id: doc.id, // Document ID
-        ...doc.data(), // Document data
-      }));
- 
-      console.log("Fetched User Connects: ", userConnectsList);
-      setUserConnectsList(userConnectsList);
- 
-      // Filter to find all matches where toUserId equals currentUser.uid and status==="pending"
-      const matchingPendingRequests = userConnectsList.filter(
-        (ele) => ele.toUserId === currentUser?.uid && ele.status === "pending"
-      );
- 
-      const matchingRejectedRequests = userConnectsList.filter(
-        (ele) =>
-          (ele.toUserId === currentUser?.uid ||
-            ele.userId === currentUser?.uid) &&
-          ele.status === "Denied"
-      );
- 
-      // Filter to find all matches where userId equals currentUser.uid
-      const matchingSendRequests = userConnectsList.filter(
-        (ele) => ele.userId === currentUser?.uid
-      );
- 
-      setMatchingPendingRequests(matchingPendingRequests);
-      setMatchingSendRequests(matchingSendRequests);
-      setMatchingRejectedRequests(matchingRejectedRequests);
-    } catch (e) {
-      alert("Error fetching Data");
-      return [];
-    }
-  };
- 
-  useEffect(() => {
-    fetchUserConnects();
-  }, [db, currentUser?.uid]);
- 
+  
+
   //handling accept and deny
- 
+
   const handleAccept = async (docid) => {
     await updateDoc(doc(db, "UserConnects", docid), {
       status: "Accepted",
+      lastCreatedAt: serverTimestamp(),
     });
     await fetchUserConnects();
     alert("Request has been accepted!");
   };
- 
+
   const handleDeny = async (docid) => {
     await updateDoc(doc(db, "UserConnects", docid), {
       status: "Denied",
+      lastCreatedAt: serverTimestamp(),
     });
     await fetchUserConnects();
     alert("Request has been rejected!");
   };
- 
-  // Sample data for the tables
-  const pendingRequests = [
+
+  // Function to handle cancel request (delete operation)
+  const handleCancelRequest = async (docid) => {
+    try {
+      // Reference to the document in UserConnects collection
+      const docRef = doc(db, "UserConnects", docid);
+
+      // Delete the document
+      await deleteDoc(docRef);
+
+      alert(`Request is cancelled!!.`);
+
+      await fetchUserConnects();
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+    }
+  };
+
+  
+
+
+  const RejectDummyRequests = [
+
     {
       id: 1,
-      name: "PreludeSys",
+      name: "testdemo",
       location: "India",
-      type: "Funding",
-      date: "09-12-2024",
-      message: "Last message: 23-10-2024",
+      type: "Listing",
+      date: "10-12-2024",
+      message: "Hi I am test demo",
     },
     {
       id: 2,
@@ -180,35 +299,15 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
       location: "Hungary",
       type: "Listing",
       date: "09-12-2024",
-      message: "Last message: 23-10-2024",
+      message: "This is test demo2",
     },
     // Add more rows as necessary
   ];
- 
-  const sendRequests = [
-    {
-      id: 1,
-      name: "PreludeSys",
-      location: "India",
-      type: "Funding",
-      date: "09-12-2024",
-      message: "Last message: 23-10-2024",
-    },
-    {
-      id: 2,
-      name: "PreludeSys",
-      location: "Hungary",
-      type: "Listing",
-      date: "09-12-2024",
-      message: "Last message: 23-10-2024",
-    },
-    // Add more rows as necessary
-  ];
- 
+
   return (
     <div className="Requestcontainer">
       {/* Segmented Control */}
- 
+
       {/* Conditional Rendering of Tables */}
       <div className="table-container">
         {/* Pending request */}
@@ -216,129 +315,332 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
           <table className="request-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name of Project</th>
-                <th>Date</th>
-                <th>Message</th>
-                <th>Location</th>
-                <th>Request Type</th>
-                <th>Actions</th>
+              <th  style={{ textAlign: "center", verticalAlign: "middle" }}>ID</th>
+                <th style={{ textAlign: "center", verticalAlign: "middle"}} >Name of Project</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Last Updated</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Message</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Location</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Request Type</th>
+               <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Actions</th> 
               </tr>
             </thead>
             <tbody>
               {sortRequests(
-                filterByRequestTypes(filterRequests(matchingPendingRequests))
+                filterByRequestTypes(filterRequests(/* matchingPendingRequests */  sample))
               ).map((request, i) => (
                 <tr key={request.id}>
-                  <td>{i + 1}</td>
-                  <td>{request?.name}</td>
-                  <td>
-                    {new Date(
-                      request.createdAt.seconds * 1000
-                    ).toLocaleDateString()}
-                  </td>
-                  <td><Message msg={request?.message}/></td>
-                  <td>{request.location}</td>
-                  <td>{request?.requestTypes.join(",")}</td>
-                  <td style={{display:"flex",justifyContent:"row",alignItems:"center",marginTop:"40px"}}>
-                    <button
-                      className="action-btn"
-                      onClick={() => handleAccept(request.id)}
-                    >
-                      Accept
-                    </button>
-                    <button
-                      className="action-btn"
-                      onClick={() => handleDeny(request.id)}
-                    >
-                      Deny
-                    </button>
-                  </td>
-                </tr>
+
+  <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+    {String(i+1).padStart(3, '0')} 
+    
+
+  </td>
+  
+  <td
+    
+  >
+    <div className="name-request-pending"
+    style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
+     <img
+      src={request.profilePicture}
+      alt="profile-pic"
+      style={{
+        width: "28px",
+        height: "28px",
+        borderRadius: "50%",
+        marginRight: "4px",
+      }}
+    /> 
+
+
+      {request.name}
+    </div>
+  </td>
+  
+  <td className="date-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
+       {new Date(request.lastCreatedAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}   
+  </td>
+  
+  <td className="message-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <img className="msg-image-request-pending"
+      src={request.profilePicture}
+      alt="profile-pic"
+    />
+    <div className="below-message-container-pending">
+      <span>{request.message}</span>
+      <p className="below-message-pending">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p> 
+    </div>
+  </div>
+</td>
+ 
+  
+  <td className="location-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
+    {request.location}  
+  </td>
+  
+  <td className="requestType-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
+    {request?.requestTypes.join(", ")}  
+  </td>
+
+
+  {/* <td className="action-button-request-pending" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+    <button className="request-page-cancel-button-pending">
+      Cancel
+    </button>
+  </div>
+</td> */}
+<td className="action-button-request-pending" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", gap: "5px" }}>
+     {
+      request.status==="Pending"?(<>
+       <button className="request-page-accept-button-pending" onClick={()=>handleAccept(request.id)}>
+      Accept
+    </button>
+    <button className="request-page-decline-button-pending" onClick={()=>handleDeny(request.id)}>
+      Decline
+    </button>
+      </>):(<>
+        <button className="request-page-accept-button-pending" disabled
+  style={{
+    opacity: 0.5, // Optional: Visual effect when disabled
+    cursor: "not-allowed"
+  }} >
+      Accept
+    </button>
+    <button className="request-page-decline-button-pending" disabled
+  style={{
+    opacity: 0.5, // Optional: Visual effect when disabled
+    cursor: "not-allowed"
+  }}>
+      Decline
+    </button>
+      </>)
+     }
+
+   
+  </div>
+</td>
+
+
+
+
+</tr>
+
+
               ))}
             </tbody>
           </table>
         )}
- 
+
         {/* sending request */}
- 
+
         {activeSegment === "send" && (
           <table className="request-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name of Project</th>
-                <th>Date</th>
-                <th>Message</th>
-                <th>Location</th>
-                <th>Request Type</th>
+
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>ID</th>
+                <th style={{ textAlign: "center", verticalAlign: "middle"}} >Name of Project</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Last Updated</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Message</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Location</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Request Type</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Status</th> 
+               <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Actions</th> 
+
+
                 {/* <th>Actions</th> */}
               </tr>
             </thead>
             <tbody>
               {sortRequests(
-                filterByRequestTypes(filterRequests(matchingSendRequests))
+                filterByRequestTypes(filterRequests(sampleSend))
               )?.map((request, i) => (
                 <tr key={request.id}>
-                  <td>{i + 1}</td>
-                  <td>{request.name}</td>
-                  <td>
-                    {new Date(
-                      request.createdAt.seconds * 1000
-                    ).toLocaleDateString()}
-                  </td>
-                  <td>{request.message}</td>
-                  <td>{request.location}</td>
-                  <td>{request?.requestTypes.join(",")}</td>
-                  {/* <td>
-                    <button className="action-btn">Request Sent</button>
-                  </td> */}
-                </tr>
+
+
+  <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+    {String(i+1).padStart(3, '0')} 
+    
+
+
+  </td>
+  
+  <td
+    
+  >
+    <div className="name-request"
+    style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
+
+     <img
+
+      src={request?.toprofilePicture}
+      alt="profile-pic"
+      style={{
+        width: "28px",
+        height: "28px",
+        borderRadius: "50%",
+
+        marginRight: "4px",
+      }}
+    /> 
+
+
+      {request.toname}  
+
+    </div>
+  </td>
+  
+  <td className="date-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+
+      {new Date(request.lastCreatedAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")} 
+  </td>
+  
+  <td className="message-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <img className="msg-image-request"
+      src={request?.toprofilePicture}
+      alt="profile-pic"
+    />
+    <div className="below-message-container">
+      <span>{request.message}</span>
+      <p className="below-message">{<RequestMessage request={request}/>} at { new Date(request.createdAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}</p>
+    </div>
+  </div> 
+</td>
+ 
+  
+  <td className="location-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+     {request.tolocation} 
+  </td>
+  
+  <td className="requestType-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+    {request?.requestTypes.join(", ")} 
+  </td>
+
+  <td className="status-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+     {request?.status} 
+  </td>
+
+
+  <td className="action-button-request" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+    
+      <button className="request-page-cancel-button" onClick={()=>handleCancelRequest(request.id)}>
+      Cancel
+    </button>
+    
+    
+  </div>
+</td>
+
+
+
+</tr>
+
+
+
+   
               ))}
             </tbody>
           </table>
         )}
- 
+
         {/* rejected request */}
         {activeSegment === "rejected" && (
           <table className="request-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name of Project</th>
-                <th>Date</th>
-                <th>Message</th>
-                <th>Location</th>
-                <th>Request Type</th>
-                {/* <th>Actions</th> */}
+              <th  style={{ textAlign: "center", verticalAlign: "middle" }}>ID</th>
+                <th style={{ textAlign: "center", verticalAlign: "middle"}} >Name of Project</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Last Updated</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Message</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Location</th>
+                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Request Type</th>
               </tr>
             </thead>
             <tbody>
               {sortRequests(
-                filterByRequestTypes(filterRequests(matchingRejectedRequests))
-              )?.map((request, i) => (
+                filterByRequestTypes(filterRequests(sampleReject))
+              )?.map((request, i) =>(
                 <tr key={request.id}>
-                  <td>{`00${i + 1}`}</td>
-                  <td>{request.name}</td>
-                  <td>
-                    {new Date(
-                      request.createdAt.seconds * 1000
-                    ).toLocaleDateString()}
-                  </td>
-                  <td>{request.message}</td>
-                  <td>{request.location}</td>
-                  <td>{request?.requestTypes.join(",")}</td>
-                  {/* <td>
-                    <button className="action-btn">Request Sent</button>
-                  </td> */}
-                </tr>
-              ))}
+
+  <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
+    {String(i+1).padStart(3, '0')} 
+    
+
+  </td>
+  
+  <td
+    
+  >
+    <div className="name-request-rejected"
+    style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
+      <img
+      src={request?.toprofilePicture}
+      alt="profile-pic"
+      style={{
+        width: "28px",
+        height: "28px",
+        borderRadius: "50%",
+        marginRight: "4px",
+      }}
+    />  
+
+
+ {request.toname} 
+    </div>
+  </td>
+  
+  <td className="date-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
+       {new Date(request.lastCreatedAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}   
+  </td>
+  
+  <td className="message-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
+   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <img className="msg-image-request-rejected"
+      src={request?.toprofilePicture}
+      alt="profile-pic"
+    />
+    <div className="below-message-container-rejected">
+      <span>{request.message}</span>
+      <p className="below-message">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p>
+    </div>
+  </div> 
+</td>
+ 
+  
+  <td className="location-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
+   {request.tolocation} 
+  </td>
+  
+  <td className="requestType-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
+   {request?.requestTypes.join(", ")}  
+  </td>
+
+
+
+
+</tr>
+
+              ) )}
+
             </tbody>
           </table>
         )}
- 
+
         {/* Follow request */}
- 
+
         {activeSegment === "followup" && (
           <table className="request-table">
             <thead>
@@ -353,7 +655,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
               </tr>
             </thead>
             <tbody>
-              {sortRequests(sendRequests)?.map((request) => (
+              {sortRequests(RejectDummyRequests)?.map((request) => (
                 <tr key={request.id}>
                   <td>{request.id}</td>
                   <td>{request.name}</td>
@@ -373,5 +675,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery }) => {
     </div>
   );
 };
- 
+
+
 export default Segmentcontrol;
+

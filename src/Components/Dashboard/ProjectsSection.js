@@ -24,6 +24,9 @@ import ShimmerUiCard2 from './ShimmerUiCard2';
 // Add: Import the FilterContext to access the selected categories
 import { FilterContext } from './FilterContext'; 
 import CompanyDetails from '../ComapanyDetails';
+import Magnify from '../../Images/Magnify.png';
+import fire from "../../Images/fire.png";
+import star from "../../Images/star.png";
 
 const cache={}
 
@@ -31,6 +34,7 @@ const ProjectsSection = () => {
 
   const [searchInput,setSearchInput]=useState("")
   const [suggestionList,setSuggestionList]=useState([])
+  const [sortedProjectList, setSortedProjectList] = useState([]);
 
   const [arr,setarr]=useState(new Array(4).fill(""))
   const [requestSent, setRequestSent] = useState(0);
@@ -47,6 +51,7 @@ const ProjectsSection = () => {
   const [filterData, setFilterData] = useState([]);
   const [requestReceivedCount, setRequestReceivedCount] = useState(0);
   const [requestSentCount, setRequestSentCount] = useState(0);
+  const [sortedPaginatedProjectList,setSortedPaginatedProjectList]=useState([])
 
   const [selectedProject, setSelectedProject] = useState(null); // State to track the selected card
 
@@ -87,7 +92,53 @@ const ProjectsSection = () => {
      return ()=>clearTimeout(timer)
   },[searchInput])
 
- 
+ // Fetch function to get request counts
+const fetchUserConnectCounts = async (userId) => {
+  try {
+    const connectsRef = collection(db, 'UserConnects');
+
+    // Queries to match userId and toUserId
+    const userQuery = query(connectsRef, where('userId', '==', userId));
+    const toUserQuery = query(connectsRef, where('toUserId', '==', userId));
+
+    // Run both queries in parallel
+    const [userSnapshot, toUserSnapshot] = await Promise.all([getDocs(userQuery), getDocs(toUserQuery)]);
+
+    // Return the requestSent and requestReceived counts
+    return {
+      requestSent: userSnapshot.size,
+      requestReceived: toUserSnapshot.size
+    };
+  } catch (error) {
+    console.error('Error fetching user connect counts:', error);
+    return { requestSent: 0, requestReceived: 0 }; // Default in case of error
+  }
+};
+  useEffect(() => {
+    const sortProjectsByRequestReceived = async () => {
+      // Clone the array to avoid mutating the original
+      const updatedList = await Promise.all(userProjectList.map(async (project) => {
+        // Fetch request counts for each user
+        const { requestSent, requestReceived } = await fetchUserConnectCounts(project.userId);
+
+        // Return the updated project object with requestSent and requestReceived
+        return {
+          ...project,
+          requestSent,
+          requestReceived
+        };
+      }));
+
+      // Sort the updated list by requestReceived in descending order
+      updatedList.sort((a, b) => b.requestReceived - a.requestReceived);
+
+      // Update the state with the sorted list
+      setSortedProjectList(updatedList);
+    };
+
+    // Call the function to sort projects
+    sortProjectsByRequestReceived();
+  }, [userProjectList]);
 
 
   // Fetch the user projects from Firestore
@@ -182,7 +233,7 @@ const ProjectsSection = () => {
 
 
   //Pagination
-  const n = 4;
+  const n = 10;
   const [page, setPage] = useState(0);
   
   
@@ -195,6 +246,14 @@ const ProjectsSection = () => {
       })
     );
   }, [userProjectList,page]);
+
+  useEffect(()=>{
+    setSortedPaginatedProjectList(
+      sortedProjectList.filter((item, index) => {
+        return (index >= page * 4) & (index < (page + 1) * 4);
+      })
+    );
+  },[sortedProjectList,page])
 
   const handleSortChange = (e) => {
     const { name, checked } = e.target;
@@ -260,7 +319,7 @@ const ProjectsSection = () => {
     );
   }, [userProjectList, selectedCategories, selectedEcosystems,selectedFundingStages,selectedRequestTypes,selectedPartenerShipInterests,selectedLocation,selectedProfileStatus, page, n]); */
   
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchVerifiedStatus = async () => {
       const userIds = userProjectList.map((project) => project.userId);
       
@@ -288,16 +347,20 @@ const ProjectsSection = () => {
       }
   
       const userVerificationStatus = {};
+      const tguserVerificationStatus={};
   
       try {
         // Perform Firestore query only if userIds array is not empty
         const usersSnapshot = await getDocs(
           query(collection(db, 'User'), where('id', 'in', userIds))
         );
+        
   
         usersSnapshot.forEach((doc) => {
           const userData = doc.data();
-          userVerificationStatus[userData.userId] = userData.verified;
+         
+          userVerificationStatus[userData.id] = userData.verified;
+          tguserVerificationStatus[userData.id]=userData. tgVerified;
         });
   
         const filteredProjects = userProjectList.filter((project) => {
@@ -340,20 +403,126 @@ const ProjectsSection = () => {
     selectedProfileStatus, 
     page, 
     n
-  ]);
+  ]); */
   
+  useEffect(() => {
+    const fetchVerifiedStatus = async () => {
+        const userIds = userProjectList.map((project) => project.userId);
+        
+        // Check if userIds array is empty
+        if (userIds.length === 0) {
+            // If there are no user IDs, skip Firestore query and filter projects without profile status match
+            const filteredProjects = userProjectList.filter((project) => {
+                const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(project.category);
+                const ecosystemMatch = selectedEcosystems.length === 0 || selectedEcosystems.includes(project.blockchain);
+                const fundingstageMatch = selectedFundingStages.length === 0 || selectedFundingStages.includes(project.fundingStatus);
+                const requesttypeMatch = selectedRequestTypes.length === 0 || selectedRequestTypes.includes(project.requestType);
+                const locationMatch = selectedLocation.length === 0 || selectedLocation.includes(project.country);
+                const partnershipinterestMatch = selectedPartenerShipInterests.length === 0 || selectedPartenerShipInterests.includes(project.partnershipInterest);
+    
+                // Skip profile status check when there are no user IDs
+                return categoryMatch && ecosystemMatch && fundingstageMatch && requesttypeMatch && locationMatch && partnershipinterestMatch;
+            });
+    
+            setFilterData(
+                filteredProjects.filter((item, index) => {
+                    return index >= page * n && index < (page + 1) * n;
+                })
+            );
+            return; // Exit early if there are no user IDs
+        }
+    
+        const userVerificationStatus = {};
+        const tgUserVerificationStatus = {};
+    
+        try {
+            // Perform Firestore query only if userIds array is not empty
+            const usersSnapshot = await getDocs(
+                query(collection(db, 'User'), where('id', 'in', userIds))
+            );
+            
+    
+            usersSnapshot.forEach((doc) => {
+                const userData = doc.data();
+               
+                userVerificationStatus[userData.id] = userData.verified;
+                tgUserVerificationStatus[userData.id] = userData.tgVerified;
+            });
+    
+            const filteredProjects = userProjectList.filter((project) => {
+                const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(project.category);
+                const ecosystemMatch = selectedEcosystems.length === 0 || selectedEcosystems.includes(project.blockchain);
+                const fundingstageMatch = selectedFundingStages.length === 0 || selectedFundingStages.includes(project.fundingStatus);
+                const requesttypeMatch = selectedRequestTypes.length === 0 || selectedRequestTypes.includes(project.requestType);
+                const locationMatch = selectedLocation.length === 0 || selectedLocation.includes(project.country);
+                const partnershipinterestMatch = selectedPartenerShipInterests.length === 0 || selectedPartenerShipInterests.includes(project.partnershipInterest);
+    
+                // Check profile status for both Email Verified and TG Verified
+                const profileStatusMatch = selectedProfileStatus.length === 0 || 
+                    (selectedProfileStatus.includes("Email Verified") 
+                        ? userVerificationStatus[project.userId] === true 
+                        : true) &&
+                    (selectedProfileStatus.includes("TG Verified") 
+                        ? tgUserVerificationStatus[project.userId] === true 
+                        : true);
+    
+                return categoryMatch && ecosystemMatch && fundingstageMatch && requesttypeMatch && locationMatch && partnershipinterestMatch && profileStatusMatch;
+            });
+    
+            // Apply pagination filter after filtering projects
+            setFilterData(
+                filteredProjects.filter((item, index) => {
+                    return index >= page * n && index < (page + 1) * n;
+                })
+            );
+        } catch (error) {
+            console.error("Error fetching users:", error);
+        }
+    };
   
+    fetchVerifiedStatus(); // Fetch and filter projects based on verification status
+}, [
+    userProjectList, 
+    selectedCategories, 
+    selectedEcosystems,
+    selectedFundingStages, 
+    selectedRequestTypes, 
+    selectedPartenerShipInterests, 
+    selectedLocation, 
+    selectedProfileStatus, 
+    page, 
+    n
+]);
+
   return (
     <section className="projects-section">
-    
-    
+      
+    <div className='projectseciton-sub'>
       <div className="search-bar">
-        <input type="text" placeholder="Search Project..." onChange={handleSearch} />
+      <input 
+  style={{
+    fontSize: "14px",
+    fontWeight: "400",
+    color: "#282828",
+    backgroundImage: `url(${Magnify})`, 
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "12px center", // Increased horizontal position to move the icon right
+    backgroundSize: "24px 24px", // Set image size to 24x24
+    paddingLeft: "45px", // Adjusted padding to maintain space between the image and the text
+    height: "48px", // Adjust height to ensure proper alignment
+  }} 
+  type="text" 
+  placeholder="Search Project." 
+  onChange={handleSearch} 
+/>
+
+
+
       </div>
       
       <div className='popular-pagination-heading'>
       <div className='popular-projects'>
-       <div className="pp"> Popular Projects🔥</div>
+       <div className="pp"> Popular Projects <img src={fire} alt='fire'/></div>
       
       </div>
       <div className='pagination-popular'>
@@ -384,8 +553,8 @@ const ProjectsSection = () => {
       </div>
       <div className='card-list1'>
         {
-          filterData.length>0 ?(filterData.map((ele,i)=>{
-            return <Card onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} desc={ele.descr} web={ele.website} userId={ele.userId}/>
+          sortedPaginatedProjectList.length>0 ?(sortedPaginatedProjectList.map((ele,i)=>{
+            return <Card onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} desc={ele.descr} web={ele.website} userId={ele.userId} requestType={ele.requestType}/>
           })):(arr.map((ele,i)=>{
             return <ShimmerUiCard/>
           }))
@@ -393,9 +562,9 @@ const ProjectsSection = () => {
       </div>
       
       
-     <div style={{display:'flex',justifyContent:'space-between',margin:'5px'}}>
-     <p>All Projects </p>
-      <div >
+     <div  className="allprojects-filter-cntainer">
+     <p className='ap'>All Projects <img src={star} alt='star'/></p>
+     <div className='filter-container'>
       {/* The clickable image */}
       <div className='filter-icon'>
         <span
@@ -429,8 +598,8 @@ const ProjectsSection = () => {
           <button onClick={applySorting}>Apply Sorting</button>
         </div>
       )}
-    </div>
-          
+    
+    </div>  
         
     </div>
         
@@ -439,7 +608,7 @@ const ProjectsSection = () => {
       <div className="card2list-pagination-all">
       <div className='card2-list'>
         {filterData.length>0?(filterData.map((ele, i) => (
-          <Card2 onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} city={ele.city} desc={ele.descr} userId={ele.userId} />
+          <Card2 onClick={() =>handleCardClick(ele)} key={ele.createdAt} name={ele.name} logo={ele.profilePicture} country={ele.country} desc={ele.descr} userId={ele.userId} />
         ))):(arr.map((ele,i)=>{
           return <ShimmerUiCard2/>
         }))} 
@@ -448,7 +617,7 @@ const ProjectsSection = () => {
 
       <div className='pagination-all-projects'>
       <ReactPaginate
-  containerClassName={"pagination"}
+  containerClassName={"pagination1"}
   activeClassName={"active"}
   pageClassName={"page-item"}
   onPageChange={(event) => setPage(event.selected)}
@@ -473,6 +642,7 @@ const ProjectsSection = () => {
 </div>
       </div>
       <ToastContainer/>
+      </div>
     </section>
     
     

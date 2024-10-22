@@ -8,11 +8,13 @@ import EditProfile from './EditProfile'
 
 const ProfileSidebar = ({ User }) => {
   const [userSubsDetail, setUserSubDetail] = useState([]);
-  const [requestSentCount, setRequestSentCount] = useState(0);
+  
   const [userProject, setUserProject] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userDetail, setUserDetail] = useState(null); // Store user details separately
    const [isEditprofile, setIsEditProfile] = useState(false);
+   const [requestSent, setRequestSent] = useState(0);
+  const [requestReceived, setRequestReceived] = useState(0);
 
    const handleViewClick = (project) => {
     // Save project data to localStorage or sessionStorage
@@ -50,7 +52,7 @@ const ProfileSidebar = ({ User }) => {
       }));
       setUserProject(userProjects);
 
-      // Fetch User Subscription Data
+      /* // Fetch User Subscription Data
       const userSubsQuery = query(collection(db, "UserSubs"), where("userId", "==", User.uid));
       const receivedSnapshot = await getDocs(userSubsQuery);
       const userSubsDetail = receivedSnapshot.docs.map((doc) => doc.data());
@@ -59,7 +61,7 @@ const ProfileSidebar = ({ User }) => {
       // Fetch Request Sent Count
       const sentQuery = query(collection(db, "ConnectionReq"), where("fromUserId", "==", User.uid));
       const sentSnapshot = await getDocs(sentQuery);
-      setRequestSentCount(sentSnapshot.size);
+      setRequestSentCount(sentSnapshot.size); */
 
     } catch (error) {
       console.error(error);
@@ -67,6 +69,42 @@ const ProfileSidebar = ({ User }) => {
       setLoading(false);
     }
   };
+
+  const fetchUserConnectCounts = async (userId, setRequestSent, setRequestReceived) => {
+    try {
+      // Reference to the UserConnects collection
+      const connectsRef = collection(db, 'UserConnects');
+ 
+      // Create query to match userId
+      const userQuery = query(connectsRef, where('userId', '==', userId));
+ 
+      // Create query to match toUserId
+      const toUserQuery = query(connectsRef, where('toUserId', '==', userId));
+ 
+      // Run both queries in parallel
+      const [userSnapshot, toUserSnapshot] = await Promise.all([
+        getDocs(userQuery),
+        getDocs(toUserQuery)
+      ]);
+ 
+      // Set state for requestSent and requestReceived
+      setRequestSent(userSnapshot.size);      // Count of requests sent (userId)
+      setRequestReceived(toUserSnapshot.size); // Count of requests received (toUserId)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setRequestSent(0);      // Default to 0 if error occurs
+      setRequestReceived(0);   // Default to 0 if error occurs
+    }
+  };
+
+
+useEffect(() => {
+  // Ensure selectedProject and userId exist
+  if (userProject[0]?.userId) {
+    fetchUserConnectCounts(userProject[0].userId, setRequestSent, setRequestReceived);
+  }
+}, [userProject[0],db]);
+
 
   useEffect(() => {
     fetchData();
@@ -96,7 +134,7 @@ const ProfileSidebar = ({ User }) => {
         <div className="profile">
           <img src={userDetail?.profilePicture} alt="profile" className="profile-pic" />
           <div className="text-info">
-            <div className="profile-Name">{userDetail?.firstname} {userDetail?.lastname}</div>
+            <div className="profile-Name">{/* {userDetail?.firstname} {userDetail?.lastname} */} {userProject[0].name}</div>
             <div className="profile-web">{userProject[0]?.website || 'No website available'}</div>
           </div>
         </div>
@@ -104,8 +142,8 @@ const ProfileSidebar = ({ User }) => {
         <div className="profile-line"></div> 
         
         <div className="request-info">
-          <span><span className="dot"></span>{userSubsDetail[0]?.credits || 0} Available Requests</span>
-          <span><span className="dot"></span>{requestSentCount} Sent Requests</span>
+          <span className='req-info-li'><span className="dot"></span>{requestReceived} Available Requests</span>
+          <span className='req-info-li'><span className="dot"></span>{requestSent} Sent Requests</span>
         </div>
       </div>
       <div className="btn">

@@ -9,7 +9,7 @@ import { db } from '../Firebase/firebase';
 
 
 
-const Card = ({name,logo,web,desc,onClick,userId}) => {
+const Card = ({name,logo,web,desc,onClick,userId,requestType}) => {
   const [requestSent, setRequestSent] = useState(0);
   const [requestReceived, setRequestReceived] = useState(0);
 
@@ -50,28 +50,31 @@ useEffect(() => {
   return (
     <div className="card11" onClick={onClick}>
       <div className="card-header1">
-        
+        <div className="card-header1-sub">
         <img
           src={logo} 
           alt="Google Inc."
           className="company-logo"
         />
-        <p className="cardcompany-name" >{name}</p>
+        <p className="cardcompany-name" >{name}</p> </div>
         <div >
           <img  className=" card-bookmark"src={BookMark} alt="Bookmark" />
         </div>
       </div>
-      
+     
       <div className="card-content1">
         <a href={web} className="website-link">{web}</a>
-        <p className='request-type1'>Description:<span className="request-type">{desc}</span></p>
+        <div className='card-content1-sub'>
+        <h1 className='request-type-first'>Request Type: <a className="request-type">{requestType || ""}</a></h1>
         
         <div className="request-details">
           <p className='request-received'><img src={ReceivedLogo} alt="Request Received" className="icon"/> 
           Request Received: <span className="request-sent1">{requestReceived}</span></p>
           
-          <p className="request-sent"><img src={SentLogo} alt="Request Sent" className="icon"/> 
-          Request Sent: <span className="request-sent1">{requestSent}</span></p>
+          <p className="request-sent">
+            <img src={SentLogo} alt="Request Sent" className="icon"/> 
+          Request Sent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<span className="request-sent1">{requestSent}</span></p>
+        </div>
         </div>
       </div>
     </div>

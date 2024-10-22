@@ -15,6 +15,8 @@ import ForgetPassword from "./Components/ForgetPassword";
 import ResetPassword from "./ResetPassword";
 import VerificationEmail from "./Components/VerificationEmail";
 import PrivateRoute from "./Components/PrivateRoute";
+import Dummyedit from "./Components/Dummyedit";
+import EditProfile from "./Components/Dashboard/EditProfile";
  
  
  
@@ -40,7 +42,8 @@ function App() {
           <Route path="/forgetpassword" element={<PrivateRoute><ForgetPassword/></PrivateRoute>}/>
           <Route path="/resetpassword" element={<PrivateRoute><ResetPassword/></PrivateRoute>}/>
           <Route path="/verificationemail" element={<PrivateRoute><VerificationEmail/></PrivateRoute>}/>
-         
+          <Route path="/dummy" element={<Dummyedit/>}/>
+          
         </Routes>
       </Router>
     </div>

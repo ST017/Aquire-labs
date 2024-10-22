@@ -8,6 +8,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { FilterProvider } from "./FilterContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
+import ConatctSale from "./Contactsale";
  
 const Dashboard = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -44,15 +45,19 @@ const Dashboard = () => {
 
   return (<div className="dashboard-container">
     <FilterProvider>
-    <div>
-      <Navbar /></div>
+    <div className="dashborad-navbar"><Navbar /></div>
       <div className="main-content">
-        <Sidebar />
-        <ProjectsSection/>
-        {currentUser && <ProfileSidebar User={currentUser} />} {/* Render only if user is available */}
+       <div className="dashborad-sidebar"> <Sidebar /></div>
+        <div  className="dashboard-prjct-section"><ProjectsSection/></div>
+        <div className="dashboard-profile">
+          {currentUser && <ProfileSidebar User={currentUser} />}
+          <ConatctSale/>
+        </div> {/* Render only if user is available */}
       </div>
     
+
     </FilterProvider>
+	
     </div>
   );
 };
