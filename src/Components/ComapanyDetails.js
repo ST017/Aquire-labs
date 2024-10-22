@@ -26,6 +26,7 @@ import { db } from "./Firebase/firebase";
 import Footer from "./Dashboard/Footer";
 import VerifyIcon from "../Images/VerificationIcon.png";
 import Modal from "./Dashboard/ModalCategory";
+import acceptsvg from "../Images/accept.svg.svg"
 
 //import verify from "../Images/verify.png"
 
@@ -43,6 +44,8 @@ const CompanyDetails = () => {
   const [requestReceived, setRequestReceived] = useState(0);
   const [userConnectsDocId, setUserConnectsDocId] = useState(null);
   const [isVerified, setIsVerified] = useState(false);
+ const [showMorePi , setShowMorePi] = useState(false);
+ const [showMoreEc , setShowMoreEc] = useState(false);
  const [showMore , setShowMore] = useState(false);
   
 
@@ -318,6 +321,8 @@ const visibleBlockchains = showAllBlockchains
   
     const closeModal = () => {
       setShowMore(false);
+      setShowMorePi(false);
+      setShowMoreEc(false);
     };
 
   return (
@@ -980,13 +985,24 @@ const visibleBlockchains = showAllBlockchains
 
     {/* 'Show More' functionality for blockchains */}
     {!showAllBlockchains && blockchains.length > 9 && (
-      <span
-        className="category-more"
-        onClick={() => setShowAllBlockchains(true)}
-      >
-        +{blockchains.length - 9} More
-      </span>
+  <>
+    <span
+      className="category-more"
+      onClick={()=>setShowMoreEc(true)}
+    >
+      +{blockchains.length - 9} More
+    </span>
+    {showMoreEc && (
+      <Modal 
+        maplist={blockchains.slice(9,blockchains.length)} 
+        onClose={closeModal} 
+      />
     )}
+  </>
+)}
+
+    
+    
   
 </div>
               </div>
@@ -999,21 +1015,24 @@ const visibleBlockchains = showAllBlockchains
     .sort((a, b) =>
       a.toLowerCase().localeCompare(b.toLowerCase())
     ) // Case-insensitive alphabetical sorting
-    .slice(0, showAllPartnerships ? partnershipInterests.length : 14) // Show first 14 or all if toggled
+    .slice(0, showAllPartnerships ? partnershipInterests.length :9) // Show first 9 or all if toggled
     .map((interest, index) => (
       <span key={index} className="category-item">
         {interest}
       </span>
     ))}
 
-  {!showAllPartnerships && partnershipInterests.length > 14 && (
+  {!showAllPartnerships && partnershipInterests.length > 9 && (
     <span
       className="category-more"
-      onClick={() => setShowAllPartnerships(true)}
+      /* onClick={() => setShowAllPartnerships(true)} */
+      onClick={()=>setShowMorePi(true)}
     >
-      +{partnershipInterests.length - 14} More
+      +{partnershipInterests.length - 9} More
     </span>
   )}
+  {showMorePi && (
+        <Modal maplist={partnershipInterests.slice(9,partnershipInterests.length)} onClose={closeModal} />)}
 </div>
 
               </div>
@@ -1130,7 +1149,7 @@ const visibleBlockchains = showAllBlockchains
                     </span>
                   )}
                    {showMore && (
-        <Modal categories={categories.slice(categories.length - 14)} onClose={closeModal} />
+        <Modal maplist={categories.slice(14,categories.length)} onClose={closeModal} />
       )}
 
 
@@ -1140,7 +1159,7 @@ const visibleBlockchains = showAllBlockchains
 
 
                 </div>
-              </div> */}
+              </div> 
 
               <div className="request-type-card1">
               <p className="request-type-heading">Request Type</p>

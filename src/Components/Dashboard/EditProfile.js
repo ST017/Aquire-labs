@@ -187,7 +187,7 @@ const EditProfile = ({ setIsEditProfile }) => {
     const fileURL = await getDownloadURL(fileRef);
     return fileURL;
   };
- 
+  const flattenArray = arr => Array.isArray(arr) ? arr.flat() : arr;
   const handleSave = async () => {
     // Check file sizes before proceeding
     if (
@@ -216,15 +216,15 @@ const EditProfile = ({ setIsEditProfile }) => {
       const updatedData = {
         name: projectName,
         website: website,
-        category:selectedCategoryArray || null,
-        country: selectedLocationArray || null,
-        fundingStatus: selectedFundingStageArray || null,
-        partnershipInterest: selectedPartnershipInterestArray || null,
-        blockchain: selectedEcosystemArray || null,
-        whitepaper: whitepaper,
-        descr: projectStatement,
-        biodata: bioData,
-        requestType:selectedRequestTypeArray || null,
+        category:flattenArray(selectedCategoryArray) || null,
+        country: flattenArray(selectedLocationArray) || null,
+        fundingStatus: flattenArray(selectedFundingStageArray) || null,
+        partnershipInterest: flattenArray(selectedPartnershipInterestArray) || null,
+        blockchain: flattenArray(selectedEcosystemArray) || null,
+        whitepaper: whitepaper || null,
+        descr: projectStatement || null,
+        biodata: bioData || null,
+        requestType:flattenArray(selectedRequestTypeArray) || null,
         coverPicture: coverPictureURL || userProject.coverPicture,
         profilePicture: profilePictureURL || userProject.profilePicture,
         githubLink: githubLink || null, // Explicitly set githubLink to null if it's empty
@@ -249,6 +249,7 @@ const EditProfile = ({ setIsEditProfile }) => {
       alert("Profile updated successfully!");
       setIsEditProfile(false);
     } catch (error) {
+      
       toast.error("Error updating profile:", {
         position: "top-center",
       });
