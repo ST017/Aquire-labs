@@ -8,6 +8,7 @@ import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/700.css';
 import { Link } from 'react-router-dom';
+import { BiColumns } from 'react-icons/bi';
  
 //Wrapper
 export const WrapperDiv = styled.div`
@@ -78,7 +79,8 @@ display: flex;
      width:  100%;
      
      gap:23px;
-   
+   padding-top:65px;
+    padding-bottom:65px;
  
   }
  
@@ -303,12 +305,14 @@ export const PartnerLogos = styled.div`
   }
  
   @media (max-width:480px){
+  gap:32px;
+  padding:10px;
     img {
-     width:52px;
-     height:53px;
+     width:48px;
+     height:48px;
    
    }
-     height:175px;
+    //  height:175px;
  
  
   }
@@ -332,6 +336,11 @@ export const HowItWorksSection = styled.div`
   align-self:center;
   gap:86px;
   
+  @media (max-width:480px){
+ 
+  padding:10px;
+  gap:25px;
+  }
 `;
  
 export const StepTitle = styled.h1`
@@ -364,7 +373,7 @@ export const StepContainer = styled.div`
  
   @media(max-width:480px){
    gap: 12px;
-   margin-top:40px;
+   width:387px;
    flex-wrap:wrap;
    
   }
@@ -394,16 +403,15 @@ export const StepCard = styled.div`
   }
  
   @media(max-width:480px){
-   padding: 12px;
+   padding: 14.11px 15.91px;
  
-  width: 150px;
-  height:200.5px;
+  width:149.62px;
  
- 
- 
+ height:245.91px;
  
  
-  gap:4.3px;
+ 
+    gap:5.43px;
    
    
   }
@@ -425,15 +433,24 @@ export const StepIcon1 = styled.div`
     flex-direction: column;
 
   @media (max-width:480px){
-    width:46px;
-    height:24px;
-    font-size: 20px;
-    margin-bottom: 8px;
-    margin-top:15px;
-    img{
-      width:40px;
-      height:40px;
-    }
+  width: 67.28px;
+      height: 67.28px;
+        img{
+        align-self: center;
+    justify-items: center;
+    justify-content: center;
+         width: 67.28px;
+      height: 67.28px;
+      object-content:fit;
+      }
+
+    // font-size: 20px;
+    // margin-bottom: 8px;
+    // margin-top:15px;
+    // img{
+    //   width:40px;
+    //   height:40px;
+    // }
  
   }
 `;
@@ -515,25 +532,45 @@ margin:0;
   color: rgba(255, 255, 255, 1);
   @media (max-width:480px){
  
-    font-size: 12px;
+    font-family: Inter;
+font-size: 14.36px;
+font-weight: 700;
+line-height: 21.54px;
+
+
   }
 `;
  
+export const StepHeadingDescription=styled.div`
+
+
+display:flex;
+flex-direction: column;
+gap:22.67px;
+@media (max-width:480px){
+width:auto;
+box-sizing:border-box;
+gap:13.56px;
+}
+`;
+
 export const StepHeading=styled.p`
  margin:0;
   // width:250px;
   // height:72px;
-  align:center;
+  text-align:center;
   font-size: 24px;
   font-weight:700;
   font-family:Inter;
   color: rgba(255, 255, 255, 1) ;
-  margin-top:-10px;
+  
    @media (max-width:480px){
  
-   width:125px;
-   height:36px;
+  //  width:125px;
+  //  height:36px;
     font-size: 12px;
+    align-self:center;
+    text-align:center;
   }
  
  
@@ -550,11 +587,12 @@ font-family:Inter;
 color: rgba(255, 255, 255, 1);
 
 @media (max-width:480px){
- 
-   width:125px;
-   height:50px;
+ width:auto;
+ box-sizing:border-box;
+  //  width:125px;
+  //  height:50px;
     font-size: 7px;
-    margin-top:2.5px;
+   
   }
  
  
@@ -644,6 +682,7 @@ export const KeyFeaturesSection = styled.div`
     // height: 97.943vh;
         padding: 36px 38px;
   display: flex;
+  
   justify-content: space-between;
   margin:auto;
   align-items: center;
@@ -652,11 +691,51 @@ export const KeyFeaturesSection = styled.div`
   @media (max-width:480px){
  
    flex-direction:column;
-   height:660px;
+   
    padding: 20px 8px;
    
   }
- 
+ @media (max-width: 480px) {
+  .features-heading {
+    font-size: 24px; /* Adjust the font size */
+    text-align: center; /* Center align the text */
+  }
+
+  .features-description {
+    font-size: 14px; /* Smaller font size for mobile */
+    margin-top: 15px;
+    text-align: justify; /* Align the description for better readability */
+  }
+
+  .feature-image {
+    width: 100%;
+    height: auto; /* Ensure the image scales properly */
+  }
+
+  .feature-list {
+    gap: 16px; /* Adjust gap for mobile screens */
+  }
+
+  /* Feature items might also need adjustments */
+  .feature-item {
+    padding: 10px; /* Adjust padding for mobile */
+  }
+}
+`;
+
+
+export const KeyFeaturesdisplay= styled.div `
+
+ gap:32px;
+ display:flex;
+ flex-direction:column;
+ width:100%;
+
+ @media(max-width:480px){
+    width:100%;
+    gap:25px;
+  }
+
 `;
  
 export const FeaturesText = styled.div`
@@ -667,7 +746,9 @@ export const FeaturesText = styled.div`
  display:flex;
  flex-direction:column;
   @media(max-width:480px){
-    height:290px;
+   width:100%;
+   text-align:center;
+   align-content:center;
     gap:25px;
   }
  
@@ -719,7 +800,30 @@ flex-direction:column;
    gap:50px;
   @media (max-width:480px){
    
-    height:163px;
+    display:none;
+   
+ 
+ 
+  }
+ 
+`;
+
+ 
+export const FeatureList1 = styled.ul`
+display:flex;
+height:100%;
+flex-direction:column;
+ width:100%;
+      // height: 55.538%;
+  list-style: none;
+  padding: 0;
+  margin:0px;
+ 
+
+   gap:50px;
+  @media (min-width:480px){
+   
+    display:none;
    
  
  
@@ -824,7 +928,10 @@ export const FeatureImage = styled.img`
   
   @media (max-width:480px){
  
-    height:277px;
+    width: 279px;
+height: 189px;
+margin-bottom:25px;
+
   }
 `;
  
@@ -843,7 +950,7 @@ export const WhyUseSection = styled.div`
   background-color: #ffffff;
   @media (max-width:480px) {
    text-align: center;
-    padding: 20px 8px;
+   
  
   }
 `;
@@ -863,12 +970,14 @@ export const WhyUseTitle = styled.h2`
   align-items: center; /* Centers the content horizontally */
   color:rgba(0, 0, 0, 1);
   @media (max-width:480px) {
-     height:25.5px;
-     font-size: 21px;
+     font-family: Inter;
+font-size: 20px;
+font-weight: 700;
+line-height: 31px;
+text-align: center;
+
      
-     margin-bottom:40px;
-      margin-left:100px;
-      margin-top:5px;
+     
  
    
  
@@ -878,8 +987,8 @@ export const WhyUseTitle = styled.h2`
  
 export const WhyUseContainer = styled.div`
   display: flex;
-  flex-direction:row;
-    gap: 37px;
+  
+    // gap: 37px;
   
   // gap: 16px;
   width:100%;
@@ -890,8 +999,11 @@ export const WhyUseContainer = styled.div`
   //flex-wrap: wrap;
   align-items:center;
   @media (max-width:480px) {
-    gap :8px
-    flex-wrap:wrap;
+   
+   flex-wrap:wrap;
+   column-gap:10px;
+   row-gap:10px;
+   margin:0px 20px 0px 20px;
   }
  
  
@@ -925,9 +1037,12 @@ export const WhyUseCard = styled.div`
   }
  
   @media (max-width: 480px) {
-    width: 155.1px;
-    height: 144px;
-    padding: 12px;
+  // width:188px;
+  width:auto;
+    height:190px;
+    gap:20px;
+    padding:21px 15px;
+    
   }
 `;
  
@@ -939,14 +1054,20 @@ export const WhyUseIcon = styled.div`
  
   @media (max-width:480px) {
      font-size: 15px;
-    margin-bottom: 8px;
+    
     img{
-      width:20px;
-      height:20px;
+      width:45px;
+      height:45px;
     }
   }
 `;
- 
+export const WhyDescriptionSub = styled.div`
+display:flex;
+flex-direction:column;
+
+`;
+
+
 export const WhyUseDescription = styled.p`
   // width:264px;
   // height:26px;
@@ -959,7 +1080,7 @@ export const WhyUseDescription = styled.p`
      width:132px;
       height:13px;
       font-size: 10px;
-      margin-left:-5px;
+      
   }
  
 `;

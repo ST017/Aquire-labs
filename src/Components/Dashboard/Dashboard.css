@@ -84,6 +84,7 @@
     margin-top: 25px;
     width: 16.111%; /* 232px of 1440px */
     box-sizing: border-box;
+    gap:43.5px
 }
 
 @media (max-width: 1024px) {

@@ -59,6 +59,10 @@ import {
   FooterLink1,
   WrapperDiv,
   FeatureContent,
+  FeatureList1,
+  KeyFeaturesdisplay,
+  WhyDescriptionSub,
+  StepHeadingDescription,
  
  
 } from "./Home.style.js";
@@ -241,35 +245,35 @@ const Home = () => {
               <img src={Cardlogo1} alt="card-logo" />
             </StepIcon1>
             <StepNumber>Step 1:</StepNumber>
-            <div style={{display:'flex',flexDirection:'column',gap:'22.67px'}}>
+            <StepHeadingDescription >
             <StepHeading>Discover Potential Partners</StepHeading>
             <StepDescription1>
               Utilize our advanced search and filter tools to find projects that
               fit your goals. Customize filters by category, interests,
               location, size, and blockchain platforms.
             </StepDescription1>
-            </div>
+            </StepHeadingDescription>
           </StepCard>
           <StepCard>
             <StepIcon1>
               <img src={Cardlogo2} alt="card-logo" />
             </StepIcon1>
             <StepNumber>Step 2:</StepNumber>
-            <div style={{display:'flex',flexDirection:'column',gap:'22.67px'}}>
+            <StepHeadingDescription>
             <StepHeading>Send Partenership Request</StepHeading>
             <StepDescription1>
               Connect with Potential partners by sending customizes partnership
               requests. Clearly state your Collaboration interest to initiate
               meaningful conversations.
             </StepDescription1>
-            </div>
+            </StepHeadingDescription>
           </StepCard>
           <StepCard>
             <StepIcon1>
               <img src={Cardlogo3} alt="card-logo" />
             </StepIcon1>
             <StepNumber>Step 3: </StepNumber>
-            <div style={{display:'flex',flexDirection:'column',gap:'22.67px'}}>
+            <StepHeadingDescription>
             <StepHeading>
               Manage
               
@@ -280,14 +284,14 @@ const Home = () => {
               through an intuitive dashboard. Approve or decline requests &
               request additional information if needed.
             </StepDescription1>
-            </div>
+            </StepHeadingDescription>
           </StepCard>
           <StepCard>
             <StepIcon1>
               <img src={Cardlogo4} alt="card-logo" />
             </StepIcon1>
             <StepNumber>Step 4:</StepNumber>
-            <div style={{display:'flex',flexDirection:'column',gap:'22.67px'}}>
+            <StepHeadingDescription>
             <StepHeading>
               Collaborate
               
@@ -298,7 +302,7 @@ const Home = () => {
               with your partner using your preferred Communication channels,
               ensuring smooth collaborations.
             </StepDescription1>
-            </div>
+            </StepHeadingDescription>
           </StepCard>
         </StepContainer>
       </HowItWorksSection>
@@ -306,7 +310,7 @@ const Home = () => {
       <div style={{width:'100%', display:'flex'}}>
       <KeyFeaturesSection>
         <FeaturesText>
-          <div style={{gap:'32px', display:'flex',flexDirection:"column", width:'100%'}}>
+          <KeyFeaturesdisplay >
           <FeaturesHeading>Key Features</FeaturesHeading>
           <FeaturesDescription>
             At Raisa Network, we simplify the process of finding and connecting
@@ -314,7 +318,7 @@ const Home = () => {
             to collaborate on technical developments, marketing, or innovative
             DeFi solutions, we got you covered.
           </FeaturesDescription>
-          </div>
+          </KeyFeaturesdisplay>
           <FeatureList>
           {features.map((feature, index) => (
     <FeatureItem key={index} className={expandedFeature === index ? 'expanded' : ''} onClick={() => toggleFeature(index)}>
@@ -345,6 +349,32 @@ const Home = () => {
           src={Photo}
           alt="Features Image"
         />
+         <FeatureList1>
+          {features.map((feature, index) => (
+    <FeatureItem key={index} className={expandedFeature === index ? 'expanded' : ''} onClick={() => toggleFeature(index)}>
+      <div style={{display:'flex',gap:'36px'}}>
+    <img src={feature.icon} alt={`Icon for ${feature.title}`} />
+    <div style={{ width:'100%',display:'flex', alignItems:'center',justifyContent:'space-between'}}>
+    <div className="title">
+      {feature.title}
+    </div>
+    <div style={{display:'flex'}} ><img
+      src={AccordianIcon}
+      alt="Accordion icon"
+      className={`accordion-icon ${expandedFeature === index ? 'expanded' : ''}`}
+    />
+    </div>
+    </div>
+    </div>
+    <FeatureContent className={expandedFeature === index ? 'expanded' : ''}>
+      
+      <div>{feature.description}</div>
+    </FeatureContent>
+  </FeatureItem>
+ 
+  ))}
+    </FeatureList1>
+
       </KeyFeaturesSection>
       </div>
       {/* Why Should You Use GoWeb3 Network */}
@@ -354,13 +384,13 @@ const Home = () => {
         <WhyUseContainer>
           <WhyUseCard>
             <WhyUseIcon><img src={Why1} alt="why-logo"/></WhyUseIcon>
-            <div style={{display:'flex',flexDirection:'column'}}>
+            <WhyDescriptionSub >
             <WhyUseDescription>Streamlined Collaboration</WhyUseDescription>
             <WhyUseSubtitle>
               Simplify connecting with potential partners and enhance your
               overall collaboration efforts.
             </WhyUseSubtitle>
-            </div>
+            </WhyDescriptionSub>
           </WhyUseCard>
           <WhyUseCard>
             <WhyUseIcon><img src={Why2} alt="why-logo"/></WhyUseIcon>

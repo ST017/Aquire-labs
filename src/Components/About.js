@@ -24,9 +24,7 @@ const About = () => {
     <div  className='text-lin3'> We Do The</div>
     <div className='bold-text'>Groundwork,</div>
     <div className='text-lin3'>
-    So You Can <strong className='bold-text'>Build</strong> The
-<br />
-Future.
+    So You Can <strong className='bold-text'>Build</strong> The <br /> Future.
 </div>
 
 

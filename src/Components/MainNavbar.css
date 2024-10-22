@@ -159,6 +159,11 @@ color:  #1A0DAB;
   .mainnavbar{
     gap:0px;
   }
+ 
+  .mainnav-frame2{
+
+    justify-content:flex-end;
 
 }
   
+}

@@ -24,7 +24,7 @@ border:1px solid black;
 }
 
 .faq-item {
-  width: 100%;
+ 
   padding: 10px;
   background: rgba(255, 255, 255, 1);
   border: 1px solid #E0E7FF;
@@ -238,3 +238,31 @@ color:rgba(255, 255, 255, 1);
   
   
   
+
+  @media screen and (max-width:480px) {
+
+    .main-faq-container{
+      padding:0;
+    }
+    .below-nav-container{
+
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+    }
+    .faq-inner-text{
+      h1{
+        margin:0;
+        padding:0;
+      }
+
+    }
+
+    .faq-text{
+      align-self: center;
+      margin:auto;
+    }
+    .accordian-container,.accordian-outer-container,.contact-container{
+      width: 100%;
+    }
+  }

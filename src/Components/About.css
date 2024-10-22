@@ -426,3 +426,62 @@ text-align: center;
   box-sizing: border-box;
   gap:8px;
 }
+
+
+
+
+@media  screen and (max-width: 480px) {
+ .content {
+  width:100%;
+  margin-top: 69px;
+
+ }
+ .flower-with-text{
+  width:100%;
+  margin:0;
+ }
+  .text-lin3{
+    font-family: Inter;
+font-size: 40px;
+font-weight: 700;
+line-height: 58.96px;
+letter-spacing: 0.02em;
+text-align: center;
+br{
+  display: none;
+}
+
+  }
+.about-text-container, .main-section,.team-section{
+  width:100%;
+  box-sizing: border-box;
+}
+.main-text{
+  font-family: Inter;
+font-size: 24px;
+font-weight: 400;
+line-height: 38px;
+letter-spacing: 0.005em;
+text-align: center;
+
+}
+
+.team-section{
+  padding:10px;
+}
+  .team-grid {
+   
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Display 2 cards in a row */
+    justify-content: space-between;
+  }
+
+  .team-card {
+    width: 100%; /* Make the cards responsive */
+    max-width: 200px; /* Ensure they don’t take up too much space */
+    margin: 0 auto; /* Center the cards */
+  }
+}
+
+  
