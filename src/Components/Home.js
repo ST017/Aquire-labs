@@ -175,8 +175,8 @@ const Home = () => {
  
  
   return (
-    <div style={{width:'100vw',height:'100vh'}}>
-    <div className='home-nav'><MainNavbar/></div>
+    <div style={{width:'100%',height:'100%'}}>
+    <div style={{width:'100%'}}><MainNavbar/></div>
     <WrapperDiv>
       {/* Navbar */}
       
@@ -303,9 +303,10 @@ const Home = () => {
         </StepContainer>
       </HowItWorksSection>
       {/* KeyFeatures Section */}
+      <div style={{width:'100%', display:'flex'}}>
       <KeyFeaturesSection>
         <FeaturesText>
-          <div style={{gap:'32px', display:'flex',flexDirection:"column", width:'40%'}}>
+          <div style={{gap:'32px', display:'flex',flexDirection:"column", width:'100%'}}>
           <FeaturesHeading>Key Features</FeaturesHeading>
           <FeaturesDescription>
             At Raisa Network, we simplify the process of finding and connecting
@@ -319,11 +320,11 @@ const Home = () => {
     <FeatureItem key={index} className={expandedFeature === index ? 'expanded' : ''} onClick={() => toggleFeature(index)}>
       <div style={{display:'flex',gap:'36px'}}>
     <img src={feature.icon} alt={`Icon for ${feature.title}`} />
-    <div style={{ width:'100%',display:'flex', justifyContent:'center', alignItems:'center'}}>
+    <div style={{ width:'100%',display:'flex', alignItems:'center',justifyContent:'space-between'}}>
     <div className="title">
       {feature.title}
     </div>
-    <div ><img
+    <div style={{display:'flex'}} ><img
       src={AccordianIcon}
       alt="Accordion icon"
       className={`accordion-icon ${expandedFeature === index ? 'expanded' : ''}`}
@@ -345,90 +346,56 @@ const Home = () => {
           alt="Features Image"
         />
       </KeyFeaturesSection>
- 
+      </div>
       {/* Why Should You Use GoWeb3 Network */}
+      <div style={{width:'100%', backgroundColor:'white',display:'flex'}}>
       <WhyUseSection>
-        <WhyUseTitle>Why Should You Use GoWeb3 Network?</WhyUseTitle>
+        <WhyUseTitle>Why Should You Use Raisa Network?</WhyUseTitle>
         <WhyUseContainer>
           <WhyUseCard>
             <WhyUseIcon><img src={Why1} alt="why-logo"/></WhyUseIcon>
+            <div style={{display:'flex',flexDirection:'column'}}>
             <WhyUseDescription>Streamlined Collaboration</WhyUseDescription>
             <WhyUseSubtitle>
               Simplify connecting with potential partners and enhance your
               overall collaboration efforts.
             </WhyUseSubtitle>
+            </div>
           </WhyUseCard>
           <WhyUseCard>
             <WhyUseIcon><img src={Why2} alt="why-logo"/></WhyUseIcon>
+            <div style={{display:'flex',flexDirection:'column'}}>
             <WhyUseDescription>Precision Matching</WhyUseDescription>
             <WhyUseSubtitle>
               Use advanced search and filtering to discover projects that
               perfectly match your specific requirements.
             </WhyUseSubtitle>
+            </div>
           </WhyUseCard>
           <WhyUseCard>
             <WhyUseIcon><img src={Why3} alt="why-logo"/></WhyUseIcon>
+            <div style={{display:'flex',flexDirection:'column'}}>
             <WhyUseDescription>Enhanced Communication</WhyUseDescription>
             <WhyUseSubtitle>
               Transition smoothly from interest to collaboration with automated
               group creation on Telegram.
             </WhyUseSubtitle>
+            </div>
           </WhyUseCard>
           <WhyUseCard>
             <WhyUseIcon><img src={Why4} alt="why-logo"/></WhyUseIcon>
+            <div style={{display:'flex',flexDirection:'column'}}>
             <WhyUseDescription>Dedicated Support</WhyUseDescription>
             <WhyUseSubtitle>
               Access personalized consultation services to uncover and leverage
               the best partnership opportunities for your project.
             </WhyUseSubtitle>
+            </div>
           </WhyUseCard>
         </WhyUseContainer>
       </WhyUseSection>
- 
-      {/* Footer */}
-      {/* <Footer>
-        <FooterWrapper>
-        <FooterHead>Raisa Network</FooterHead>
-      <FooterText>
-        We simplify the process of finding and connecting with
-        the perfect partners for your project.
-      </FooterText>
-      </FooterWrapper>
- 
-      <FooterSections>
-        <SocialLinks>
-          <FooterColumn1>
-            <FooterLink>Social</FooterLink>
-            <SocialIcon>
-              <img src={LinkedIn} alt="LinkedIn" /> LinkedIn
-            </SocialIcon>
-            <SocialIcon >
-              <img src={Xicon} alt="Twitter" /> Twitter
-            </SocialIcon>
-            <SocialIcon>
-              <img src={Discord} alt="Discord" /> Discord
-            </SocialIcon>
-            <SocialIcon >
-              <img src={Telegram} alt="Telegram" /> Telegram
-            </SocialIcon>
-          </FooterColumn1>
-        </SocialLinks>
- 
-        <FooterLinks>
-          <FooterColumn2>
-            <FooterLink1>Company</FooterLink1>
-            <SocialIcon>Branding</SocialIcon>
-            <Link to="/about"><SocialIcon>About Us</SocialIcon></Link>
-            <SocialIcon>News</SocialIcon>
-            <Link to="/price"><SocialIcon>Pricing</SocialIcon></Link>
-          </FooterColumn2>
- 
-          <FooterColumn3>
-            <Link to="/faq"><FooterLink>Help</FooterLink></Link>
-          </FooterColumn3>
-        </FooterLinks>
-      </FooterSections>
-    </Footer> */}
+      </div>
+     
      <Footer1/>
     </WrapperDiv>
    </div>

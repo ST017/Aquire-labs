@@ -25,6 +25,7 @@ import {
 import { db } from "./Firebase/firebase";
 import Footer from "./Dashboard/Footer";
 import VerifyIcon from "../Images/VerificationIcon.png";
+import Modal from "./Dashboard/ModalCategory";
 
 //import verify from "../Images/verify.png"
 
@@ -42,10 +43,18 @@ const CompanyDetails = () => {
   const [requestReceived, setRequestReceived] = useState(0);
   const [userConnectsDocId, setUserConnectsDocId] = useState(null);
   const [isVerified, setIsVerified] = useState(false);
+ const [showMore , setShowMore] = useState(false);
   
 
   /* category code  */
-  //const [showAllCategories, setShowAllCategories] = useState(false);
+  const [showAllCategories, setShowAllCategories] = useState(false);
+/* blockchain (eco system)*/ 
+const [showAllBlockchains, setShowAllBlockchains] = useState(false);
+
+const [showAllPartnerships, setShowAllPartnerships] = useState(false);
+
+const [showAllRequestTypes, setShowAllRequestTypes] = useState(false);
+
 
   useEffect(() => {
     const auth = getAuth();
@@ -260,7 +269,7 @@ const CompanyDetails = () => {
 
   /* category code  */
   // Decide which category array to use based on the user
- /*  const categories =
+   const categories =
     selectedProject.userId === currentUser?.uid
       ? myproject?.category || []
       : selectedProject?.category || [];
@@ -269,6 +278,47 @@ const CompanyDetails = () => {
     ? categories
     : categories.slice(0, 14); // Show first 14, rest hidden */
   /* category code end  */
+
+  /* blockchain (ecosystem) */
+  const blockchains =
+  selectedProject.userId === currentUser?.uid
+    ? myproject?.blockchain || []
+    : selectedProject?.blockchain || [];
+
+const visibleBlockchains = showAllBlockchains
+  ? blockchains
+  : blockchains.slice(0, 14);
+
+    /* blockchain (ecosystem) */
+
+
+    const partnershipInterests =
+    selectedProject.userId === currentUser?.uid
+      ? myproject?.partnershipInterest || []
+      : selectedProject?.partnershipInterest || [];
+  
+  const visiblePartnershipInterests = showAllPartnerships
+    ? partnershipInterests
+    : partnershipInterests.slice(0, 14);
+  
+
+  const requesttypes =
+  selectedProject.userId === currentUser?.uid
+    ? myproject?.requestType || []
+    : selectedProject?.requestType || [];
+
+    const visibleRequestTypes = showAllRequestTypes
+    ? requestTypes
+    : requestTypes.slice(0, 14);
+  
+
+    const handleMoreClick = () => {
+      setShowMore(true);
+    };
+  
+    const closeModal = () => {
+      setShowMore(false);
+    };
 
   return (
     <div className="companydetails-container">
@@ -914,54 +964,59 @@ const CompanyDetails = () => {
               </div>
 
               {/* Ecosystem */}
-             {/*  <div className="ecosystem-card1">
-                <p className="ecosystem-heading">Ecosystem</p>
-                <div className="ecosytem-text">
-                  <p className="blockchain-data">
-                    {selectedProject.userId === currentUser?.uid
-                      ? myproject?.blockchain || ""
-                      : selectedProject?.blockchain || ""}
-                  </p>
-                </div>
-              </div> */}
 
-<div className="ecosystem-card1">
-  <p className="ecosystem-heading">Ecosystem</p>
-  <div className="ecosystem-text">
-    {selectedProject.userId === currentUser?.uid
-      ? myproject?.blockchain?.map((ecosystem, index) => (
-          <span key={index}>{ecosystem}</span>
-        ))
-      : selectedProject?.blockchain?.map((ecosystem, index) => (
-          <span key={index}>{ecosystem}</span>
-        ))}
-  </div>
+              <div className="ecosystem-card1">
+              <p className="ecosystem-heading">Ecosystem</p>
+<div className="ecosystem-text">
+  
+    {blockchains
+      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())) // Case-insensitive alphabetical sorting
+      .slice(0, showAllBlockchains ? blockchains.length : 9) // Show first 14 or all if toggled
+      .map((blockchain, index) => (
+        <span key={index} className="category-item">
+          {blockchain}
+        </span>
+      ))}
+
+    {/* 'Show More' functionality for blockchains */}
+    {!showAllBlockchains && blockchains.length > 9 && (
+      <span
+        className="category-more"
+        onClick={() => setShowAllBlockchains(true)}
+      >
+        +{blockchains.length - 9} More
+      </span>
+    )}
+  
 </div>
-
+              </div>
 
               {/* Partnership Interest */}
-              {/* <div className="partnership-card1">
-                <p className="partnership-heading">Partnership Interested</p>
-                <div className="partnership-text">
-                  <p className="blockchain-data">
-                    {selectedProject.userId === currentUser?.uid
-                      ? myproject?.partnershipInterest || ""
-                      : selectedProject?.partnershipInterest || ""}{" "}
-                  </p>
-                </div>
-              </div> */}
               <div className="partnership-card1">
-  <p className="partnership-heading">Partnership Interested</p>
-  <div className="partnership-text">
-    {selectedProject.userId === currentUser?.uid
-      ? myproject?.partnershipInterest?.map((interest, index) => (
-          <span key={index}>{interest}</span>
-        ))
-      : selectedProject?.partnershipInterest?.map((interest, index) => (
-          <span key={index}>{interest}</span>
-        ))}
-  </div>
+              <p className="partnership-heading">Partnership Interested</p>
+<div className="partnership-text">
+  {partnershipInterests
+    .sort((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase())
+    ) // Case-insensitive alphabetical sorting
+    .slice(0, showAllPartnerships ? partnershipInterests.length : 14) // Show first 14 or all if toggled
+    .map((interest, index) => (
+      <span key={index} className="category-item">
+        {interest}
+      </span>
+    ))}
+
+  {!showAllPartnerships && partnershipInterests.length > 14 && (
+    <span
+      className="category-more"
+      onClick={() => setShowAllPartnerships(true)}
+    >
+      +{partnershipInterests.length - 14} More
+    </span>
+  )}
 </div>
+
+              </div>
 
 
               {/* Whitepaper */}
@@ -980,7 +1035,9 @@ const CompanyDetails = () => {
               {/* Statement for Projects */}
               <div className="statement-card1">
                 <p className="statement-heading">Statement for projects</p>
-                <p className="statement-text">{selectedProject?.descr || ""}</p>
+                <p className="statement-text">{selectedProject.userId === currentUser?.uid
+                      ? myproject?.descr || ""
+                      : selectedProject?.descr}</p>
               </div>
             </div>
 
@@ -1045,55 +1102,71 @@ const CompanyDetails = () => {
   </div>
 </div> */}
 
-              {/* <div className="categories-card1">
+
+              <div className="categories-card1">
+
                 <p className="categories-heading">Categories</p>
                 
 
                 <div className="categories-text">
-                  
 
-{selectedProject.userId === currentUser?.uid
+                  {categories
+                    .sort((a, b) =>
+                      a.toLowerCase().localeCompare(b.toLowerCase())
+                    ) // Case-insensitive alphabetical sorting
+                    .slice(0, showAllCategories ? categories.length : 14) // Show first 14 or all if toggled
+                    .map((cat, index) => (
+                      <span key={index} className="category-item">
+                        {cat}
+                      </span>
+                    ))}
+                  {!showAllCategories && categories.length > 14 && (
+                    <span
+                      className="category-more"
+                      // onClick={() => setShowAllCategories(true)}
+                      onClick={handleMoreClick}
+                    >
+                      +{categories.length - 14} More
+                    </span>
+                  )}
+                   {showMore && (
+        <Modal categories={categories.slice(categories.length - 14)} onClose={closeModal} />
+      )}
+
+
+{/* {selectedProject.userId === currentUser?.uid
                     ? myproject?.category || ""
-                    : selectedProject?.category || ""}
+                    : selectedProject?.category || ""} */}
 
 
                 </div>
               </div> */}
 
- <div className="categories-card1">
-  <p className="categories-heading">Categories</p>
-  <div className="categories-text">
-    {selectedProject.userId === currentUser?.uid
-      ? myproject?.category?.map((cat, index) => (
-          <span key={index}>{cat}</span>
-        ))
-      : selectedProject?.category?.map((cat, index) => (
-          <span key={index}>{cat}</span>
-        ))}
-  </div>
-</div> 
+              <div className="request-type-card1">
+              <p className="request-type-heading">Request Type</p>
+<div className="request-type-text">
+  {requesttypes
+    .sort((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase())
+    ) // Case-insensitive alphabetical sorting
+    .slice(0, showAllRequestTypes ? requesttypes.length : 14) // Show first 14 or all if toggled
+    .map((type, index) => (
+      <span key={index} className="category-item">
+        {type}
+      </span>
+    ))}
 
-              {/* <div className="request-type-card1">
-                <p className="request-type-heading">Request Type</p>
-                <p className="request-type-text">
-                  {selectedProject.userId === currentUser?.uid
-                    ? myproject?.requestType || ""
-                    : selectedProject?.requestType || ""}
-                </p>
-              </div> */}
-
-<div className="request-type-card1">
-  <p className="request-type-heading">Request Type</p>
-  <div className="request-type-text">
-    {selectedProject.userId === currentUser?.uid
-      ? myproject?.requestType?.map((type, index) => (
-          <span key={index}>{type}</span>
-        ))
-      : selectedProject?.requestType?.map((type, index) => (
-          <span key={index}>{type}</span>
-        ))}
-  </div>
+  {!showAllRequestTypes && requesttypes.length > 14 && (
+    <span
+      className="category-more"
+      onClick={() => setShowAllRequestTypes(true)}
+    >
+      +{requestTypes.length - 14} More
+    </span>
+  )}
 </div>
+
+              </div>
 
 
               <div className="social-media-card1">

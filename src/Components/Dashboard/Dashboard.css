@@ -79,6 +79,8 @@
 }
 
 .dashboard-profile {
+  display:flex;
+  flex-direction: column;
     margin-top: 25px;
     width: 16.111%; /* 232px of 1440px */
     box-sizing: border-box;
