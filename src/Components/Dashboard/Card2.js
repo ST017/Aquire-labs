@@ -129,7 +129,7 @@ useEffect(() => {
                        
                     </div>
                     {isModalOpen && (
-        <Modal categories={category.slice(visibleCount)} onClose={closeModal} />
+        <Modal maplist ={category.slice(visibleCount , category.length)} onClose={closeModal} />
       )}
           </div>
           </div>
