@@ -363,7 +363,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
       .replace(/\//g, "-")}   
   </td>
   
-  <td className="message-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
+  {/* <td className="message-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request-pending"
       src={request.profilePicture}
@@ -374,6 +374,31 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
       <p className="below-message-pending"> {<RequestMessage request={request}/>} at {new Date(request.createdAt.seconds * 1000)
       .toLocaleDateString()
       .replace(/\//g, "-")}</p> 
+    </div>
+  </div>
+</td> */}
+
+<td className="message-request">
+  <div style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
+    <img
+      style={{
+        width: "48px",
+        height: "48px",
+        borderRadius: "200px",
+        marginRight: "37px",
+      }}
+      src={request?.profilePicture}
+      alt="profile-pic"
+    />
+    <div>
+      <span>
+        {request.message.length > 50
+          ? `${request.message.slice(0, 50)}...`
+          : request.message}
+      </span>
+      <p style={{ margin: 0, }} className="below-message">{<RequestMessage request={request}/>} at { new Date(request.createdAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}</p>
     </div>
   </div>
 </td>
@@ -504,20 +529,57 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
       .replace(/\//g, "-")} 
   </td>
   
-  <td className="message-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-    <img className="msg-image-request"
+ {/*  <td className="message-request">
+   <div style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
+    <img style={{
+        width: "28px",
+        height: "28px",
+        borderRadius: "50%",
+
+        marginRight: "4px",
+      }}
       src={request?.toprofilePicture}
       alt="profile-pic"
     />
+    {request.message}
+    
+
     <div className="below-message-container">
       <span>{request.message}</span>
       <p className="below-message">{<RequestMessage request={request}/>} at { new Date(request.createdAt.seconds * 1000)
       .toLocaleDateString()
       .replace(/\//g, "-")}</p>
-    </div>
+    </div> 
   </div> 
+</td> */}
+
+
+<td className="message-request">
+  <div style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
+    <img
+      style={{
+        width: "48px",
+        height: "48px",
+        borderRadius: "200px",
+        marginRight: "37px",
+      }}
+      src={request?.toprofilePicture}
+      alt="profile-pic"
+    />
+    <div>
+      <span>
+        {request.message.length > 50
+          ? `${request.message.slice(0, 50)}...`
+          : request.message}
+      </span>
+      <p style={{ margin: 0, }} className="below-message">{<RequestMessage request={request}/>} at { new Date(request.createdAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}</p>
+    </div>
+  </div>
 </td>
+
+
  
   
   <td className="location-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
@@ -608,7 +670,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
       .replace(/\//g, "-")}   
   </td>
   
-  <td className="message-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
+  {/* <td className="message-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
    <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request-rejected"
       src={request?.toprofilePicture}
@@ -621,6 +683,31 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
       .replace(/\//g, "-")}</p>
     </div>
   </div> 
+</td> */}
+
+<td className="message-request">
+  <div style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
+    <img
+      style={{
+        width: "48px",
+        height: "48px",
+        borderRadius: "200px",
+        marginRight: "37px",
+      }}
+      src={request?.toprofilePicture}
+      alt="profile-pic"
+    />
+    <div>
+      <span>
+        {request.message.length > 50
+          ? `${request.message.slice(0, 50)}...`
+          : request.message}
+      </span>
+      <p style={{ margin: 0, }} className="below-message">{<RequestMessage request={request}/>} at { new Date(request.createdAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}</p>
+    </div>
+  </div>
 </td>
  
   
