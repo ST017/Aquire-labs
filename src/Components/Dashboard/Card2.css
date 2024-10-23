@@ -1,3 +1,5 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 .card-container {
   /* width: 881px;  */
  /*  height: 200px; */
@@ -114,7 +116,7 @@ text-align: left;
       
     width: 22px;
     height: 22px;
-    object-fit: fill;
+    object-fit: contain;
 
 
   }
@@ -129,6 +131,7 @@ width: 100%;
 
 }
 .bio {
+  padding: 0px 8px;
   color:rgba(20, 20, 20, 0.7);
 
   font-size: 14px;
@@ -161,7 +164,7 @@ width: 100%;
   width:100%;
  
   margin: 0;
-  padding: 0;
+  padding: 8px;
   list-style: none; /* Remove bullet points */
   display: flex; /* This will display the list items in a row */
   

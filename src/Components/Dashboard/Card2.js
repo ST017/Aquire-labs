@@ -95,11 +95,11 @@ useEffect(() => {
               
               </div>
            
-            <img
+            {/* <img
               src={BookMark}
               alt="Bookmark"
               className="bookmark"
-            />
+            /> */}
            
           </div>
             <div className="card2-details">

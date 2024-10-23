@@ -1,3 +1,5 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 .main-faq-container {
   
     
@@ -124,6 +126,7 @@ background-color:white;
 
 } */
 .contact-container {
+  box-sizing: border-box;
     width: 1,070px;
 height: 374px;
 top: 1069px;
@@ -139,7 +142,7 @@ margin-top:20px;
 }
   
   .contact-container h2 {
-   
+    box-sizing: border-box;
 font-size: 18px;
 font-weight: 600;
 line-height: 18.9px;
@@ -153,6 +156,7 @@ color:rgba(51, 66, 87, 1);
   .contact-form {
     display: flex;
     flex-direction: column;
+    
   }
   
   .form-group11 {
@@ -353,7 +357,7 @@ left: 87px;
     }
 
     .contact-container{
-
+      box-sizing: border-box;
       width:100%;
     }
   }

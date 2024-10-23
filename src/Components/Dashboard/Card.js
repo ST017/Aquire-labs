@@ -58,7 +58,7 @@ useEffect(() => {
         />
         <p className="cardcompany-name" >{name}</p> </div>
         <div >
-          <img  className=" card-bookmark"src={BookMark} alt="Bookmark" />
+          {/* <img  className=" card-bookmark"src={BookMark} alt="Bookmark" /> */}
         </div>
       </div>
      

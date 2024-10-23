@@ -1,3 +1,5 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 .card11 {
  
   width: 24%;
@@ -43,7 +45,7 @@ border-radius: 7.98px 0px 0px 0px;
 .company-logo {
   width: 23.81px;
 height: 23.81px;
-object-fit: fill;
+object-fit: contain;
 gap: 4.96px;
 border-radius: 1.98px;
 
