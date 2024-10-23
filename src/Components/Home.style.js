@@ -337,9 +337,10 @@ export const HowItWorksSection = styled.div`
   gap:86px;
   
   @media (max-width:480px){
- 
-  padding:10px;
+ width:95%;
+ margin:auto;
   gap:25px;
+  box-sizing:border-box;
   }
 `;
  
@@ -373,9 +374,9 @@ export const StepContainer = styled.div`
  
   @media(max-width:480px){
    gap: 12px;
-   width:387px;
+  //  width:387px;
    flex-wrap:wrap;
-   
+   grid-template-columns: repeat(2, 1fr);
   }
 `;
  
@@ -402,14 +403,14 @@ export const StepCard = styled.div`
  
   }
  
-  @media(max-width:480px){
-   padding: 14.11px 15.91px;
+  @media (max-width:480px){
+  //  padding: 14.11px 15.91px;
  
-  width:149.62px;
+   width:180px;
  
- height:245.91px;
+   height:245.91px;
  
- 
+   box-sizing:border-box;
  
     gap:5.43px;
    
@@ -436,6 +437,7 @@ export const StepIcon1 = styled.div`
   width: 67.28px;
       height: 67.28px;
         img{
+                object-fit: contain;
         align-self: center;
     justify-items: center;
     justify-content: center;

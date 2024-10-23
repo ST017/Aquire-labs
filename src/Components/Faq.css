@@ -351,4 +351,9 @@ left: 87px;
     .accordian-container,.accordian-outer-container,.contact-container{
       width: 100%;
     }
+
+    .contact-container{
+
+      width:100%;
+    }
   }

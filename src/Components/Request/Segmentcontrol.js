@@ -371,7 +371,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
     />
     <div className="below-message-container-pending">
       <span>{request.message}</span>
-      <p className="below-message-pending">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p> 
+      <p className="below-message-pending"> {<RequestMessage request={request}/>} at {new Date(request.createdAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}</p> 
     </div>
   </div>
 </td>
@@ -614,7 +616,9 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
     />
     <div className="below-message-container-rejected">
       <span>{request.message}</span>
-      <p className="below-message">Last Message-about {<RequestMessage request={request}/>} at {request.createdAt}</p>
+      <p className="below-message"> {<RequestMessage request={request}/>} at {new Date(request.createdAt.seconds * 1000)
+      .toLocaleDateString()
+      .replace(/\//g, "-")}</p>
     </div>
   </div> 
 </td>
