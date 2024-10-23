@@ -116,7 +116,7 @@ const Signup = () => {
       !password ||
       !reenterpassword ||
       !category ||
-      !isChecked
+      !isChecked || !projDesc
     ) {
       toast.error("All fields are required!", { position: "top-center" });
       return;
@@ -126,7 +126,7 @@ const Signup = () => {
       return;
     }
     if (!passwordRegex.test(password)) {
-      toast.error("Please use  strong password", { position: "top-center" });
+      toast.error("Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, and one number", { position: "top-center" });
       return;
     }
 
@@ -249,6 +249,7 @@ const Signup = () => {
                   type="text"
                   placeholder="Project Name"
                   label="Project Name*"
+                  maxLength={720}
                   onChange={(e) => setName(e.target.value)}
                 />
               </InputWrapper>
@@ -364,7 +365,7 @@ const Signup = () => {
             </InputGroup>
 
             <InputWrapper>
-              <Label>Project Description</Label>
+              <Label>Project Description <a style={{ color: "red" }}>*</a></Label>
               <Input1
                 label="Project Description"
                 onChange={(e) => setProjDesc(e.target.value)}
