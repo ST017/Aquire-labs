@@ -126,7 +126,7 @@ const Navbar = () => {
         onMouseLeave={handleMouseLeave}
       >
         <img className="headerli-img" src={inb} alt="inbox" />
-        <Link  style={{ textDecoration: 'none' }}>
+        <Link to="/inbox" style={{ textDecoration: 'none' }}>
           <span
             className="headerli-span"
             style={{ color: hoveredItem === 'inbox' ? 'rgba(26, 13, 171, 1)' : 'black' }}
@@ -157,7 +157,7 @@ const Navbar = () => {
       >
         <img className="headerli-img" src={sav} alt="saved" />
         <Link  style={{ textDecoration: 'none' }}>
-          <span
+          <span title='coming soon'
             className="headerli-span"
             style={{ color: hoveredItem === 'saved' ? 'rgba(26, 13, 171, 1)' : 'black' }}
           >
@@ -172,7 +172,7 @@ const Navbar = () => {
       >
         <img className="headerli-img" src={noti} alt="notifications" />
         <Link  style={{ textDecoration: 'none' }}>
-          <span
+          <span title='coming soon'
             className="headerli-span"
             style={{ color: hoveredItem === 'notifications' ? 'rgba(26, 13, 171, 1)' : 'black' }}
           >

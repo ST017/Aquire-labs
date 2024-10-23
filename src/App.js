@@ -8,6 +8,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
  
 import CompanyDetails from "./Components/ComapanyDetails";
 import RequestPage from "./Components/Request/RequestPage";
+import InboxPage from "./Components/Inbox/InboxPage";
 import Faq from "./Components/Faq";
 import Pricing from "./Components/Pricing";
 import About from "./Components/About";
@@ -36,6 +37,8 @@ function App() {
          
           <Route path="/companydetails" element={<PrivateRoute><CompanyDetails/></PrivateRoute>}/>
           <Route path="/requestpage" element={<PrivateRoute><RequestPage/></PrivateRoute>}/>
+          <Route path="/inbox" element={<PrivateRoute><InboxPage/></PrivateRoute>}/>
+
           <Route path="/faq" element={<Faq/>}/>
           <Route path="/price" element={<Pricing/>}/>
           <Route path="/about" element={<About/>}/>

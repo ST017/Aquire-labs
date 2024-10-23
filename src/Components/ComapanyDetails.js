@@ -26,7 +26,7 @@ import { db } from "./Firebase/firebase";
 import Footer from "./Dashboard/Footer";
 import VerifyIcon from "../Images/VerificationIcon.png";
 import Modal from "./Dashboard/ModalCategory";
-import acceptsvg from "../Images/accept.svg.svg"
+import acceptsvg from "../Images/accept.svg.svg";
 
 //import verify from "../Images/verify.png"
 
@@ -44,20 +44,18 @@ const CompanyDetails = () => {
   const [requestReceived, setRequestReceived] = useState(0);
   const [userConnectsDocId, setUserConnectsDocId] = useState(null);
   const [isVerified, setIsVerified] = useState(false);
- const [showMorePi , setShowMorePi] = useState(false);
- const [showMoreEc , setShowMoreEc] = useState(false);
- const [showMore , setShowMore] = useState(false);
-  
+  const [showMorePi, setShowMorePi] = useState(false);
+  const [showMoreEc, setShowMoreEc] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   /* category code  */
   const [showAllCategories, setShowAllCategories] = useState(false);
-/* blockchain (eco system)*/ 
-const [showAllBlockchains, setShowAllBlockchains] = useState(false);
+  /* blockchain (eco system)*/
+  const [showAllBlockchains, setShowAllBlockchains] = useState(false);
 
-const [showAllPartnerships, setShowAllPartnerships] = useState(false);
+  const [showAllPartnerships, setShowAllPartnerships] = useState(false);
 
-const [showAllRequestTypes, setShowAllRequestTypes] = useState(false);
-
+  const [showAllRequestTypes, setShowAllRequestTypes] = useState(false);
 
   useEffect(() => {
     const auth = getAuth();
@@ -187,18 +185,15 @@ const [showAllRequestTypes, setShowAllRequestTypes] = useState(false);
         message: message, // The message input from the user
         location: myproject?.country || "", //fromuser location
         name: myproject?.name || "", //fromuser project name
-        profilePicture:myproject?.profilePicture || "",
-        toname:selectedProject?.name || "",
-        tolocation:selectedProject?.country || "",
-        toprofilePicture:selectedProject?.profilePicture || "",
-        lastCreatedAt:new Date(),
-        tocategory:selectedProject?.category || []  ,
-        tofundingstage:selectedProject?.fundingStatus || [],
-        toecosystem:selectedProject?.blockchain || [],
-        topartnershipinterest:selectedProject?.partnershipInterest || [],
-        
-
-        
+        profilePicture: myproject?.profilePicture || "",
+        toname: selectedProject?.name || "",
+        tolocation: selectedProject?.country || "",
+        toprofilePicture: selectedProject?.profilePicture || "",
+        lastCreatedAt: new Date(),
+        tocategory: selectedProject?.category || [],
+        tofundingstage: selectedProject?.fundingStatus || [],
+        toecosystem: selectedProject?.blockchain || [],
+        topartnershipinterest: selectedProject?.partnershipInterest || [],
       });
 
       console.log("Document written with ID: ", docRef.id);
@@ -272,7 +267,7 @@ const [showAllRequestTypes, setShowAllRequestTypes] = useState(false);
 
   /* category code  */
   // Decide which category array to use based on the user
-   const categories =
+  const categories =
     selectedProject.userId === currentUser?.uid
       ? myproject?.category || []
       : selectedProject?.category || [];
@@ -284,50 +279,49 @@ const [showAllRequestTypes, setShowAllRequestTypes] = useState(false);
 
   /* blockchain (ecosystem) */
   const blockchains =
-  selectedProject.userId === currentUser?.uid
-    ? myproject?.blockchain || []
-    : selectedProject?.blockchain || [];
+    selectedProject.userId === currentUser?.uid
+      ? myproject?.blockchain || []
+      : selectedProject?.blockchain || [];
 
-const visibleBlockchains = showAllBlockchains
-  ? blockchains
-  : blockchains.slice(0, 14);
+  const visibleBlockchains = showAllBlockchains
+    ? blockchains
+    : blockchains.slice(0, 14);
 
-    /* blockchain (ecosystem) */
+  /* blockchain (ecosystem) */
 
-
-    const partnershipInterests =
+  const partnershipInterests =
     selectedProject.userId === currentUser?.uid
       ? myproject?.partnershipInterest || []
       : selectedProject?.partnershipInterest || [];
-  
+
   const visiblePartnershipInterests = showAllPartnerships
     ? partnershipInterests
     : partnershipInterests.slice(0, 14);
-  
 
   const requesttypes =
-  selectedProject.userId === currentUser?.uid
-    ? myproject?.requestType || []
-    : selectedProject?.requestType || [];
+    selectedProject.userId === currentUser?.uid
+      ? myproject?.requestType || []
+      : selectedProject?.requestType || [];
 
-    const visibleRequestTypes = showAllRequestTypes
+  const visibleRequestTypes = showAllRequestTypes
     ? requestTypes
     : requestTypes.slice(0, 14);
-  
 
-    const handleMoreClick = () => {
-      setShowMore(true);
-    };
-  
-    const closeModal = () => {
-      setShowMore(false);
-      setShowMorePi(false);
-      setShowMoreEc(false);
-    };
+  const handleMoreClick = () => {
+    setShowMore(true);
+  };
+
+  const closeModal = () => {
+    setShowMore(false);
+    setShowMorePi(false);
+    setShowMoreEc(false);
+  };
 
   return (
     <div className="companydetails-container">
-      <div className="companydetails-navbar"><Navbar /></div>
+      <div className="companydetails-navbar">
+        <Navbar />
+      </div>
       <div className="companydetails-sub">
         <div className="bread-container">
           <div className="bbcmb" aria-label="breadcrumb">
@@ -373,41 +367,49 @@ const visibleBlockchains = showAllBlockchains
                     alt="profile-picture"
                   />
                 </div>
-                
+
                 <div className="company-profile-text">
                   <div className="companyname-oneliner-container">
-                  <div className="companyname-verification">
-  <h4 className="company-name">
-    {selectedProject?.userId === currentUser?.uid
-      ? myproject?.name || "Default Company Name"
-      : selectedProject?.name || "Default Company Name"}{" "}
-    {isVerified && (
-      <img
-        src={VerifyIcon}
-        alt="verified"
-        className="verified-icon"
-      />
-    )}
-   
-  </h4>
-  </div>
-  <p className="oneliner">
-    {selectedProject?.userId === currentUser?.uid
-      ? myproject?.oneLiner || "Default company one-liner goes here"
-      : selectedProject?.oneLiner || "Default company one-liner goes here"}
-  </p>
-  </div>
-  <div className="location">
-    <img className="location-img" src={locationlogo} alt="location" />
-    <span className="city-conuntry">{selectedProject?.userId === currentUser?.uid
-      ? myproject?.city || "Default City"
-      : selectedProject?.city || "Default City"}
-    ,{" "}
-    {selectedProject?.userId === currentUser?.uid
-      ? myproject?.country || "Default Country"
-      : selectedProject?.country || "Default Country"} </span>
-  </div>
-</div>
+                    <div className="companyname-verification">
+                      <h4 className="company-name">
+                        {selectedProject?.userId === currentUser?.uid
+                          ? myproject?.name || "Default Company Name"
+                          : selectedProject?.name ||
+                            "Default Company Name"}{" "}
+                        {isVerified && (
+                          <img
+                            src={VerifyIcon}
+                            alt="verified"
+                            className="verified-icon"
+                          />
+                        )}
+                      </h4>
+                    </div>
+                    <p className="oneliner">
+                      {selectedProject?.userId === currentUser?.uid
+                        ? myproject?.oneLiner ||
+                          "Default company one-liner goes here"
+                        : selectedProject?.oneLiner ||
+                          "Default company one-liner goes here"}
+                    </p>
+                  </div>
+                  <div className="location">
+                    <img
+                      className="location-img"
+                      src={locationlogo}
+                      alt="location"
+                    />
+                    <span className="city-conuntry">
+                      {selectedProject?.userId === currentUser?.uid
+                        ? myproject?.city || "Default City"
+                        : selectedProject?.city || "Default City"}
+                      ,{" "}
+                      {selectedProject?.userId === currentUser?.uid
+                        ? myproject?.country || "Default Country"
+                        : selectedProject?.country || "Default Country"}{" "}
+                    </span>
+                  </div>
+                </div>
 
                 {/* <button className="edit-profile-btn">Edit Profile</button> */}
               </div>
@@ -451,7 +453,9 @@ const visibleBlockchains = showAllBlockchains
                             {matchingRequests.status === "Pending" ? (
                               <button
                                 className="send-request-btn"
-                                onClick={()=>handleCancelRequest(matchingRequests.id)}
+                                onClick={() =>
+                                  handleCancelRequest(matchingRequests.id)
+                                }
                               >
                                 Cancel
                               </button>
@@ -661,9 +665,37 @@ const visibleBlockchains = showAllBlockchains
                                   >
                                     Message
                                   </label>
-                                  <textarea
+                                  {/* <textarea
+                                    
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
+                                    placeholder="Message"
+                                    style={{
+                                      width: "100%",
+                                      height: "120px",
+                                      border: "1px solid #4A4AFF",
+                                      borderRadius: "8px",
+                                      padding: "12px 14px",
+                                      marginBottom: "16px",
+                                      fontSize: "14px",
+                                      color: "#333",
+                                      outline: "none",
+                                      boxSizing: "border-box",
+                                      resize: "none", // Prevent resizing of the textarea
+                                    }}
+                                  ></textarea> */}
+                                  <textarea
+                                    value={message}
+                                    onChange={(e) => {
+                                      const inputMessage = e.target.value;
+                                      if (inputMessage.length > 50) {
+                                        alert(
+                                          "Maximum characters allowed is 50."
+                                        );
+                                        return;
+                                      }
+                                      setMessage(inputMessage); // Update message if within the limit
+                                    }}
                                     placeholder="Message"
                                     style={{
                                       width: "100%",
@@ -971,76 +1003,84 @@ const visibleBlockchains = showAllBlockchains
               {/* Ecosystem */}
 
               <div className="ecosystem-card1">
-              <p className="ecosystem-heading">Ecosystem</p>
-<div className="ecosystem-text">
-  
-    {blockchains
-      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())) // Case-insensitive alphabetical sorting
-      .slice(0, showAllBlockchains ? blockchains.length : 9) // Show first 14 or all if toggled
-      .map((blockchain, index) => (
-        <span key={index} className="category-item">
-          {blockchain}
-        </span>
-      ))}
+                <p className="ecosystem-heading">Ecosystem</p>
+                <div className="ecosystem-text">
+                  {blockchains
+                    .sort((a, b) =>
+                      a.toLowerCase().localeCompare(b.toLowerCase())
+                    ) // Case-insensitive alphabetical sorting
+                    .slice(0, showAllBlockchains ? blockchains.length : 9) // Show first 14 or all if toggled
+                    .map((blockchain, index) => (
+                      <span key={index} className="category-item">
+                        {blockchain}
+                      </span>
+                    ))}
 
-    {/* 'Show More' functionality for blockchains */}
-    {!showAllBlockchains && blockchains.length > 9 && (
-  <>
-    <span
-      className="category-more"
-      onClick={()=>setShowMoreEc(true)}
-    >
-      +{blockchains.length - 9} More
-    </span>
-    {showMoreEc && (
-      <Modal 
-        maplist={blockchains.slice(9,blockchains.length)} 
-        onClose={closeModal} 
-      />
-    )}
-  </>
-)}
-
-    
-    
-  
-</div>
+                  {/* 'Show More' functionality for blockchains */}
+                  {!showAllBlockchains && blockchains.length > 9 && (
+                    <>
+                      <span
+                        className="category-more"
+                        onClick={() => setShowMoreEc(true)}
+                      >
+                        +{blockchains.length - 9} More
+                      </span>
+                      {showMoreEc && (
+                        <Modal
+                          maplist={blockchains.slice(9, blockchains.length)}
+                          onClose={closeModal}
+                        />
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
 
               {/* Partnership Interest */}
               <div className="partnership-card1">
-              <p className="partnership-heading">Partnership Interested</p>
-<div className="partnership-text">
-  {partnershipInterests
-    .sort((a, b) =>
-      a.toLowerCase().localeCompare(b.toLowerCase())
-    ) // Case-insensitive alphabetical sorting
-    .slice(0, showAllPartnerships ? partnershipInterests.length :9) // Show first 9 or all if toggled
-    .map((interest, index) => (
-      <span key={index} className="category-item">
-        {interest}
-      </span>
-    ))}
+                <p className="partnership-heading">Partnership Interested</p>
+                <div className="partnership-text">
+                  {partnershipInterests
+                    .sort((a, b) =>
+                      a.toLowerCase().localeCompare(b.toLowerCase())
+                    ) // Case-insensitive alphabetical sorting
+                    .slice(
+                      0,
+                      showAllPartnerships ? partnershipInterests.length : 9
+                    ) // Show first 9 or all if toggled
+                    .map((interest, index) => (
+                      <span key={index} className="category-item">
+                        {interest}
+                      </span>
+                    ))}
 
-  {!showAllPartnerships && partnershipInterests.length > 9 && (
-    <span
-      className="category-more"
-      /* onClick={() => setShowAllPartnerships(true)} */
-      onClick={()=>setShowMorePi(true)}
-    >
-      +{partnershipInterests.length - 9} More
-    </span>
-  )}
-  {showMorePi && (
-        <Modal maplist={partnershipInterests.slice(9,partnershipInterests.length)} onClose={closeModal} />)}
-</div>
-
+                  {!showAllPartnerships && partnershipInterests.length > 9 && (
+                    <span
+                      className="category-more"
+                      /* onClick={() => setShowAllPartnerships(true)} */
+                      onClick={() => setShowMorePi(true)}
+                    >
+                      +{partnershipInterests.length - 9} More
+                    </span>
+                  )}
+                  {showMorePi && (
+                    <Modal
+                      maplist={partnershipInterests.slice(
+                        9,
+                        partnershipInterests.length
+                      )}
+                      onClose={closeModal}
+                    />
+                  )}
+                </div>
               </div>
-
 
               {/* Whitepaper */}
               <div className="whitepaper-card1">
-                {console.log('Matching request status:', matchingRequests?.status)}
+                {console.log(
+                  "Matching request status:",
+                  matchingRequests?.status
+                )}
                 <p className="whitepaper-heading">
                   Whitepaper:
                   <a className="whitepaper-text">
@@ -1054,9 +1094,11 @@ const visibleBlockchains = showAllBlockchains
               {/* Statement for Projects */}
               <div className="statement-card1">
                 <p className="statement-heading">Statement for projects</p>
-                <p className="statement-text">{selectedProject.userId === currentUser?.uid
-                      ? myproject?.descr || ""
-                      : selectedProject?.descr}</p>
+                <p className="statement-text">
+                  {selectedProject.userId === currentUser?.uid
+                    ? myproject?.descr || ""
+                    : selectedProject?.descr}
+                </p>
               </div>
             </div>
 
@@ -1071,11 +1113,12 @@ const visibleBlockchains = showAllBlockchains
                     />
                     <span className="stat-item1-text">Requests Received</span>
                   </div>
-                  
+
                   <div className="number-section">
-                  
-                  <p className="number-stat"> {String(requestReceived).padStart(3, '0')}</p>
-                  
+                    <p className="number-stat">
+                      {" "}
+                      {String(requestReceived).padStart(3, "0")}
+                    </p>
                   </div>
                 </div>
 
@@ -1085,9 +1128,9 @@ const visibleBlockchains = showAllBlockchains
                     <span className="stat-item1-text">Requests Sent</span>
                   </div>
                   <div className="number-section">
-                  <p className="number-stat" style={{ color: "white" }}>
-                  {String(requestSent).padStart(3, '0')}
-                  </p>
+                    <p className="number-stat" style={{ color: "white" }}>
+                      {String(requestSent).padStart(3, "0")}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1121,14 +1164,10 @@ const visibleBlockchains = showAllBlockchains
   </div>
 </div> */}
 
-
               <div className="categories-card1">
-
                 <p className="categories-heading">Categories</p>
-                
 
                 <div className="categories-text">
-
                   {categories
                     .sort((a, b) =>
                       a.toLowerCase().localeCompare(b.toLowerCase())
@@ -1148,45 +1187,43 @@ const visibleBlockchains = showAllBlockchains
                       +{categories.length - 14} More
                     </span>
                   )}
-                   {showMore && (
-        <Modal maplist={categories.slice(14,categories.length)} onClose={closeModal} />
-      )}
+                  {showMore && (
+                    <Modal
+                      maplist={categories.slice(14, categories.length)}
+                      onClose={closeModal}
+                    />
+                  )}
 
-
-{/* {selectedProject.userId === currentUser?.uid
+                  {/* {selectedProject.userId === currentUser?.uid
                     ? myproject?.category || ""
                     : selectedProject?.category || ""} */}
-
-
                 </div>
-              </div> 
-
-              <div className="request-type-card1">
-              <p className="request-type-heading">Request Type</p>
-<div className="request-type-text">
-  {requesttypes
-    .sort((a, b) =>
-      a.toLowerCase().localeCompare(b.toLowerCase())
-    ) // Case-insensitive alphabetical sorting
-    .slice(0, showAllRequestTypes ? requesttypes.length : 14) // Show first 14 or all if toggled
-    .map((type, index) => (
-      <span key={index} className="category-item">
-        {type}
-      </span>
-    ))}
-
-  {!showAllRequestTypes && requesttypes.length > 14 && (
-    <span
-      className="category-more"
-      onClick={() => setShowAllRequestTypes(true)}
-    >
-      +{requestTypes.length - 14} More
-    </span>
-  )}
-</div>
-
               </div>
 
+              <div className="request-type-card1">
+                <p className="request-type-heading">Request Type</p>
+                <div className="request-type-text">
+                  {requesttypes
+                    .sort((a, b) =>
+                      a.toLowerCase().localeCompare(b.toLowerCase())
+                    ) // Case-insensitive alphabetical sorting
+                    .slice(0, showAllRequestTypes ? requesttypes.length : 14) // Show first 14 or all if toggled
+                    .map((type, index) => (
+                      <span key={index} className="category-item">
+                        {type}
+                      </span>
+                    ))}
+
+                  {!showAllRequestTypes && requesttypes.length > 14 && (
+                    <span
+                      className="category-more"
+                      onClick={() => setShowAllRequestTypes(true)}
+                    >
+                      +{requestTypes.length - 14} More
+                    </span>
+                  )}
+                </div>
+              </div>
 
               <div className="social-media-card1">
                 <p className="social-media-heading">Social Media</p>
