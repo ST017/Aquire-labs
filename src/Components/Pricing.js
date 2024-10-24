@@ -5,6 +5,7 @@ import righttick from "../Images/check-circle-1.svg";
 import cross from "../Images/check-circle-2.svg";
 
 import Footer from "../Components/Dashboard/Footer";
+import { Link } from "react-router-dom";
 
 const Pricing = () => {
   document.body.style.background = "rgba(234, 239, 255, 1)";
@@ -52,7 +53,7 @@ const Pricing = () => {
                   <img src={cross} alt="cross" /> No Newsletter
                 </li>
               </ul>
-              <button className="btn get-started-btn">Get Started</button>
+              <button className="btn-p get-started-btn"><Link to="/signup" style={{textDecorationLine:'none',color:'white'}} >Get Started </Link></button>
             </div>
             <div className="outer-pluscard">
             <div className="badge save-badge">SAVE 50%</div>

@@ -206,6 +206,7 @@ align-items: center;
   }
   
   .btn-p {
+    display: flex;
     background-color:#1A0DAB;
     color: white;
     padding: 10px 20px;
@@ -215,7 +216,8 @@ align-items: center;
     width: 70%;
     font-size: 16px;
     align-self: center;
-    
+    justify-content: center;
+    align-items: center;
     margin:  25px auto;
   }
   
