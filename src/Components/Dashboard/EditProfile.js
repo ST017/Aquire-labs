@@ -923,7 +923,7 @@ const EditProfile = ({ setIsEditProfile }) => {
           <textarea
             name="projectStatement"
             value={projectStatement}
-            maxLength={520}
+            maxLength={720}
             onChange={(e) => setProjectStatement(e.target.value)}
             required
           />

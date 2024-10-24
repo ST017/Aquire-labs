@@ -130,7 +130,7 @@ opacity: 0px; */
 position: relative;
 }
 .requestmodal-content{
-min-width: 200px;
+/* min-width: 200px;
   box-sizing: border-box;
 right:10px;
 z-index: 1000;
@@ -140,7 +140,30 @@ display: flex;
 flex-direction: column;
 padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+
+  position: absolute;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    min-width: 200px;
+    box-sizing: border-box;
+    right:2%;
+    display: flex;
+    flex-direction: column;
+    width: Fill (185px)px;
+height: Fixed (140px)px;
+padding: 16px 0px 0px 16px;
+gap: 5px;
+border-radius: 12px 12px 12px 12px;
+
+font-size: 14px;
+font-weight: 400;
+line-height: 18px;
+text-align: left;
+color:rgba(132, 132, 132, 1);
 
 }
 
@@ -163,14 +186,16 @@ padding: 10px;
 }
 
 .checkbox-label {
-display: flex;
-align-items: center; /* Center align the checkbox and text */
-margin-bottom: 10px; /* Space between each checkbox */
+  display: flex;
+  align-items: center;
+  gap: 0px;
 }
 
 .input-request-checkbox{
-margin-top:5px;
-margin-right: 10px; /* Space between checkbox and text */
+  width: 16px;
+    height: 16px;
+    margin-right: 8px; 
+ /* Space between checkbox and text */
 }
 
 

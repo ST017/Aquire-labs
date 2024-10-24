@@ -68,6 +68,9 @@ export const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  
+
  
 
   @media (max-width: 768px) {
@@ -137,12 +140,17 @@ export const Dash = styled.img`
 
 export const CloseButton = styled.button`
   display:flex;
-  justifyContent:flex-end;
+  justify-content:center;
+  align-items:center;
   font-size: 22px;
   cursor: pointer;
   border-width: 0.14px;
   border-radius: 50%;
   background: #eeeeee;
+  width:45px;
+  height:45px;
+  border:none;
+  
 
 
   @media (min-width: 360px) {

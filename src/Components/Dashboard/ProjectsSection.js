@@ -258,6 +258,7 @@ const fetchUserConnectCounts = async (userId) => {
   const handleSortChange = (e) => {
     const { name, checked } = e.target;
     setSortOptions({ ...sortOptions, [name]: checked });
+    
   };
 
   const applySorting = () => {
@@ -276,8 +277,13 @@ const fetchUserConnectCounts = async (userId) => {
     }
 
     setFilterData(sortedList);
-    setShowModal(false); 
+    /* setShowModal(false); */ 
   };
+
+
+  useEffect(()=>{
+     applySorting()
+  },[sortOptions])
 
 
  //FilterCategory
@@ -668,24 +674,30 @@ useEffect(() => {
       {/* The modal appearing beside the image */}
       {showModal && (
         <div className="filtermodal-content">
-          <h4>Sort Options</h4>
-          <label>
-            <input type="checkbox" name="newest" checked={sortOptions.newest} onChange={handleSortChange} />
-            Newest First
-          </label>
-          <label>
-            <input type="checkbox" name="oldest" checked={sortOptions.oldest} onChange={handleSortChange} />
+          {/* <h4>Sort Options</h4> */}
+          <label className="checkbox-label">
+  <input className='input-project-section-checkbox'
+    type="checkbox" 
+    name="newest" 
+    checked={sortOptions.newest} 
+    onChange={handleSortChange} 
+  />
+  Newest First
+</label>
+
+          <label className="checkbox-label">
+            <input  className='input-project-section-checkbox' type="checkbox" name="oldest" checked={sortOptions.oldest} onChange={handleSortChange} />
             Oldest First
           </label>
-          <label>
-            <input type="checkbox" name="az" checked={sortOptions.az} onChange={handleSortChange} />
+          <label className="checkbox-label">
+            <input  className='input-project-section-checkbox' type="checkbox" name="az" checked={sortOptions.az} onChange={handleSortChange} />
             A-Z
           </label>
-          <label>
-            <input type="checkbox" name="za" checked={sortOptions.za} onChange={handleSortChange} />
+          <label className="checkbox-label">
+            <input  className='input-project-section-checkbox' type="checkbox" name="za" checked={sortOptions.za} onChange={handleSortChange} />
             Z-A
           </label>
-          <button onClick={applySorting}>Apply Sorting</button>
+          {/* <button onClick={applySorting}>Apply Sorting</button> */}
         </div>
       )}
     

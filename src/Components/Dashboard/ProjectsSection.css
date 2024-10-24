@@ -268,6 +268,20 @@ color:rgba(0, 0, 0, 1);
     right:2%;
     display: flex;
     flex-direction: column;
+    width: Fill (185px)px;
+height: Fixed (140px)px;
+padding: 16px 0px 0px 16px;
+gap: 5px;
+border-radius: 12px 12px 12px 12px;
+
+font-size: 14px;
+font-weight: 400;
+line-height: 18px;
+text-align: left;
+color:rgba(132, 132, 132, 1);
+
+
+
     /* right: 100%; Position the modal to the left of the icon */
     /* top: 0; Aligns it with the top of the icon */
      /* Optional: Add spacing between the modal and the icon */
@@ -307,3 +321,15 @@ color:rgba(0, 0, 0, 1);
         /* Add a gap between the elements for better spacing */
     
   }}
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+  }
+  
+  .input-project-section-checkbox {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px; /* Adjust spacing between checkbox and label text */
+  }

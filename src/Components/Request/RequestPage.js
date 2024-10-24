@@ -677,7 +677,7 @@ const RequestPage = ({ selectedFilters }) => {
                     </label>
                   </div>  */
                   <div className="requestmodal-content">
-  <h4>Sort Options</h4>
+  {/* <h4>Sort Options</h4> */}
   <label className="checkbox-label">
     <input className="input-request-checkbox"
       type="checkbox"
