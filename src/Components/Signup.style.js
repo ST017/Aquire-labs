@@ -71,9 +71,15 @@ export const CloseButtonX = styled.button`
   border-width: 0.14px;
   border-radius: 50%;
   background: #eeeeee;
-  width: 40px;
-height: 40px;
+  
 border:none;
+width: Hug (57px)px;
+height: Hug (57px)px;
+padding: 14.25px 14.25px 14.25px 14.25px;
+gap: 14.25px;
+border-radius: 142.5px 142.5px 142.5px 142.5px;
+
+
 
 
 

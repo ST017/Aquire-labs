@@ -28,34 +28,43 @@ export default Navbar;
 import React, { useEffect, useState } from 'react';
 import './Navbar.css';
 import RaisaLogo from "../../Images/RaisaLogo.png"
-import dis from '../../Images/discover.png'
-import inb from '../../Images/inbox.png'
-import req from '../../Images/request.png'
-import sav from '../../Images/save.png'
-import noti from '../../Images/notification.png'
-import { Link, useNavigate } from 'react-router-dom';
+import dis from '../../Images/discovernew.svg'
+import inb from '../../Images/inboxnew.svg'
+import req from '../../Images/requestnew.svg'
+import sav from '../../Images/savenew.svg'
+import noti from '../../Images/notificationnew.svg'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
  
 const Navbar = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [buttonActive,setButtonActive]=useState(null)
+  const location = useLocation();
 
-  useEffect(() => {
-    const savedActiveButton = localStorage.getItem('buttonActive');
-    if (savedActiveButton) {
-      setButtonActive(savedActiveButton);
-    }
-  }, []);
+  
 
   const handleButtonClick = (button) => {
     setButtonActive(button);
     localStorage.setItem('buttonActive', button); 
   };
 
+  useEffect(() => {
+    
+    const savedActiveButton = localStorage.getItem('buttonActive');
+    if (savedActiveButton) {
+      setButtonActive(savedActiveButton);
+    }
+
+   
+    const currentPath = location.pathname.replace('/', ''); 
+    setButtonActive(currentPath);
+  }, [location.pathname]);
+
   // Handle mouse enter and leave for hover state
   const handleMouseEnter = (item) => {
     setHoveredItem(item);
   };
+
 
   const handleMouseLeave = () => {
     setHoveredItem(null);
@@ -125,9 +134,9 @@ const Navbar = () => {
       >
         <img className="headerli-img" src={dis} alt="discover" />
         <Link to="/dashboard" style={{ textDecoration: 'none' }} >
-          <span onClick={() => handleButtonClick('discover')}
+          <span onClick={() => handleButtonClick("dashboard")}
             className="headerli-span"
-            style={{ color: hoveredItem === 'discover' || buttonActive==="discover" ? 'rgba(26, 13, 171, 1)' : 'black' }}
+            style={{ color: hoveredItem === 'discover' || buttonActive==="dashboard" ? 'rgba(26, 13, 171, 1)' : 'black' }}
           >
             Discover
           </span>
@@ -140,7 +149,7 @@ const Navbar = () => {
       >
         <img className="headerli-img" src={inb} alt="inbox" />
         <Link to="/inbox" style={{ textDecoration: 'none' }} >
-          <span onClick={() => handleButtonClick('inbox')}
+          <span onClick={() => handleButtonClick("inbox")}
             className="headerli-span"
             style={{ color: hoveredItem === 'inbox' || buttonActive==="inbox" ? 'rgba(26, 13, 171, 1)' : 'black' }}
           >
@@ -155,9 +164,9 @@ const Navbar = () => {
       >
         <img className="headerli-img" src={req} alt="request" />
         <Link to="/requestpage" style={{ textDecoration: 'none' }} >
-          <span onClick={() => handleButtonClick('request')}
+          <span onClick={() => handleButtonClick("requestpage")}
             className="headerli-span"
-            style={{ color: hoveredItem === 'request' || buttonActive==="request" ? 'rgba(26, 13, 171, 1)' : 'black' }}
+            style={{ color: hoveredItem === 'request' || buttonActive==="requestpage" ? 'rgba(26, 13, 171, 1)' : 'black' }}
           >
             Request
           </span>
@@ -170,9 +179,9 @@ const Navbar = () => {
       >
         <img className="headerli-img" src={sav} alt="saved" />
         <Link  style={{ textDecoration: 'none' }} >
-          <span title='coming soon' onClick={() => handleButtonClick('saved')}
+          <span title='coming soon' /* onClick={() => handleButtonClick('saved')} */
             className="headerli-span"
-            style={{ color: hoveredItem === 'saved' || buttonActive === "saved" ? 'rgba(26, 13, 171, 1)' : 'black' }}
+            style={{ color: hoveredItem === 'saved' /* || buttonActive === "saved" */ ? 'rgba(26, 13, 171, 1)' : 'black' }}
           >
             Saved
           </span>
@@ -185,9 +194,9 @@ const Navbar = () => {
       >
         <img className="headerli-img" src={noti} alt="notifications" />
         <Link  style={{ textDecoration: 'none' }} >
-          <span title='coming soon' onClick={() => handleButtonClick('notifications')}
+          <span title='coming soon' /* onClick={() => handleButtonClick('notifications')} */
             className="headerli-span"
-            style={{ color: hoveredItem === 'notifications' || buttonActive==="notifications" ? 'rgba(26, 13, 171, 1)' : 'black' }}
+            style={{ color: hoveredItem === 'notifications' /* || buttonActive==="notifications" */ ? 'rgba(26, 13, 171, 1)' : 'black' }}
           >
             Notifications
           </span>

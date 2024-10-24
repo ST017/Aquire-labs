@@ -116,6 +116,8 @@ import Marquee from "react-fast-marquee";
 import MainNavbar from "./MainNavbar.js";
 const Home = () => {
   const [expandedFeature, setExpandedFeature] = useState(null);
+
+
  
   const features = [
     {
@@ -147,6 +149,15 @@ const Home = () => {
       setExpandedFeature(index);
     }
   };
+
+
+
+  
+
+
+
+
+
   const ImageList1 = [
     logo1,
     logo2,

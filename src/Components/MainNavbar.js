@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './MainNavbar.css';
 import Raisalogo from './../Images/RaisaLogo.png'
 import {
@@ -64,9 +64,31 @@ import {
    
    
   } from "./Home.style.js";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 const MainNavbar = () => {
     document.body.style.background="rgba(234, 239, 255, 1)"
+
+    const [buttonActive,setButtonActive]=useState(null)
+  const location = useLocation();
+
+  
+
+  const handleButtonClick = (button) => {
+    setButtonActive(button);
+    localStorage.setItem('buttonActive', button); 
+  };
+
+  useEffect(() => {
+    
+    const savedActiveButton = localStorage.getItem('buttonActive');
+    if (savedActiveButton) {
+      setButtonActive(savedActiveButton);
+    }
+
+   
+    const currentPath = location.pathname.replace('/', ''); 
+    setButtonActive(currentPath);
+  }, [location.pathname]);
   return (
     <div className="mainnavbar">
       <div className="logo">
@@ -75,9 +97,9 @@ const MainNavbar = () => {
       <div className='mainnav-frame2'>
         <div className='mainnav-links'>
       <ul className="nav-links">
-        <li className='nav-links-li'><Link to="/">Home</Link></li>
-        <li className='nav-links-li'><Link to="/about">About</Link></li>
-        <li className='nav-links-li'><Link to="/faq">Help</Link></li>
+        <li className='nav-links-li' ><Link to="/" style={{ color: buttonActive===null ? 'rgba(26, 13, 171, 1)' : 'black' }}>Home</Link></li>
+        <li className='nav-links-li' ><Link to="/about" onClick={()=>handleButtonClick("about")} style={{ color: buttonActive === "about" ? 'rgba(26, 13, 171, 1)' : 'black' }}>About</Link></li>
+        <li className='nav-links-li'><Link to="/faq" onClick={()=>handleButtonClick("faq")} style={{ color: buttonActive === "faq" ? 'rgba(26, 13, 171, 1)' : 'black' }}>Help</Link></li>
       </ul>
       </div>
       <div  className='mainnav-buttons'>

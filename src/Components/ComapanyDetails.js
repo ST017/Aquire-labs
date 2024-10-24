@@ -26,7 +26,8 @@ import { db } from "./Firebase/firebase";
 import Footer from "./Dashboard/Footer";
 import VerifyIcon from "../Images/VerificationIcon.png";
 import Modal from "./Dashboard/ModalCategory";
-import acceptsvg from "../Images/accept.svg.svg";
+import acceptsvg from "../Images/acceptnew.svg";
+import sentsvg from "../Images/sent.svg";
 
 //import verify from "../Images/verify.png"
 
@@ -1107,7 +1108,7 @@ const CompanyDetails = () => {
                 <div className="stat-item1">
                   <div className="stat-item1-left">
                     <img
-                      src={receivelogo}
+                      src={acceptsvg}
                       alt="logo"
                       className="received1-img1"
                     />
@@ -1124,7 +1125,7 @@ const CompanyDetails = () => {
 
                 <div className="stat-item1">
                   <div className="stat-item1-left">
-                    <img src={sentlogo} alt="logo" className="received1-img1" />
+                    <img src={sentsvg} alt="logo" className="received1-img1" />
                     <span className="stat-item1-text">Requests Sent</span>
                   </div>
                   <div className="number-section">
