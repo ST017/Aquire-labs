@@ -14,6 +14,7 @@ import RightArrow from "../../Images/RightArrow.png";
 import LeftArrow from "../../Images/LeftArrow.png";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "../Firebase/firebase";
+import breadcrumb from "../../Images/breadcrumb.png";
 import {
   addDoc,
   collection,
@@ -527,11 +528,31 @@ const InboxPage = () => {
     <div className="request-page-main-container">
       <FilterProvider>
         <div className="request-page-navbar"><Navbar /></div>
-        
+        <div className="bread-container-inbox">
+          <div className="bbcmb" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <img src={breadcrumb} alt="home" />
+                <div className="a-div">
+                  <a href="/dashboard">Dashboard</a>
+                </div>
+              </li>
+
+              <li class="breadcrumb-item active" aria-current="page" >
+                Inbox
+              </li>
+            </ol>
+          </div>
+        </div>
         <div className="requestpage-container">
+
+    
+        
+        
         
         <div className="sidebar-req-cntainer">
           <div className="requestpage-sidebar"><Sidebar /></div>
+
           <div className="requesttable">
             <div className="search-filter">
               <div className="search-bar-req">
