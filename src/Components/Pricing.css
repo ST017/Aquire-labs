@@ -1,20 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+.pricing{
+
+  /* display: flex;
+  flex-direction: column; */
+  width:100vw;
+  height: 100vh;
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+
+
 .pricing-cntr{
-  width: 100%;
-  height: 100%;
-  position: relative;
+  
+ 
+ display: flex;
+ flex-direction: column;
+ align-content: center;
+ align-items: center;
+ justify-content: center;
+
+
 }
 
 
 .price-heading {
-  width: 598px;
-  height: auto; /* Adjusted to fit content height */
-  padding: 0px 0px 3px 0px;
+  /* width: 598px;
+  height: auto; Adjusted to fit content height */
+  /* padding: 0px 0px 3px 0px; */
   display: flex;
   flex-direction: column; /* Stack items vertically */
   justify-content: center;
   align-items: center;
-  margin: 0 auto; /* Center horizontally */
+  margin: auto; /* Center horizontally */
   gap: 10px; 
+  margin-top: 123px;
+  margin-bottom: 44px;
 }
 
 .price-heading-main {
@@ -23,138 +47,266 @@
   line-height: 48.41px;
   text-align: center;
   color: rgba(35, 29, 79, 1);
+
+  p{
+    margin:0;
+    padding:0;
+  }
 }
 
 .price-heading-submain {
-  width: 348.93px;
-  height: 24px;
+  /* width: 348.93px;
+  height: 24px; */
   font-size: 20px;
   font-weight: 500;
   line-height: 24.2px;
   color: rgba(132, 129, 153, 1);
   text-align: center;
-  margin-top: -40px;
+ 
+  p{
+    margin: 0;
+  }
 }
 
 /* Price container with two cards */
-.price-second-container123 {
-  width: 837px;
-  height: 578px;
+
+.pricing-cnt1{
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 45px;
-  margin: 0 auto;
-  margin-bottom: 40px; /* Center the container horizontally */
-  margin-top: 40px; /* Adjust space above the container */
+  justify-content: center;
+  padding:20px;
 }
 
-/* Individual card styling */
-.card123 {
-  width: 355px;
-  height: 531px;
-  padding: 20px;
-  border-radius: 28px;
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
 
-/* Title and price styles */
-.card-title123 {
-  font-size: 28px;
-  font-weight: 900;
-  line-height: 33.89px;
-  text-align: left;
-  color: rgba(0, 0, 0, 1);
-  margin-top: 10px;
-}
+  .pricing-cards-container {
+    display: flex;
+    width:80%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 68px;
+    /* padding: 20px; */
 
-.card-subtitle123 {
-  font-size: 13.5px;
-  font-weight: 500;
-  line-height: 16.34px;
-  text-align: left;
-  color: rgba(0, 0, 0, 1);
-  margin-top: -40px;
-}
+  }
+  
+  .card-p {
+    width: 29.3%;
+    height: 92.3vh;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 15px;
+    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+  }
 
-.card-price123 {
-  font-size: 36px;
-  font-weight: 400;
-  line-height: 46px;
-  text-align: left;
-  color: rgba(0, 0, 0, 1);
-  margin-top: -10px;
-}
-
-/* Feature list styles */
-.card-features123 {
-  list-style-type: none; /* Remove default list styles */
-  padding: 0; /* Remove padding */
-  margin-top: -40px; /* Top margin for spacing */
-}
-
-.card-features123 li {
-  font-size: 15px; /* Font size for list items */
-  font-weight: 500; /* Font weight */
-  line-height: 2.6; /* Increase line height for more spacing between lines */
-  text-align: left; /* Align text to the left */
-  color: rgba(0, 0, 0, 1); /* Text color */
-  margin-bottom: 8px; /* Space below each list item */
-  display: flex; /* Flexbox for alignment */
-  align-items: center; /* Center items vertically */
-}
-
-.card-features123 li:before {
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  width: 28px; /* Set width */
-  height: 28px; /* Set height */
-  border-radius: 50%; /* Make it circular */
-  background-color: rgba(234, 239, 255, 1); /* Background color for the circle */
-  content: '✔️'; /* Checkmark symbol */
-  margin-right: 10px; /* Space between icon and text */
-  font-size: 16px; /* Optional: Adjust font size of the checkmark */
-}
-
-/* Discount styling */
-.card-discount123 {
-  color: #000;
-  font-size: 16px;
-  margin: 10px 0;
-}
-
-.card-discount123 s {
-  color: #888;
-}
-
-/* Button styling */
-.card-button123 {
-  font-size: 15px;
-  font-weight: 900;
-  line-height: 18.15px;
-  text-align: center;
-  padding: 12px 24px;
-  border-radius: 10px;
-  color: rgba(255, 255, 255, 1);
-  background-color: rgba(26, 13, 171, 1);
-  border: none;
-  cursor: pointer;
-  width: 232px; /* Fixed width */
-  height: 45px; /* Fixed height */
-  margin: 0 auto; /* Center the button horizontally */
-  margin-top: -10px; /* Adjust this value to move it further up or down */
-}
-
-.card-button123:hover {
-  background-color: #0000cc;
-}
 
   
-  /* .footer-ctnr{
-    bottom: 0;
-  } */
+  .standard-card {
+    height: auto;
+    margin-top: 40px;
+    border: 3px solid #B4B4B4
+    
+
+  }
+  .outer-pluscard{
+    width: 32.5%;
+   
+    display: flex;
+    flex-direction: column;
+
+    /* position: relative; */
+    box-sizing: border-box;
+  }
+  
+  .plus-card {
+    box-sizing: border-box;
+    width:100%;
+    height:100%;
+    position: relative;
+    border: 2px solid #1A0DAB;
+    box-shadow: 0 4px 12px rgba(74, 0, 224, 0.2);
+  }
+  
+
+  .card-title-desc{
+    display:flex;
+    flex-direction: column;
+  }
+
+
+  .card-title-p {
+    font-family: Inter;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 33.89px;
+    text-align: left;
+    
+  }
+  
+  .card-description-p {
+   
+    font-family: Inter;
+font-size: 13.5px;
+font-weight: 500;
+line-height: 16.34px;
+text-align: left;
+
+  }
+  
+  .card-price {
+    font-family: Inter;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 46px;
+    text-align: left;
+    
+    margin-top: 25px;
+  }
+  
+  .card-subprice {
+    font-size: 16px;
+    color: #666;
+   
+  }
+  
+  .features-list-p {
+    
+    list-style: none;
+    padding: 0;
+    gap:10px;
+    margin-top: 25px;
+    margin-bottom: 0;
+    display:flex;
+    flex-direction: column;
+  }
+  
+  .feature-item-p {
+    gap:10px;
+    display:flex;
+    font-family: Inter;
+font-size: 15px;
+font-weight: 500;
+line-height: 18.15px;
+text-align: left;
+align-items: center;
+ img{
+  width:20px;
+  height: 20px;
+  object-fit: contain;
+  
+ }
+
+
+  }
+  
+  .inactive-feature {
+    color: red;
+  }
+  
+  .btn {
+    background-color:#1A0DAB;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 70%;
+    font-size: 16px;
+    align-self: center;
+    
+    margin:  25px auto;
+  }
+  
+  .btn:hover {
+    background-color: #1A0DAB;
+  }
+  
+  .get-started-btn {
+    background-color: #1A0DAB;
+  }
+  
+  .contact-sales-btn {
+    background-color:  #1A0DAB;
+    ;
+  }
+  
+  .badge {
+    
+   
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  
+  .popular-badge {
+    position: absolute;
+    background-color: #ff4d4d;
+    top: -10px;
+    right: 30px;
+}
+  
+  
+  .save-badge {
+   
+    
+    background-color: #1A0DAB;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    margin-bottom: 16px;
+    align-self: center;
+
+  }
+  
+  @media screen and  (min-width: 480px){
+    .mobile-cnt{
+    display: none;}
+  }
+
+
+  @media screen and  (max-width: 480px){
+
+.pricing-cntr{
+  display: none;
+
+}
+    .pricing-cards-container{
+
+      flex-direction: column;
+     
+    }
+.outer-pluscard , .card-p ,.plus-card{
+  width: 100%;
+  box-sizing: border-box;
+}
+    
+  }
+
+
+  .pricing-wrapper {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f0f8ff;
+  }
+  
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .pricing-title {
+    font-size: 24px;
+    color: #000;
+  }
+  
+  .pricing-subtitle {
+    font-size: 14px;
+    color: #666;
+  }
+  
