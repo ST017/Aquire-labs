@@ -205,7 +205,7 @@ align-items: center;
     color: red;
   }
   
-  .btn {
+  .btn-p {
     background-color:#1A0DAB;
     color: white;
     padding: 10px 20px;
@@ -219,7 +219,7 @@ align-items: center;
     margin:  25px auto;
   }
   
-  .btn:hover {
+  .btn-p:hover {
     background-color: #1A0DAB;
   }
   

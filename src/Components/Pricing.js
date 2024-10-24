@@ -88,7 +88,7 @@ const Pricing = () => {
                   new projects trend data
                 </li>
               </ul>
-              <button className="btn contact-sales-btn">Contact Sales</button>
+              <button className="btn-p contact-sales-btn">Contact Sales</button>
             </div>
             </div>
           </div>
