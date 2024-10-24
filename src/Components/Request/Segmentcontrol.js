@@ -15,31 +15,47 @@ import { db } from "../Firebase/firebase";
 import { FilterContext } from "../Dashboard/FilterContext";
 import Message from "./Message";
 
-import Raisa from "../../Images/1.png"
+import Raisa from "../../Images/1.png";
 import RequestMessage from "./RequestMessage";
 
-
-const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConnects,matchingPendingRequests,matchingRejectedRequests,matchingSendRequests,sample,sampleSend,sampleReject }) => {
+const Segmentcontrol = ({
+  activeSegment,
+  sortOptions,
+  searchQuery,
+  fetchUserConnects,
+  matchingPendingRequests,
+  matchingRejectedRequests,
+  matchingSendRequests,
+  sample,
+  sampleSend,
+  sampleReject,
+}) => {
   // const [activeSegment, setActiveSegment] = useState("pending");
 
-  
+  const {
+    selectedCategories,
+    selectedEcosystems,
+    selectedFundingStages,
+    selectedRequestTypes,
+    selectedPartenerShipInterests,
+    selectedLocation,
+    selectedProfileStatus,
+  } = useContext(FilterContext);
+  const [users, setUsers] = useState([]);
 
-  const { selectedCategories,selectedEcosystems,selectedFundingStages,selectedRequestTypes,selectedPartenerShipInterests,selectedLocation,selectedProfileStatus } = useContext(FilterContext);
-  const [users, setUsers] = useState([]); 
+  // Fetch users from Firestore
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const usersSnapshot = await getDocs(collection(db, "User"));
+      const usersList = usersSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setUsers(usersList);
+    };
 
-
-
- // Fetch users from Firestore
- useEffect(() => {
-  const fetchUsers = async () => {
-    const usersSnapshot = await getDocs(collection(db, 'User'));
-    const usersList = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    setUsers(usersList);
-  };
-
-  fetchUsers();
-}, []);
-  
+    fetchUsers();
+  }, []);
 
   // Sort the filtered requests
   const sortRequests = (requests) => {
@@ -104,8 +120,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
     }
   }; */
 
-
- /*  const filterByRequestTypes = (requests) => {
+  /*  const filterByRequestTypes = (requests) => {
     return requests.filter((request) => {
       // Find the user with matching toUserId in the User collection
       const user = users.find((u) => u.id === request.toUserId);
@@ -170,15 +185,14 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
       );
     });
   }; */
-  
 
   const filterByRequestTypes = (requests) => {
     return requests.filter((request) => {
       // Find the user with matching toUserId in the User collection
       const user = users.find((u) => u.id === request.toUserId);
       const isVerifiedUser = user && user.verified === true;
-      const isTgVerified=user && user.tgVerified === true;
-  
+      const isTgVerified = user && user.tgVerified === true;
+
       // Filter by Request Types
       const matchesRequestTypes =
         selectedRequestTypes.length === 0 ||
@@ -186,7 +200,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
           request.requestTypes.some((type) =>
             selectedRequestTypes.includes(type)
           ));
-  
+
       // Filter by Categories
       const matchesCategories =
         selectedCategories.length === 0 ||
@@ -194,7 +208,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
           request.tocategory.some((category) =>
             selectedCategories.includes(category)
           ));
-  
+
       // Filter by Ecosystems
       const matchesEcosystems =
         selectedEcosystems.length === 0 ||
@@ -202,7 +216,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
           request.toecosystem.some((ecosystem) =>
             selectedEcosystems.includes(ecosystem)
           ));
-  
+
       // Filter by Funding Stages
       const matchesFundingStages =
         selectedFundingStages.length === 0 ||
@@ -210,7 +224,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
           request.tofundingstage.some((fs) =>
             selectedFundingStages.includes(fs)
           ));
-  
+
       // Filter by Partnership Interests
       const matchesPartnershipInterests =
         selectedPartenerShipInterests.length === 0 ||
@@ -218,17 +232,18 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
           request.topartnershipinterest.some((interest) =>
             selectedPartenerShipInterests.includes(interest)
           ));
-  
+
       // Filter by Location
       const matchesLocation =
         selectedLocation.length === 0 ||
         (request?.tolocation && selectedLocation.includes(request.tolocation));
-  
+
       // Filter by Profile Status
       const matchesProfileStatus =
         selectedProfileStatus.length === 0 ||
-        (selectedProfileStatus.includes("Email Verified") && isVerifiedUser || selectedProfileStatus.includes("TG Verified") && isTgVerified);
-  
+        (selectedProfileStatus.includes("Email Verified") && isVerifiedUser) ||
+        (selectedProfileStatus.includes("TG Verified") && isTgVerified);
+
       // Return true if all filters match
       return (
         matchesRequestTypes &&
@@ -241,7 +256,6 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
       );
     });
   };
-  
 
   //handling accept and deny
 
@@ -280,11 +294,7 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
     }
   };
 
-  
-
-
   const RejectDummyRequests = [
-
     {
       id: 1,
       name: "testdemo",
@@ -312,58 +322,59 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
       <div className="table-container">
         {/* Pending request */}
         {activeSegment === "pending" && (
-          <table className="request-table">
-            <thead>
-              <tr>
-              <th  style={{ textAlign: "center", verticalAlign: "middle" }}>ID</th>
-                <th style={{ textAlign: "center", verticalAlign: "middle"}} >Name of Project</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Last Updated</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Message</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Location</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Request Type</th>
-               <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Actions</th> 
+          <table className="pending-table">
+            <thead className="tablehead">
+              <tr className="tablerow">
+                <th className="table-heading id">ID</th>
+                <th className="table-heading nop">Name of Project</th>
+                <th className="table-heading lstupdt">Last Updated</th>
+                <th className="table-heading msg">Message</th>
+                <th className="table-heading loc">Location</th>
+                <th className="table-heading reqtyp">Request Type</th>
+                <th className="table-heading  act">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="table-body">
               {sortRequests(
-                filterByRequestTypes(filterRequests(/* matchingPendingRequests */  sample))
+                filterByRequestTypes(
+                  filterRequests(/* matchingPendingRequests */ sample)
+                )
               ).map((request, i) => (
-                <tr key={request.id}>
+                <tr className="table-row" key={request.id}>
+                  <td
+                    className="id-request"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {String(i + 1).padStart(3, "0")}
+                  </td>
 
-  <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {String(i+1).padStart(3, '0')} 
-    
+                  <td>
+                    <div className="name-request-pending">
+                      <img
+                        src={request.profilePicture}
+                        alt="profile-pic"
+                        // style={{
+                        //   width: "28px",
+                        //   height: "28px",
+                        //   borderRadius: "50%",
+                        //   marginRight: "4px",
+                        // }}
+                      />
 
-  </td>
-  
-  <td
-    
-  >
-    <div className="name-request-pending"
-    style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
-     <img
-      src={request.profilePicture}
-      alt="profile-pic"
-      style={{
-        width: "28px",
-        height: "28px",
-        borderRadius: "50%",
-        marginRight: "4px",
-      }}
-    /> 
+                      {request.name}
+                    </div>
+                  </td>
 
+                  <td
+                    className="date-request-pending"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {new Date(request.lastCreatedAt.seconds * 1000)
+                      .toLocaleDateString()
+                      .replace(/\//g, "-")}
+                  </td>
 
-      {request.name}
-    </div>
-  </td>
-  
-  <td className="date-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-       {new Date(request.lastCreatedAt.seconds * 1000)
-      .toLocaleDateString()
-      .replace(/\//g, "-")}   
-  </td>
-  
-  {/* <td className="message-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  {/* <td className="message-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
   <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request-pending"
       src={request.profilePicture}
@@ -378,86 +389,120 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
   </div>
 </td> */}
 
-<td className="message-request">
-  <div style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
-    <img
-      style={{
-        width: "48px",
-        height: "48px",
-        borderRadius: "200px",
-        marginRight: "37px",
-      }}
-      src={request?.profilePicture}
-      alt="profile-pic"
-    />
-    <div>
-      <span>
-        {request.message.length > 50
-          ? `${request.message.slice(0, 50)}...`
-          : request.message}
-      </span>
-      <p style={{ margin: 0, }} className="below-message">{<RequestMessage request={request}/>} at { new Date(request.createdAt.seconds * 1000)
-      .toLocaleDateString()
-      .replace(/\//g, "-")}</p>
-    </div>
-  </div>
-</td>
- 
-  
-  <td className="location-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {request.location}  
-  </td>
-  
-  <td className="requestType-request-pending" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {request?.requestTypes.join(", ")}  
-  </td>
+                  <td className="message-request">
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        verticalAlign: "middle",
+                      }}
+                    >
+                      <img
+                        style={{
+                          width: "48px",
+                          height: "48px",
+                          borderRadius: "200px",
+                          marginRight: "37px",
+                        }}
+                        src={request?.profilePicture}
+                        alt="profile-pic"
+                      />
+                      <div>
+                        <span>
+                          {request.message.length > 50
+                            ? `${request.message.slice(0, 50)}...`
+                            : request.message}
+                        </span>
+                        <p style={{ margin: 0 }} className="below-message">
+                          {<RequestMessage request={request} />} at{" "}
+                          {new Date(request.createdAt.seconds * 1000)
+                            .toLocaleDateString()
+                            .replace(/\//g, "-")}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
 
+                  <td
+                    className="location-request-pending"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {request.location}
+                  </td>
 
-  {/* <td className="action-button-request-pending" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
+                  <td
+                    className="requestType-request-pending"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {request?.requestTypes.join(", ")}
+                  </td>
+
+                  {/* <td className="action-button-request-pending" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
   <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
     <button className="request-page-cancel-button-pending">
       Cancel
     </button>
   </div>
 </td> */}
-<td className="action-button-request-pending" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
-  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", gap: "5px" }}>
-     {
-      request.status==="Pending"?(<>
-       <button className="request-page-accept-button-pending" onClick={()=>handleAccept(request.id)}>
-      Accept
-    </button>
-    <button className="request-page-decline-button-pending" onClick={()=>handleDeny(request.id)}>
-      Decline
-    </button>
-      </>):(<>
-        <button className="request-page-accept-button-pending" disabled
-  style={{
-    opacity: 0.5, // Optional: Visual effect when disabled
-    cursor: "not-allowed"
-  }} >
-      Accept
-    </button>
-    <button className="request-page-decline-button-pending" disabled
-  style={{
-    opacity: 0.5, // Optional: Visual effect when disabled
-    cursor: "not-allowed"
-  }}>
-      Decline
-    </button>
-      </>)
-     }
-
-   
-  </div>
-</td>
-
-
-
-
-</tr>
-
-
+                  <td
+                    className="action-button-request-pending"
+                    style={{
+                      textAlign: "center",
+                      verticalAlign: "middle",
+                      padding: "0",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100%",
+                        gap: "5px",
+                      }}
+                    >
+                      {request.status === "Pending" ? (
+                        <>
+                          <button
+                            className="request-page-accept-button-pending"
+                            onClick={() => handleAccept(request.id)}
+                          >
+                            Accept
+                          </button>
+                          <button
+                            className="request-page-decline-button-pending"
+                            onClick={() => handleDeny(request.id)}
+                          >
+                            Decline
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            className="request-page-accept-button-pending"
+                            disabled
+                            style={{
+                              opacity: 0.5, // Optional: Visual effect when disabled
+                              cursor: "not-allowed",
+                            }}
+                          >
+                            Accept
+                          </button>
+                          <button
+                            className="request-page-decline-button-pending"
+                            disabled
+                            style={{
+                              opacity: 0.5, // Optional: Visual effect when disabled
+                              cursor: "not-allowed",
+                            }}
+                          >
+                            Decline
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>
@@ -467,18 +512,16 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
 
         {activeSegment === "send" && (
           <table className="request-table">
-            <thead>
-              <tr>
-
-                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>ID</th>
-                <th style={{ textAlign: "center", verticalAlign: "middle"}} >Name of Project</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Last Updated</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Message</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Location</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Request Type</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Status</th> 
-               <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Actions</th> 
-
+            <thead className="tablehead">
+              <tr className="tablerow">
+                <th className="table-heading id">ID</th>
+                <th className="table-heading nop">Name of Project</th>
+                <th className="table-heading lstupdt">Last Updated</th>
+                <th className="table-heading msg">Message</th>
+                <th className="table-heading loc">Location</th>
+                <th className="table-heading reqtyp">Request Type</th>
+                <th className="table-heading reqtyp">Status</th>
+                <th className="table-heading  act">Actions</th>
 
                 {/* <th>Actions</th> */}
               </tr>
@@ -488,48 +531,48 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
                 filterByRequestTypes(filterRequests(sampleSend))
               )?.map((request, i) => (
                 <tr key={request.id}>
+                  <td
+                    className="id-request"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {String(i + 1).padStart(3, "0")}
+                  </td>
 
+                  <td>
+                    <div
+                      className="name-request"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        verticalAlign: "middle",
+                      }}
+                    >
+                      <img
+                        src={request?.toprofilePicture}
+                        alt="profile-pic"
+                        style={{
+                          width: "28px",
+                          height: "28px",
+                          borderRadius: "50%",
 
-  <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {String(i+1).padStart(3, '0')} 
-    
+                          marginRight: "4px",
+                        }}
+                      />
 
+                      <p  className='req-name' title={request.toname}>{request.toname}</p>
+                    </div>
+                  </td>
 
-  </td>
-  
-  <td
-    
-  >
-    <div className="name-request"
-    style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
+                  <td
+                    className="date-request"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {new Date(request.lastCreatedAt.seconds * 1000)
+                      .toLocaleDateString()
+                      .replace(/\//g, "-")}
+                  </td>
 
-     <img
-
-      src={request?.toprofilePicture}
-      alt="profile-pic"
-      style={{
-        width: "28px",
-        height: "28px",
-        borderRadius: "50%",
-
-        marginRight: "4px",
-      }}
-    /> 
-
-
-      {request.toname}  
-
-    </div>
-  </td>
-  
-  <td className="date-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-
-      {new Date(request.lastCreatedAt.seconds * 1000)
-      .toLocaleDateString()
-      .replace(/\//g, "-")} 
-  </td>
-  
- {/*  <td className="message-request">
+                  {/*  <td className="message-request">
    <div style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
     <img style={{
         width: "28px",
@@ -553,66 +596,86 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
   </div> 
 </td> */}
 
+                  <td className="message-request">
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        verticalAlign: "middle",
+                      }}
+                    >
+                      <img
+                        style={{
+                          width: "48px",
+                          height: "48px",
+                          borderRadius: "200px",
+                          marginRight: "37px",
+                        }}
+                        src={request?.toprofilePicture}
+                        alt="profile-pic"
+                      />
+                      <div>
+                        <span title={request.message}>
+                          {request.message.length > 50
+                            ? `${request.message.slice(0, 50)}...`
+                            : request.message}
+                        </span>
+                        <p style={{ margin: 0 }} className="below-message">
+                          {<RequestMessage request={request} />} at{" "}
+                          {new Date(request.createdAt.seconds * 1000)
+                            .toLocaleDateString()
+                            .replace(/\//g, "-")}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
 
-<td className="message-request">
-  <div style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
-    <img
-      style={{
-        width: "48px",
-        height: "48px",
-        borderRadius: "200px",
-        marginRight: "37px",
-      }}
-      src={request?.toprofilePicture}
-      alt="profile-pic"
-    />
-    <div>
-      <span>
-        {request.message.length > 50
-          ? `${request.message.slice(0, 50)}...`
-          : request.message}
-      </span>
-      <p style={{ margin: 0, }} className="below-message">{<RequestMessage request={request}/>} at { new Date(request.createdAt.seconds * 1000)
-      .toLocaleDateString()
-      .replace(/\//g, "-")}</p>
-    </div>
-  </div>
-</td>
+                  <td
+                    className="location-request"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {request.tolocation}
+                  </td>
 
+                  <td
+                    className="requestType-request"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {request?.requestTypes.join(", ")}
+                  </td>
 
- 
-  
-  <td className="location-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     {request.tolocation} 
-  </td>
-  
-  <td className="requestType-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {request?.requestTypes.join(", ")} 
-  </td>
+                  <td
+                    className="status-request"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {request?.status}
+                  </td>
 
-  <td className="status-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-     {request?.status} 
-  </td>
-
-
-  <td className="action-button-request" style={{ textAlign: "center", verticalAlign: "middle", padding: "0" }}>
-  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
-    
-      <button className="request-page-cancel-button" onClick={()=>handleCancelRequest(request.id)}>
-      Cancel
-    </button>
-    
-    
-  </div>
-</td>
-
-
-
-</tr>
-
-
-
-   
+                  <td
+                    className="action-button-request"
+                    style={{
+                      textAlign: "center",
+                      verticalAlign: "middle",
+                      padding: "0",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100%",
+                      }}
+                    >
+                      <button
+                        className="request-page-cancel-button"
+                        onClick={() => handleCancelRequest(request.id)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>
@@ -623,54 +686,72 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
           <table className="request-table">
             <thead>
               <tr>
-              <th  style={{ textAlign: "center", verticalAlign: "middle" }}>ID</th>
-                <th style={{ textAlign: "center", verticalAlign: "middle"}} >Name of Project</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Last Updated</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Message</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle"}}>Location</th>
-                <th  style={{ textAlign: "center", verticalAlign: "middle" }}>Request Type</th>
+                <th style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  ID
+                </th>
+                <th style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  Name of Project
+                </th>
+                <th style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  Last Updated
+                </th>
+                <th style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  Message
+                </th>
+                <th style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  Location
+                </th>
+                <th style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  Request Type
+                </th>
               </tr>
             </thead>
             <tbody>
               {sortRequests(
                 filterByRequestTypes(filterRequests(sampleReject))
-              )?.map((request, i) =>(
+              )?.map((request, i) => (
                 <tr key={request.id}>
+                  <td
+                    className="id-request"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {String(i + 1).padStart(3, "0")}
+                  </td>
 
-  <td className="id-request" style={{ textAlign: "center", verticalAlign: "middle" }}>
-    {String(i+1).padStart(3, '0')} 
-    
+                  <td>
+                    <div
+                      className="name-request-rejected"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        verticalAlign: "middle",
+                      }}
+                    >
+                      <img
+                        src={request?.toprofilePicture}
+                        alt="profile-pic"
+                        style={{
+                          width: "28px",
+                          height: "28px",
+                          borderRadius: "50%",
+                          marginRight: "4px",
+                        }}
+                      />
 
-  </td>
-  
-  <td
-    
-  >
-    <div className="name-request-rejected"
-    style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
-      <img
-      src={request?.toprofilePicture}
-      alt="profile-pic"
-      style={{
-        width: "28px",
-        height: "28px",
-        borderRadius: "50%",
-        marginRight: "4px",
-      }}
-    />  
+                      {request.toname}
+                    </div>
+                  </td>
 
+                  <td
+                    className="date-request-rejected"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {new Date(request.lastCreatedAt.seconds * 1000)
+                      .toLocaleDateString()
+                      .replace(/\//g, "-")}
+                  </td>
 
- {request.toname} 
-    </div>
-  </td>
-  
-  <td className="date-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-       {new Date(request.lastCreatedAt.seconds * 1000)
-      .toLocaleDateString()
-      .replace(/\//g, "-")}   
-  </td>
-  
-  {/* <td className="message-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  {/* <td className="message-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
    <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <img className="msg-image-request-rejected"
       src={request?.toprofilePicture}
@@ -685,47 +766,55 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
   </div> 
 </td> */}
 
-<td className="message-request">
-  <div style={{ display: "flex", alignItems: "center", verticalAlign: "middle" }}>
-    <img
-      style={{
-        width: "48px",
-        height: "48px",
-        borderRadius: "200px",
-        marginRight: "37px",
-      }}
-      src={request?.toprofilePicture}
-      alt="profile-pic"
-    />
-    <div>
-      <span>
-        {request.message.length > 50
-          ? `${request.message.slice(0, 50)}...`
-          : request.message}
-      </span>
-      <p style={{ margin: 0, }} className="below-message">{<RequestMessage request={request}/>} at { new Date(request.createdAt.seconds * 1000)
-      .toLocaleDateString()
-      .replace(/\//g, "-")}</p>
-    </div>
-  </div>
-</td>
- 
-  
-  <td className="location-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-   {request.tolocation} 
-  </td>
-  
-  <td className="requestType-request-rejected" style={{ textAlign: "center", verticalAlign: "middle" }}>
-   {request?.requestTypes.join(", ")}  
-  </td>
+                  <td className="message-request">
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        verticalAlign: "middle",
+                      }}
+                    >
+                      <img
+                        style={{
+                          width: "48px",
+                          height: "48px",
+                          borderRadius: "200px",
+                          marginRight: "37px",
+                        }}
+                        src={request?.toprofilePicture}
+                        alt="profile-pic"
+                      />
+                      <div>
+                        <span>
+                          {request.message.length > 50
+                            ? `${request.message.slice(0, 50)}...`
+                            : request.message}
+                        </span>
+                        <p style={{ margin: 0 }} className="below-message">
+                          {<RequestMessage request={request} />} at{" "}
+                          {new Date(request.createdAt.seconds * 1000)
+                            .toLocaleDateString()
+                            .replace(/\//g, "-")}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
 
+                  <td
+                    className="location-request-rejected"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {request.tolocation}
+                  </td>
 
-
-
-</tr>
-
-              ) )}
-
+                  <td
+                    className="requestType-request-rejected"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    {request?.requestTypes.join(", ")}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         )}
@@ -767,6 +856,4 @@ const Segmentcontrol = ({ activeSegment, sortOptions, searchQuery,fetchUserConne
   );
 };
 
-
 export default Segmentcontrol;
-
